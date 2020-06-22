@@ -1,0 +1,40 @@
+The working directory is /storage4/karl/sbsp/biogem/sbsp/data/all/Halobacterium_salinarum_R1_uid61571/runs/gms2
+This job runs on the following nodes:
+node014
+NumBac = 249
+NumArc = 1387
+Bacteria Probability: 0.152200488997555
+Archaea Probability: 0.847799511002445
+Mode no-motif: Entering iteration 1...
+Iteration : 87.85
+Testing Step-1 of Group-D membership...
+Mode group-d1: Entering iteration 2...
+NumNative = 1520
+NumAtypical = 122
+Native Probability: 0.925700365408039
+Atypical Probability: 0.074299634591961
+Iteration : 94.12
+Group-D membership: successful (by step 1).
+Mode group-d1: Entering iteration 3...
+NumNative = 1503
+NumAtypical = 139
+Native Probability: 0.915347137637028
+Atypical Probability: 0.084652862362972
+Iteration : 98.67
+Mode group-d1: Entering iteration 4...
+NumNative = 1504
+NumAtypical = 138
+Native Probability: 0.915956151035323
+Atypical Probability: 0.0840438489646772
+Iteration : 98.86
+Mode group-d1: Entering iteration 5...
+NumNative = 1501
+NumAtypical = 140
+Native Probability: 0.914686166971359
+Atypical Probability: 0.0853138330286411
+Iteration : 99.17
+Converged at iteration 5
+NumNative = 1502
+NumAtypical = 140
+Native Probability: 0.914738124238733
+Atypical Probability: 0.0852618757612667

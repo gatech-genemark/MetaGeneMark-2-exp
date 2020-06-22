@@ -1,0 +1,34 @@
+The working directory is /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Halobacterium_salinarum_R1_uid61571/runs/gms2_2019_11_07
+This job runs on the following nodes:
+node002
+NumBac = 249
+NumArc = 1387
+Bacteria Probability: 0.152200488997555
+Archaea Probability: 0.847799511002445
+Mode no-motif: Entering iteration 1...
+Iteration : 87.70
+Testing Step-1 of Group-D membership...
+Mode group-d1: Entering iteration 2...
+NumNative = 1518
+NumAtypical = 122
+Native Probability: 0.925609756097561
+Atypical Probability: 0.074390243902439
+Iteration : 94.66
+Group-D membership: successful (by step 1).
+Mode group-d1: Entering iteration 3...
+NumNative = 1504
+NumAtypical = 135
+Native Probability: 0.917632702867602
+Atypical Probability: 0.0823672971323978
+Iteration : 98.63
+Mode group-d1: Entering iteration 4...
+NumNative = 1505
+NumAtypical = 137
+Native Probability: 0.916565164433618
+Atypical Probability: 0.0834348355663825
+Iteration : 99.03
+Converged at iteration 4
+NumNative = 1500
+NumAtypical = 141
+Native Probability: 0.914076782449726
+Atypical Probability: 0.0859232175502742

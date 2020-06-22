@@ -1,0 +1,92 @@
+The working directory is /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Escherichia_coli_K_12_substr__MG1655_uid57779/runs/glimmer
+This job runs on the following nodes:
+node002
+genetic code:
+Step 1 of 8:  Finding long orfs for training
+Starting at Mon Nov 18 09:03:15 2019
+
+Sequence file = tmp_genome
+Excluded regions file = none
+Circular genome = true
+Initial minimum gene length = 90 bp
+Determine optimal min gene length to maximize number of genes
+Maximum overlap bases = 30
+Start codons = atg,gtg,ttg
+Stop codons = taa,tag,tga
+Sequence length = 4641652
+Final minimum gene length = 463
+Number of genes = 2795
+Total bases = 3094821
+Step 2 of 8:  Extracting training sequences
+Step 3 of 8:  Building ICM
+Step 4 of 8:  Running first Glimmer3
+Starting at Mon Nov 18 09:03:36 2019
+
+Sequence file = tmp_genome
+Number of sequences = 1
+ICM model file = glimmer.icm
+Excluded regions file = none
+List of orfs file = none
+Input is NOT separate orfs
+Independent (non-coding) scores are used
+Circular genome = true
+Truncated orfs = false
+Minimum gene length = 87 bp
+Maximum overlap bases = 50
+Threshold score = 30
+Use first start codon = false
+Start codons = atg,gtg,ttg
+Start probs = 0.600,0.300,0.100
+Stop codons = taa,tag,tga
+GC percentage = 50.8%
+Ignore score on orfs longer than 750
+Analyzing Sequence #1
+Start Find_Orfs
+Start Score_Orfs
+Start Process_Events
+Start Trace_Back
+Step 5 of 8:  Getting training coordinates
+Step 6 of 8:  Making PWM from upstream regions
+[1]0: alignProb=350.90 Info/param=0.00 diff=350.90    [1]1: alignProb=1496.79 Info/param=0.00 diff=1145.89    [1]2: alignProb=3413.56 Info/param=0.02 diff=1916.78    [1]3: alignProb=5046.80 Info/param=0.03 diff=1633.24    [1]4: alignProb=5692.75 Info/param=0.04 diff=645.95    [1]5: alignProb=6014.07 Info/param=0.04 diff=321.32    [1]6: alignProb=6464.37 Info/param=0.04 diff=450.30    [1]7: alignProb=6466.17 Info/param=0.04 diff=1.80    [1]8: alignProb=6598.20 Info/param=0.04 diff=132.02    [1]9: alignProb=6808.10 Info/param=0.04 diff=209.90    [1]10: alignProb=7077.83 Info/param=0.04 diff=269.73    [1]11: alignProb=7590.95 Info/param=0.04 diff=513.13    [1]12: alignProb=7703.37 Info/param=0.04 diff=112.42    [1]13: alignProb=8573.93 Info/param=0.04 diff=870.56    [1]14: alignProb=8709.39 Info/param=0.04 diff=135.46    [1]15: alignProb=9435.99 Info/param=0.04 diff=726.60    [1]16: alignProb=9927.74 Info/param=0.04 diff=491.75    [1]17: alignProb=10216.75 Info/param=0.05 diff=289.01    [1]19: alignProb=10235.20 Info/param=0.04 diff=18.45    [1]20: alignProb=10374.18 Info/param=0.05 diff=138.98    [1]22: alignProb=10591.11 Info/param=0.05 diff=216.93    [1]24: alignProb=10622.28 Info/param=0.05 diff=31.17    [1]26: alignProb=10784.56 Info/param=0.05 diff=162.28    [1]28: alignProb=10870.99 Info/param=0.05 diff=86.43    [1]30: alignProb=10911.29 Info/param=0.05 diff=40.30    [1]32: alignProb=11088.15 Info/param=0.05 diff=176.86    
+[2]0: alignProb=280.15 Info/param=0.00 diff=280.15    [2]1: alignProb=993.69 Info/param=0.00 diff=713.54    [2]2: alignProb=2765.84 Info/param=0.01 diff=1772.15    [2]3: alignProb=4605.46 Info/param=0.03 diff=1839.62    [2]4: alignProb=5422.05 Info/param=0.03 diff=816.59    [2]5: alignProb=5950.05 Info/param=0.04 diff=528.00    [2]6: alignProb=6370.20 Info/param=0.04 diff=420.15    [2]7: alignProb=6715.92 Info/param=0.04 diff=345.72    [2]8: alignProb=6763.90 Info/param=0.04 diff=47.98    [2]9: alignProb=7108.48 Info/param=0.04 diff=344.57    [2]10: alignProb=7544.75 Info/param=0.04 diff=436.27    [2]11: alignProb=8316.54 Info/param=0.04 diff=771.79    [2]12: alignProb=9178.15 Info/param=0.04 diff=861.62    [2]13: alignProb=10045.65 Info/param=0.05 diff=867.50    [2]14: alignProb=10511.87 Info/param=0.05 diff=466.22    [2]15: alignProb=10842.43 Info/param=0.05 diff=330.55    [2]16: alignProb=10942.31 Info/param=0.05 diff=99.89    [2]17: alignProb=11011.34 Info/param=0.05 diff=69.03    [2]19: alignProb=11337.12 Info/param=0.05 diff=325.78    [2]25: alignProb=11392.73 Info/param=0.05 diff=55.60    [2]34: alignProb=11539.25 Info/param=0.06 diff=146.53    
+[3]0: alignProb=283.81 Info/param=0.00 diff=283.81    [3]1: alignProb=1413.33 Info/param=0.00 diff=1129.52    [3]2: alignProb=3576.40 Info/param=0.02 diff=2163.07    [3]3: alignProb=5094.98 Info/param=0.03 diff=1518.58    [3]4: alignProb=6007.87 Info/param=0.04 diff=912.89    [3]5: alignProb=6171.52 Info/param=0.04 diff=163.65    [3]6: alignProb=6575.35 Info/param=0.04 diff=403.83    [3]7: alignProb=7500.49 Info/param=0.04 diff=925.14    [3]8: alignProb=8738.22 Info/param=0.04 diff=1237.72    [3]9: alignProb=9743.96 Info/param=0.05 diff=1005.74    [3]10: alignProb=10455.94 Info/param=0.05 diff=711.98    [3]11: alignProb=11052.25 Info/param=0.05 diff=596.31    [3]12: alignProb=11337.05 Info/param=0.05 diff=284.80    [3]22: alignProb=11414.88 Info/param=0.05 diff=77.83    [3]24: alignProb=11420.67 Info/param=0.05 diff=5.79    [3]25: alignProb=11421.04 Info/param=0.05 diff=0.36    [3]28: alignProb=11508.31 Info/param=0.05 diff=87.28    [3]29: alignProb=11538.41 Info/param=0.05 diff=30.09    
+[4]0: alignProb=594.69 Info/param=0.00 diff=594.69    [4]1: alignProb=2072.60 Info/param=0.01 diff=1477.91    [4]2: alignProb=3998.88 Info/param=0.02 diff=1926.28    [4]3: alignProb=5228.02 Info/param=0.03 diff=1229.14    [4]4: alignProb=6154.96 Info/param=0.04 diff=926.94    [4]5: alignProb=6519.38 Info/param=0.04 diff=364.41    [4]6: alignProb=6841.64 Info/param=0.04 diff=322.26    [4]7: alignProb=7627.38 Info/param=0.04 diff=785.74    [4]8: alignProb=8565.59 Info/param=0.04 diff=938.21    [4]9: alignProb=9758.19 Info/param=0.04 diff=1192.60    [4]10: alignProb=10577.44 Info/param=0.05 diff=819.25    [4]11: alignProb=10779.26 Info/param=0.05 diff=201.81    [4]12: alignProb=11099.01 Info/param=0.05 diff=319.75    [4]13: alignProb=11367.42 Info/param=0.05 diff=268.41    [4]14: alignProb=11424.81 Info/param=0.06 diff=57.39    [4]16: alignProb=11426.09 Info/param=0.06 diff=1.28    [4]18: alignProb=11437.38 Info/param=0.05 diff=11.29    [4]20: alignProb=11477.49 Info/param=0.06 diff=40.11    [4]28: alignProb=11478.06 Info/param=0.06 diff=0.57    [4]40: alignProb=11529.18 Info/param=0.06 diff=51.12    
+[5]0: alignProb=328.61 Info/param=0.00 diff=328.61    [5]1: alignProb=1566.95 Info/param=0.00 diff=1238.33    [5]2: alignProb=3515.67 Info/param=0.02 diff=1948.72    [5]3: alignProb=5039.41 Info/param=0.03 diff=1523.74    [5]4: alignProb=5757.29 Info/param=0.04 diff=717.88    [5]5: alignProb=5977.38 Info/param=0.04 diff=220.08    [5]6: alignProb=6571.79 Info/param=0.04 diff=594.42    [5]7: alignProb=7264.70 Info/param=0.04 diff=692.90    [5]8: alignProb=8136.26 Info/param=0.04 diff=871.56    [5]9: alignProb=9759.65 Info/param=0.05 diff=1623.40    [5]10: alignProb=10357.35 Info/param=0.05 diff=597.70    [5]11: alignProb=10768.21 Info/param=0.05 diff=410.86    [5]12: alignProb=11006.33 Info/param=0.05 diff=238.12    [5]13: alignProb=11255.65 Info/param=0.05 diff=249.33    [5]14: alignProb=11272.48 Info/param=0.05 diff=16.83    [5]15: alignProb=11455.94 Info/param=0.06 diff=183.45    [5]22: alignProb=11458.56 Info/param=0.06 diff=2.63    [5]28: alignProb=11466.42 Info/param=0.05 diff=7.85    [5]30: alignProb=11524.22 Info/param=0.06 diff=57.80    [5]39: alignProb=11620.92 Info/param=0.06 diff=96.70    
+[6]0: alignProb=439.09 Info/param=0.00 diff=439.09    [6]1: alignProb=1720.60 Info/param=0.01 diff=1281.51    [6]2: alignProb=3745.10 Info/param=0.02 diff=2024.50    [6]3: alignProb=5071.26 Info/param=0.03 diff=1326.16    [6]4: alignProb=5734.72 Info/param=0.04 diff=663.46    [6]5: alignProb=6012.90 Info/param=0.04 diff=278.18    [6]6: alignProb=6274.57 Info/param=0.04 diff=261.67    [6]7: alignProb=6533.29 Info/param=0.04 diff=258.72    [6]8: alignProb=6984.99 Info/param=0.04 diff=451.70    [6]9: alignProb=7722.03 Info/param=0.04 diff=737.04    [6]10: alignProb=8774.85 Info/param=0.04 diff=1052.81    [6]11: alignProb=9801.78 Info/param=0.05 diff=1026.94    [6]12: alignProb=10389.65 Info/param=0.05 diff=587.87    [6]13: alignProb=10847.79 Info/param=0.05 diff=458.14    [6]14: alignProb=11004.82 Info/param=0.05 diff=157.03    [6]15: alignProb=11223.85 Info/param=0.05 diff=219.03    [6]16: alignProb=11289.19 Info/param=0.05 diff=65.34    [6]20: alignProb=11332.41 Info/param=0.05 diff=43.22    [6]22: alignProb=11384.84 Info/param=0.05 diff=52.42    [6]23: alignProb=11445.68 Info/param=0.06 diff=60.84    [6]35: alignProb=11523.53 Info/param=0.06 diff=77.86    [6]37: alignProb=11548.74 Info/param=0.06 diff=25.21    [6]46: alignProb=11558.26 Info/param=0.05 diff=9.52    [6]47: alignProb=11584.84 Info/param=0.05 diff=26.58    [6]48: alignProb=11671.35 Info/param=0.05 diff=86.51    [6]53: alignProb=11672.13 Info/param=0.05 diff=0.78    
+[7]0: alignProb=493.02 Info/param=0.00 diff=493.02    [7]1: alignProb=1594.35 Info/param=0.00 diff=1101.32    [7]2: alignProb=3712.01 Info/param=0.02 diff=2117.66    [7]3: alignProb=5274.53 Info/param=0.03 diff=1562.52    [7]4: alignProb=5949.71 Info/param=0.04 diff=675.18    [7]5: alignProb=6286.11 Info/param=0.04 diff=336.40    [7]6: alignProb=6827.56 Info/param=0.04 diff=541.45    [7]7: alignProb=7314.58 Info/param=0.04 diff=487.03    [7]8: alignProb=7914.20 Info/param=0.04 diff=599.62    [7]9: alignProb=8566.49 Info/param=0.04 diff=652.29    [7]10: alignProb=8915.64 Info/param=0.04 diff=349.15    [7]11: alignProb=9576.04 Info/param=0.05 diff=660.40    [7]12: alignProb=9731.44 Info/param=0.04 diff=155.40    [7]13: alignProb=9910.48 Info/param=0.04 diff=179.04    [7]15: alignProb=10042.41 Info/param=0.04 diff=131.94    [7]16: alignProb=10134.04 Info/param=0.04 diff=91.62    [7]17: alignProb=10228.90 Info/param=0.04 diff=94.86    [7]18: alignProb=10387.64 Info/param=0.04 diff=158.74    [7]19: alignProb=10467.22 Info/param=0.04 diff=79.58    [7]20: alignProb=10564.35 Info/param=0.04 diff=97.13    [7]21: alignProb=10643.67 Info/param=0.04 diff=79.32    [7]28: alignProb=10696.84 Info/param=0.04 diff=53.17    [7]29: alignProb=10796.54 Info/param=0.04 diff=99.70    [7]31: alignProb=10812.58 Info/param=0.04 diff=16.04    [7]41: alignProb=10845.25 Info/param=0.04 diff=32.67    [7]48: alignProb=10921.94 Info/param=0.04 diff=76.69    [7]60: alignProb=11047.42 Info/param=0.05 diff=125.48    [7]78: alignProb=11057.04 Info/param=0.05 diff=9.61    [7]91: alignProb=11065.79 Info/param=0.05 diff=8.75    
+[8]0: alignProb=433.83 Info/param=0.00 diff=433.83    [8]1: alignProb=1481.49 Info/param=0.00 diff=1047.66    [8]2: alignProb=3571.51 Info/param=0.02 diff=2090.02    [8]3: alignProb=5290.02 Info/param=0.03 diff=1718.52    [8]4: alignProb=6061.08 Info/param=0.04 diff=771.06    [8]5: alignProb=6456.38 Info/param=0.04 diff=395.30    [8]6: alignProb=6814.59 Info/param=0.04 diff=358.20    [8]7: alignProb=7648.50 Info/param=0.04 diff=833.91    [8]8: alignProb=8650.82 Info/param=0.04 diff=1002.32    [8]9: alignProb=10032.66 Info/param=0.05 diff=1381.84    [8]10: alignProb=10617.55 Info/param=0.05 diff=584.90    [8]11: alignProb=10965.54 Info/param=0.05 diff=347.99    [8]12: alignProb=11083.60 Info/param=0.05 diff=118.06    [8]14: alignProb=11152.31 Info/param=0.05 diff=68.71    [8]15: alignProb=11417.08 Info/param=0.05 diff=264.78    [8]16: alignProb=11547.89 Info/param=0.06 diff=130.81    
+[9]0: alignProb=422.82 Info/param=0.00 diff=422.82    [9]1: alignProb=1679.52 Info/param=0.00 diff=1256.70    [9]2: alignProb=3897.04 Info/param=0.02 diff=2217.51    [9]3: alignProb=5694.61 Info/param=0.03 diff=1797.57    [9]4: alignProb=7124.81 Info/param=0.04 diff=1430.20    [9]5: alignProb=8255.74 Info/param=0.04 diff=1130.93    [9]6: alignProb=9565.36 Info/param=0.04 diff=1309.62    [9]7: alignProb=10478.13 Info/param=0.05 diff=912.77    [9]8: alignProb=10721.30 Info/param=0.05 diff=243.17    [9]9: alignProb=10962.29 Info/param=0.05 diff=240.99    [9]10: alignProb=11155.68 Info/param=0.05 diff=193.39    [9]14: alignProb=11206.86 Info/param=0.05 diff=51.18    [9]15: alignProb=11288.31 Info/param=0.05 diff=81.44    [9]16: alignProb=11347.18 Info/param=0.05 diff=58.87    [9]28: alignProb=11419.28 Info/param=0.05 diff=72.09    [9]29: alignProb=11561.27 Info/param=0.06 diff=141.99    
+[10]0: alignProb=356.77 Info/param=0.00 diff=356.77    [10]1: alignProb=1373.51 Info/param=0.00 diff=1016.75    [10]2: alignProb=3370.11 Info/param=0.02 diff=1996.60    [10]3: alignProb=4998.38 Info/param=0.03 diff=1628.27    [10]4: alignProb=5775.81 Info/param=0.04 diff=777.43    [10]5: alignProb=6286.60 Info/param=0.04 diff=510.79    [10]6: alignProb=6668.25 Info/param=0.04 diff=381.66    [10]7: alignProb=7044.01 Info/param=0.04 diff=375.76    [10]8: alignProb=7769.03 Info/param=0.04 diff=725.02    [10]9: alignProb=8780.36 Info/param=0.04 diff=1011.32    [10]10: alignProb=9718.90 Info/param=0.05 diff=938.54    [10]11: alignProb=10203.96 Info/param=0.05 diff=485.06    [10]12: alignProb=10942.51 Info/param=0.05 diff=738.55    [10]14: alignProb=10958.58 Info/param=0.05 diff=16.07    [10]15: alignProb=10962.55 Info/param=0.05 diff=3.97    [10]16: alignProb=10998.29 Info/param=0.05 diff=35.75    [10]17: alignProb=11262.18 Info/param=0.05 diff=263.88    [10]18: alignProb=11323.87 Info/param=0.05 diff=61.69    [10]20: alignProb=11414.50 Info/param=0.05 diff=90.63    [10]22: alignProb=11600.20 Info/param=0.06 diff=185.70    
+Optimizing...
+New align prob=15207.62
+New align prob=15244.54
+New align prob=15249.59
+New align prob=15250.34
+New align prob=15251.62
+Step 7 of 8:  Getting start-codon usage
+Step 8 of 8:  Running second Glimmer3
+Starting at Mon Nov 18 09:05:01 2019
+
+Sequence file = /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Escherichia_coli_K_12_substr__MG1655_uid57779/sequence.fasta
+Number of sequences = 1
+ICM model file = glimmer.icm
+Excluded regions file = none
+List of orfs file = none
+Input is NOT separate orfs
+Independent (non-coding) scores are used
+Circular genome = true
+Truncated orfs = false
+Minimum gene length = 87 bp
+Maximum overlap bases = 50
+Threshold score = 30
+Use first start codon = false
+Start codons = atg,gtg,ttg
+Start probs = 0.795,0.148,0.057
+Stop codons = taa,tag,tga
+GC percentage = 50.8%
+Ignore score on orfs longer than 750
+Analyzing Sequence #1
+Start Find_Orfs
+Start Score_Orfs
+Start Process_Events
+Start Trace_Back

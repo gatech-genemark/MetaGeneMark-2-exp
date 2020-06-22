@@ -1,0 +1,28 @@
+The working directory is /storage4/karl/sbsp/biogem/sbsp/data/all/Natronomonas_pharaonis_DSM_2160_uid58435/runs/gms2
+This job runs on the following nodes:
+node012
+NumBac = 78
+NumArc = 1638
+Bacteria Probability: 0.0454545454545455
+Archaea Probability: 0.954545454545455
+Mode no-motif: Entering iteration 1...
+Iteration : 90.14
+Testing Step-1 of Group-D membership...
+Mode group-d1: Entering iteration 2...
+NumNative = 1665
+NumAtypical = 49
+Native Probability: 0.971411901983664
+Atypical Probability: 0.0285880980163361
+Iteration : 95.44
+Group-D membership: successful (by step 1).
+Mode group-d1: Entering iteration 3...
+NumNative = 1666
+NumAtypical = 49
+Native Probability: 0.971428571428571
+Atypical Probability: 0.0285714285714286
+Iteration : 99.21
+Converged at iteration 3
+NumNative = 1666
+NumAtypical = 50
+Native Probability: 0.970862470862471
+Atypical Probability: 0.0291375291375291

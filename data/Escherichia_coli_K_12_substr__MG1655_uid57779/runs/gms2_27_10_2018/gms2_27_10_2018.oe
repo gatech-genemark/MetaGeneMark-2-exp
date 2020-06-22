@@ -1,0 +1,48 @@
+The working directory is /storage3/w/gms2/data/Escherichia_coli_K_12_substr__MG1655_uid57779/runs/gms2_27_10_2018
+This job runs on the following nodes:
+node002
+NumBac = 2929
+NumArc = 4
+Bacteria Probability: 0.998636208660075
+Archaea Probability: 0.00136379133992499
+Mode no-motif: Entering iteration 1...
+Iteration : 83.66
+Mode group-c: Entering iteration 2...
+NumNative = 2676
+NumAtypical = 241
+Native Probability: 0.917380870757628
+Atypical Probability: 0.0826191292423723
+Iteration : 89.98
+Move files from iteration 2 to name 'groupC'
+Mode group-b: Entering iteration 2...
+NumNative = 2676
+NumAtypical = 241
+Native Probability: 0.917380870757628
+Atypical Probability: 0.0826191292423723
+Iteration : 88.31
+Move files from iteration 2 to name 'groupB'
+Mode group-a: Entering iteration 2...
+NumNative = 2676
+NumAtypical = 241
+Native Probability: 0.917380870757628
+Atypical Probability: 0.0826191292423723
+Iteration : 88.31
+Percent of matched RBS: 0.761704119850187
+Group-A membership: successful.
+Mode group-a: Entering iteration 3...
+NumNative = 2655
+NumAtypical = 257
+Native Probability: 0.911744505494505
+Atypical Probability: 0.0882554945054945
+Iteration : 98.37
+Mode group-a: Entering iteration 4...
+NumNative = 2652
+NumAtypical = 260
+Native Probability: 0.910714285714286
+Atypical Probability: 0.0892857142857143
+Iteration : 99.12
+Converged at iteration 4
+NumNative = 2652
+NumAtypical = 260
+Native Probability: 0.910714285714286
+Atypical Probability: 0.0892857142857143

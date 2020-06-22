@@ -1,0 +1,671 @@
+
+
+
+-------------------------------------------------
+start time            : Mon Nov 18 09:03:23 2019
+GMS version           : 4.33 September 2016
+working directory     : /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/gms
+command line          : --gcode 11 --combine --format GFF --out gms.gff /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta
+output file with predictions : gms.gff
+input sequence        : /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta
+output name for model : 
+combine model         : 1
+GeneMark model        : 
+species name          : 
+delete temp files     : 
+markov chain order    : 2
+non-coding order      : 2
+genetic code          : 11
+sequence organization : partial
+search for motif      : 1
+motif width           : 6
+prestart length       : 40
+identity threshold    : 0.99
+maximum iteration     : 10
+fixed motif position  : 
+gene overlap off      : 
+strand to predict on  : both
+mode prokaryotic      : 
+mode eukaryotic       : 
+mode virus            : 
+mode phage            : 
+mode est              : 
+GeneMarkS parameters  : /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default
+initial hmm model     : 
+output format         : GFF
+output PostScript     : 
+output PDF            : 
+output nucleotides    : 
+output proteins       : 
+gibbs version         : 3
+heuristic version     : 2
+evidense data file    : 
+combine native with   : 
+use input defline     : 
+
+      run starts here:
+prepare sequence
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --clean_join sequence --seq /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta --log gms.log
+Clean-Join      IN   OUT
+Contigs - 1 1
+All letters - 4411532   4411532
+Unambiguous letters - 4411532 4411532
+A - 758552 758552
+C - 1449998 1449998
+G - 1444614 1444614
+T - 758368 758368
+N - 0 0
+Parameters:
+  Minimum of unambiguous letters per record: 1000
+  Trim down substrings "N...N" to maximum length: 50
+  Connect records using gap filler: NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+  Minimum of unambiguous letters in output: 50000
+system call done
+do_iterations = 1
+set initial <gmhmmp> model
+get GC
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gc --seq sequence
+GC of sequence = 66
+initial <gmhmm> model: /storage3/w/gms2/GeneMarkS-2/bin/gms/heuristic_mod/heu_11_66.mod
+copy initial model to working directory
+cp /storage3/w/gms2/GeneMarkS-2/bin/gms/heuristic_mod/heu_11_66.mod  itr_0.mod
+system call done
+run initial prediction
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_0.mod  -o itr_0.lst
+system call done
+entering iteration loop
+build model: itr_1.mod for iteration: 1
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_1.mod --seq sequence --geneset itr_0.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.1 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.1 6 -o gibbs_out.1 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.1 --mod itr_1.mod --seq startseq.1 --log gms.log
+-34	0.025
+-33	0.036
+-32	0.034
+-31	0.033
+-30	0.033
+-29	0.030
+-28	0.028
+-27	0.032
+-26	0.029
+-25	0.025
+-24	0.028
+-23	0.028
+-22	0.030
+-21	0.034
+-20	0.035
+-19	0.032
+-18	0.031
+-17	0.029
+-16	0.028
+-15	0.027
+-14	0.027
+-13	0.027
+-12	0.029
+-11	0.023
+-10	0.020
+-9	0.020
+-8	0.018
+-7	0.017
+-6	0.020
+-5	0.025
+-4	0.032
+-3	0.032
+-2	0.027
+-1	0.032
+0	0.029
+Pos   A   C   G   T
+1 0.306 0.129 0.368 0.197
+2 0.076 0.309 0.188 0.426
+3 0.001 0.707 0.001 0.290
+4 0.162 0.002 0.836 0.000
+5 0.279 0.243 0.324 0.154
+6 0.109 0.583 0.040 0.268
+
+system call done
+prediction, iteration: 1
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_1.mod  -o itr_1.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_1.lst --target itr_0.lst
+compare itr_0.lst and itr_1.lst: 0.7594
+build model: itr_2.mod for iteration: 2
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_2.mod --seq sequence --geneset itr_1.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.2 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.2 6 -o gibbs_out.2 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.2 --mod itr_2.mod --seq startseq.2 --log gms.log
+-34	0.023
+-33	0.036
+-32	0.037
+-31	0.034
+-30	0.034
+-29	0.033
+-28	0.033
+-27	0.036
+-26	0.031
+-25	0.028
+-24	0.027
+-23	0.029
+-22	0.035
+-21	0.032
+-20	0.030
+-19	0.032
+-18	0.030
+-17	0.028
+-16	0.026
+-15	0.026
+-14	0.027
+-13	0.026
+-12	0.025
+-11	0.022
+-10	0.020
+-9	0.018
+-8	0.017
+-7	0.018
+-6	0.023
+-5	0.025
+-4	0.027
+-3	0.029
+-2	0.027
+-1	0.034
+0	0.031
+Pos   A   C   G   T
+1 0.341 0.090 0.368 0.201
+2 0.094 0.252 0.166 0.489
+3 0.001 0.714 0.005 0.281
+4 0.162 0.005 0.833 0.000
+5 0.311 0.221 0.294 0.174
+6 0.056 0.642 0.014 0.288
+
+system call done
+prediction, iteration: 2
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_2.mod  -o itr_2.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_2.lst --target itr_1.lst
+compare itr_1.lst and itr_2.lst: 0.9362
+build model: itr_3.mod for iteration: 3
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_3.mod --seq sequence --geneset itr_2.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.3 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.3 6 -o gibbs_out.3 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.3 --mod itr_3.mod --seq startseq.3 --log gms.log
+-34	0.025
+-33	0.036
+-32	0.038
+-31	0.037
+-30	0.034
+-29	0.027
+-28	0.028
+-27	0.032
+-26	0.031
+-25	0.028
+-24	0.030
+-23	0.031
+-22	0.034
+-21	0.029
+-20	0.029
+-19	0.031
+-18	0.033
+-17	0.031
+-16	0.026
+-15	0.027
+-14	0.026
+-13	0.023
+-12	0.023
+-11	0.022
+-10	0.022
+-9	0.020
+-8	0.016
+-7	0.018
+-6	0.019
+-5	0.022
+-4	0.030
+-3	0.035
+-2	0.031
+-1	0.032
+0	0.030
+Pos   A   C   G   T
+1 0.353 0.090 0.366 0.191
+2 0.112 0.238 0.149 0.501
+3 0.001 0.704 0.002 0.293
+4 0.202 0.007 0.789 0.001
+5 0.316 0.205 0.284 0.195
+6 0.021 0.674 0.006 0.299
+
+system call done
+prediction, iteration: 3
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_3.mod  -o itr_3.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_3.lst --target itr_2.lst
+compare itr_2.lst and itr_3.lst: 0.9637
+build model: itr_4.mod for iteration: 4
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_4.mod --seq sequence --geneset itr_3.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.4 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.4 6 -o gibbs_out.4 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.4 --mod itr_4.mod --seq startseq.4 --log gms.log
+-34	0.027
+-33	0.038
+-32	0.035
+-31	0.032
+-30	0.033
+-29	0.026
+-28	0.029
+-27	0.037
+-26	0.035
+-25	0.031
+-24	0.031
+-23	0.029
+-22	0.035
+-21	0.030
+-20	0.031
+-19	0.029
+-18	0.033
+-17	0.030
+-16	0.025
+-15	0.026
+-14	0.027
+-13	0.024
+-12	0.023
+-11	0.023
+-10	0.019
+-9	0.018
+-8	0.017
+-7	0.018
+-6	0.022
+-5	0.022
+-4	0.028
+-3	0.032
+-2	0.029
+-1	0.032
+0	0.029
+Pos   A   C   G   T
+1 0.341 0.113 0.351 0.194
+2 0.120 0.238 0.144 0.498
+3 0.002 0.673 0.001 0.324
+4 0.170 0.004 0.823 0.002
+5 0.335 0.176 0.275 0.215
+6 0.014 0.688 0.021 0.278
+
+system call done
+prediction, iteration: 4
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_4.mod  -o itr_4.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_4.lst --target itr_3.lst
+compare itr_3.lst and itr_4.lst: 0.9711
+build model: itr_5.mod for iteration: 5
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_5.mod --seq sequence --geneset itr_4.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.5 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.5 6 -o gibbs_out.5 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.5 --mod itr_5.mod --seq startseq.5 --log gms.log
+-34	0.028
+-33	0.036
+-32	0.032
+-31	0.030
+-30	0.032
+-29	0.028
+-28	0.030
+-27	0.037
+-26	0.034
+-25	0.034
+-24	0.032
+-23	0.030
+-22	0.034
+-21	0.031
+-20	0.028
+-19	0.030
+-18	0.032
+-17	0.030
+-16	0.027
+-15	0.028
+-14	0.026
+-13	0.023
+-12	0.025
+-11	0.024
+-10	0.024
+-9	0.020
+-8	0.016
+-7	0.017
+-6	0.022
+-5	0.024
+-4	0.029
+-3	0.031
+-2	0.026
+-1	0.031
+0	0.027
+Pos   A   C   G   T
+1 0.328 0.116 0.345 0.211
+2 0.116 0.214 0.148 0.522
+3 0.004 0.668 0.001 0.326
+4 0.182 0.003 0.814 0.002
+5 0.328 0.171 0.285 0.216
+6 0.023 0.713 0.011 0.254
+
+system call done
+prediction, iteration: 5
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_5.mod  -o itr_5.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_5.lst --target itr_4.lst
+compare itr_4.lst and itr_5.lst: 0.9800
+build model: itr_6.mod for iteration: 6
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_6.mod --seq sequence --geneset itr_5.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.6 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.6 6 -o gibbs_out.6 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.6 --mod itr_6.mod --seq startseq.6 --log gms.log
+-34	0.028
+-33	0.039
+-32	0.037
+-31	0.030
+-30	0.032
+-29	0.030
+-28	0.030
+-27	0.036
+-26	0.033
+-25	0.030
+-24	0.029
+-23	0.029
+-22	0.031
+-21	0.031
+-20	0.029
+-19	0.031
+-18	0.033
+-17	0.030
+-16	0.027
+-15	0.025
+-14	0.024
+-13	0.025
+-12	0.024
+-11	0.022
+-10	0.020
+-9	0.019
+-8	0.016
+-7	0.018
+-6	0.022
+-5	0.022
+-4	0.029
+-3	0.034
+-2	0.030
+-1	0.030
+0	0.028
+Pos   A   C   G   T
+1 0.327 0.111 0.367 0.195
+2 0.115 0.233 0.137 0.515
+3 0.002 0.684 0.001 0.313
+4 0.174 0.005 0.821 0.000
+5 0.316 0.168 0.298 0.218
+6 0.011 0.709 0.021 0.258
+
+system call done
+prediction, iteration: 6
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_6.mod  -o itr_6.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_6.lst --target itr_5.lst
+compare itr_5.lst and itr_6.lst: 0.9783
+build model: itr_7.mod for iteration: 7
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_7.mod --seq sequence --geneset itr_6.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.7 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.7 6 -o gibbs_out.7 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.7 --mod itr_7.mod --seq startseq.7 --log gms.log
+-34	0.029
+-33	0.039
+-32	0.039
+-31	0.038
+-30	0.035
+-29	0.029
+-28	0.027
+-27	0.033
+-26	0.032
+-25	0.028
+-24	0.029
+-23	0.032
+-22	0.035
+-21	0.029
+-20	0.031
+-19	0.032
+-18	0.033
+-17	0.032
+-16	0.030
+-15	0.027
+-14	0.026
+-13	0.025
+-12	0.026
+-11	0.021
+-10	0.017
+-9	0.017
+-8	0.015
+-7	0.016
+-6	0.021
+-5	0.023
+-4	0.028
+-3	0.034
+-2	0.030
+-1	0.026
+0	0.024
+Pos   A   C   G   T
+1 0.332 0.112 0.365 0.191
+2 0.095 0.222 0.171 0.512
+3 0.001 0.673 0.004 0.322
+4 0.176 0.006 0.816 0.002
+5 0.315 0.168 0.283 0.234
+6 0.013 0.717 0.007 0.263
+
+system call done
+prediction, iteration: 7
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_7.mod  -o itr_7.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_7.lst --target itr_6.lst
+compare itr_6.lst and itr_7.lst: 0.9739
+build model: itr_8.mod for iteration: 8
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_8.mod --seq sequence --geneset itr_7.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.8 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.8 6 -o gibbs_out.8 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.8 --mod itr_8.mod --seq startseq.8 --log gms.log
+-34	0.030
+-33	0.041
+-32	0.039
+-31	0.036
+-30	0.035
+-29	0.026
+-28	0.026
+-27	0.034
+-26	0.033
+-25	0.030
+-24	0.029
+-23	0.030
+-22	0.034
+-21	0.030
+-20	0.031
+-19	0.034
+-18	0.035
+-17	0.031
+-16	0.029
+-15	0.027
+-14	0.025
+-13	0.022
+-12	0.022
+-11	0.019
+-10	0.017
+-9	0.018
+-8	0.016
+-7	0.017
+-6	0.021
+-5	0.023
+-4	0.028
+-3	0.034
+-2	0.030
+-1	0.030
+0	0.027
+Pos   A   C   G   T
+1 0.327 0.126 0.353 0.194
+2 0.109 0.239 0.143 0.509
+3 0.001 0.670 0.001 0.328
+4 0.164 0.000 0.834 0.002
+5 0.342 0.164 0.272 0.222
+6 0.009 0.668 0.034 0.289
+
+system call done
+prediction, iteration: 8
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_8.mod  -o itr_8.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_8.lst --target itr_7.lst
+compare itr_7.lst and itr_8.lst: 0.9749
+build model: itr_9.mod for iteration: 9
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_9.mod --seq sequence --geneset itr_8.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.9 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.9 6 -o gibbs_out.9 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.9 --mod itr_9.mod --seq startseq.9 --log gms.log
+-34	0.025
+-33	0.037
+-32	0.039
+-31	0.038
+-30	0.034
+-29	0.027
+-28	0.029
+-27	0.036
+-26	0.031
+-25	0.032
+-24	0.033
+-23	0.031
+-22	0.031
+-21	0.027
+-20	0.027
+-19	0.032
+-18	0.032
+-17	0.029
+-16	0.027
+-15	0.026
+-14	0.026
+-13	0.025
+-12	0.024
+-11	0.021
+-10	0.021
+-9	0.019
+-8	0.016
+-7	0.018
+-6	0.022
+-5	0.022
+-4	0.025
+-3	0.029
+-2	0.027
+-1	0.032
+0	0.033
+Pos   A   C   G   T
+1 0.331 0.137 0.336 0.195
+2 0.101 0.228 0.172 0.500
+3 0.002 0.661 0.002 0.335
+4 0.171 0.001 0.825 0.003
+5 0.358 0.170 0.246 0.226
+6 0.007 0.698 0.013 0.281
+
+system call done
+prediction, iteration: 9
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_9.mod  -o itr_9.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_9.lst --target itr_8.lst
+compare itr_8.lst and itr_9.lst: 0.9725
+build model: itr_10.mod for iteration: 10
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --mkmod itr_10.mod --seq sequence --geneset itr_9.lst --ORDM 2 --order_non 2 --revcomp_non 1 --pre_start startseq.10 --PRE_START_WIDTH 40
+system call done
+run gibbs3 sampler
+/storage3/w/gms2/GeneMarkS-2/bin/gms/Gibbs3 startseq.10 6 -o gibbs_out.10 -F -Z  -n -r -y -x -m -s 1 -w 0.01
+system call done
+make prestart model
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --gibbs gibbs_out.10 --mod itr_10.mod --seq startseq.10 --log gms.log
+-34	0.026
+-33	0.035
+-32	0.035
+-31	0.034
+-30	0.033
+-29	0.029
+-28	0.032
+-27	0.040
+-26	0.034
+-25	0.030
+-24	0.030
+-23	0.031
+-22	0.032
+-21	0.027
+-20	0.027
+-19	0.031
+-18	0.030
+-17	0.029
+-16	0.028
+-15	0.029
+-14	0.029
+-13	0.024
+-12	0.023
+-11	0.022
+-10	0.023
+-9	0.019
+-8	0.015
+-7	0.017
+-6	0.020
+-5	0.023
+-4	0.027
+-3	0.032
+-2	0.028
+-1	0.028
+0	0.031
+Pos   A   C   G   T
+1 0.343 0.123 0.325 0.209
+2 0.103 0.218 0.163 0.516
+3 0.006 0.659 0.007 0.328
+4 0.163 0.003 0.832 0.003
+5 0.336 0.180 0.250 0.234
+6 0.015 0.701 0.011 0.272
+
+system call done
+prediction, iteration: 10
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11   sequence  -m itr_10.mod  -o itr_10.lst -r
+system call done
+compare:
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default  --compare --source itr_10.lst --target itr_9.lst
+compare itr_9.lst and itr_10.lst: 0.9805
+Stopped iterations on maximum number: 10
+output: GeneMark_hmm.mod
+cp itr_10.mod GeneMark_hmm.mod
+system call done
+Create combined model: GeneMark_hmm_combined.mod
+/storage3/w/gms2/GeneMarkS-2/bin/gms/probuild --par /storage3/w/gms2/GeneMarkS-2/bin/gms/par_11.default   --combine GeneMark_hmm_combined.mod  --first itr_10.mod  --second /storage3/w/gms2/GeneMarkS-2/bin/gms/heuristic_mod/heu_11_66.mod
+system call done
+output initial model: GeneMark_hmm_heuristic.mod
+cp /storage3/w/gms2/GeneMarkS-2/bin/gms/heuristic_mod/heu_11_66.mod GeneMark_hmm_heuristic.mod
+system call done
+predict genes using combined model with motif
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmhmmp -g 11  -f G  -o gms.gff  /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta  -r -m GeneMark_hmm_combined.mod 
+system call done
+End: Mon Nov 18 09:14:04 2019
+

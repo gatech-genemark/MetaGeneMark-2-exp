@@ -1,0 +1,17 @@
+#!/bin/csh
+#PBS -N Roseobacter_Denitrificans_Och114
+#PBS -o /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/runs/glimmer/glimmer.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/runs/glimmer
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+/storage3/w/gms2/GeneMarkS-2/bin/glimmer/g3-iterated_alexl.csh  /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/sequence.fasta  glimmer   
+

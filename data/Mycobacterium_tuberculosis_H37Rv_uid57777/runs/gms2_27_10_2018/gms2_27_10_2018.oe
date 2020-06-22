@@ -1,0 +1,51 @@
+The working directory is /storage3/w/gms2/data/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/gms2_27_10_2018
+This job runs on the following nodes:
+node014
+NumBac = 2695
+NumArc = 11
+Bacteria Probability: 0.995934959349594
+Archaea Probability: 0.0040650406504065
+Mode no-motif: Entering iteration 1...
+Iteration : 76.13
+Mode group-c: Entering iteration 2...
+NumNative = 2578
+NumAtypical = 125
+Native Probability: 0.953755086940437
+Atypical Probability: 0.0462449130595634
+Iteration : 84.45
+Group-C membership: successful.
+Mode group-c: Entering iteration 3...
+NumNative = 2613
+NumAtypical = 103
+Native Probability: 0.962076583210604
+Atypical Probability: 0.0379234167893962
+Iteration : 95.76
+Mode group-c: Entering iteration 4...
+NumNative = 2617
+NumAtypical = 100
+Native Probability: 0.963194700036805
+Atypical Probability: 0.0368052999631947
+Iteration : 98.14
+Mode group-c: Entering iteration 5...
+NumNative = 2620
+NumAtypical = 101
+Native Probability: 0.962881293642043
+Atypical Probability: 0.0371187063579566
+Iteration : 98.88
+Mode group-c: Entering iteration 6...
+NumNative = 2623
+NumAtypical = 98
+Native Probability: 0.963983829474458
+Atypical Probability: 0.0360161705255421
+Iteration : 98.67
+Mode group-c: Entering iteration 7...
+NumNative = 2624
+NumAtypical = 99
+Native Probability: 0.963643040763863
+Atypical Probability: 0.0363569592361366
+Iteration : 99.30
+Converged at iteration 7
+NumNative = 2626
+NumAtypical = 97
+Native Probability: 0.964377524788836
+Atypical Probability: 0.0356224752111642

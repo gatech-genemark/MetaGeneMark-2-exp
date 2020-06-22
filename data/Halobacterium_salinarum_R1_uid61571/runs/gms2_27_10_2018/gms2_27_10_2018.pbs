@@ -1,0 +1,17 @@
+#!/bin/csh
+#PBS -N Halobacterium_salinarum_R1_uid61571
+#PBS -o /storage3/w/gms2/data/Halobacterium_salinarum_R1_uid61571/runs/gms2_27_10_2018/gms2_27_10_2018.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage3/w/gms2/data/Halobacterium_salinarum_R1_uid61571/runs/gms2_27_10_2018
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+/home/karl/repos/repos-gms2/bin/gms2.pl  --gcode 11 --format gff --out gms2.gff --seq /storage3/w/gms2/data/Halobacterium_salinarum_R1_uid61571/sequence.fasta  --v --genome-type archaea --keep-all-files --fgio-dist-thresh 25 
+

@@ -1,0 +1,17 @@
+#!/bin/csh
+#PBS -N Roseobacter_Denitrificans_Och114
+#PBS -o /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/runs/gms2_2019_11_07/gms2_2019_11_07.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/runs/gms2_2019_11_07
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+/home/karl/gms2-install/gms2_linux_64/gms2.pl  --gcode 11 --format gff --out gms2.gff --seq /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/sequence.fasta  --v --genome-type bacteria --keep-all-files --fgio-dist-thresh 25 
+

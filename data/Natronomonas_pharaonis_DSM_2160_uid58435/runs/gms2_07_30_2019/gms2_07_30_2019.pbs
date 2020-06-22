@@ -1,0 +1,19 @@
+#!/bin/csh
+#PBS -N Natronomonas_pharaonis_DSM_2160_uid58435
+#PBS -o /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/runs/gms2_07_30_2019/gms2_07_30_2019.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/runs/gms2_07_30_2019
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+find . -type f -not -name "*.pbs" -exec rm {} \;
+
+/home/karl/gms2-install/gms2_linux_64/gms2.pl  --gcode 11 --format gff --out gms2.gff --seq /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/sequence.fasta  --v --genome-type archaea --fgio-dist-thresh 25 
+
