@@ -1,15 +1,20 @@
 import logging
 from typing import *
 
-
 import numpy as np
 import pandas as pd
 
-
-
 import logomaker as lm
+import matplotlib.pyplot as plt
+import seaborn
+from matplotlib.font_manager import FontProperties
+
+from mg_general.general import get_value, next_name
+from mg_models.mgm_motif_model import MGMMotifModel
+from mg_models.shelf import print_reduced_msa
 
 log = logging.getLogger(__name__)
+
 
 class MGMMotifModelVisualizer:
 
@@ -43,7 +48,7 @@ class MGMMotifModelVisualizer:
         # counts_mat = lm.alignment_to_matrix(sequences=seqs, to_type='counts', characters_to_ignore='.-X')
 
         # Counts matrix -> Information matrix
-        bgd = [0.25]*4
+        bgd = [0.25] * 4
         # if "avg_gc" in mgm_mm._kwargs:
         #     gc = mgm_mm._kwargs["avg_gc"] / 100.0
         #     g = c = gc / 2.0
@@ -62,7 +67,6 @@ class MGMMotifModelVisualizer:
         #     for c in df.columns:
         #         df.at[idx, c] = math.log2(4) - df.at[idx, c] * math.log2(df.at[idx, c])
         #
-
 
         lm.Logo(info_mat, ax=ax, color_scheme="classic")
         ax.set_ylim(*[0, 2])
@@ -96,7 +100,6 @@ class MGMMotifModelVisualizer:
         ax.set_xlabel("Distance from gene start")
         ax.set_ylabel("Probability")
 
-
     @staticmethod
     def _viz_prior(mgm_mm, ax):
         # type: (MGMMotifModel, plt.Axes) -> None
@@ -116,8 +119,7 @@ class MGMMotifModelVisualizer:
         seaborn.barplot(x, y, ax=ax, color="blue")
         ax.set_ylabel("Probability")
         ax.set_xlabel("Shift")
-        ax.set_ylim(0,1)
-
+        ax.set_ylim(0, 1)
 
     @staticmethod
     def visualize(mgm_mm, title="", **kwargs):
@@ -138,13 +140,12 @@ class MGMMotifModelVisualizer:
         ax_pos_dist = plt.subplot2grid(shape, (2, 1))
         ax_text = plt.subplot2grid(shape, (3, 1))
 
-        axes = [ax1, ax2, ax3, ax4]     # letters
+        axes = [ax1, ax2, ax3, ax4]  # letters
 
         if raw_motif_data is None:
             MGMMotifModelVisualizer._viz_motif_pwm(mgm_mm, axes)
         else:
             MGMMotifModelVisualizer._viz_motif_pwm_from_raw_data(raw_motif_data, axes, mgm_mm.motif_width())
-
 
         MGMMotifModelVisualizer._viz_spacer(mgm_mm, ax_pos_dist)
         MGMMotifModelVisualizer._viz_prior(mgm_mm, ax_counts)
@@ -195,7 +196,6 @@ class MGMMotifModelVisualizer:
 
             df = pd.DataFrame({"Position": all_positions, "Probability": all_probs})
             df.sort_values("Position", inplace=True)
-
 
             df_mean = df.groupby("Position", as_index=False).mean()
             seaborn.boxplot("Position", "Probability", data=df, ax=ax, color="red", fliersize=0)

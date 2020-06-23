@@ -2,6 +2,9 @@
 # Created: 2020-06-21, 6:27 p.m.
 
 import logging
+import re
+from subprocess import CalledProcessError
+
 import numpy as np
 import pandas as pd
 from typing import *
@@ -9,10 +12,13 @@ from typing import *
 from Bio.Align.Applications import ClustalOmegaCommandline
 from Bio.Seq import Seq
 
+from mg_container.genome_list import GenomeInfo
 from mg_container.msa import MSAType
 from mg_general import Environment
-from mg_general.general import get_value, os_join
-from mg_io.general import remove_p
+from mg_general.general import get_value, os_join, run_shell_cmd
+from mg_general.labels_comparison_detailed import LabelsComparisonDetailed
+from mg_io.general import remove_p, load_obj
+from mg_io.labels import read_labels_from_file
 from mg_io.shelf import write_sequence_list_to_fasta_file
 
 log = logging.getLogger(__name__)
@@ -198,7 +204,7 @@ def gather_consensus_sequences(env, df, col):
     sequences = list()
 
     for idx in df.index:
-        d = df.at[idx, col]     # type: Dict[str, List[float]]
+        d = df.at[idx, col]  # type: Dict[str, List[float]]
 
         num_positions = len(next(iter(d.values())))
         out = ""
@@ -220,6 +226,7 @@ def gather_consensus_sequences(env, df, col):
 
     return sequences
 
+
 def create_numpy_for_column_with_extended_motif(env, df, col, other=dict()):
     # type: (Environment, pd.DataFrame, str) -> np.ndarray
 
@@ -227,7 +234,7 @@ def create_numpy_for_column_with_extended_motif(env, df, col, other=dict()):
 
     # run alignment
     consensus_seqs = gather_consensus_sequences(env, df, col)
-    msa_t = run_msa_on_sequences(env, consensus_seqs,  outputorder="input-order")
+    msa_t = run_msa_on_sequences(env, consensus_seqs, outputorder="input-order")
     n = len(df)  # number of examples
     w = msa_t.alignment_length()
     b = len(example)  # number of bases (letters)
@@ -248,3 +255,157 @@ def create_numpy_for_column_with_extended_motif(env, df, col, other=dict()):
     print_reduced_msa(msa_t, sort_by_starting_position=True)
 
     return create_extended_numpy_for_column_and_shifts(df, col, shifts, w), shifts
+
+
+def fix_genome_type(df):
+    # type: (pd.DataFrame) -> None
+    df["GENOME_TYPE"] = df["GENOME_TYPE"].apply(lambda x: x.strip().split("-")[1].upper())
+    df.loc[df["GENOME_TYPE"] == "D2", "GENOME_TYPE"] = "D"
+
+
+def read_archaea_bacteria_inputs(pf_arc, pf_bac):
+    # type: (str, str) -> pd.DataFrame
+    df_bac = load_obj(pf_bac)  # type: pd.DataFrame
+    df_arc = load_obj(pf_arc)  # type: pd.DataFrame
+    df_bac["Type"] = "Bacteria"
+    df_arc["Type"] = "Archaea"
+
+    df = pd.concat([df_bac, df_arc], sort=False)
+    df.reset_index(inplace=True)
+    fix_genome_type(df)
+
+    return df
+
+
+def key_to_gms2_tags(key):
+    # type: (str) -> Set[str]
+
+    return {
+        "Start Codons": {"ATG", "GTG", "TTG"},
+        "Stop Codons ": {"TAA", "TGA", "TAG"},
+        "Start Context": {"SC_RBS", "SC_PROMOTER"},
+        "RBS": {"RBS"},
+        "Promoter": {"PROMOTER"},
+        "Native": {"TO_NATIVE", "TO_MGM"}
+    }[key]
+
+
+def clean_up_start_context(mod_string, t, delete_sc):
+    # type: (str, str, bool) -> str
+    mod_string = re.sub(r"\$" + t + r" [^\n]+", "", mod_string)
+    mod_string = re.sub(r"\$" + t + r"_ORDER [^\n]+", "", mod_string)
+    mod_string = re.sub(r"\$" + t + r"_WIDTH [^\n]+", "", mod_string)
+    mod_string = re.sub(r"\$" + t + r"_MARGIN [^\n]+", "", mod_string)
+    mod_string = re.sub(r"\$" + t + r"_MAT[^\$]+", "", mod_string)
+
+    if not delete_sc:
+        mod_string += f"\n${t} 1\n${t}_ORDER 0\n${t}_WIDTH 1\n${t}_MARGIN -1\n${t}_MAT\nA 0.25\nC 0.25\nG 0.25\nT 0.25\n"
+    return mod_string
+
+
+def turn_off_components(pf_mod_original, pf_new_mod, components_off, native_coding_off=True):
+    # type: (str, str, Iterable[str], bool) -> None
+
+    with open(pf_mod_original, "r") as f:
+        mod_string = f.read()
+
+        turn_off_sc_for_rbs = "RBS" in components_off
+        turn_off_sc_for_promoter = "Promoter" in components_off
+
+        # change model based on components
+        for coff in components_off:
+            tags = key_to_gms2_tags(coff)
+
+            if coff in {"Start Codons", "Stop Codons"}:
+                for t in tags:
+                    if re.findall(r"\$" + t + r"[\s\n]", mod_string):
+                        mod_string = re.sub(r"\$" + t + r"\s+\d+\.\d+", f"${t} 0.333", mod_string)
+            elif coff in {"RBS", "Promoter"}:
+                for t in tags:
+                    if re.findall(r"\$" + t + r"[\s\n]", mod_string):
+                        mod_string = re.sub(r"\$" + t + r"\s+1", f"${t} 0", mod_string)
+            elif coff in {"Start Context"}:
+                for t in tags:
+                    if re.findall(r"\$" + t + r"[\s\n]", mod_string):
+                        delete_sc = turn_off_sc_for_rbs if t == "SC_RBS" else turn_off_sc_for_promoter
+                        mod_string = clean_up_start_context(mod_string, t, delete_sc)
+
+        if native_coding_off:
+            mod_string = re.sub(r"\$TO_NATIVE" + r"\s+\d+\.\d+", f"$TO_NATIVE 0.0", mod_string)
+            mod_string = re.sub(r"\$TO_MGM" + r"\s+\d+\.\d+", f"$TO_MGM 1.0", mod_string)
+
+        with open(pf_new_mod, "w") as f_out:
+            f_out.write(mod_string)
+
+
+def run_gms2_prediction_with_model(env, pf_sequence, pf_new_mod, pf_new_pred):
+    # type: (Environment, str, str, str) -> None
+
+    bin_external = env["pd-bin-external"]
+    prog = f"{bin_external}/gms2/gmhmmp2"
+    mgm_mod = f"{bin_external}/gms2/mgm_11.mod"
+    cmd = f"{prog} -m {pf_new_mod} -M {mgm_mod} -s {pf_sequence} -o {pf_new_pred} --format gff"
+    run_shell_cmd(cmd)
+
+
+def run_gms2_with_component_toggles_and_get_accuracy(env, gi, components_off, **kwargs):
+    # type: (Environment, GenomeInfo, Set[str], Dict[str, Any]) -> Dict[str, Any]
+
+    pf_mod_original = os_join(env["pd-runs"], gi.name, "gms2", "GMS2.mod")
+    pf_reference = os_join(env["pd-data"], gi.name, "verified.gff")
+    pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
+    pf_prediction = os_join(env["pd-work"], "prediction.gff")
+
+    native_coding_off = get_value(kwargs, "native_coding_off", True)
+
+    pf_new_mod = os_join(env["pd-work"], "model.mod")
+    turn_off_components(pf_mod_original, pf_new_mod, components_off, native_coding_off=native_coding_off)
+
+    done = False
+    while not done:
+        try:
+            run_gms2_prediction_with_model(env, pf_sequence, pf_new_mod, pf_prediction)
+            done = True
+        except CalledProcessError:
+            pass
+
+    # compare with verified
+    lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
+
+    return {
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
+    }
+
+
+def component_in_model_file(env, gi, component):
+    # type: (Environment, GenomeInfo, str) -> bool
+    pf_mod = os_join(env["pd-runs"], gi.name, "gms2", "GMS2.mod")
+    with open(pf_mod, "r") as f:
+        mod_string = f.read()
+
+        for t in key_to_gms2_tags(component):
+            if re.findall(r"\$" + t + r"[\s\n]", mod_string):
+                return True
+        return False
+
+
+def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
+    # type: (Environment, str, str, str) -> None
+    bin_external = env["pd-bin-external"]
+    prog = f"{bin_external}/gms2/gmhmmp2"
+    cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
+    run_shell_cmd(cmd)
+
+
+def run_mgm_and_get_accuracy(env, gi, pf_mgm):
+    # type: (Environment, GenomeInfo, str) -> Dict[str, Any]
+
+    pf_prediction = os_join(env["pd-work"], "mgm_prediction.gff")
+    run_mgm(env, os_join(env["pd-data"], gi.name, "sequence.fasta"), pf_mgm, pf_prediction)
+    pf_reference = os_join(env["pd-data"], gi.name, "verified.gff")
+
+    lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
+    remove_p(pf_prediction)
+    return {
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
+    }

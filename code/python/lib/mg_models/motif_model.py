@@ -2,9 +2,10 @@ import logging
 from typing import *
 import pandas as pd
 
-from sbsp_general.general import get_value
+from mg_general.general import get_value
 
 log = logging.getLogger(__name__)
+
 
 class MotifModel:
     """Motif model, holding the composition matrix and position (spacer) distribution"""
@@ -12,10 +13,10 @@ class MotifModel:
     def __init__(self, motif, spacer=None):
         # type: (Dict[str, List[float]], Union[None, Dict[int, float]]) -> None
 
-        self._motif = motif     # type: Dict[str, List[float]]
+        self._motif = motif  # type: Dict[str, List[float]]
         self._motif_width = max([len(motif[x]) for x in self._motif.keys()])
 
-        self._spacer = MotifModel._init_spacer(spacer)      # type: Union[None, List[float]]
+        self._spacer = MotifModel._init_spacer(spacer)  # type: Union[None, List[float]]
 
     def score(self, fragment, **kwargs):
         # type: (str, Dict[str, Any]) -> float
@@ -89,7 +90,6 @@ class MotifModel:
 
         raise ValueError(f"Unknown spacer type: {type(spacer)}")
 
-
     def pwm_to_df(self):
         # type: () -> pd.DataFrame
 
@@ -109,5 +109,3 @@ class MotifModel:
         for letter in sorted(self._motif.keys()):
             out += letter + " ".join([str(x) for x in self._motif[letter]]) + "\n"
         return out
-
-

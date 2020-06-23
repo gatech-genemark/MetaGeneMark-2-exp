@@ -5,10 +5,9 @@ import logging
 import argparse
 import pandas as pd
 from typing import *
-
-# noinspection All
 from tqdm import tqdm
 
+# noinspection All
 import pathmagic
 
 # noinspection PyUnresolvedReferences
@@ -71,13 +70,14 @@ def collect_start_info_from_gi(env, gi):
     return {
         "Genome": gi.name,
         "GC": gc,
-        **{
-            x: mod.items[x] for x in {
-                "GENOME_TYPE", "RBS_MAT", "RBS_MAT", "PROMOTER_MAT", "PROMOTER_WIDTH", "RBS_WIDTH",
-                "RBS_POS_DISTR", "PROMOTER_POS_DISTR", "ATG", "GTG", "TTG", "TAA", "TGA", "TAG",
-                "NON_MAT"
-            } if x in mod.items.keys()
-        }
+        "Mod": mod,
+        # # **{
+        # #     x: mod.items[x] for x in {
+        # #         "GENOME_TYPE", "RBS_MAT", "RBS_MAT", "PROMOTER_MAT", "PROMOTER_WIDTH", "RBS_WIDTH",
+        # #         "RBS_POS_DISTR", "PROMOTER_POS_DISTR", "ATG", "GTG", "TTG", "TAA", "TGA", "TAG",
+        # #         "NON_MAT"
+        # #     } if x in mod.items.keys()
+        # }
     }
 
 

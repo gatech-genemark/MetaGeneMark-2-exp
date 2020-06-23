@@ -7,17 +7,19 @@ import argparse
 import numpy as np
 import pandas as pd
 from typing import *
+import matplotlib.pyplot as plt
 
 # noinspection All
-import pathmagic
+import seaborn
 
 # noinspection PyUnresolvedReferences
-import sbsp_log  # runs init in sbsp_log and configures logger
+import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment
 from mg_general.general import get_value
-from mg_io.general import load_obj, save_obj
+from mg_io.general import save_obj
+from mg_viz.colormap import ColorMap as CM
 
 # ------------------------------ #
 #           Parse CMD            #
@@ -27,7 +29,9 @@ from mg_models.mgm_motif_model import MGMMotifModel
 from mg_models.mgm_motif_model_all_gc import MGMMotifModelAllGC
 from mg_models.mgm_motif_model_v2 import MGMMotifModelV2
 from mg_models.shelf import bin_by_gc, get_consensus_sequence, get_position_distributions_by_shift, \
-    create_numpy_for_column_with_extended_motif
+    create_numpy_for_column_with_extended_motif, read_archaea_bacteria_inputs
+from mg_viz.mgm_motif_model import MGMMotifModelVisualizer
+from mg_viz.mgm_motif_model_v2 import MGMMotifModelVisualizerV2
 
 parser = argparse.ArgumentParser("Build MGM start models.")
 
@@ -56,26 +60,6 @@ my_env = Environment(pd_data=parsed_args.pd_data,
 # Setup logger
 logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
-
-
-def fix_genome_type(df):
-    # type: (pd.DataFrame) -> None
-    df["GENOME_TYPE"] = df["GENOME_TYPE"].apply(lambda x: x.strip().split("-")[1].upper())
-    df.loc[df["GENOME_TYPE"] == "D2", "GENOME_TYPE"] = "D"
-
-
-def read_archaea_bacteria_inputs(pf_arc, pf_bac):
-    # type: (str, str) -> pd.DataFrame
-    df_bac = load_obj(pf_bac)  # type: pd.DataFrame
-    df_arc = load_obj(pf_arc)  # type: pd.DataFrame
-    df_bac["Type"] = "Bacteria"
-    df_arc["Type"] = "Archaea"
-
-    df = pd.concat([df_bac, df_arc], sort=False)
-    df.reset_index(inplace=True)
-    fix_genome_type(df)
-
-    return df
 
 
 def mat_to_dict(mat):
@@ -289,12 +273,10 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
     return mgm_mm
 
 
-
 def plot_candidate_codons(env, df, codons, cmap=None):
     # type: (Environment, pd.DataFrame, List[str]) -> None
 
     fig, ax = plt.subplots()
-    from sbsp_viz.colormap import ColorMap as CM
 
     for c in sorted(codons):
         seaborn.regplot(df["GC"].astype(float).values, df[c].astype(float).values, label=c,
@@ -302,7 +284,7 @@ def plot_candidate_codons(env, df, codons, cmap=None):
                         color=cmap[c]
                         )
 
-    ax.set_ylim([-0.05,1.05])
+    ax.set_ylim([-0.05, 1.05])
     ax.set_ylabel("Probability")
     ax.set_xlabel("GC")
     leg = ax.legend()
@@ -352,14 +334,13 @@ def plot_candidate_codons(env, df, codons, cmap=None):
 
 def plot_candidate_starts(env, df):
     # type: (Environment, pd.DataFrame) -> None
-    from sbsp_viz.colormap import ColorMap as CM
     plot_candidate_codons(env, df, ["ATG", "GTG", "TTG"],
                           CM.get_map("starts"))
 
 
 def plot_candidate_stops(env, df):
     # type: (Environment, pd.DataFrame) -> None
-    from sbsp_viz.colormap import ColorMap as CM
+    from mg_viz.colormap import ColorMap as CM
     plot_candidate_codons(env, df, ["TAA", "TAG", "TGA"],
                           CM.get_map("stops"))
 
