@@ -59,7 +59,7 @@ def collect_start_info_from_gi(env, gi):
     pf_sequence = os_join(pd_genome, "sequence.fasta")
 
     gc = gi.attributes.get("gc")
-    if gc is None:
+    if gc is None or float(gc) == 0:
         gc = compute_single_gc_from_file(pf_sequence)
 
     pd_genome_run = os_join(env["pd-runs"], gi.name)
@@ -105,7 +105,7 @@ def main(env, args):
                   )
 
         df = pbs.run(
-            data={"gil": gil},
+            data=gil,
             func=collect_start_info_from_gil,
             func_kwargs={
                 "env": env,
