@@ -1,18 +1,20 @@
 import logging
 from typing import *
-from sbsp_general.MGMMotifModelV2 import MGMMotifModelV2
 import seaborn
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.font_manager import FontProperties
 
-from sbsp_general.general import get_value
-from sbsp_container.msa import MSAType
-from sbsp_general.shelf import print_reduced_msa, next_name
+from mg_general.general import get_value, next_name
+from mg_container.msa import MSAType
 import logomaker as lm
 
+from mg_models.mgm_motif_model_v2 import MGMMotifModelV2
+from mg_models.shelf import print_reduced_msa
+
 log = logging.getLogger(__name__)
+
 
 class MGMMotifModelVisualizerV2:
 
@@ -46,7 +48,7 @@ class MGMMotifModelVisualizerV2:
         # counts_mat = lm.alignment_to_matrix(sequences=seqs, to_type='counts', characters_to_ignore='.-X')
 
         # Counts matrix -> Information matrix
-        bgd = [0.25]*4
+        bgd = [0.25] * 4
         # if "avg_gc" in mgm_mm._kwargs:
         #     gc = mgm_mm._kwargs["avg_gc"] / 100.0
         #     g = c = gc / 2.0
@@ -65,7 +67,6 @@ class MGMMotifModelVisualizerV2:
         #     for c in df.columns:
         #         df.at[idx, c] = math.log2(4) - df.at[idx, c] * math.log2(df.at[idx, c])
         #
-
 
         lm.Logo(info_mat, ax=ax, color_scheme="classic")
         ax.set_ylim(*[0, 2])
@@ -99,7 +100,6 @@ class MGMMotifModelVisualizerV2:
         ax.set_xlabel("Distance from gene start")
         ax.set_ylabel("Probability")
 
-
     @staticmethod
     def _viz_prior(mgm_mm, ax):
         # type: (MGMMotifModelV2, plt.Axes) -> None
@@ -119,8 +119,7 @@ class MGMMotifModelVisualizerV2:
         seaborn.barplot(x, y, ax=ax, color="blue")
         ax.set_ylabel("Probability")
         ax.set_xlabel("Shift")
-        ax.set_ylim(0,1)
-
+        ax.set_ylim(0, 1)
 
     @staticmethod
     def visualize(mgm_mm, title="", **kwargs):
@@ -131,23 +130,22 @@ class MGMMotifModelVisualizerV2:
 
         num_shifts = len(mgm_mm._shift_prior.keys())
 
-        fig = plt.figure(figsize=(14, 4*num_shifts))
-        shape = (num_shifts+1, 5)
+        fig = plt.figure(figsize=(14, 4 * num_shifts))
+        shape = (num_shifts + 1, 5)
 
         # for each shift
         for s in range(num_shifts):
             # create consensus, followed by box plots
             ax_logo = plt.subplot2grid(shape, (s, 0))
-            axes_box = [plt.subplot2grid(shape, (s, i)) for i in range(1,5)]
+            axes_box = [plt.subplot2grid(shape, (s, i)) for i in range(1, 5)]
 
             MGMMotifModelVisualizerV2._viz_logo(mgm_mm, ax_logo, s)
 
             if raw_motif_data is None:
                 MGMMotifModelVisualizerV2._viz_motif_pwm(mgm_mm, axes_box, s)
             else:
-                MGMMotifModelVisualizerV2._viz_motif_pwm_from_raw_data(raw_motif_data[s], axes_box, mgm_mm.motif_width())
-
-
+                MGMMotifModelVisualizerV2._viz_motif_pwm_from_raw_data(raw_motif_data[s], axes_box,
+                                                                       mgm_mm.motif_width())
 
         # last row: MSA, shift prior, spacers
         ax_text = plt.subplot2grid(shape, (num_shifts, 0))
@@ -201,7 +199,6 @@ class MGMMotifModelVisualizerV2:
 
             df = pd.DataFrame({"Position": all_positions, "Probability": all_probs})
             df.sort_values("Position", inplace=True)
-
 
             df_mean = df.groupby("Position", as_index=False).mean()
             seaborn.boxplot("Position", "Probability", data=df, ax=ax, color="red", fliersize=0)

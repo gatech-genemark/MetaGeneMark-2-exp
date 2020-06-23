@@ -12,6 +12,7 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
+from mg_container.mgm_model import MGMModel
 from mg_general import Environment, add_env_args_to_parser
 from mg_general.shelf import test_log_level
 
@@ -39,13 +40,14 @@ logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
 
 
-
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     test_log_level()
     logger.debug("New")
 
-    MGModelsOptions.init_from_dict(env, dict())
+    model = MGMModel.init_from_file("mgm_11.mod")
+
+    model.to_file("output.mod")
 
 
 if __name__ == "__main__":

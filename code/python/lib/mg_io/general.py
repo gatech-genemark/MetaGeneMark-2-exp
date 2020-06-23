@@ -36,11 +36,18 @@ def write_to_file(a_string, pf_out, mode="w"):
 
 def save_obj(obj, name):
     # type: (object, str) -> None
-    with open(name + '.pkl', 'wb') as f:
+
+    if not name.endswith(".pkl"):
+        name += ".pkl"
+
+    with open(name, 'wb') as f:
         dill.dump(obj, f)
 
 
 def load_obj(name):
-    with open(name + '.pkl', 'rb') as f:
+    if not name.endswith(".pkl"):
+        name += ".pkl"
+
+    with open(name, 'rb') as f:
         loaded_data = dill.load(f)
         return loaded_data

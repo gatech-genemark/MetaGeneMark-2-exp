@@ -4,6 +4,7 @@ import copy
 import logging
 import os
 import subprocess
+import pandas as pd
 from typing import *
 
 log = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ def get_value(kv_pairs, key, default=None, **kwargs):
     # type: (Dict[str, Any], str, Any, Dict[str, Any]) -> Any
 
     value_type = _get_value_helper(kwargs, "type", None)  # TODO: figure out value_type for this
-    choices = _get_value_helper(kwargs, "choices", None, value_type=Iterable)
+    choices = _get_value_helper(kwargs, "choices", None, value_type=list)
     required = _get_value_helper(kwargs, "required", False, value_type=bool)
     perform_copy = _get_value_helper(kwargs, "copy", False, value_type=bool)
     default_if_none = _get_value_helper(kwargs, "default_if_none", True, value_type=bool)
@@ -102,3 +103,21 @@ def next_name(pd_work, **kwargs):
     if "counter" not in next_name.__dict__: next_name.counter = -1
     next_name.counter += 1
     return os_join(pd_work, "{}.{}".format(next_name.counter, ext))
+
+
+def create_gene_key(genome=None, accession=None, left=None, right=None, strand=None, delimiter=";"):
+    # type: (object, object, object, object, object, str) -> str
+
+    return "{}{}{}{}{}{}{}{}{}".format(
+        genome, delimiter,
+        accession, delimiter,
+        left, delimiter,
+        right, delimiter,
+        strand
+    )
+
+def fix_names(r):
+    # type: (pd.Series) -> str
+    return "{}. {}".format(
+        r["Genome"][0], r["Genome"].split("_")[1]
+    )

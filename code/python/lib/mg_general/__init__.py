@@ -72,7 +72,7 @@ class Environment:
         pd_bin_external = os.path.join(pd_base, "bin_external")
 
         pd_data = os.path.abspath(pd_data) if pd_data is not None else os.path.join(pd_base, "data")
-        pd_work = os.path.abspath(pd_work) if pd_work is not None else os.path.join(pd_base, ".")
+        pd_work = os.path.abspath(pd_work) if pd_work is not None else os.path.abspath(".")
 
         if not os.path.exists(pd_work):
             os.makedirs(pd_work)

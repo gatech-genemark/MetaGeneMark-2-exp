@@ -4,9 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-from sbsp_general.general import get_value
-from sbsp_viz.general import FigureOptions, add_identity, save_figure
+from mg_general.general import get_value
+from mg_viz.general import FigureOptions, add_identity, save_figure
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +26,13 @@ def kdeplot(df, x, y, hue=None, figure_options=None, **kwargs):
     save_figure(figure_options)
     plt.show()
 
+
 def scatterplot(df, x, y, hue=None, figure_options=None, **kwargs):
     # type: (pd.DataFrame, str, str, Union[str, None], FigureOptions, Dict[str, Any]) -> None
 
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     ax = get_value(kwargs, "ax", None)
+    show = get_value(kwargs, "show", True)
 
     identity = get_value(kwargs, "identity", False)
 
@@ -53,9 +54,9 @@ def scatterplot(df, x, y, hue=None, figure_options=None, **kwargs):
         else:
             plt.legend(loc=legend_loc)
 
-
-    save_figure(figure_options)
-    plt.show()
+    if show:
+        save_figure(figure_options)
+        plt.show()
 
 
 def lineplot(df, x, y, hue=None, figure_options=None, **kwargs):
@@ -87,14 +88,13 @@ def lineplot(df, x, y, hue=None, figure_options=None, **kwargs):
             plt.legend(loc='center left', bbox_to_anchor=(1.05, 0.5), title=title, ncol=legend_ncol)
         else:
             plt.legend(loc=legend_loc, ncol=legend_ncol, title=title)
-        if title is not None and len(title)  == 0:
+        if title is not None and len(title) == 0:
             handles, labels = ax.get_legend_handles_labels()
             ax.legend(handles=handles[1:], labels=labels[1:], ncol=legend_ncol)
 
     if show:
         save_figure(figure_options, fig)
         plt.show()
-
 
 
 def catplot(df, x, y, hue=None, kind="box", figure_options=None, **kwargs):
@@ -187,11 +187,12 @@ def tsplot(df, x, y, hue=None, figure_options=None, **kwargs):
     save_figure(figure_options)
     plt.show()
 
+
 def barplot(df, x, y, hue, figure_options=None, **kwargs):
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     ax = get_value(kwargs, "ax", None)
 
-    g = sns.barplot(x=x, y=y, data=df, hue=hue,  ax=ax, **sns_kwargs)
+    g = sns.barplot(x=x, y=y, data=df, hue=hue, ax=ax, **sns_kwargs)
 
     if hue is not None:
         plt.legend(loc='center left', bbox_to_anchor=(1.05, 0.5))
@@ -201,7 +202,3 @@ def barplot(df, x, y, hue, figure_options=None, **kwargs):
     save_figure(figure_options)
     # plt.tight_layout(rect=[-0.3,0,1,1.2])
     plt.show()
-
-
-
-
