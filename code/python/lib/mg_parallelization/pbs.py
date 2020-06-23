@@ -273,7 +273,7 @@ class PBS:
             pf_job_input,
             pf_job_output,
             pd_job_template,
-            log.level
+            "DEBUG" # log.level
         )
 
         return cmd
@@ -399,7 +399,7 @@ class PBS:
 
         pbs_text += "PBS_O_WORKDIR=" + pd_job_template + "\n"
         pbs_text += "cd $PBS_O_WORKDIR \n"
-        pbs_text += "sleep 60\n"
+        pbs_text += "sleep 10\n"
 
         pbs_text += "echo The working directory is `echo $PBS_O_WORKDIR`" + "\n"
         pbs_text += "echo This job runs on the following nodes:" + "\n"

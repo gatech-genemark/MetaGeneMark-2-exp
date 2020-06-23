@@ -33,11 +33,13 @@ def generate_splits(elements, num_splits):
         start = end
 
 
-def split_gil(gil, num_splits, **kwargs):
+def split_gil(data, num_splits, **kwargs):
     # type: (Dict[str, Any], int, Dict[str, Any]) -> List[Dict[str, Any]]
     pf_output_template = get_value(kwargs, "pf_output_template", None, value_type=str)
     arg_name_pf_output = get_value(kwargs, "arg_name_pf_output", "pf_output", value_type=str)
     arg_name_gil = get_value(kwargs, "arg_name_gil", "gil", value_type=str)
+
+    gil = data
 
     list_of_list_of_gi = list()
     for i in range(num_splits):
