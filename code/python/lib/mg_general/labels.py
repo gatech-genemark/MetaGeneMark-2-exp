@@ -78,7 +78,6 @@ class Label:
 
         self._attributes = get_value(kwargs, "attributes", dict(), defualt_if_none=True)
 
-
     def left(self):
         # type: () -> int
         return self.coordinates().left
@@ -142,7 +141,6 @@ class Label:
 
         return False
 
-
     def is_frameshifted(self):
         # type: () -> bool
 
@@ -154,9 +152,6 @@ class Label:
             return True
 
         return False
-
-
-
 
     @classmethod
     def minimum_set_of_field_names(cls):
@@ -224,7 +219,7 @@ class Labels:
         if labels is None:
             labels = list()
 
-        self._labels = copy.copy(labels)
+        self._labels = copy.copy(labels)  # type: List[Label]
         self.name = name
 
         if not isinstance(self._labels, list):
@@ -260,10 +255,6 @@ class Labels:
                 labels.add(l)
 
         return labels
-
-
-
-
 
     def __next__(self):
         # type: () -> Label
@@ -307,6 +298,41 @@ class Labels:
         out = ""
         for n in range(self._iter_max):
             out += self._labels[n].to_string(shift_coordinates_by) + "\n"
+
+        return out
+
+    def to_string_lst(self, shift_coordinates_by=0):
+
+        out = "# GeneMark.hmm-2 LST format\n"
+        out += "# GeneMark.hmm-2 prokaryotic version: 1.14\n"
+        out += "# File with sequence: tmpseq.fna\n"
+        out += "# File with native parameters: itr_1.mod\n"
+        out += "# Native species name and build: gms2-training\n"
+        out += "# File with MetaGeneMark parameters: /storage4/karl/sbsp/biogem/sbsp/bin_external/gms2/mgm_11.mod\n"
+        out += "# translation table: 11\n"
+        out += "# output date start: Mon Jun  8 09:26:44 2020\n\n"
+
+        seqname_to_labels = dict()
+        for l in self._labels:  # type: Label
+            if l.seqname() not in seqname_to_labels:
+                seqname_to_labels[l.seqname()] = list()
+
+            seqname_to_labels[l.seqname()].append(l)
+
+        for seqname, seqname_labels in seqname_to_labels.items():
+            out += f"SequenceID: {seqname}\n"
+            counter = 1
+
+            for counter, l in enumerate(seqname_labels):
+                out += str(counter)
+                out += " " + str(l.strand())
+                out += " " + str(l.left() + shift_coordinates_by)
+                out += " " + str(l.right() + shift_coordinates_by)
+                out += " " + str(l.right() - l.left() + 1)
+                out += " " "nativebac" + " AGGAGG 6 1"
+                out += " " + " ."
+
+                out += "\n"
 
         return out
 
@@ -446,7 +472,6 @@ class Labels:
 
         labels = labels.sort_by("left", in_place=False)
 
-
         for i in range(len(labels)):
             lab = labels[i]
 
@@ -482,7 +507,7 @@ class Labels:
         labels = labels.sort_by("right", in_place=False)
 
         for i in range(len(labels)):
-            i = len(labels) - i - 1         # to reverse index
+            i = len(labels) - i - 1  # to reverse index
 
             lab = labels[i]
 

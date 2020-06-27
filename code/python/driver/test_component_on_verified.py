@@ -32,8 +32,9 @@ from mg_viz.general import FigureOptions
 parser = argparse.ArgumentParser("Test MGM2 model on verified set.")
 
 parser.add_argument('--pf-gil', required=True, help="Genome information list")
-parser.add_argument('--pf-mgm', required=True)
-parser.add_argument('--component', choices=["Start Codons", "Start Context", "RBS", "Promoter"])
+parser.add_argument('--pf-mgm-bac', nargs="+", required=True)
+parser.add_argument('--pf-mgm-arc', nargs="+", required=True)
+parser.add_argument('--component', nargs="+", choices=["Start Codons", "Start Context", "RBS", "Promoter", "All"])
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -50,8 +51,8 @@ logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
 
 
-def test_component_for_gi(env, gi, pf_mgm, component):
-    # type: (Environment, GenomeInfo, str, str) -> pd.DataFrame
+def test_component_for_gi(env, gi, list_pf_mgm, list_component):
+    # type: (Environment, GenomeInfo, List[str], List[str]) -> pd.DataFrame
 
     list_entries = list()
 
@@ -61,7 +62,14 @@ def test_component_for_gi(env, gi, pf_mgm, component):
     start_components = {
         "Start Codons", "Start Context", "RBS", "Promoter",
     }
-    components_off = start_components.difference({component})
+    # components_off = start_components.difference({component})
+    #
+    # if component == "Start Context":
+    #     component_on = {component}  # "rbs", "promoter"}
+    #     components_off.remove("RBS")
+    #     components_off.remove("Promoter")
+    # else:
+    #     component_on = {component}
 
     # test GMS2, MGM, MGM2, and MGM2*
     env_dup = env.duplicate({"pd-work": pd_gi})
@@ -70,13 +78,14 @@ def test_component_for_gi(env, gi, pf_mgm, component):
     results = run_gms2_with_component_toggles_and_get_accuracy(env_dup, gi, set(), native_coding_off=False)
     list_entries.append({"Tool": "GMS2", **results})
 
-    ##### MGM + native component: MGM with native trained component
-    results = run_gms2_with_component_toggles_and_get_accuracy(env_dup, gi, components_off, native_coding_off=True)
-    list_entries.append({"Tool": f"MGM: Native {component}", **results})
+    # ##### MGM + native component: MGM with native trained component
+    # results = run_gms2_with_component_toggles_and_get_accuracy(env_dup, gi, components_off, native_coding_off=True)
+    # list_entries.append({"Tool": f"MGM: Native {component}", **results})
 
     ##### MGM + GC component: MGM from new model
-    results = run_mgm_and_get_accuracy(env_dup, gi, pf_mgm)
-    list_entries.append({"Tool": f"MGM: GC {component}", **results})
+    for pf_mgm, component in zip(list_pf_mgm, list_component):
+        results = run_mgm_and_get_accuracy(env_dup, gi, pf_mgm)
+        list_entries.append({"Tool": f"MGM: {component}", **results})
 
     ##### MGM
     results = run_mgm_and_get_accuracy(env_dup, gi, os_join(env["pd-bin-external"], "gms2", "mgm_11.mod"))
@@ -85,13 +94,17 @@ def test_component_for_gi(env, gi, pf_mgm, component):
     return pd.DataFrame(list_entries)
 
 
-def test_component_on_verified(env, gil, pf_mgm, component):
-    # type: (Environment, GenomeInfoList, str, str) -> None
+def test_component_on_verified(env, gil, list_pf_mgm_bac, list_pf_mgm_arc, list_component):
+    # type: (Environment, GenomeInfoList, List[str], List[str], List[str]) -> None
 
     list_df = list()
 
     for gi in gil:
-        list_df.append(test_component_for_gi(env, gi, pf_mgm, component))
+        if "Halobacterium" in gi.name or "pharaonis" in gi.name:
+            list_pf_mgm = list_pf_mgm_arc
+        else:
+            list_pf_mgm = list_pf_mgm_bac
+        list_df.append(test_component_for_gi(env, gi, list_pf_mgm, list_component))
 
         list_df[-1]["Genome"] = gi.name
 
@@ -100,9 +113,15 @@ def test_component_on_verified(env, gil, pf_mgm, component):
     df["Genome"] = df.apply(fix_names, axis=1)
     print(df.to_csv())
 
+    hue_order = reversed(["GMS2"] + [
+        f"MGM: {x}" for x in ["All", "RBS", "Promoter", "Start Context", "Start Codons"]
+        if x in list_component
+    ] + ["MGM"])
+
     fig, ax = plt.subplots(figsize=(12, 4))
     sns.barplot(df, "Genome", "Error", hue="Tool",
                 ax=ax,
+                sns_kwargs={"hue_order": hue_order},
                 figure_options=FigureOptions(
                     save_fig=next_name(env["pd-work"])
                 ),
@@ -113,7 +132,7 @@ def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
 
     gil = GenomeInfoList.init_from_file(args.pf_gil)
-    test_component_on_verified(env, gil, args.pf_mgm, args.component)
+    test_component_on_verified(env, gil, args.pf_mgm_bac, args.pf_mgm_arc, args.component)
 
 
 if __name__ == "__main__":

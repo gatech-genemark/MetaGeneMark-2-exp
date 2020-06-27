@@ -2,6 +2,7 @@
 # Created: 2020-06-21, 6:27 p.m.
 
 import logging
+import math
 import re
 from subprocess import CalledProcessError
 
@@ -13,6 +14,7 @@ from Bio.Align.Applications import ClustalOmegaCommandline
 from Bio.Seq import Seq
 
 from mg_container.genome_list import GenomeInfo
+from mg_container.gms2_mod import GMS2Mod
 from mg_container.msa import MSAType
 from mg_general import Environment
 from mg_general.general import get_value, os_join, run_shell_cmd
@@ -20,6 +22,8 @@ from mg_general.labels_comparison_detailed import LabelsComparisonDetailed
 from mg_io.general import remove_p, load_obj
 from mg_io.labels import read_labels_from_file
 from mg_io.shelf import write_sequence_list_to_fasta_file
+from mg_models.gms2_noncoding import GMS2Noncoding
+from mg_models.motif_model import MotifModel
 
 log = logging.getLogger(__name__)
 
@@ -27,12 +31,14 @@ log = logging.getLogger(__name__)
 def bin_by_gc(df, step=1):
     # type: (pd.DataFrame, int) -> List[Tuple[float, float, pd.DataFrame]]
 
-    gc_ranges = range(20, 80, step)
+    gc_ranges = range(30, 71, step)
     result = list()
     a = 0
     for b in gc_ranges:
+        right = b if b != gc_ranges[-1] else 100
+
         result.append(
-            (a, b, df[(df["GC"] >= a) & (df["GC"] < b)])
+            (a, b, df[(df["GC"] >= a) & (df["GC"] < right)])
         )
         a = b
     return result
@@ -72,7 +78,7 @@ def get_position_distributions_by_shift(df, col, shifts):
         if s not in result:
             result[s] = list()
 
-        result[s].append(df.at[idx, col])
+        result[s].append(df.at[idx, "Mod"].items[col])
 
     return result
 
@@ -133,8 +139,8 @@ def print_reduced_msa(msa_t, sort_by_starting_position=False, n=None):
 
 def create_extended_numpy_for_column_and_shifts(df, col, update_shifts, new_width):
     # type: (pd.DataFrame, str, List[int], int) -> np.ndarray
-    df = df[~df[col].isna()]  # we only need non-NA
-    example = df.at[df.index[0], col]
+    # df = df[~df[col].isna()]  # we only need non-NA
+    example = df.at[df.index[0], "Mod"].items[col]
 
     n = len(df)  # number of examples
     w = new_width
@@ -144,7 +150,7 @@ def create_extended_numpy_for_column_and_shifts(df, col, update_shifts, new_widt
 
     # fill the array
     for n_pos, idx in enumerate(df.index):
-        dict_arr = df.at[idx, col]
+        dict_arr = df.at[idx, "Mod"].items[col]
 
         # for each base
         for b_pos, letter in enumerate(sorted(dict_arr.keys())):
@@ -204,7 +210,7 @@ def gather_consensus_sequences(env, df, col):
     sequences = list()
 
     for idx in df.index:
-        d = df.at[idx, col]  # type: Dict[str, List[float]]
+        d = df.at[idx, "Mod"].items[col]  # type: Dict[str, List[float]]
 
         num_positions = len(next(iter(d.values())))
         out = ""
@@ -230,7 +236,7 @@ def gather_consensus_sequences(env, df, col):
 def create_numpy_for_column_with_extended_motif(env, df, col, other=dict()):
     # type: (Environment, pd.DataFrame, str) -> np.ndarray
 
-    example = df.at[df.index[0], col]
+    example = df.at[df.index[0], "Mod"].items[col]
 
     # run alignment
     consensus_seqs = gather_consensus_sequences(env, df, col)
@@ -270,8 +276,9 @@ def read_archaea_bacteria_inputs(pf_arc, pf_bac):
     df_bac["Type"] = "Bacteria"
     df_arc["Type"] = "Archaea"
 
-    df = pd.concat([df_bac, df_arc], sort=False)
-    df.reset_index(inplace=True)
+    df = pd.concat([df_bac, df_arc], sort=False, ignore_index=True)
+    df["GENOME_TYPE"] = df.apply(lambda r: r["Mod"].items["GENOME_TYPE"], axis=1)
+    # df["GC"] = df.apply(lambda r: r["Mod"].items["GC"], axis=1)
     fix_genome_type(df)
 
     return df
@@ -338,13 +345,15 @@ def turn_off_components(pf_mod_original, pf_new_mod, components_off, native_codi
             f_out.write(mod_string)
 
 
-def run_gms2_prediction_with_model(env, pf_sequence, pf_new_mod, pf_new_pred):
-    # type: (Environment, str, str, str) -> None
+def run_gms2_prediction_with_model(env, pf_sequence, pf_new_mod, pf_new_pred, **kwargs):
+    # type: (Environment, str, str, str, Dict[str, Any]) -> None
+
+    prediction_format = get_value(kwargs, "format", "gff", valid_type=str)
 
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/gms2/gmhmmp2"
     mgm_mod = f"{bin_external}/gms2/mgm_11.mod"
-    cmd = f"{prog} -m {pf_new_mod} -M {mgm_mod} -s {pf_sequence} -o {pf_new_pred} --format gff"
+    cmd = f"{prog} -m {pf_new_mod} -M {mgm_mod} -s {pf_sequence} -o {pf_new_pred} --format {prediction_format}"
     run_shell_cmd(cmd)
 
 
@@ -409,3 +418,39 @@ def run_mgm_and_get_accuracy(env, gi, pf_mgm):
     return {
         "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
     }
+
+
+def train_gms2_model(env, pf_new_seq, pf_labels_lst, pf_mod, **kwargs):
+    # type: (Environment, str, str, str, Dict[str, Any]) -> GMS2Mod
+
+    group = get_value(kwargs, "group", "A", choices=list("ABCD") + ["X"])
+    cmd = f"cd {env['pd-work']}; "
+    cmd += f"{env['pd-bin-external']}/gms2/biogem gms2-training -s {pf_new_seq} -l {pf_labels_lst} -m {pf_mod} --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group {group} --ga-upstr-len-rbs 20 --align right --ga-width-rbs 6"
+    run_shell_cmd(
+        cmd
+    )
+    mod = GMS2Mod.init_from_file(pf_mod)
+
+    return mod
+
+def relative_entropy(motif, background, component=None):
+    # type: (MotifModel, GMS2Noncoding, str) -> float
+
+    df_motif = motif.pwm_to_df()
+    arr_bgd = background.pwm_to_array(0)
+
+    result = 0.0
+
+    if component in {"motif", "both", None}:
+        for idx in df_motif.index:
+            for i, l in enumerate(sorted(df_motif.columns)):
+                result += df_motif.at[idx, l] * math.log2(df_motif.at[idx, l] / arr_bgd[i])
+
+    if component in {"spacer", "both", None} and motif._spacer is not None:
+        sp = motif._spacer
+        sp_length = len(sp)
+        for i in range(sp_length):
+            result += sp[i] * math.log2(sp[i] / (1.0 / sp_length))
+
+    return result
+

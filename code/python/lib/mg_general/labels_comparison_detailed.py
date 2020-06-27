@@ -3,6 +3,7 @@ from typing import *
 
 from mg_general.general import get_value, except_if_not_valid
 from mg_general.labels import Labels, create_key_3prime_from_label, Label, create_gene_key_from_label
+from mg_io.labels import read_labels_from_file
 
 logger = logging.getLogger(__name__)
 
@@ -170,7 +171,6 @@ class LabelsComparisonDetailed:
 
         return result
 
-
     def _parse_compp_output(self, output):
         # type: (str) -> None
         d = self._split_compp_output(output)
@@ -182,8 +182,8 @@ class LabelsComparisonDetailed:
         ]
 
         for letter in [("a", "A"), ("b", "B")]:
-            g = letter[0]       # good
-            b = letter[1]       # bad
+            g = letter[0]  # good
+            b = letter[1]  # bad
 
             good_and_bad += [
                 ("in-{}".format(g), "in_{}".format(b)),
@@ -217,5 +217,9 @@ class LabelsComparisonDetailed:
         return self.comparison["all"]["labels"]["match-3p"][source]
 
 
-
-
+def get_gene_start_difference(pf_a, pf_b):
+    # type: (str, str) -> Dict[str, Any]
+    lcd = LabelsComparisonDetailed(read_labels_from_file(pf_a), read_labels_from_file(pf_b))
+    return {
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
+    }
