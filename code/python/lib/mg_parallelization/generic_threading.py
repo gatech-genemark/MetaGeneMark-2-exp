@@ -1,4 +1,5 @@
 import logging
+import math
 import threading
 import time
 from typing import *
@@ -36,7 +37,7 @@ def wait_for_any(active_threads):
                 del active_threads[i]
                 return t
 
-        time.sleep(30)
+        time.sleep(1)
 
 
 class GenericThread(threading.Thread):
@@ -48,6 +49,26 @@ class GenericThread(threading.Thread):
 
     def run(self):
         self._func(**self._func_kwargs)
+
+
+class GenericThreadN(threading.Thread):
+    def __init__(self, func, list_func_kwargs, **kwargs):
+        # type: (Callable, List[Dict[str, Any]], Dict[str, Any]) -> None
+        threading.Thread.__init__(self)
+        self._func = func
+        self._list_func_kwargs = list_func_kwargs
+        self._output = get_value(kwargs, "output", None, valid_type=dict())
+
+    def run(self):
+        list_outputs = list()
+        for func_kwargs in self._list_func_kwargs:
+            output = self._func(**func_kwargs)
+
+            if self._output is not None:
+                list_outputs.append(output)
+
+        if self._output is not None:
+            self._output[self.native_id] = list_outputs
 
 
 def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
@@ -71,3 +92,59 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
         time.sleep(5)
 
     wait_for_all(active_threads)
+
+def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
+    # type: (Collection[Any], Callable, str, Dict[str, Any], Dict[str, Any]) -> Union[List[Any], None]
+    simultaneous_runs = get_value(kwargs, "simultaneous_runs", 8)
+    n = get_value(kwargs, "n", 10)
+
+    output = dict()     # type: Dict[Any, List[Any]]
+
+    data = list(data)
+
+    if n * simultaneous_runs > len(data):
+        n = math.ceil(len(data) / simultaneous_runs)
+
+    active_threads = list()
+    thread_id = 0
+
+    i = 0
+    while i < len(data):
+
+
+        # get n datapoints
+        infos = list()
+        counter = 0
+        while i < len(data):
+            infos.append({
+                data_arg_name: data[i], **func_kwargs
+            })
+            i += 1
+            counter += 1
+            if counter == n:
+                break
+
+        # Create a thread for genome and run
+        thread = GenericThreadN(func, infos, output=output)
+        thread.start()
+        thread_id += 1
+
+        active_threads.append(thread)
+
+        # wait until number of active threads is low
+        if len(active_threads) >= simultaneous_runs:
+            wait_for_any(active_threads)
+
+        log.critical(f"{i} / {len(data)}")
+
+        # time.sleep(5)
+
+    wait_for_all(active_threads)
+
+    return [
+        x for l in output.values() for x in l
+    ]
+
+
+
+

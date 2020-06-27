@@ -34,8 +34,11 @@ def get_value(kv_pairs, key, default=None, **kwargs):
     default_value_callable = _get_value_helper(kwargs, "default_value_callable", None, value_type=Callable)
 
     value = _get_value_helper(kv_pairs, key, default)
-    if default is None and default_value_callable is not None:
-        value = default_value_callable()
+    if value is None and default_if_none:
+        if default is not None:
+            value = default
+        elif default_value_callable is not None:
+            value = default_value_callable()
 
     # perform Checks
     if value is not None and value_type is not None and not isinstance(value, value_type):
@@ -49,6 +52,8 @@ def get_value(kv_pairs, key, default=None, **kwargs):
 
     if choices is not None and value not in choices:
         raise ValueError(f"Key {key} has value {value}, not in: " + ", ".join(choices))
+
+
 
     if perform_copy:
         value = copy.deepcopy(value)
