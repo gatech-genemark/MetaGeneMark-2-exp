@@ -34,7 +34,7 @@ parser = argparse.ArgumentParser("Test MGM2 model on verified set.")
 parser.add_argument('--pf-gil', required=True, help="Genome information list")
 parser.add_argument('--pf-mgm-bac', nargs="+", required=True)
 parser.add_argument('--pf-mgm-arc', nargs="+", required=True)
-parser.add_argument('--component', nargs="+", choices=["Start Codons", "Start Context", "RBS", "Promoter", "All"])
+parser.add_argument('--component', nargs="+")#  choices=["Start Codons", "Start Context", "RBS", "Promoter", "All RBS", "All"])
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -62,14 +62,6 @@ def test_component_for_gi(env, gi, list_pf_mgm, list_component):
     start_components = {
         "Start Codons", "Start Context", "RBS", "Promoter",
     }
-    # components_off = start_components.difference({component})
-    #
-    # if component == "Start Context":
-    #     component_on = {component}  # "rbs", "promoter"}
-    #     components_off.remove("RBS")
-    #     components_off.remove("Promoter")
-    # else:
-    #     component_on = {component}
 
     # test GMS2, MGM, MGM2, and MGM2*
     env_dup = env.duplicate({"pd-work": pd_gi})
@@ -114,7 +106,7 @@ def test_component_on_verified(env, gil, list_pf_mgm_bac, list_pf_mgm_arc, list_
     print(df.to_csv())
 
     hue_order = reversed(["GMS2"] + [
-        f"MGM: {x}" for x in ["All", "RBS", "Promoter", "Start Context", "Start Codons"]
+        f"MGM: {x}" for x in ["All", "All RBS", "RBS Promoter", "RBS", "Promoter", "Start Context", "Start Codons"]
         if x in list_component
     ] + ["MGM"])
 

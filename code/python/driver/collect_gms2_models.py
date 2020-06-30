@@ -3,8 +3,11 @@
 
 import logging
 import argparse
+import numpy as np
 import pandas as pd
 from typing import *
+
+from Bio import SeqIO
 from tqdm import tqdm
 
 # noinspection All
@@ -15,8 +18,10 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_argparse.parallelization import add_parallelization_options
+from mg_general.shelf import compute_gc
 from mg_io.general import save_obj
 from mg_general.general import os_join, get_value
+from mg_io.labels import read_labels_from_file
 from mg_parallelization.pbs import PBS
 from mg_container.gms2_mod import GMS2Mod
 from mg_pbs_data.splitters import split_gil
@@ -57,13 +62,16 @@ def collect_start_info_from_gi(env, gi):
     pd_genome = os_join(env["pd-data"], gi.name)
     pf_sequence = os_join(pd_genome, "sequence.fasta")
 
-    gc = gi.attributes.get("gc")
-    if gc is None or float(gc) == 0:
-        gc = compute_single_gc_from_file(pf_sequence)
 
     pd_genome_run = os_join(env["pd-runs"], gi.name)
     pd_gms2 = os_join(pd_genome_run, "gms2")
     pf_mod = os_join(pd_gms2, "GMS2.mod")
+    pf_gms2_labels = os_join(pd_gms2, "gms2.gff")
+
+    # get GC at genome level and average gene gc
+    sequences = SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
+    genome_gc = compute_gc(sequences)
+    avg_gene_gc = np.mean([compute_gc(sequences, label) for label in read_labels_from_file(pf_gms2_labels)])
 
     mod = GMS2Mod.init_from_file(pf_mod)
 
@@ -72,7 +80,8 @@ def collect_start_info_from_gi(env, gi):
 
     return {
         "Genome": gi.name,
-        "GC": gc,
+        "GC": genome_gc,
+        "Average Gene GC": avg_gene_gc,
         "Mod": mod,
         # # **{
         # #     x: mod.items[x] for x in {

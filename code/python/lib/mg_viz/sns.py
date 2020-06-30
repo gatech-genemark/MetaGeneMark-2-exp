@@ -147,17 +147,24 @@ def lmplot(df, x, y, hue=None, figure_options=None, **kwargs):
 
 
 def distplot(df, x, figure_options=None, **kwargs):
-    _, ax = plt.subplots()
+
+    ax = get_value(kwargs, "ax", None)
+    show = get_value(kwargs, "show", ax is None)
+
+    if ax is None:
+        _, ax = plt.subplots()
 
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     if "kde" not in sns_kwargs:
         sns_kwargs["kde"] = True
 
-    g = sns.distplot(df[x], bins=50, **sns_kwargs)
+    g = sns.distplot(df[x], bins=50, ax=ax, **sns_kwargs)
 
     FigureOptions.set_properties_for_axis(g.axes, figure_options)
-    save_figure(figure_options)
-    plt.show()
+
+    if show:
+        save_figure(figure_options)
+        plt.show()
 
 
 def jointplot(df, x, y, hue=None, figure_options=None, **kwargs):
@@ -188,14 +195,14 @@ def tsplot(df, x, y, hue=None, figure_options=None, **kwargs):
     plt.show()
 
 
-def barplot(df, x, y, hue, figure_options=None, **kwargs):
+def barplot(df, x, y, hue=None, figure_options=None, **kwargs):
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     ax = get_value(kwargs, "ax", None)
 
     g = sns.barplot(x=x, y=y, data=df, hue=hue, ax=ax, **sns_kwargs)
 
     if hue is not None:
-        plt.legend(loc='center left', bbox_to_anchor=(1.05, 0.5))
+        plt.legend(loc='best', bbox_to_anchor=(1.05, 0.5))
 
     FigureOptions.set_properties_for_axis(g, figure_options)
     plt.tight_layout()
