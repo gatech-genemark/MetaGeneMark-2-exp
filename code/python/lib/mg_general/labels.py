@@ -220,6 +220,7 @@ class Labels:
             labels = list()
 
         self._labels = copy.copy(labels)  # type: List[Label]
+        self._labels_by_3p = {create_key_3prime_from_label(lab): lab for lab in labels}
         self.name = name
 
         if not isinstance(self._labels, list):
@@ -238,12 +239,7 @@ class Labels:
 
     def get_by_3prime_key(self, key):
         # type: (str) -> Union[Label, None]
-
-        for label in self._labels:
-            if create_key_3prime_from_label(label) == key:
-                return label
-
-        return None
+        return self._labels_by_3p.get(key)
 
     def get_multiple_by_3prime_keys(self, keys):
         # type: (Iterable[str]) -> Labels
@@ -270,12 +266,16 @@ class Labels:
 
     def add(self, label):
         self._labels.append(label)
+        self._labels_by_3p[create_key_3prime_from_label(label)] = label
 
         self._iter_max = len(self._labels)
 
     def add_multiple(self, labels):
         # type: (Labels) -> None
         self._labels += labels._labels
+
+        for l in labels._labels:
+            self._labels_by_3p[create_key_3prime_from_label(l)] = l
 
         self._iter_max = len(self._labels)
 

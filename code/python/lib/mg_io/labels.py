@@ -4,19 +4,17 @@ import sys
 from typing import *
 from mg_general.general import get_value
 
-sys.path.append(os.path.dirname(__file__) + "/..")       # add custom library directory to path
+sys.path.append(os.path.dirname(__file__) + "/..")  # add custom library directory to path
 
 from mg_general.labels import Label, Coordinates, Labels
 
 
 def write_string_to_file(astring, filename):
-
     with open(filename, "w") as f:
         f.write(astring)
 
 
 def write_labels_to_file(labels, filename):
-
     out = labels.to_string(shift_coordinates_by=1)
     write_string_to_file(out, filename)
 
@@ -33,8 +31,9 @@ def create_attribute_dict(attribute_string, delimiter=";", key_value_delimiter="
 
     return attributes
 
+
 def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
-    # type: (str,  int, Union[str, None], Dict[str, Any]) -> mg_general.labels.Labels
+    # type: (str,  int, Union[str, None], Dict[str, Any]) -> Labels
     # FIXME: only supports gff
 
     ignore_frameshifted = get_value(kwargs, "ignore_frameshifted", False)
@@ -59,10 +58,10 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
 
                 label = Label.from_fields(
                     {
-                        "left" : int(m.group(4)) + shift,
-                        "right" : int(m.group(5)) + shift,
-                        "strand" : m.group(7),
-                        "seqname" : m.group(1),
+                        "left": int(m.group(4)) + shift,
+                        "right": int(m.group(5)) + shift,
+                        "strand": m.group(7),
+                        "seqname": m.group(1),
                     },
                     attributes=attributes
                 )
@@ -79,7 +78,6 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
 
 def read_lst(pf_labels, shift=-1):
     # type: (str, int) -> Labels
-
 
     labels = list()
 
@@ -110,14 +108,13 @@ def read_lst(pf_labels, shift=-1):
 
             m = pattern.match(line)
             if m:
-
                 attributes = m.group(6)
 
                 label = {
-                    "left" : int(m.group(3)) + shift,
-                    "right" : int(m.group(4)) + shift,
-                    "strand" : m.group(2),
-                    "seqname" : seqname,
+                    "left": int(m.group(3)) + shift,
+                    "right": int(m.group(4)) + shift,
+                    "strand": m.group(2),
+                    "seqname": seqname,
                     "attributes": attributes
                 }
 
@@ -133,5 +130,3 @@ def read_lst(pf_labels, shift=-1):
                 )
 
     return Labels(labels)
-
-

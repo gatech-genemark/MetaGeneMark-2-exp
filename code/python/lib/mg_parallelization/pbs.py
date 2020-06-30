@@ -73,6 +73,7 @@ class PBS:
         """
 
         job_name = get_value(kwargs, "job_name", "JOBNAME")
+
         pf_input_package_template_formatted = os.path.join(
             os.path.abspath(self._prl_options["pbs-pd-head"]), "input_package_{}"
         )
@@ -126,6 +127,8 @@ class PBS:
         :rtype: List[str]
         """
 
+        split_collector = get_value(kwargs, "split_collector", None, valid_type=list)       # type: List
+
         pd_work_pbs = self._prl_options["pbs-pd-head"]
 
         pf_package_template_formatted = get_value(
@@ -134,6 +137,11 @@ class PBS:
 
         # Split data
         list_split_data = self._splitter(data, num_splits)
+
+        # collect split data if requested
+        if split_collector is not None:
+            for d in list_split_data:
+                split_collector.append(d)
 
         # Write package to disk
         list_pf_data = self._package_and_save_list_data(list_split_data, func, func_kwargs,

@@ -1,6 +1,6 @@
 # Author: Karl Gemayel
 # Created: 6/22/20, 3:41 PM
-
+import copy
 import logging
 import argparse
 import math
@@ -135,9 +135,10 @@ def add_codon_probabilities(df, mgm, codons, **kwargs):
             genome_tag = "B"        # FIXME
             mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[c] = avg
 
-    df_tmp = pd.DataFrame(list_entries)
+
 
     if plot:
+        df_tmp = pd.DataFrame(list_entries)
         sns.scatterplot(df_tmp, "GC", "Probability", hue="Codon")
 
 
@@ -210,8 +211,6 @@ def add_start_context_probabilities(df, mgm, tag, **kwargs):
     # get all words appearing in start contexts and all positions
 
     for p in range(num_positions):
-        # if p > 1:
-        #     break
         for w in tqdm(words, f"Building {p}", total=len(words)):
             x = [0.0] * len(df.index)
             y = [0.0] * len(df.index)
@@ -267,21 +266,21 @@ def add_start_context_probabilities(df, mgm, tag, **kwargs):
             plt.show()
 
     # add gc models to mgm
-    genome_tag = "B"        # genome_type[0]    FIXME
-    for gc_tag in sc_gc.keys():
-        mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[tag + "_MAT"] = sc_gc[gc_tag]
-        mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}"] = 1
-        mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_ORDER"] = 2
-        mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_WIDTH"] = 18
-        mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_MARGIN"] = -15
+    for genome_tag in ["A", "B"]:        # genome_type[0]    FIXME
+        for gc_tag in sc_gc.keys():
+            mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[tag + "_MAT"] = sc_gc[gc_tag]
+            mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}"] = 1
+            mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_ORDER"] = 2
+            mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_WIDTH"] = 18
+            mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{tag}_MARGIN"] = -15
 
-        if gc_step > 1:
-            for curr in range(gc_tag, min(gc_max, gc_tag + gc_step)):
-                mgm.items_by_species_and_gc[genome_tag][str(curr)].items[tag + "_MAT"] = sc_gc[gc_tag]
-                mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}"] = 1
-                mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_ORDER"] = 2
-                mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_WIDTH"] = 18
-                mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_MARGIN"] = -15
+            if gc_step > 1:
+                for curr in range(gc_tag, min(gc_max, gc_tag + gc_step)):
+                    mgm.items_by_species_and_gc[genome_tag][str(curr)].items[tag + "_MAT"] = sc_gc[gc_tag]
+                    mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}"] = 1
+                    mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_ORDER"] = 2
+                    mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_WIDTH"] = 18
+                    mgm.items_by_species_and_gc[genome_tag][str(curr)].items[f"{tag}_MARGIN"] = -15
 
 
     #
@@ -400,18 +399,19 @@ def add_motif_probabilities(env, df, mgm, tag, **kwargs):
     width = df.at[df.index[0], "Mod"].items[f"{tag}_WIDTH"]
     dur = df.at[df.index[0], "Mod"].items[f"{tag}_MAX_DUR"]
 
-    # tag = "RBS"     # FIXME
-    for gc in range(30, 71):
-        motif = motif_by_gc.get_model_by_gc(gc)
-        best_shift = max(motif._shift_prior.items(), key=operator.itemgetter(1))[0]
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_MAT"] = motif._motif[best_shift]
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_POS_DISTR"] = motif._spacer[best_shift]
+    # tag = "RBS"
+    for genome_tag in ["A", "B"]:        # FIXME
+        for gc in range(30, 71):
+            motif = motif_by_gc.get_model_by_gc(gc)
+            best_shift = max(motif._shift_prior.items(), key=operator.itemgetter(1))[0]
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_MAT"] = motif._motif[best_shift]
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_POS_DISTR"] = motif._spacer[best_shift]
 
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}"] = 1
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_ORDER"] = 0
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_WIDTH"] = width
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_MARGIN"] = 0
-        mgm.items_by_species_and_gc["B"][str(gc)].items[f"{tag}_MAX_DUR"] = dur
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}"] = 1
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_ORDER"] = 0
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_WIDTH"] = width
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_MARGIN"] = 0
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{tag}_MAX_DUR"] = dur
 
 
 def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
@@ -434,7 +434,20 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
     # Start Context
     if "Start Context" in components:
         add_start_context_probabilities(df, mgm, "SC_RBS", genome_type=genome_type, plot=plot)
-        add_start_context_probabilities(df, mgm, "SC_PROMOTER", genome_type=genome_type, plot=plot)
+        # copy rbs sc to promoter sc
+        gtag = "B" # genome_type[0]
+
+        # if "Promoter" in components:
+        for gc in mgm.items_by_species_and_gc[gtag].keys():
+            for_prom = dict()
+            for k in mgm.items_by_species_and_gc[gtag][gc].items.keys():
+                if "SC_RBS" in k:
+                    # mgm.items_by_species_and_gc[gtag][gc].items[k.replace("RBS", "PROMOTER")] = copy.copy(mgm.items_by_species_and_gc[gtag][gc].items[k])
+                    for_prom[k.replace("RBS", "PROMOTER")] = copy.copy(
+                        mgm.items_by_species_and_gc[gtag][gc].items[k])
+
+            mgm.items_by_species_and_gc[gtag][gc].items.update(for_prom)
+        # add_start_context_probabilities(df[df["GENOME_TYPE"].isin({"C", "D"})], mgm, "SC_PROMOTER", genome_type=genome_type, plot=plot)
         # add_start_context_probabilities(df, mgm, "SC_RBS", genome_type="Archaea")
 
     # Motifs
@@ -476,6 +489,10 @@ def main(env, args):
     df = read_archaea_bacteria_inputs(args.pf_arc, args.pf_bac)
     df = df.convert_dtypes().copy()
     # df = df.sample(100).copy()
+
+    pd_work = os_join(env["pd-work"], "_".join(args.components).lower())
+    mkdir_p(pd_work)
+    env = env.duplicate({'pd-work': pd_work})
 
     mgm = MGMModel.init_from_file(args.pf_mgm)
     build_mgm_models_from_gms2_models(env, df, mgm, components=args.components, genome_type=args.genome_type,

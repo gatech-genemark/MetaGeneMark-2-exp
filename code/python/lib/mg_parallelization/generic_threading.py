@@ -96,7 +96,7 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
 def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
     # type: (Collection[Any], Callable, str, Dict[str, Any], Dict[str, Any]) -> Union[List[Any], None]
     simultaneous_runs = get_value(kwargs, "simultaneous_runs", 8)
-    n = get_value(kwargs, "n", 10)
+    n = get_value(kwargs, "n", math.ceil(len(data)/simultaneous_runs), valid_type=int)
 
     output = dict()     # type: Dict[Any, List[Any]]
 
