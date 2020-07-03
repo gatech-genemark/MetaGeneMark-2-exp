@@ -63,6 +63,25 @@ void Model::Initialize(void)
 	InitializeSite( &Promoter, true, 0, "Promoter" );
 	InitializeSite( &StartContentPromoter, false, 2, "StartContentPromoter" );
 	InitializeSite( &StartContent, false, 2, "StartContent" );
+    
+    InitializeSite( &RBS_A, true, 0, "RBS_A" );
+    InitializeSite( &RBS_B, true, 0, "RBS_B" );
+    InitializeSite( &RBS_C, true, 0, "RBS_C" );
+    InitializeSite( &RBS_D, true, 0, "RBS_D" );
+    InitializeSite( &RBS_X, true, 0, "RBS_X" );
+    
+    InitializeSite( &SC_RBS_A, false, 2, "SC_RBS_A" );
+    InitializeSite( &SC_RBS_B, false, 2, "SC_RBS_B" );
+    InitializeSite( &SC_RBS_C, false, 2, "SC_RBS_C" );
+    InitializeSite( &SC_RBS_D, false, 2, "SC_RBS_D" );
+    InitializeSite( &SC_RBS_X, false, 2, "SC_RBS_X" );
+    
+    InitializeSite( &PROMOTER_C, true, 0, "Promoter_A" );
+    InitializeSite( &PROMOTER_D, true, 0, "Promoter_B" );
+    
+    
+    InitializeSite( &SC_PROMOTER_C, false, 2, "SC_PROMOTER_C" );
+    InitializeSite( &SC_PROMOTER_D, false, 2, "SC_PROMOTER_D" );
 
 	if (logger->debug > 10)
 	{

@@ -524,214 +524,239 @@ void SequenceMap::CalcGC( Data & d )
 	}
 }
 // ----------------------------------------------------
-void SequenceMap::CalcStartsGC(std::vector< Model* > & mod, std::vector<unsigned char> & nt)
+void SequenceMap::CalcStartScoreForPositionNative(Model* m, std::vector<unsigned char> & nt, vector< MapValue >::iterator itr, GMS2_GROUP gms2_group)
 {
-	enum START_MODEL_TYPE { NON, SC, RBS, PROMOTER, RBS_SC, PROMOTER_SC, RBS_PROMOTER, RBS_PROMOTER_SC };
-	START_MODEL_TYPE selector = NON;
+    float NOT_SET = -100000000;
+    float score_rbs = 0;        // score for rbs motif/spacer only
+    float score_prom = 0;       // score for promoter motif/spacer only
+    float score_scrbs = 0;       // score for start context RBS only (separate from motif/spacer score)
+    float score_scprom = 0;     // score for start context promoter only (separate from motif/spacer score)
+    float score_eus = 0;        // score for extended upstream signature
+    
+    bool rbs = false, prom = false, scrbs = false, scprom = false, eus = false;
+    
+    // set which models are allowed based on gms2 group setting
+    
+    // compute scores
+    if (m->RBS.is_valid) {
+        score_rbs = m->RBS.GetWithDur(nt, itr->pos, itr->status);
+        itr->logodd_RBS = score_rbs;
+        rbs = true;
+    }
+    if (m->Promoter.is_valid) {
+        score_prom = m->Promoter.GetWithDur(nt, itr->pos, itr->status);
+        itr->logodd_Promoter = score_prom;
+        prom = true;
+    }
+    if (m->StartContentRBS.is_valid) {
+        score_scrbs = m->StartContentRBS.Get(nt, itr->pos, itr->status);
+        itr->logodd_RBS_SC = score_scrbs;
+        scrbs = true;
+    }
+    if (m->StartContentPromoter.is_valid) {
+        score_scprom = m->StartContentPromoter.Get(nt, itr->pos, itr->status);
+        itr->logodd_Promoter_SC = score_scprom;
+        scprom = true;
+    }
+    if (m->StartContent.is_valid) {       // extended upstream signature
+        score_eus = m->StartContent.Get(nt, itr->pos, itr->status);
+        eus = true;
+    }
 
-	double x = 0;
+    // Get total scores for different components
+    float total_rbs = NOT_SET;
+    if (rbs && scrbs) total_rbs = score_rbs + score_scrbs;
+    else if (rbs) total_rbs = score_rbs;
+    else if (scrbs) total_rbs = score_scrbs;
+    
+    float total_prom = NOT_SET;
+    if (prom && scprom) total_prom = score_prom + score_scprom;
+    else if (prom) total_prom = score_prom;
+    else if (scprom) total_prom = score_scprom;
+    
+    float total_eus = NOT_SET;
+    if (eus) total_eus = score_eus;
+    
+    // Check which component has highest score:
+    if (! (rbs | prom | scrbs | scprom | eus)) {     // if no model is set, skip
+        return;
+    }
+    else {
+        // RBS has highest
+        if (total_rbs >= total_prom && total_rbs >= total_eus) {
+            itr->logodd_start = total_rbs;
+            
+            // if rbs motif is active, set type
+            if (rbs)
+                itr->stype = 1;
+        }
+        // Promoter has highest
+        else if (total_prom >= total_rbs && total_prom >= total_eus) {
+            itr->logodd_start = total_prom;
+            
+            // if rbs motif is active, set type
+            if (prom)
+                itr->stype = 2;
+        }
+        // Extended upstream signature has highest
+        else if (total_eus >= total_rbs && total_eus >= total_prom) {
+            itr->logodd_start = total_eus;
+            itr->stype = 3;
+        }
+    }
+}
 
+void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsigned char> & nt, vector< MapValue >::iterator itr, GMS2_GROUP gms2_group)
+{
+    float NOT_SET = -100000000;
+    float score_rbs = 0;        // score for rbs motif/spacer only
+    float score_prom = 0;       // score for promoter motif/spacer only
+    float score_scrbs = 0;       // score for start context RBS only (separate from motif/spacer score)
+    float score_scprom = 0;     // score for start context promoter only (separate from motif/spacer score)
+    float score_eus = 0;        // score for extended upstream signature
+    
+    bool rbs = false, prom = false, scrbs = false, scprom = false, eus = false;
+    
+    // the following variables will hold the models that will be used
+    Site *m_rbs = nullptr, *m_prom = nullptr, *m_scrbs = nullptr, *m_scprom = nullptr, *m_eus = nullptr;
+    if (gms2_group == A) {
+        m_rbs = &m->RBS_A;
+        m_scrbs = &m->SC_RBS_A;
+    }
+    else if (gms2_group == B) {
+        m_rbs = &m->RBS_B;
+        m_scrbs = &m->SC_RBS_B;
+    }
+    else if (gms2_group == C) {
+        m_rbs = &m->RBS_C;
+        m_scrbs = &m->SC_RBS_C;
+        m_prom = &m->PROMOTER_C;
+        m_scprom = &m->SC_PROMOTER_C;
+    }
+    else if (gms2_group == D) {
+        m_rbs = &m->RBS_D;
+        m_scrbs = &m->SC_RBS_D;
+        m_prom = &m->PROMOTER_D;
+        m_scprom = &m->SC_PROMOTER_D;
+    }
+    else if (gms2_group == X) {
+        m_rbs = &m->RBS_X;
+        m_scrbs = &m->SC_RBS_X;
+        m_eus = &m->EUS;
+    }
+    
+    // set which models are allowed based on gms2 group setting
+    
+    // compute scores
+    if (m_rbs != nullptr && m_rbs->is_valid) {
+        score_rbs = m_rbs->GetWithDur(nt, itr->pos, itr->status);
+        
+        itr->logodd_RBS = score_rbs;
+        rbs = true;
+    }
+    if (m_prom != nullptr && m_prom->is_valid) {
+        score_prom = m_prom->GetWithDur(nt, itr->pos, itr->status);
+        itr->logodd_Promoter = score_prom;
+        prom = true;
+    }
+    if (m_scrbs != nullptr && m_scrbs->is_valid) {
+        score_scrbs = m_scrbs->Get(nt, itr->pos, itr->status);
+        itr->logodd_RBS_SC = score_scrbs;
+        scrbs = true;
+    }
+    if (m_scprom != nullptr && m_scprom->is_valid) {
+        score_scprom = m_scprom->Get(nt, itr->pos, itr->status);
+        itr->logodd_Promoter_SC = score_scprom;
+        scprom = true;
+    }
+    if (m_eus != nullptr && m_eus->is_valid) {       // extended upstream signature
+        score_eus = m_eus->Get(nt, itr->pos, itr->status);
+        eus = true;
+    }
+    
+    
+    // Get total scores for different components
+    float total_rbs = NOT_SET;
+    if (rbs && scrbs) total_rbs = score_rbs + score_scrbs;
+    else if (rbs) total_rbs = score_rbs;
+    else if (scrbs) total_rbs = score_scrbs;
+    
+    float total_prom = NOT_SET;
+    if (prom && scprom) total_prom = score_prom + score_scprom;
+    else if (prom) total_prom = score_prom;
+    else if (scprom) total_prom = score_scprom;
+    
+    float total_eus = NOT_SET;
+    if (eus) total_eus = score_eus;
+    
+    // Check which component has highest score:
+    if (! (rbs | prom | scrbs | scprom | eus)) {     // if no model is set, skip
+        return;
+    }
+    else {
+        // comparing negative values when EVERYTHING is negative makes no biological sense
+        if (total_rbs > 0 || total_prom > 0 || total_eus > 0) {
+            
+            // RBS has highest
+            if (total_rbs >= total_prom && total_rbs >= total_eus) {
+                itr->logodd_start = total_rbs;
+                
+                // if rbs motif is active, set type
+                if (rbs)
+                    itr->stype = 1;
+            }
+            // Promoter has highest
+            else if (total_prom >= total_rbs && total_prom >= total_eus) {
+                itr->logodd_start = total_prom;
+                
+                // if rbs motif is active, set type
+                if (prom)
+                    itr->stype = 2;
+            }
+            // Extended upstream signature has highest
+            else if (total_eus >= total_rbs && total_eus >= total_prom) {
+                itr->logodd_start = total_eus;
+                itr->stype = 3;
+            }
+        }
+    }
+}
+// ----------------------------------------------------
+void SequenceMap::CalcStartsGC(std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group)
+{
+
+	Model* m;
+    
 	for (vector< MapValue >::iterator itr = data.begin(); itr != data.end(); ++itr)
 	{
-		if ((!itr->is_good) || (itr->status & iniCod) || (itr->status & terCod) || (itr->status & isGap))
-			continue;
-
-		if (itr->status & startMark)
-		{
-			x = mod[itr->gc]->StartContentRBS.Get(nt, itr->pos, itr->status);
-			itr->logodd_start = x;
-		}
+        
+        if ((!itr->is_good) || (itr->status & iniCod) || (itr->status & terCod) || (itr->status & isGap))
+            continue;
+        
+        if (!(itr->status & startMark))
+            continue;
+        
+        
+		m = mod[itr->gc];
+        
+        CalcStartScoreForPositionAtypical(m, nt, itr, gms2_group);
 	}
 }
 // ----------------------------------------------------
-void SequenceMap::CalcStarts( Model* mod, std::vector<unsigned char> & nt )
+void SequenceMap::CalcStarts( Model* m, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group )
 {
-	enum START_MODEL_TYPE  { NON, SC, RBS, PROMOTER, RBS_SC, PROMOTER_SC, RBS_PROMOTER, RBS_PROMOTER_SC }; 
-	START_MODEL_TYPE selector = NON;
-
-	if ( mod->RBS.is_valid && mod->StartContentRBS.is_valid && mod->Promoter.is_valid && mod->StartContentPromoter.is_valid && mod->StartContent.is_valid )
-	{
-		selector = RBS_PROMOTER_SC;
-	}
-	else if ( mod->RBS.is_valid && mod->StartContentRBS.is_valid && mod->Promoter.is_valid && mod->StartContentPromoter.is_valid )
-	{
-		selector = RBS_PROMOTER;
-	}
-	else if ( mod->Promoter.is_valid && mod->StartContentPromoter.is_valid && mod->StartContent.is_valid )
-	{
-		selector = PROMOTER_SC;
-	}
-	else if ( mod->RBS.is_valid && mod->StartContentRBS.is_valid && mod->StartContent.is_valid )
-	{
-		selector = RBS_SC;
-	}
-	else if ( mod->Promoter.is_valid && mod->StartContentPromoter.is_valid )
-	{
-		selector = PROMOTER;
-	}
-	else if ( mod->RBS.is_valid && mod->StartContentRBS.is_valid )
-	{
-		selector = RBS;
-	}
-	else if ( mod->StartContent.is_valid )
-	{
-		selector = SC;
-	}
-	else if ( !mod->RBS.is_valid && !mod->StartContentRBS.is_valid && !mod->Promoter.is_valid && !mod->StartContentPromoter.is_valid && !mod->StartContent.is_valid )
-	{
-		selector = NON;
-	}
-	else
-	{
-		cerr << "error, unexpected combination of start model parameters detected" << endl;
-		exit(1);
-	}
-
-	double x = 0;
-
-	for( vector< MapValue >::iterator itr = data.begin(); itr != data.end(); ++itr )
-	{
-		if (( !itr->is_good )||( itr->status & iniCod )||( itr->status & terCod )||(itr->status & isGap))
-			continue;
-
-		if ( itr->status & startMark )
-		{
-			switch (selector)
-			{
-				case NON:
-					break;
-
-				case SC:
-					{
-						itr->logodd_start = mod->StartContent.Get( nt, itr->pos, itr->status );
-						itr->stype = 3;
-					}
-					break;
-
-				case RBS:
-					{
-						x = mod->RBS.GetWithDur( nt, itr->pos, itr->status );
-						itr->logodd_start = x;
-						itr->logodd_RBS = x;
-						x = mod->StartContentRBS.Get( nt, itr->pos, itr->status );
-						itr->logodd_start += x;
-						itr->logodd_RBS_SC = x;
-						itr->stype = 1;
-					}
-					break;
-
-				case PROMOTER:
-					{
-						x = mod->Promoter.GetWithDur( nt, itr->pos, itr->status );
-						itr->logodd_start = x;
-						itr->logodd_Promoter = x;
-						x = mod->StartContentPromoter.Get( nt, itr->pos, itr->status );
-						itr->logodd_start += x;
-						itr->logodd_Promoter_SC = x;
-						itr->stype = 2;
-					}
-					break;
-
-				case RBS_SC:
-					{
-						double score_rbs  = mod->RBS.GetWithDur( nt, itr->pos, itr->status );
-						       score_rbs += mod->StartContentRBS.Get( nt, itr->pos, itr->status );
-						double score_sc  = mod->StartContent.Get( nt, itr->pos, itr->status );
-						if ( score_rbs > score_sc )
-						{
-							itr->logodd_start = score_rbs;
-							itr->stype = 1;
-						}
-						else
-						{
-							itr->logodd_start = score_sc;
-							itr->stype = 3;
-						}
-					}
-					break;
-
-				case PROMOTER_SC:
-					{
-						double score_pro  = mod->Promoter.GetWithDur( nt, itr->pos, itr->status );
-						       score_pro += mod->StartContentPromoter.Get( nt, itr->pos, itr->status );
-						double score_sc  = mod->StartContent.Get( nt, itr->pos, itr->status );
-						if ( score_pro > score_sc )
-						{
-							itr->logodd_start = score_pro;
-							itr->stype = 2;
-						}
-						else
-						{
-							itr->logodd_start = score_sc;
-							itr->stype = 3;
-						}
-					}
-					break;
-
-				case RBS_PROMOTER:
-					{
-						x = mod->RBS.GetWithDur( nt, itr->pos, itr->status );
-						double score_rbs = x;
-						itr->logodd_RBS = x;
-						x = mod->StartContentRBS.Get( nt, itr->pos, itr->status );
-						score_rbs += x;
-						itr->logodd_RBS_SC = x;
-
-						x = mod->Promoter.GetWithDur( nt, itr->pos, itr->status );
-						double score_pro = x;
-						itr->logodd_Promoter = x;
-						x = mod->StartContentPromoter.Get( nt, itr->pos, itr->status );
-						score_pro += x;
-						itr->logodd_Promoter_SC = x;
-
-						if ( score_rbs > score_pro )
-						{
-							itr->logodd_start = score_rbs;
-							itr->stype = 1;
-						}
-						else
-						{
-							itr->logodd_start = score_pro;
-							itr->stype = 2;
-						}
-					}
-					break;
-
-				case RBS_PROMOTER_SC:
-				{
-						double score_rbs  = mod->RBS.GetWithDur( nt, itr->pos, itr->status );
-						       score_rbs += mod->StartContentRBS.Get( nt, itr->pos, itr->status );
-
-						double score_pro  = mod->Promoter.GetWithDur( nt, itr->pos, itr->status );
-						       score_pro += mod->StartContentPromoter.Get( nt, itr->pos, itr->status );
-
-						double score_sc  = mod->StartContent.Get( nt, itr->pos, itr->status );
-
-						if ( score_rbs > score_pro && score_rbs > score_sc )
-						{
-							itr->logodd_start = score_rbs;
-							itr->stype = 1;
-						}
-						else if ( score_pro > score_rbs && score_pro > score_sc )
-						{
-							itr->logodd_start = score_pro;
-							itr->stype = 2;
-						}
-						else if ( score_sc > score_rbs && score_sc > score_pro )
-						{
-							itr->logodd_start = score_sc;
-							itr->stype = 3;
-						}
-						else
-						{
-							cerr << "error, check code" << endl;
-							exit(1);
-						}
-					}
-					break;
-			}
-		}
-	}
+	
+    for (vector< MapValue >::iterator itr = data.begin(); itr != data.end(); ++itr)
+    {
+        
+        if ((!itr->is_good) || (itr->status & iniCod) || (itr->status & terCod) || (itr->status & isGap))
+            continue;
+        
+        if (!(itr->status & startMark))
+            continue;
+        
+        CalcStartScoreForPositionNative(m, nt, itr, gms2_group);
+    }
 }
 // ----------------------------------------------------
 void SequenceMap::CalcLogP( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype )
@@ -913,8 +938,10 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 				
 			if ((itr->status & iniCod) || (itr->status & isGap))
 				;
-			else
+            else {
+//                cout << "Margin: " << mod[ itr->gc ]->ORF_start_marging << endl;
 				current_pos = current_pos + mod[ itr->gc ]->ORF_start_marging;
+            }
 
 			for( unsigned int i = 0; i <= order; ++i )
 			{
@@ -1805,6 +1832,7 @@ void SequenceMap::BestPath(void)
 				best_value.stype = p->stype;
 
 				best_value.origin = p;
+                
 
 				predictions.push_back(best_value);
 			}
@@ -1825,8 +1853,8 @@ void SequenceMap::BestPath(void)
 					best_value.complete_L = false;
 
 				best_value.stype = p->stype;
-
 				best_value.origin = p;
+                
 				predictions.push_back(best_value);
 			}
 		}
@@ -2118,4 +2146,82 @@ void SequenceMap::AddSiteInfo( Model* mod, std::vector<unsigned char> & nt )
 	}
 }
 // ----------------------------------------------------
+Site* get_ptr_to_rbs_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+    
+    Site *sptr = nullptr;
+    if (gms2_group == SequenceMap::GMS2_GROUP::A)
+        sptr = &mod->RBS_A;
+    else if (gms2_group == SequenceMap::GMS2_GROUP::B)
+        sptr = &mod->RBS_B;
+    else if (gms2_group == SequenceMap::GMS2_GROUP::C)
+        sptr = &mod->RBS_C;
+    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+        sptr = &mod->RBS_D;
+    else if (gms2_group == SequenceMap::GMS2_GROUP::X)
+        sptr = &mod->RBS_X;
+    return sptr;
+}
 
+Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+    
+    Site *sptr = nullptr;
+    if (gms2_group == SequenceMap::GMS2_GROUP::C)
+        sptr = &mod->PROMOTER_C;
+    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+        sptr = &mod->PROMOTER_D;
+    
+    return sptr;
+}
+
+void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vector<unsigned char> & nt, SequenceMap::GMS2_GROUP gms2_group )
+{
+    for( vector< BestValue >::iterator itr = predictions.begin(); itr != predictions.end(); ++itr )
+    {
+        Model *mod = mod_all[itr->origin->gc];
+        if ( itr->strand == STRAND_TYPES::DIRECT )
+        {
+            if (itr->stype == 1)
+            {
+                
+                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group);
+                if (sptr != nullptr)
+                    itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
+                itr->si.stype = 1;
+            }
+            else if (itr->stype == 2)
+            {
+                Site *sptr = get_ptr_to_promoter_site(mod, gms2_group);
+                
+                if (sptr != nullptr)
+                    itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
+                
+                itr->si.stype = 2;
+            }
+            else if (itr->stype == 3)
+            {
+                itr->si.stype = 3;
+            }
+        }
+        else if ( itr->strand == STRAND_TYPES::REVERSE )
+        {
+            if (itr->stype == 1)
+            {
+                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group);
+                if (sptr != nullptr)
+                    itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
+                itr->si.stype = 1;
+            }
+            else if (itr->stype == 2)
+            {
+                Site* sptr = get_ptr_to_promoter_site(mod, gms2_group);
+                if (sptr != nullptr)
+                    itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
+                itr->si.stype = 2;
+            }
+            else if (itr->stype == 3)
+            {
+                itr->si.stype = 3;
+            }
+        }
+    }
+}

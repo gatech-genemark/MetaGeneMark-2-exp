@@ -692,6 +692,15 @@ void Output::PrintGenes_EXT(std::vector< BestValue > & predictions, FastaVectorI
 		attr += " length " + IntToString(itr->R - itr->L + 1) + ";";
 		attr += " start_lod_score " + DoubleToString(itr->origin->logodd_start, 2) + ";";
 		attr += " start_bys_score " + DoubleToString(itr->origin->bayes, 2) + ";";
+		attr += " rbs_score " + DoubleToString(itr->origin->logodd_RBS, 2) + ";";
+        attr += " promoter_score " + DoubleToString(itr->origin->logodd_Promoter, 2) + ";";
+        attr += " rbs_sc_score " + DoubleToString(itr->origin->logodd_RBS_SC, 2) + ";";
+        attr += " promoter_sc_score " + DoubleToString(itr->origin->logodd_Promoter_SC, 2) + ";";
+
+        attr += " " + itr->si.seq + " " + IntToString(itr->si.spacer) + " " + IntToString(itr->si.stype);
+        std::cout << attr <<std::endl;
+        
+        
 
 		if (itr->origin->status & isATG)       attr += " start_codon ATG;";
 		else if (itr->origin->status & isGTG)  attr += " start_codon GTG;";

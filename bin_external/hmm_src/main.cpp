@@ -42,12 +42,62 @@
 #include "check.h"
 #endif
 
+float compute_logodds_and_fill_in_seqmap(Pset &pset, Data &data, SequenceMap& seqmap, Settings &settings, SequenceMap::GMS2_GROUP group, int bac_arc) {
+    
+    seqmap.Init(data.flag, pset.min_gene_length);
+    seqmap.CalcGC(data);
+
+//    if (evidence.data.size())
+//        seqmap.AddCodingEvidence(data.evi_dir_orf, data.evi_rev_orf);
+    
+    if (pset.native[0])
+        seqmap.CalcStarts(pset.native[0], data.nt, group);
+    else
+    {
+        if (bac_arc == 0) {
+            seqmap.CalcStartsGC(pset.first, data.nt, group);
+        }
+        else
+            seqmap.CalcStartsGC(pset.second, data.nt, group);
+    }
+
+    if (pset.native[0])
+    {
+        seqmap.CalcLogP(pset.native, data.nt, NATIVE_TYPE);
+        seqmap.CalcLogodd(pset.native, data.nt, NATIVE_TYPE);
+    }
+
+    if (pset.first[0])
+    {
+        seqmap.CalcLogP(pset.first, data.nt, ATYPICAL_TYPE_1);
+        seqmap.CalcLogodd(pset.first, data.nt, ATYPICAL_TYPE_1);
+    }
+
+    if (pset.second[0])
+    {
+        seqmap.CalcLogP(pset.second, data.nt, ATYPICAL_TYPE_2);
+        seqmap.CalcLogodd(pset.second, data.nt, ATYPICAL_TYPE_2);
+    }
+
+    seqmap.Run(settings.hmm.best_start_before_dp, settings.hmm.delta);
+
+    if (pset.native[0])
+        seqmap.AddSiteInfo(pset.native[0], data.nt);
+    
+    if (bac_arc == 0)
+        seqmap.AddSiteInfoAtypical(pset.first, data.nt, group);
+    else
+        seqmap.AddSiteInfoAtypical(pset.second, data.nt, group);
+    
+    return seqmap.final_logodd;
+}
+
 // ----------------------------------------------------
 int main( int argc, char** argv )
 {
 	try
 	{
-		std::string VERSION = "1.21";
+		std::string VERSION = "1.23";
 
 #ifdef LICENSE
 		VERSION += "_lic";
@@ -134,41 +184,36 @@ int main( int argc, char** argv )
 				if (evidence.data.size())
 					data.ApplyEvidence(evidence.data, itr->name);
 
-				seqmap.Init(data.flag, pset.min_gene_length);
-				seqmap.CalcGC(data);
+				
 
-				if (evidence.data.size())
-					seqmap.AddCodingEvidence(data.evi_dir_orf, data.evi_rev_orf);
-
-				if (pset.native[0])
-					seqmap.CalcStarts(pset.native[0], data.nt);
-				else
-				{
-					seqmap.CalcStartsGC(pset.first, data.nt);
-				}
-
-				if (pset.native[0])
-				{
-					seqmap.CalcLogP(pset.native, data.nt, NATIVE_TYPE);
-					seqmap.CalcLogodd(pset.native, data.nt, NATIVE_TYPE);
-				}
-
-				if (pset.first[0])
-				{
-					seqmap.CalcLogP(pset.first, data.nt, ATYPICAL_TYPE_1);
-					seqmap.CalcLogodd(pset.first, data.nt, ATYPICAL_TYPE_1);
-				}
-
-				if (pset.second[0])
-				{
-					seqmap.CalcLogP(pset.second, data.nt, ATYPICAL_TYPE_2);
-					seqmap.CalcLogodd(pset.second, data.nt, ATYPICAL_TYPE_2);
-				}
-
-				seqmap.Run(settings.hmm.best_start_before_dp, settings.hmm.delta);
-
-				if (pset.native[0])
-					seqmap.AddSiteInfo(pset.native[0], data.nt);
+                // test multiple groups
+                SequenceMap::GMS2_GROUP best_group = SequenceMap::NONE;
+                char best_label = 'N';
+                float best_score = -10000000000;
+                SequenceMap::GMS2_GROUP all_groups [] = {
+                    SequenceMap::NONE, SequenceMap::A, SequenceMap::B, SequenceMap::C, SequenceMap::D, SequenceMap::X
+                };
+                char group_labels []  = {'N', 'A', 'B', 'C', 'D', 'X'};
+                int best_type = 0;
+                
+                for (int bac_arc = 0; bac_arc < 2; bac_arc+=1) {
+                    for (int group_idx = 0; group_idx < 6; group_idx++) {
+                        float current_score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, all_groups[group_idx], bac_arc);
+                        if (current_score > best_score) {
+                            best_score = current_score;
+                            best_group = all_groups[group_idx];
+                            best_label = group_labels[group_idx];
+                            best_type = bac_arc;
+                        }
+                        std::cout << (bac_arc == 0 ? "Bacteria" : "Archaea") << "\t" << group_labels[group_idx] << "\t" << current_score << std::endl;
+                    }
+                }
+                
+                std::cout << (best_type == 0 ? "Bacteria" : "Archaea") << "\t" << "Best group: " << best_label << "\t" << best_score << std::endl;
+                
+                // rerun with best group
+                compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, best_group, best_type);
+				
 
 			} while (0);
 

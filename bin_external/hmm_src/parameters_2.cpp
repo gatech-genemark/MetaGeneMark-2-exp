@@ -162,10 +162,29 @@ void Parameters::LoadSection( ParameterParser & parser, std::string & buffer,  c
 		// =====================================================================================================
 		{
 			LoadSite( parser, par, buffer, "$RBS",          &current->second.RBS,                  true );
-			LoadSite( parser, par, buffer, "$PROMOTER",     &current->second.Promoter,             true );
-			LoadSite( parser, par, buffer, "$SC",           &current->second.StartContent,         false );
-			LoadSite( parser, par, buffer, "$SC_RBS",       &current->second.StartContentRBS,      false );
-			LoadSite( parser, par, buffer, "$SC_PROMOTER",  &current->second.StartContentPromoter, false );
+            LoadSite( parser, par, buffer, "$PROMOTER",     &current->second.Promoter,             true );
+            LoadSite( parser, par, buffer, "$SC",           &current->second.StartContent,         false );
+            LoadSite( parser, par, buffer, "$SC_RBS",       &current->second.StartContentRBS,      false );
+            LoadSite( parser, par, buffer, "$SC_PROMOTER",  &current->second.StartContentPromoter, false );
+            
+            
+            // MGM PARAMETERS
+            LoadSite( parser, par, buffer, "$RBS_A",          &current->second.RBS_A,                  true );
+            LoadSite( parser, par, buffer, "$RBS_B",          &current->second.RBS_B,                  true );
+            LoadSite( parser, par, buffer, "$RBS_C",          &current->second.RBS_C,                  true );
+            LoadSite( parser, par, buffer, "$RBS_D",          &current->second.RBS_D,                  true );
+            LoadSite( parser, par, buffer, "$RBS_X",          &current->second.RBS_X,                  true );
+            
+            LoadSite( parser, par, buffer, "$PROMOTER_C",     &current->second.PROMOTER_C,             true );
+            LoadSite( parser, par, buffer, "$PROMOTER_D",     &current->second.PROMOTER_D,             true );
+            
+            LoadSite( parser, par, buffer, "$SC_RBS_A",       &current->second.SC_RBS_A,      false );
+            LoadSite( parser, par, buffer, "$SC_RBS_B",       &current->second.SC_RBS_B,      false );
+            LoadSite( parser, par, buffer, "$SC_RBS_C",       &current->second.SC_RBS_C,      false );
+            LoadSite( parser, par, buffer, "$SC_RBS_D",       &current->second.SC_RBS_D,      false );
+            LoadSite( parser, par, buffer, "$SC_RBS_X",       &current->second.SC_RBS_X,      false );
+            LoadSite( parser, par, buffer, "$SC_PROMOTER_C",  &current->second.SC_PROMOTER_C, false );
+            LoadSite( parser, par, buffer, "$SC_PROMOTER_D",  &current->second.SC_PROMOTER_D, false );
 		}
 		// =====================================================================================================
 		{

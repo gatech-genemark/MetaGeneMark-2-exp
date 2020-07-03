@@ -122,6 +122,13 @@ public:
 	Site StartContentPromoter;
 
 	Site StartContent;
+    
+    // MGM sites
+    Site RBS_A, RBS_B, RBS_C, RBS_D, RBS_X;
+    Site SC_RBS_A, SC_RBS_B, SC_RBS_C, SC_RBS_D, SC_RBS_X;
+    Site PROMOTER_C, PROMOTER_D;
+    Site SC_PROMOTER_C, SC_PROMOTER_D;
+    Site EUS;
 
 	//
 
