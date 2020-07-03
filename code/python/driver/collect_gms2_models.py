@@ -20,7 +20,7 @@ import mg_log  # runs init in mg_log and configures logger
 from mg_argparse.parallelization import add_parallelization_options
 from mg_general.shelf import compute_gc
 from mg_io.general import save_obj
-from mg_general.general import os_join
+from mg_general.general import os_join, get_value
 from mg_io.labels import read_labels_from_file
 from mg_parallelization.pbs import PBS
 from mg_container.gms2_mod import GMS2Mod
@@ -62,9 +62,6 @@ def collect_start_info_from_gi(env, gi):
     pd_genome = os_join(env["pd-data"], gi.name)
     pf_sequence = os_join(pd_genome, "sequence.fasta")
 
-    # gc = gi.attributes.get("gc")
-    # if gc is None:
-    #     gc = compute_single_gc_from_file(pf_sequence)
 
     pd_genome_run = os_join(env["pd-runs"], gi.name)
     pd_gms2 = os_join(pd_genome_run, "gms2")
@@ -77,6 +74,9 @@ def collect_start_info_from_gi(env, gi):
     avg_gene_gc = np.mean([compute_gc(sequences, label) for label in read_labels_from_file(pf_gms2_labels)])
 
     mod = GMS2Mod.init_from_file(pf_mod)
+
+    # clean up some things
+    del mod.items["COD_MAT"]
 
     return {
         "Genome": gi.name,
@@ -93,15 +93,34 @@ def collect_start_info_from_gi(env, gi):
     }
 
 
-def collect_start_info_from_gil(env, gil):
-    # type: (Environment, GenomeInfoList) -> pd.DataFrame
+def collect_start_info_from_gil(env, gil, **kwargs):
+    # type: (Environment, GenomeInfoList, Dict[str, Any]) -> pd.DataFrame
+    pf_output = get_value(kwargs, "pf_output", None, valid_type=str)
 
     list_entries = list()
     for gi in tqdm(gil, total=len(gil)):
         entry = collect_start_info_from_gi(env, gi)
         list_entries.append(entry)
 
-    return pd.DataFrame(list_entries)
+    df = pd.DataFrame(list_entries)
+    if pf_output is not None:
+        df.to_csv(pf_output, index=False)
+
+    return df
+
+def collect_start_info_from_gil_and_print_to_file(env, gil, pf_output):
+    # type: (Environment, GenomeInfoList, str) -> str
+
+    list_entries = list()
+    for gi in tqdm(gil, total=len(gil)):
+        entry = collect_start_info_from_gi(env, gi)
+        list_entries.append(entry)
+
+    df = pd.DataFrame(list_entries)
+    df.to_csv(pf_output, index=False)
+    return pf_output
+
+
 
 
 def main(env, args):
@@ -117,7 +136,7 @@ def main(env, args):
                   )
 
         df = pbs.run(
-            data={"gil": gil},
+            data=gil,
             func=collect_start_info_from_gil,
             func_kwargs={
                 "env": env,
