@@ -60,7 +60,15 @@ public:
 	double  pTAA;
 	double  pTAG;
 	double  pTGA;
-
+    
+    
+    std::vector<double> non_2;           // used for normalizing start probability (was previously only in CalcStartLogodd function)
+    
+    // MGM START PROBABILITIES
+    double  pATG_A, pATG_B, pATG_C, pATG_D, pATG_X;
+    double  pGTG_A, pGTG_B, pGTG_C, pGTG_D, pGTG_X;
+    double  pTTG_A, pTTG_B, pTTG_C, pTTG_D, pTTG_X;
+    
 	double toModel;
 
 	unsigned int ORF_start_marging;
@@ -133,6 +141,7 @@ public:
 	//
 
 	std::string KL(void);
+    double LogRatio( double x, double y );
 
 private:
 
@@ -151,7 +160,7 @@ private:
 
 	void SetLogOddForN( std::vector<double> & target, double const p );
 	void Log(std::vector<double> & target);
-	double LogRatio( double x, double y );
+	
 
 	void CalculateLogOdd(void);
 	void CalculateStartStopLoggodd(void);

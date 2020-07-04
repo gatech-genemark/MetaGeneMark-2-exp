@@ -64,19 +64,19 @@ float compute_logodds_and_fill_in_seqmap(Pset &pset, Data &data, SequenceMap& se
     if (pset.native[0])
     {
         seqmap.CalcLogP(pset.native, data.nt, NATIVE_TYPE);
-        seqmap.CalcLogodd(pset.native, data.nt, NATIVE_TYPE);
+        seqmap.CalcLogodd(pset.native, data.nt, NATIVE_TYPE, group);
     }
 
     if (pset.first[0])
     {
         seqmap.CalcLogP(pset.first, data.nt, ATYPICAL_TYPE_1);
-        seqmap.CalcLogodd(pset.first, data.nt, ATYPICAL_TYPE_1);
+        seqmap.CalcLogodd(pset.first, data.nt, ATYPICAL_TYPE_1, group);
     }
 
     if (pset.second[0])
     {
         seqmap.CalcLogP(pset.second, data.nt, ATYPICAL_TYPE_2);
-        seqmap.CalcLogodd(pset.second, data.nt, ATYPICAL_TYPE_2);
+        seqmap.CalcLogodd(pset.second, data.nt, ATYPICAL_TYPE_2, group);
     }
 
     seqmap.Run(settings.hmm.best_start_before_dp, settings.hmm.delta);
@@ -198,6 +198,14 @@ int main( int argc, char** argv )
                 
                 for (int bac_arc = 0; bac_arc < 2; bac_arc+=1) {
                     for (int group_idx = 0; group_idx < 6; group_idx++) {
+                        
+                        // bacteria cannot be group D
+                        if (bac_arc == 0 && (all_groups[group_idx] == SequenceMap::D))
+                            continue;
+                        // archaea only groups A and D
+                        else if (bac_arc == 1 && (all_groups[group_idx] != SequenceMap::A && all_groups[group_idx] != SequenceMap::D))
+                            continue;
+                        
                         float current_score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, all_groups[group_idx], bac_arc);
                         if (current_score > best_score) {
                             best_score = current_score;

@@ -150,6 +150,27 @@ void Parameters::LoadSection( ParameterParser & parser, std::string & buffer,  c
 			if ( parser.IsKey( par, "$TAA" ) )  current->second.pTAA = parser.asPDouble( par, "$TAA", buffer );
 			if ( parser.IsKey( par, "$TAG" ) )  current->second.pTAG = parser.asPDouble( par, "$TAG", buffer );
 			if ( parser.IsKey( par, "$TGA" ) )  current->second.pTGA = parser.asPDouble( par, "$TGA", buffer );
+            
+            // MGM PARAMETERS
+            if ( parser.IsKey( par, "$ATG_A" ) )  current->second.pATG_A = parser.asPDouble( par, "$ATG_A", buffer );
+            if ( parser.IsKey( par, "$GTG_A" ) )  current->second.pGTG_A = parser.asPDouble( par, "$GTG_A", buffer );
+            if ( parser.IsKey( par, "$TTG_A" ) )  current->second.pTTG_A = parser.asPDouble( par, "$TTG_A", buffer );
+            
+            if ( parser.IsKey( par, "$ATG_B" ) )  current->second.pATG_B = parser.asPDouble( par, "$ATG_B", buffer );
+            if ( parser.IsKey( par, "$GTG_B" ) )  current->second.pGTG_B = parser.asPDouble( par, "$GTG_B", buffer );
+            if ( parser.IsKey( par, "$TTG_B" ) )  current->second.pTTG_B = parser.asPDouble( par, "$TTG_B", buffer );
+            
+            if ( parser.IsKey( par, "$ATG_C" ) )  current->second.pATG_C = parser.asPDouble( par, "$ATG_C", buffer );
+            if ( parser.IsKey( par, "$GTG_C" ) )  current->second.pGTG_C = parser.asPDouble( par, "$GTG_C", buffer );
+            if ( parser.IsKey( par, "$TTG_C" ) )  current->second.pTTG_C = parser.asPDouble( par, "$TTG_C", buffer );
+            
+            if ( parser.IsKey( par, "$ATG_D" ) )  current->second.pATG_D = parser.asPDouble( par, "$ATG_D", buffer );
+            if ( parser.IsKey( par, "$GTG_D" ) )  current->second.pGTG_D = parser.asPDouble( par, "$GTG_D", buffer );
+            if ( parser.IsKey( par, "$TTG_D" ) )  current->second.pTTG_D = parser.asPDouble( par, "$TTG_D", buffer );
+            
+            if ( parser.IsKey( par, "$ATG_X" ) )  current->second.pATG_X = parser.asPDouble( par, "$ATG_X", buffer );
+            if ( parser.IsKey( par, "$GTG_X" ) )  current->second.pGTG_X = parser.asPDouble( par, "$GTG_X", buffer );
+            if ( parser.IsKey( par, "$TTG_X" ) )  current->second.pTTG_X = parser.asPDouble( par, "$TTG_X", buffer );
 		
 			if (parser.IsKey(par, "$NON_MAT") || parser.IsKey(par, "$COD_MAT"))
 			{

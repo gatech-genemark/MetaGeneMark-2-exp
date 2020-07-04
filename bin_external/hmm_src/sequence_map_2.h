@@ -148,7 +148,7 @@ public:
     void Init( std::vector<unsigned int> const & flags, unsigned int const min_gene_length );
     void CalcGC( Data & d );
     void CalcLogP( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype );
-    void CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype );
+    void CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, GMS2_GROUP gms2_group = NONE);
     void AddIniTermProb(double p_ini_non);
 
     void Run(bool best_start_before_dp, double delta);

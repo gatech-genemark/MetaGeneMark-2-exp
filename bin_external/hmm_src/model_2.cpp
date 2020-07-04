@@ -271,7 +271,7 @@ void Model::CalculateLogProb(void)
 // ----------------------------------------------------
 void Model::CalculateStartStopLoggodd(void)
 {
-	vector<double> non_2;
+	vector<double> &non_2 = this->non_2;
 	vector<double> non_0;
 	
 	non_2.reserve(64);

@@ -695,7 +695,7 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     }
     else {
         // comparing negative values when EVERYTHING is negative makes no biological sense
-        if (total_rbs > 0 || total_prom > 0 || total_eus > 0) {
+//        if (total_rbs > 0 || total_prom > 0 || total_eus > 0) {
             
             // RBS has highest
             if (total_rbs >= total_prom && total_rbs >= total_eus) {
@@ -718,7 +718,7 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
                 itr->logodd_start = total_eus;
                 itr->stype = 3;
             }
-        }
+//        }
     }
 }
 // ----------------------------------------------------
@@ -907,8 +907,41 @@ void SequenceMap::CalcLogP( std::vector< Model* > & mod, std::vector<unsigned ch
 		}
 	}
 }
+
+float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+    float score = 0;
+    
+    if (gms2_group == SequenceMap::GMS2_GROUP::A) {
+        
+        if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_A, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_A, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_A, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+    }
+    else if (gms2_group == SequenceMap::GMS2_GROUP::B) {
+        if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_B, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_B, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_B, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+    }
+    else if (gms2_group == SequenceMap::GMS2_GROUP::C) {
+        if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_C, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_C, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_C, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+    }
+    else if (gms2_group == SequenceMap::GMS2_GROUP::D) {
+        if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_D, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_D, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_D, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+    }
+    else if (gms2_group == SequenceMap::GMS2_GROUP::X) {
+        if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_X, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_X, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+        else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_X, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+    }
+    
+    return score;
+}
 // ----------------------------------------------------
-void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype )
+void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, SequenceMap::GMS2_GROUP gms2_group )
 {
 	for( vector< MapValue >::iterator itr = data.begin(); itr != data.end(); ++itr )
 	{
@@ -999,9 +1032,14 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 			else if ( ptr_to_end->status & isTAG )  start_stop += mod[ itr->gc ]->logodd_TAG;
 			else if ( ptr_to_end->status & isTGA )  start_stop += mod[ itr->gc ]->logodd_TGA;
 
-			if      ( itr->status & isATG )  start_stop += mod[ itr->gc ]->logodd_ATG;
-			else if ( itr->status & isGTG )  start_stop += mod[ itr->gc ]->logodd_GTG;
-			else if ( itr->status & isTTG )  start_stop += mod[ itr->gc ]->logodd_TTG;
+            if (gtype == NATIVE_TYPE) {
+                if      ( itr->status & isATG )  start_stop += mod[ itr->gc ]->logodd_ATG;
+                else if ( itr->status & isGTG )  start_stop += mod[ itr->gc ]->logodd_GTG;
+                else if ( itr->status & isTTG )  start_stop += mod[ itr->gc ]->logodd_TTG;
+            }
+            else {
+                start_stop += compute_start_score_atypical(itr, mod[itr->gc], gms2_group);
+            }
 
 			double dur = mod[ itr->gc ]->GetDurationForORF( itr->end_pos - itr->pos + 1 );
 
@@ -1124,9 +1162,14 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 			else if ( ptr_to_end->status & isTAG )  start_stop += mod[ itr->gc ]->logodd_TAG;
 			else if ( ptr_to_end->status & isTGA )  start_stop += mod[ itr->gc ]->logodd_TGA;
 
-			if      ( itr->status & isATG )  start_stop += mod[ itr->gc ]->logodd_ATG;
-			else if ( itr->status & isGTG )  start_stop += mod[ itr->gc ]->logodd_GTG;
-			else if ( itr->status & isTTG )  start_stop += mod[ itr->gc ]->logodd_TTG;
+			if (gtype == NATIVE_TYPE) {
+                if      ( itr->status & isATG )  start_stop += mod[ itr->gc ]->logodd_ATG;
+                else if ( itr->status & isGTG )  start_stop += mod[ itr->gc ]->logodd_GTG;
+                else if ( itr->status & isTTG )  start_stop += mod[ itr->gc ]->logodd_TTG;
+            }
+            else {
+                start_stop += compute_start_score_atypical(itr, mod[itr->gc], gms2_group);
+            }
 
 			double dur = mod[ itr->gc ]->GetDurationForORF( itr->pos - itr->end_pos + 1 );
 
