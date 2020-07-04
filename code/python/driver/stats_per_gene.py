@@ -98,7 +98,7 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
                 entry[f"5p-{t}"] = label.get_5prime()
                 if shortest_label is None:
                     shortest_label = label
-                elif shortest_label.length() > label.length():
+                elif shortest_label.length() < label.length():
                     shortest_label = label
 
         # compute GC of label

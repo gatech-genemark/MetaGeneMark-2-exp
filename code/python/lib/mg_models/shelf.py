@@ -28,8 +28,10 @@ from mg_models.motif_model import MotifModel
 log = logging.getLogger(__name__)
 
 
-def bin_by_gc(df, step=1):
-    # type: (pd.DataFrame, int) -> List[Tuple[float, float, pd.DataFrame]]
+def bin_by_gc(df, step=1, **kwargs):
+    # type: (pd.DataFrame, int, Dict[str, Any]) -> List[Tuple[float, float, pd.DataFrame]]
+
+    gc_feature = get_value(kwargs, "gc_feature", "GC", valid_type=str)
 
     gc_ranges = range(30, 71, step)
     result = list()
@@ -38,7 +40,7 @@ def bin_by_gc(df, step=1):
         right = b if b != gc_ranges[-1] else 100
 
         result.append(
-            (a, b, df[(df["GC"] >= a) & (df["GC"] < right)])
+            (a, b, df[(df[gc_feature] >= a) & (df[gc_feature] < right)])
         )
         a = b
     return result
@@ -382,7 +384,8 @@ def run_gms2_with_component_toggles_and_get_accuracy(env, gi, components_off, **
     lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
 
     return {
-        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
+        "Number of Errors":  len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
     }
 
 
@@ -401,7 +404,8 @@ def component_in_model_file(env, gi, component):
 def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
     # type: (Environment, str, str, str) -> None
     bin_external = env["pd-bin-external"]
-    prog = f"{bin_external}/gms2/gmhmmp2"
+    # prog = f"{bin_external}/gms2/gmhmmp2"
+    prog = f"{bin_external}/mgm2/gmhmmp2"
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
     print(cmd)
     run_shell_cmd(cmd)
@@ -450,7 +454,8 @@ def run_mgm_and_get_accuracy(env, gi, pf_mgm):
     lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
     remove_p(pf_prediction)
     return {
-        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a'))
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
+        "Number of Errors":   len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
     }
 
 

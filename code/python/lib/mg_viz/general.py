@@ -2,6 +2,7 @@
 # Created: 6/22/20, 11:26 AM
 
 import logging
+import math
 from typing import *
 
 
@@ -298,3 +299,8 @@ def plot_scatter(df_data, column_x, column_y, color_by=None, figure_options=None
 
     plt.show()
 
+
+def square_subplots(num_items):
+    num_rows = int(math.sqrt(num_items))
+    num_cols = math.ceil(num_items / float(num_rows))
+    return num_rows, num_cols

@@ -3,8 +3,6 @@
 
 import logging
 import argparse
-import math
-import numpy as np
 from itertools import chain, combinations
 
 import pandas as pd
@@ -19,7 +17,6 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
-from mg_container.genome_list import GenomeInfoList
 from mg_general import Environment, add_env_args_to_parser
 
 
@@ -28,7 +25,7 @@ from mg_general import Environment, add_env_args_to_parser
 # ------------------------------ #
 from mg_general.general import all_elements_equal, fix_names
 from mg_viz import sns
-from mg_viz.general import FigureOptions
+from mg_viz.general import FigureOptions, square_subplots
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene.")
 
@@ -80,11 +77,6 @@ def get_stats_at_gcfid_level(df, tools):
 
 def viz_stats_at_gcfid_level(df, tools):
     pass
-
-def square_subplots(num_items):
-    num_rows = int(math.sqrt(num_items))
-    num_cols = math.ceil(num_items / float(num_rows))
-    return num_rows, num_cols
 
 
 def ridgeplot(df):

@@ -19,9 +19,9 @@ from mg_general import Environment, add_env_args_to_parser
 # ------------------------------ #
 
 
-parser = argparse.ArgumentParser("DRIVER DESCRIPTION.")
+parser = argparse.ArgumentParser("Build MGM models by analyzing raw genes (i.e. GC from genes rather than genome).")
 
-# FILL IN ARGUMENTS
+parser.add_argument('')
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()

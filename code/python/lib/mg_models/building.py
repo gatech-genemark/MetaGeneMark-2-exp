@@ -143,6 +143,8 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
     min_consensus_occurence = get_value(kwargs, "min_consensus_occurence", 5)
     title = get_value(kwargs, "title", "")
     plot = get_value(kwargs, "plot", False, valid_type=bool)
+    gc_feature = get_value(kwargs, "gc_feature", "GC", valid_type=str)
+
 
     # filter out consensus sequences that don't appear very frequently
     df = df[df.groupby(f"CONSENSUS_{col}")[f"CONSENSUS_{col}"].transform(len) > min_consensus_occurence]
@@ -224,7 +226,7 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
     avg_bgd = get_average_zero_order_noncoding(df)
 
     mgm_mm = MGMMotifModelV2(shifts_dict, array_per_shift, original_width, position_distributions_by_shift,
-                             avg_gc=df["GC"].mean(),
+                             avg_gc=df[gc_feature].mean(),
                              avg_bgd=avg_bgd)
 
     if plot:

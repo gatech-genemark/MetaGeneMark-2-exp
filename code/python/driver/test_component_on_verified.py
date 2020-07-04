@@ -119,6 +119,15 @@ def test_component_on_verified(env, gil, list_pf_mgm_bac, list_pf_mgm_arc, list_
                 ),
                 )
 
+    # fig, ax = plt.subplots(figsize=(12, 4))
+    # sns.barplot(df, "Genome", "Number of Errors", hue="Tool",
+    #             ax=ax,
+    #             sns_kwargs={"hue_order": hue_order},
+    #             figure_options=FigureOptions(
+    #                 save_fig=next_name(env["pd-work"])
+    #             ),
+    #             )
+
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
