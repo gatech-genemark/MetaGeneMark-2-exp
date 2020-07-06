@@ -208,11 +208,11 @@ def viz_mgm_model_for_type_and_group(env, mgm, genome_type, gms2_group, **kwargs
 
     # open pdf
     with PdfPages(f"graphs_{genome_type}_{gms2_group}.pdf") as pdf:
-        # # visualize RBS
-        # visualize_motif(env, mgm, genome_type, f"RBS_{gms2_group}", pdf=pdf, **kwargs)
-        #
-        # # visualize Promoter
-        # visualize_motif(env, mgm, genome_type, f"PROMOTER_{gms2_group}", pdf=pdf, **kwargs)
+        # visualize RBS
+        visualize_motif(env, mgm, genome_type, f"RBS_{gms2_group}_0", pdf=pdf, **kwargs)
+
+        # visualize Promoter
+        visualize_motif(env, mgm, genome_type, f"PROMOTER_{gms2_group}", pdf=pdf, **kwargs)
         #
         # # visualize RBS Start Context
         # visualize_start_context(env, mgm, genome_type, f"SC_RBS_{gms2_group}", pdf=pdf, **kwargs)

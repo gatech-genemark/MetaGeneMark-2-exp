@@ -32,6 +32,8 @@ class MGMMotifModelV2(MotifModel):
 
         all_shifts = set(self._shift_prior.keys()).union(self._motif.keys()).union(self._spacer.keys())
 
+        spacer_len = max([len(self._spacer[a]) for a in self._spacer.keys()])
+
         for s in all_shifts:
             if s not in self._shift_prior:
                 self._shift_prior[s] = 0
@@ -39,6 +41,8 @@ class MGMMotifModelV2(MotifModel):
                 self._motif[s] = {
                     l: [0] * self._motif_width for l in {"A", "C", "G", "T"}
                 }
+            if s not in self._spacer:
+                self._spacer[s] = [1.0/spacer_len] * spacer_len
 
 
     def score(self, fragment, **kwargs):

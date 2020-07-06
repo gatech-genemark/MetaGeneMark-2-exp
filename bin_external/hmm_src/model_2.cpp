@@ -64,11 +64,11 @@ void Model::Initialize(void)
 	InitializeSite( &StartContentPromoter, false, 2, "StartContentPromoter" );
 	InitializeSite( &StartContent, false, 2, "StartContent" );
     
-    InitializeSite( &RBS_A, true, 0, "RBS_A" );
-    InitializeSite( &RBS_B, true, 0, "RBS_B" );
-    InitializeSite( &RBS_C, true, 0, "RBS_C" );
-    InitializeSite( &RBS_D, true, 0, "RBS_D" );
-    InitializeSite( &RBS_X, true, 0, "RBS_X" );
+    InitializeMultiShiftSite( &RBS_A, true, 0, "RBS_A" );
+    InitializeMultiShiftSite( &RBS_B, true, 0, "RBS_B" );
+    InitializeMultiShiftSite( &RBS_C, true, 0, "RBS_C" );
+    InitializeMultiShiftSite( &RBS_D, true, 0, "RBS_D" );
+    InitializeMultiShiftSite( &RBS_X, true, 0, "RBS_X" );
     
     InitializeSite( &SC_RBS_A, false, 2, "SC_RBS_A" );
     InitializeSite( &SC_RBS_B, false, 2, "SC_RBS_B" );
@@ -76,8 +76,10 @@ void Model::Initialize(void)
     InitializeSite( &SC_RBS_D, false, 2, "SC_RBS_D" );
     InitializeSite( &SC_RBS_X, false, 2, "SC_RBS_X" );
     
-    InitializeSite( &PROMOTER_C, true, 0, "Promoter_A" );
-    InitializeSite( &PROMOTER_D, true, 0, "Promoter_B" );
+//    InitializeSite( &PROMOTER_C, true, 0, "Promoter_A" );
+//    InitializeSite( &PROMOTER_D, true, 0, "Promoter_B" );
+    InitializeMultiShiftSite( &PROMOTER_C, true, 0, "PROMOTER_C" );
+    InitializeMultiShiftSite( &PROMOTER_D, true, 0, "PROMOTER_D" );
     
     
     InitializeSite( &SC_PROMOTER_C, false, 2, "SC_PROMOTER_C" );
@@ -863,6 +865,18 @@ void Model::InitializeSite( Site * ptr, bool with_dur, int norm_order, std::stri
 	{
 		ORF_start_marging = abs( ptr->margin );
 	}
+}
+
+void Model::InitializeMultiShiftSite( MultiShiftSite* ptr, bool with_dur, int norm_order, std::string const & label )
+{
+    if ( ptr->is_valid == false )
+        return;
+    
+    vector<Site* > sites = ptr->get_sites();
+    
+    for (size_t i = 0; i < sites.size(); i++) {
+        InitializeSite(sites[i], with_dur, norm_order, label);
+    }
 }
 // ----------------------------------------------------
 

@@ -41,7 +41,7 @@ parser.add_argument('--pf-bac', required=True, help="Collected GMS2 model files 
 parser.add_argument('--pf-arc', required=True, help="Collected GMS2 model files for archaea")
 parser.add_argument('--pf-mgm', required=True, help="Base MGM model file")
 parser.add_argument('--pf-output', required=True, help="Output MGM model file")
-parser.add_argument('--components', nargs="+", choices=["Start Context", "RBS", "Promoter", "Start Codons"])
+parser.add_argument('--components', nargs="+", choices=["Start Context", "RBS", "Promoter", "Start Codons", "Stop Codons"])
 parser.add_argument('--genome-type', choices=["Archaea", "Bacteria"])
 parser.add_argument('--gc-feature', default="GC")
 parser.add_argument('--plot', default=False, action="store_true")
@@ -389,8 +389,8 @@ def build_mgm_motif_models_for_all_gc(env, df, name, **kwargs):
     list_mgm_models = list()  # type: List[List[float, float, MGMMotifModelV2]]
     for info in binned_dfs:
         lower, upper, df_gc = info
-
-        # if int(lower) != 40:
+        #
+        # if int(lower) != 45:
         #     continue
 
         mgm_mm = None
@@ -428,16 +428,38 @@ def add_motif_probabilities(env, df, mgm, input_tag, output_tag, genome_type, **
     genome_tag = genome_type[0]
 
     for gc in range(30, 71):
-        motif = motif_by_gc.get_model_by_gc(gc)
-        best_shift = max(motif._shift_prior.items(), key=operator.itemgetter(1))[0]
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MAT"] = motif._motif[best_shift]
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_POS_DISTR"] = motif._spacer[best_shift]
 
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}"] = 1
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_ORDER"] = 0
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_WIDTH"] = width
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MARGIN"] = 0
-        mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MAX_DUR"] = dur
+        motif = motif_by_gc.get_model_by_gc(gc)
+
+        if True or "RBS" in output_tag:
+            # create a label for each shift
+            for shift, prob in motif._shift_prior.items():
+                prob /= 100.0
+                output_tag_ws = f"{output_tag}_{int(shift)}"
+                try:
+                    mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_MAT"] = motif._motif[shift]
+                    mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_POS_DISTR"] = motif._spacer[
+                    shift]
+                except KeyError:
+                    pass
+
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}"] = 1
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_ORDER"] = 0
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_WIDTH"] = width
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_MARGIN"] = 0
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_MAX_DUR"] = dur
+                mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag_ws}_SHIFT"] = prob
+        else:
+            # promoter aren't shifted (for now)
+            best_shift = max(motif._shift_prior.items(), key=operator.itemgetter(1))[0]
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MAT"] = motif._motif[best_shift]
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_POS_DISTR"] = motif._spacer[best_shift]
+
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}"] = 1
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_ORDER"] = 0
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_WIDTH"] = width
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MARGIN"] = 0
+            mgm.items_by_species_and_gc[genome_tag][str(gc)].items[f"{output_tag}_MAX_DUR"] = dur
 
 
 def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
@@ -449,11 +471,13 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
     plot = get_value(kwargs, "plot", False, valid_type=bool)
     gc_feature = get_value(kwargs, "gc_feature", "GC", valid_type=str)
 
+    learn_from_arc = [{"A"}, {"D"}]
+
     # start/stop codons
     if "Start Codons" in components:
         if genome_type == "Archaea":
             output_group = ["A", "D"]
-            learn_from = [{"A"}, {"D"}]     # always learn RBS form group A
+            learn_from = learn_from_arc
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
@@ -467,15 +491,30 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
                 add_start_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
         # add_start_codon_probabilities(df, mgm, genome_type="Archaea", plot=plot)
 
+    if "Stop Codons" in components and False:
+        if genome_type == "Archaea":
+            output_group = ["A", "D"]
+            learn_from = learn_from_arc
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+                add_stop_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
+        if genome_type == "Bacteria":
+            output_group = ["A", "B", "C", "X"]
+            learn_from = [{"A"}, {"B"}, {"C"}, {"A"}]
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+                add_stop_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
     # if "Stop Codons" in components:
-        # add_stop_codon_probabilities(df, mgm, genome_type=genome_type, plot=plot)
+    #     add_stop_codon_probabilities(df, mgm, genome_type=genome_type, plot=plot)
         # add_stop_codon_probabilities(df, mgm, genome_type="Archaea", plot=plot)
 
     # Start Context
     if "Start Context" in components:
         if genome_type == "Archaea":
             output_group = ["A", "D"]
-            learn_from = [{"A"}, {"D"}]     # always learn RBS form group A
+            learn_from = learn_from_arc
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
@@ -492,18 +531,25 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
         # promoter
         if genome_type == "Archaea":
             output_group = ["D"]
-            learn_from = [{"D"}]     # always learn RBS form group A
+            learn_from = [{"A", "D"}]   # always learn RBS form group A
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_context_probabilities(df_curr, mgm, "SC_PROMOTER", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
+
+                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
+                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
+                # to learn from group A genomes as well.
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
         else:
             output_group = ["C"]
             learn_from = [{"C"}]
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_context_probabilities(df_curr, mgm, "SC_PROMOTER", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
+                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
+                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
+                # to learn from group A genomes as well.
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
 
 
 
@@ -511,7 +557,7 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
     if "RBS" in components:
         if genome_type == "Archaea":
             output_group = ["A", "D"]
-            learn_from = [{"A"}, {"D"}]     # always learn RBS form group A
+            learn_from = [{"A", "D"}, {"A", "D"}]
 
             df_type = df[df["Type"] == genome_type]
             for o, l in zip(output_group, learn_from):
@@ -581,12 +627,16 @@ def main(env, args):
 
     gc_feature = args.gc_feature
 
+    print(df.groupby(["Type", "GENOME_TYPE"]).size())
+
     pd_work = os_join(env["pd-work"], "_".join(args.components).lower())
     mkdir_p(pd_work)
     env = env.duplicate({'pd-work': pd_work})
 
     mgm = MGMModel.init_from_file(args.pf_mgm)
     for genome_type in {"Archaea", "Bacteria"}:
+        if genome_type != "Archaea":
+            continue
         build_mgm_models_from_gms2_models(env, df, mgm, components=args.components, genome_type=genome_type,
                                       plot=args.plot, gc_feature=gc_feature)
     mgm.to_file(args.pf_output)

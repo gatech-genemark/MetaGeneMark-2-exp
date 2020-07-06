@@ -25,6 +25,9 @@ using std::cout;
 #include "pset_2.h"
 #include "exit.h"
 
+Pset::Pset() {
+    // empty constructor ; should only be used by copy constructor. Never call it directly
+}
 // ----------------------------------------------------
 Pset::Pset( Settings & settings, Parameters & parameters, Logger * logger ) : logger(logger)
 {
@@ -269,3 +272,27 @@ void Pset::UpdateToModel( std::vector< Model* > & model_set, double to_set_prob 
 }
 // ----------------------------------------------------
 
+void deep_copy_models_from_vector(const vector< Model* > & original, vector< Model *> &destination) {
+    destination.resize(original.size());
+    
+    for (size_t i = 0; i < original.size(); i++) {
+        if (original[i] != nullptr) {
+            destination[i] = new Model(*(original[i]));
+        }
+    }
+}
+
+Pset Pset::deepCopy() const {
+    
+    Pset newpset;
+    
+    deep_copy_models_from_vector(first, newpset.first);
+    deep_copy_models_from_vector(native, newpset.native);
+    deep_copy_models_from_vector(second, newpset.second);
+    
+    newpset.logger = logger;
+    newpset.genetic_code = genetic_code;
+    newpset.min_gene_length = min_gene_length;
+    
+    return newpset;
+}

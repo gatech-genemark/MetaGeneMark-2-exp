@@ -698,7 +698,6 @@ void Output::PrintGenes_EXT(std::vector< BestValue > & predictions, FastaVectorI
         attr += " promoter_sc_score " + DoubleToString(itr->origin->logodd_Promoter_SC, 2) + ";";
 
         attr += " " + itr->si.seq + " " + IntToString(itr->si.spacer) + " " + IntToString(itr->si.stype);
-        std::cout << attr <<std::endl;
         
         
 

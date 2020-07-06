@@ -620,27 +620,27 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     // the following variables will hold the models that will be used
     Site *m_rbs = nullptr, *m_prom = nullptr, *m_scrbs = nullptr, *m_scprom = nullptr, *m_eus = nullptr;
     if (gms2_group == A) {
-        m_rbs = &m->RBS_A;
+        m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_A;
     }
     else if (gms2_group == B) {
-        m_rbs = &m->RBS_B;
+        m_rbs = m->RBS_B.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_B;
     }
     else if (gms2_group == C) {
-        m_rbs = &m->RBS_C;
+        m_rbs = m->RBS_C.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_C;
-        m_prom = &m->PROMOTER_C;
+        m_prom = m->PROMOTER_C.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scprom = &m->SC_PROMOTER_C;
     }
     else if (gms2_group == D) {
-        m_rbs = &m->RBS_D;
+        m_rbs = m->RBS_D.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_D;
-        m_prom = &m->PROMOTER_D;
+        m_prom = m->PROMOTER_D.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scprom = &m->SC_PROMOTER_D;
     }
     else if (gms2_group == X) {
-        m_rbs = &m->RBS_X;
+        m_rbs = m->RBS_X.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_X;
         m_eus = &m->EUS;
     }
@@ -957,6 +957,8 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 
 		Index idx(order);
 		unsigned int current_index;
+        
+        bool enable_debug = false;
 
 		// temporary check point 
 
@@ -1020,6 +1022,9 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 				}
 				else break;
 			}
+            
+            if (enable_debug)
+                cout << "Coding Logodd: " << logodd << endl;
 
 			MapValue* ptr_to_end = itr->next;
 
@@ -1049,6 +1054,13 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 			}
 
 			double current_total = logodd + start_stop + dur + itr->logodd_start + mod[itr->gc]->toModel;
+            if (enable_debug) {
+                cout << "Total Logodd: " << current_total << endl;
+                cout << "Start logodd: " << itr->logodd_start << endl;
+                cout << "Dur" << dur << endl;
+                cout << "start_stop" << start_stop << endl;
+                cout << "toModel" << mod[itr->gc]->toModel << endl;
+            }
 
 			if ( ptr_to_end->IsInforced )
 			{
@@ -1094,6 +1106,8 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 				itr->logodd_start_stop = start_stop;
 				itr->logodd_start = itr->logodd_start;
 			}
+
+            
 
 			// end of tmp code, development step
 		}
@@ -2189,30 +2203,42 @@ void SequenceMap::AddSiteInfo( Model* mod, std::vector<unsigned char> & nt )
 	}
 }
 // ----------------------------------------------------
-Site* get_ptr_to_rbs_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+Site* get_ptr_to_rbs_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group,
+                          std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
     if (gms2_group == SequenceMap::GMS2_GROUP::A)
-        sptr = &mod->RBS_A;
+        sptr = mod->RBS_A.get_site_with_max_score(nt, pos , status);
     else if (gms2_group == SequenceMap::GMS2_GROUP::B)
-        sptr = &mod->RBS_B;
+        sptr = mod->RBS_B.get_site_with_max_score(nt, pos, status);
     else if (gms2_group == SequenceMap::GMS2_GROUP::C)
-        sptr = &mod->RBS_C;
+        sptr = mod->RBS_C.get_site_with_max_score(nt, pos, status);
     else if (gms2_group == SequenceMap::GMS2_GROUP::D)
-        sptr = &mod->RBS_D;
+        sptr = mod->RBS_D.get_site_with_max_score(nt, pos, status);
     else if (gms2_group == SequenceMap::GMS2_GROUP::X)
-        sptr = &mod->RBS_X;
+        sptr = mod->RBS_X.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
 
-Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+//Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+//
+//    Site *sptr = nullptr;
+//    if (gms2_group == SequenceMap::GMS2_GROUP::C)
+//        sptr = &mod->PROMOTER_C;
+//    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+//        sptr = &mod->PROMOTER_D;
+//
+//    return sptr;
+//}
+
+Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group,
+                          std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
     if (gms2_group == SequenceMap::GMS2_GROUP::C)
-        sptr = &mod->PROMOTER_C;
+        sptr = mod->PROMOTER_C.get_site_with_max_score(nt, pos, status);
     else if (gms2_group == SequenceMap::GMS2_GROUP::D)
-        sptr = &mod->PROMOTER_D;
-    
+        sptr = mod->PROMOTER_D.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
 
@@ -2226,14 +2252,14 @@ void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vec
             if (itr->stype == 1)
             {
                 
-                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group);
+                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group, nt, itr->L-1, 0);
                 if (sptr != nullptr)
                     itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
                 itr->si.stype = 1;
             }
             else if (itr->stype == 2)
             {
-                Site *sptr = get_ptr_to_promoter_site(mod, gms2_group);
+                Site *sptr = get_ptr_to_promoter_site(mod, gms2_group, nt, itr->L-1, 0);
                 
                 if (sptr != nullptr)
                     itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
@@ -2249,14 +2275,14 @@ void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vec
         {
             if (itr->stype == 1)
             {
-                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group);
+                Site* sptr = get_ptr_to_rbs_site(mod, gms2_group, nt, itr->R-1, 1);
                 if (sptr != nullptr)
                     itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
                 itr->si.stype = 1;
             }
             else if (itr->stype == 2)
             {
-                Site* sptr = get_ptr_to_promoter_site(mod, gms2_group);
+                Site* sptr = get_ptr_to_promoter_site(mod, gms2_group, nt, itr->R-1, 1);
                 if (sptr != nullptr)
                     itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
                 itr->si.stype = 2;

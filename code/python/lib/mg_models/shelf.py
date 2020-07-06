@@ -404,11 +404,18 @@ def component_in_model_file(env, gi, component):
 def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
     # type: (Environment, str, str, str) -> None
     bin_external = env["pd-bin-external"]
-    # prog = f"{bin_external}/gms2/gmhmmp2"
-    prog = f"{bin_external}/mgm2/gmhmmp2"
+    prog = f"{bin_external}/gms2/gmhmmp2"
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
     print(cmd)
     run_shell_cmd(cmd)
+
+def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):
+    # type: (Environment, str, str, str) -> None
+    bin_external = env["pd-bin-external"]
+    prog = f"{bin_external}/mgm2/gmhmmp2"
+    cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
+    print(cmd)
+    print(run_shell_cmd(cmd))
 
 
 def run_gms2(env, pf_sequence, pf_prediction, **kwargs):
@@ -449,6 +456,20 @@ def run_mgm_and_get_accuracy(env, gi, pf_mgm):
 
     pf_prediction = os_join(env["pd-work"], "mgm_prediction.gff")
     run_mgm(env, os_join(env["pd-data"], gi.name, "sequence.fasta"), pf_mgm, pf_prediction)
+    pf_reference = os_join(env["pd-data"], gi.name, "verified.gff")
+
+    lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
+    remove_p(pf_prediction)
+    return {
+        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
+        "Number of Errors":   len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
+    }
+
+def run_mgm2_and_get_accuracy(env, gi, pf_mgm):
+    # type: (Environment, GenomeInfo, str) -> Dict[str, Any]
+
+    pf_prediction = os_join(env["pd-work"], "mgm_prediction.gff")
+    run_mgm2(env, os_join(env["pd-data"], gi.name, "sequence.fasta"), pf_mgm, pf_prediction)
     pf_reference = os_join(env["pd-data"], gi.name, "verified.gff")
 
     lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))

@@ -190,14 +190,14 @@ void Parameters::LoadSection( ParameterParser & parser, std::string & buffer,  c
             
             
             // MGM PARAMETERS
-            LoadSite( parser, par, buffer, "$RBS_A",          &current->second.RBS_A,                  true );
-            LoadSite( parser, par, buffer, "$RBS_B",          &current->second.RBS_B,                  true );
-            LoadSite( parser, par, buffer, "$RBS_C",          &current->second.RBS_C,                  true );
-            LoadSite( parser, par, buffer, "$RBS_D",          &current->second.RBS_D,                  true );
-            LoadSite( parser, par, buffer, "$RBS_X",          &current->second.RBS_X,                  true );
+            LoadMultiShiftSite( parser, par, buffer, "$RBS_A",  &current->second.RBS_A,  true );
+            LoadMultiShiftSite( parser, par, buffer, "$RBS_B",  &current->second.RBS_B,  true );
+            LoadMultiShiftSite( parser, par, buffer, "$RBS_C",  &current->second.RBS_C,  true );
+            LoadMultiShiftSite( parser, par, buffer, "$RBS_D",  &current->second.RBS_D,  true );
+            LoadMultiShiftSite( parser, par, buffer, "$RBS_X",  &current->second.RBS_X,  true );
             
-            LoadSite( parser, par, buffer, "$PROMOTER_C",     &current->second.PROMOTER_C,             true );
-            LoadSite( parser, par, buffer, "$PROMOTER_D",     &current->second.PROMOTER_D,             true );
+            LoadMultiShiftSite( parser, par, buffer, "$PROMOTER_C",     &current->second.PROMOTER_C,             true );
+            LoadMultiShiftSite( parser, par, buffer, "$PROMOTER_D",     &current->second.PROMOTER_D,             true );
             
             LoadSite( parser, par, buffer, "$SC_RBS_A",       &current->second.SC_RBS_A,      false );
             LoadSite( parser, par, buffer, "$SC_RBS_B",       &current->second.SC_RBS_B,      false );
@@ -246,6 +246,49 @@ void Parameters::LoadSite( ParameterParser & parser, parameter_map & par, std::s
 
 		ptr->is_valid = true;
 	}
+}
+
+void Parameters::LoadMultiShiftSite( ParameterParser & parser, parameter_map & par, std::string & buffer, std::string const label, MultiShiftSite * ptr_ms, bool with_dur )
+{
+    int max_allowed_shift = 3;
+    
+    
+    
+    for (int shift = 0; shift < max_allowed_shift; shift++) {
+        
+        stringstream iss;
+        iss << label;
+        iss << "_" << shift;
+        
+        // get new label with shift by adding _SHIFT to end
+        std::string label_ws = iss.str();
+        
+        if ( parser.IsKey( par, label_ws ) && parser.asBool( par, label_ws, buffer ) )
+        {
+            Site *ptr = new Site();        // this memory is freed in destructor of MultiShiftSite
+            
+            ptr->order    = parser.asPInt( par, label_ws + "_ORDER",   buffer );
+            ptr->width    = parser.asPInt( par, label_ws + "_WIDTH",   buffer );
+            ptr->margin   = parser.asInt ( par, label_ws + "_MARGIN",  buffer );
+
+            if ( with_dur )
+                ptr->max_dur  = parser.asPInt( par, label_ws + "_MAX_DUR", buffer ) + 1;
+
+            ptr->ReserveSpace();
+
+            parser.asMatrixOfDoublesWithLabel( par, label_ws + "_MAT", buffer, ptr->matrix );
+
+            if ( with_dur)
+                parser.asVectorOfDoublesWithPos( par, label_ws + "_POS_DISTR", buffer, ptr->duration );
+
+            ptr->is_valid = true;
+            
+            float shift_prior = parser.asPDouble(par, label_ws + "_SHIFT",   buffer );
+            
+            ptr_ms->is_valid = true;
+            ptr_ms->add_site_with_shift(ptr, shift_prior);
+        }
+    }
 }
 // ----------------------------------------------------
 string Parameters::Summary(void)
