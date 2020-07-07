@@ -248,6 +248,8 @@ static unsigned char const NATIVE_TYPE     = 0x1;	// 0000 0001
 static unsigned char const ATYPICAL_TYPE_1 = 0x2;	// 0000 0010
 static unsigned char const ATYPICAL_TYPE_2 = 0x4;	// 0000 0100
 
+enum GMS2_GROUP {A, B, C, D, X, NONE};
+
 // ----------------------------------------------------
 class SiteInfo
 {

@@ -142,7 +142,6 @@ public:
     std::vector< MapValue >  data;
     std::vector< BestValue > predictions;
     
-    enum GMS2_GROUP {A, B, C, D, X, NONE};
     GMS2_GROUP gms2_group;
 
     void Init( std::vector<unsigned int> const & flags, unsigned int const min_gene_length );
@@ -159,7 +158,7 @@ public:
     void CalcStarts( Model* mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=NONE);
     void CalcStartsGC(std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=NONE);
     void AddSiteInfo( Model* mod, std::vector<unsigned char> & nt );
-    void AddSiteInfoAtypical( std::vector< Model* > & mod, std::vector<unsigned char> & nt, SequenceMap::GMS2_GROUP gms2_group);
+    void AddSiteInfoAtypical( std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group);
 
     void AddCodingEvidence( std::map<int, INTERVAL_EVI > & d, std::map<int, INTERVAL_EVI > & r );
 

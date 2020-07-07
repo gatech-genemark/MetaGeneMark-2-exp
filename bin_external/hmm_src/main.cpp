@@ -42,13 +42,13 @@
 #include "check.h"
 #endif
 
-void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_group, int bac_arc) {
+void set_correct_gms2_start_models(Pset &pset, GMS2_GROUP gms2_group, int bac_arc) {
     
     // archaea
     if (bac_arc == 1) {
         
         // group A
-        if (gms2_group == SequenceMap::GMS2_GROUP::A) {
+        if (gms2_group == GMS2_GROUP::A) {
             // set bacteria RBS_A as archaea RBS_A
             for (size_t i = 0; i < pset.first.size(); i++) {
                 pset.first[i]->RBS_A = pset.second[i]->RBS_A;
@@ -60,7 +60,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
             }
         }
         // group D
-        else if (gms2_group == SequenceMap::GMS2_GROUP::D) {
+        else if (gms2_group == GMS2_GROUP::D) {
             // set bacteria RBS_A as archaea RBS_A
             for (size_t i = 0; i < pset.first.size(); i++) {
                 pset.first[i]->RBS_D = pset.second[i]->RBS_D;
@@ -77,7 +77,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
     // bacteria
     if (bac_arc == 0) {
         // group A
-        if (gms2_group == SequenceMap::GMS2_GROUP::A) {
+        if (gms2_group == GMS2_GROUP::A) {
             for (size_t i = 0; i < pset.first.size(); i++) {
                 pset.second[i]->RBS_A = pset.first[i]->RBS_A;
                 pset.second[i]->SC_RBS_A = pset.first[i]->SC_RBS_A;
@@ -88,7 +88,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
             }
         }
         // group B
-        if (gms2_group == SequenceMap::GMS2_GROUP::B) {
+        if (gms2_group == GMS2_GROUP::B) {
            for (size_t i = 0; i < pset.first.size(); i++) {
                pset.second[i]->RBS_B = pset.first[i]->RBS_B;
                pset.second[i]->SC_RBS_B = pset.first[i]->SC_RBS_B;
@@ -99,7 +99,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
            }
        }
         // group C
-        else if (gms2_group == SequenceMap::GMS2_GROUP::C) {
+        else if (gms2_group == GMS2_GROUP::C) {
             for (size_t i = 0; i < pset.first.size(); i++) {
                 pset.second[i]->RBS_C = pset.first[i]->RBS_C;
                 pset.second[i]->SC_RBS_C = pset.first[i]->SC_RBS_C;
@@ -112,7 +112,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
             }
         }
         // group X
-          if (gms2_group == SequenceMap::GMS2_GROUP::X) {
+          if (gms2_group == GMS2_GROUP::B) {
             for (size_t i = 0; i < pset.first.size(); i++) {
                 pset.second[i]->RBS_X = pset.first[i]->RBS_X;
                 pset.second[i]->SC_RBS_X = pset.first[i]->SC_RBS_X;
@@ -125,7 +125,7 @@ void set_correct_gms2_start_models(Pset &pset, SequenceMap::GMS2_GROUP gms2_grou
     }
 }
 
-float compute_logodds_and_fill_in_seqmap(Pset &pset_original, Data &data, SequenceMap& seqmap, Settings &settings, SequenceMap::GMS2_GROUP group, int bac_arc) {
+float compute_logodds_and_fill_in_seqmap(Pset &pset_original, Data &data, SequenceMap& seqmap, Settings &settings, GMS2_GROUP group, int bac_arc) {
     
     // copy parameter set and turn on/off appropriate start models based on gms2 group
     Pset pset = pset_original.deepCopy();
@@ -297,18 +297,18 @@ int main( int argc, char** argv )
 				
 
                 // test multiple groups
-                SequenceMap::GMS2_GROUP best_group = SequenceMap::NONE;
+                GMS2_GROUP best_group = GMS2_GROUP::NONE;
                 char best_label = 'N';
                 float best_score = -10000000000;
-                SequenceMap::GMS2_GROUP all_groups [] = {
-                    SequenceMap::A, SequenceMap::B, SequenceMap::C, SequenceMap::D, SequenceMap::X
+                GMS2_GROUP all_groups [] = {
+                    GMS2_GROUP::A, GMS2_GROUP::B, GMS2_GROUP::C, GMS2_GROUP::D, GMS2_GROUP::X
                 };
                 char group_labels []  = {'A', 'B', 'C', 'D', 'X'};
                 int best_type = 0;
                 int num_groups = 5;
                 
                 // determine if archaea or bacteria
-                float score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, SequenceMap::NONE, 0);
+                float score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, GMS2_GROUP::NONE, 0);
                 std::cout << "Score NONE: " << score << std::endl;
                 int genome_type = get_most_common_type(seqmap.predictions);
                 
@@ -319,10 +319,10 @@ int main( int argc, char** argv )
                     for (int group_idx = 0; group_idx < num_groups; group_idx++) {
                         
                         // bacteria cannot be group D
-                        if (bac_arc == 0 && (all_groups[group_idx] == SequenceMap::D))
+                        if (bac_arc == 0 && (all_groups[group_idx] == GMS2_GROUP::D))
                             continue;
                         // archaea only groups A and D
-                        else if (bac_arc == 1 && (all_groups[group_idx] != SequenceMap::A && all_groups[group_idx] != SequenceMap::D && all_groups[group_idx] != SequenceMap::NONE))
+                        else if (bac_arc == 1 && (all_groups[group_idx] != GMS2_GROUP::A && all_groups[group_idx] != GMS2_GROUP::D && all_groups[group_idx] != GMS2_GROUP::NONE))
                             continue;
                         
                         float current_score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, all_groups[group_idx], bac_arc);

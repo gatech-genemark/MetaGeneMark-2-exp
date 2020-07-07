@@ -908,31 +908,31 @@ void SequenceMap::CalcLogP( std::vector< Model* > & mod, std::vector<unsigned ch
 	}
 }
 
-float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod, GMS2_GROUP gms2_group) {
     float score = 0;
     
-    if (gms2_group == SequenceMap::GMS2_GROUP::A) {
+    if (gms2_group == GMS2_GROUP::A) {
         
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_A, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_A, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_A, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == SequenceMap::GMS2_GROUP::B) {
+    else if (gms2_group == GMS2_GROUP::B) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_B, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_B, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_B, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == SequenceMap::GMS2_GROUP::C) {
+    else if (gms2_group == GMS2_GROUP::C) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_C, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_C, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_C, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == SequenceMap::GMS2_GROUP::D) {
+    else if (gms2_group == GMS2_GROUP::D) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_D, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_D, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_D, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == SequenceMap::GMS2_GROUP::X) {
+    else if (gms2_group == GMS2_GROUP::X) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_X, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_X, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_X, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
@@ -941,7 +941,7 @@ float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod
     return score;
 }
 // ----------------------------------------------------
-void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, SequenceMap::GMS2_GROUP gms2_group )
+void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, GMS2_GROUP gms2_group )
 {
 	for( vector< MapValue >::iterator itr = data.begin(); itr != data.end(); ++itr )
 	{
@@ -2203,46 +2203,46 @@ void SequenceMap::AddSiteInfo( Model* mod, std::vector<unsigned char> & nt )
 	}
 }
 // ----------------------------------------------------
-Site* get_ptr_to_rbs_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group,
+Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
-    if (gms2_group == SequenceMap::GMS2_GROUP::A)
+    if (gms2_group == GMS2_GROUP::A)
         sptr = mod->RBS_A.get_site_with_max_score(nt, pos , status);
-    else if (gms2_group == SequenceMap::GMS2_GROUP::B)
+    else if (gms2_group == GMS2_GROUP::B)
         sptr = mod->RBS_B.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == SequenceMap::GMS2_GROUP::C)
+    else if (gms2_group == GMS2_GROUP::C)
         sptr = mod->RBS_C.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+    else if (gms2_group == GMS2_GROUP::D)
         sptr = mod->RBS_D.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == SequenceMap::GMS2_GROUP::X)
+    else if (gms2_group == GMS2_GROUP::X)
         sptr = mod->RBS_X.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
 
-//Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group) {
+//Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group) {
 //
 //    Site *sptr = nullptr;
-//    if (gms2_group == SequenceMap::GMS2_GROUP::C)
+//    if (gms2_group == GMS2_GROUP::C)
 //        sptr = &mod->PROMOTER_C;
-//    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+//    else if (gms2_group == GMS2_GROUP::D)
 //        sptr = &mod->PROMOTER_D;
 //
 //    return sptr;
 //}
 
-Site* get_ptr_to_promoter_site(Model *mod, SequenceMap::GMS2_GROUP gms2_group,
+Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
-    if (gms2_group == SequenceMap::GMS2_GROUP::C)
+    if (gms2_group == GMS2_GROUP::C)
         sptr = mod->PROMOTER_C.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == SequenceMap::GMS2_GROUP::D)
+    else if (gms2_group == GMS2_GROUP::D)
         sptr = mod->PROMOTER_D.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
 
-void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vector<unsigned char> & nt, SequenceMap::GMS2_GROUP gms2_group )
+void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group )
 {
     for( vector< BestValue >::iterator itr = predictions.begin(); itr != predictions.end(); ++itr )
     {
