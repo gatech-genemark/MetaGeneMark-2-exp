@@ -1,0 +1,4 @@
+gcfid,genetic-code,attributes
+Aeropyrum_pernix_K1_uid57757,11,name="Aeropyrum pernnix";ancestor=Archaea;
+Halobacterium_salinarum_R1_uid61571,11,name=Halobacterium salinarum;ancestor=Archaea;num_genes=2749
+Natronomonas_pharaonis_DSM_2160_uid58435,11,name=Natronomonas pharaonis;ancestor=Archaea;num_genes=2820
