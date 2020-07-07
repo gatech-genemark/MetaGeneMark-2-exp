@@ -618,7 +618,7 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     bool rbs = false, prom = false, scrbs = false, scprom = false, eus = false;
     
     // the following variables will hold the models that will be used
-    Site *m_rbs = nullptr, *m_prom = nullptr, *m_scrbs = nullptr, *m_scprom = nullptr, *m_eus = nullptr;
+    Site *m_rbs = NULL, *m_prom = NULL, *m_scrbs = NULL, *m_scprom = NULL, *m_eus = NULL;
     if (gms2_group == GMS2_A) {
         m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_A;
@@ -648,28 +648,28 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     // set which models are allowed based on gms2 group setting
     
     // compute scores
-    if (m_rbs != nullptr && m_rbs->is_valid) {
+    if (m_rbs != NULL && m_rbs->is_valid) {
         score_rbs = m_rbs->GetWithDur(nt, itr->pos, itr->status);
         
         itr->logodd_RBS = score_rbs;
         rbs = true;
     }
-    if (m_prom != nullptr && m_prom->is_valid) {
+    if (m_prom != NULL && m_prom->is_valid) {
         score_prom = m_prom->GetWithDur(nt, itr->pos, itr->status);
         itr->logodd_Promoter = score_prom;
         prom = true;
     }
-    if (m_scrbs != nullptr && m_scrbs->is_valid) {
+    if (m_scrbs != NULL && m_scrbs->is_valid) {
         score_scrbs = m_scrbs->Get(nt, itr->pos, itr->status);
         itr->logodd_RBS_SC = score_scrbs;
         scrbs = true;
     }
-    if (m_scprom != nullptr && m_scprom->is_valid) {
+    if (m_scprom != NULL && m_scprom->is_valid) {
         score_scprom = m_scprom->Get(nt, itr->pos, itr->status);
         itr->logodd_Promoter_SC = score_scprom;
         scprom = true;
     }
-    if (m_eus != nullptr && m_eus->is_valid) {       // extended upstream signature
+    if (m_eus != NULL && m_eus->is_valid) {       // extended upstream signature
         score_eus = m_eus->Get(nt, itr->pos, itr->status);
         eus = true;
     }
@@ -2206,7 +2206,7 @@ void SequenceMap::AddSiteInfo( Model* mod, std::vector<unsigned char> & nt )
 Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
-    Site *sptr = nullptr;
+    Site *sptr = NULL;
     if (gms2_group == GMS2_A)
         sptr = mod->RBS_A.get_site_with_max_score(nt, pos , status);
     else if (gms2_group == GMS2_B)
@@ -2222,7 +2222,7 @@ Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
 
 //Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group) {
 //
-//    Site *sptr = nullptr;
+//    Site *sptr = NULL;
 //    if (gms2_group == C)
 //        sptr = &mod->PROMOTER_C;
 //    else if (gms2_group == D)
@@ -2234,7 +2234,7 @@ Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
 Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
-    Site *sptr = nullptr;
+    Site *sptr = NULL;
     if (gms2_group == GMS2_C)
         sptr = mod->PROMOTER_C.get_site_with_max_score(nt, pos, status);
     else if (gms2_group == GMS2_D)
@@ -2253,7 +2253,7 @@ void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vec
             {
                 
                 Site* sptr = get_ptr_to_rbs_site(mod, gms2_group, nt, itr->L-1, 0);
-                if (sptr != nullptr)
+                if (sptr != NULL)
                     itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
                 itr->si.stype = 1;
             }
@@ -2261,7 +2261,7 @@ void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vec
             {
                 Site *sptr = get_ptr_to_promoter_site(mod, gms2_group, nt, itr->L-1, 0);
                 
-                if (sptr != nullptr)
+                if (sptr != NULL)
                     itr->si = sptr->GetDirWithDurFullInfo( nt, itr->L - 1 );
                 
                 itr->si.stype = 2;
@@ -2276,14 +2276,14 @@ void SequenceMap::AddSiteInfoAtypical( std::vector< Model* > & mod_all, std::vec
             if (itr->stype == 1)
             {
                 Site* sptr = get_ptr_to_rbs_site(mod, gms2_group, nt, itr->R-1, 1);
-                if (sptr != nullptr)
+                if (sptr != NULL)
                     itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
                 itr->si.stype = 1;
             }
             else if (itr->stype == 2)
             {
                 Site* sptr = get_ptr_to_promoter_site(mod, gms2_group, nt, itr->R-1, 1);
-                if (sptr != nullptr)
+                if (sptr != NULL)
                     itr->si = sptr->GetRevWithDurFullInfo( nt, itr->R - 1 );
                 itr->si.stype = 2;
             }

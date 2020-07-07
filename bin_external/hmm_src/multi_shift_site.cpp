@@ -18,7 +18,7 @@ MultiShiftSite::~MultiShiftSite() {
 
 void MultiShiftSite::add_site_with_shift(Site *site, float shift_prob) {
     
-    if (site == nullptr) {
+    if (site == NULL) {
         // should raise warning
         return;
     }
@@ -35,7 +35,7 @@ Site* MultiShiftSite::get_site_with_max_score(std::vector<unsigned char> const &
     size_t num_shifts = shift_priors.size();
     
     float max_score = -100000;
-    Site* site_with_max = nullptr;
+    Site* site_with_max = NULL;
     
     // for each shift, compute score and keep track of max
     for (size_t shift = 0; shift < num_shifts; shift++) {
