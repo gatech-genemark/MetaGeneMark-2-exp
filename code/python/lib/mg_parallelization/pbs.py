@@ -78,7 +78,7 @@ class PBS:
             os.path.abspath(self._prl_options["pbs-pd-head"]), "input_package_{}"
         )
 
-        num_jobs = self._prl_options["pbs-jobs"]
+        num_jobs = min(self._prl_options["pbs-jobs"], len(data))
 
         # 1) Parse all PBS arguments
         self._setup_pbs_run()
