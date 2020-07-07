@@ -14,8 +14,8 @@ def write_string_to_file(astring, filename):
         f.write(astring)
 
 
-def write_labels_to_file(labels, filename):
-    out = labels.to_string(shift_coordinates_by=1)
+def write_labels_to_file(labels, filename, shift_coordinates_by=1):
+    out = labels.to_string(shift_coordinates_by=shift_coordinates_by)
     write_string_to_file(out, filename)
 
 

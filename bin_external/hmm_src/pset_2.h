@@ -25,8 +25,11 @@ class Pset
 {
 public:
 
+    Pset();     // Never call this directly. It is only used by the copy constructor
 	Pset( Settings & settings, Parameters & parameters, Logger * logger );
 	~Pset(){};
+    
+    Pset deepCopy() const;
 
 	std::vector< Model* > native;
 	std::vector< Model* > first;

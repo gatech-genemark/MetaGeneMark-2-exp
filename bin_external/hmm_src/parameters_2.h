@@ -19,6 +19,7 @@
 #include "model_2.h"
 #include "settings_2.h"
 #include "parameter_parser_2.h"
+#include "multi_shift_site.hpp"
 
 // ----------------------------------------------------
 class Parameters
@@ -45,6 +46,7 @@ private:
 	
 	void LoadSection( ParameterParser & parser, std::string & buffer, std::string const label );
 	void LoadSite( ParameterParser & parser, parameter_map & par, std::string & buffer, std::string const label, Site * ptr, bool with_dur );
+    void LoadMultiShiftSite( ParameterParser & parser, parameter_map & par, std::string & buffer, std::string const label, MultiShiftSite * ptr, bool with_dur );
 
 	std::string Summary(void);
 

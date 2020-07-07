@@ -406,7 +406,7 @@ def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/gms2/gmhmmp2"
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
-    print(cmd)
+    log.info(cmd)
     run_shell_cmd(cmd)
 
 def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):

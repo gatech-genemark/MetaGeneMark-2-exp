@@ -135,8 +135,6 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
         if len(active_threads) >= simultaneous_runs:
             wait_for_any(active_threads)
 
-        log.critical(f"{i} / {len(data)}")
-
         # time.sleep(5)
 
     wait_for_all(active_threads)

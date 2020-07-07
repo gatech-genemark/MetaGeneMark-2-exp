@@ -128,6 +128,9 @@ class PBS:
         """
 
         split_collector = get_value(kwargs, "split_collector", None, valid_type=list)       # type: List
+        split_kwargs = get_value(kwargs, "split_kwargs", None)
+        if split_kwargs is None:
+            split_kwargs = dict()
 
         pd_work_pbs = self._prl_options["pbs-pd-head"]
 
@@ -136,7 +139,7 @@ class PBS:
         )
 
         # Split data
-        list_split_data = self._splitter(data, num_splits)
+        list_split_data = self._splitter(data, num_splits, **split_kwargs)
 
         # collect split data if requested
         if split_collector is not None:

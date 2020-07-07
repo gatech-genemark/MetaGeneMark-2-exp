@@ -207,6 +207,10 @@ class Label:
     def seqname(self):
         return self._fields["seqname"]
 
+    def set_seqname(self, seqname):
+        # type: (str) -> None
+        self._fields["seqname"] = seqname
+
     def length(self):
         return self.coordinates().right - self.coordinates().left + 1
 

@@ -15,6 +15,7 @@
 #include "logger.h"
 #include "common_2.h"
 #include "site_2.h"
+#include "multi_shift_site.hpp"
 
 // ----------------------------------------------------
 namespace DEFVALUES
@@ -29,6 +30,7 @@ class Model
 public:
 
 	Model( Logger * const logger );
+//    Model(Model m);     // copy constructor
 	~Model(){};
 
 	void Initialize(void);
@@ -132,9 +134,9 @@ public:
 	Site StartContent;
     
     // MGM sites
-    Site RBS_A, RBS_B, RBS_C, RBS_D, RBS_X;
+    MultiShiftSite RBS_A, RBS_B, RBS_C, RBS_D, RBS_X;
     Site SC_RBS_A, SC_RBS_B, SC_RBS_C, SC_RBS_D, SC_RBS_X;
-    Site PROMOTER_C, PROMOTER_D;
+    MultiShiftSite PROMOTER_C, PROMOTER_D;
     Site SC_PROMOTER_C, SC_PROMOTER_D;
     Site EUS;
 
@@ -171,6 +173,7 @@ private:
 	void ReverseCompNoncodingCounts( unsigned int order, std::vector<double> & arr );
 
 	void InitializeSite( Site * ptr, bool with_dur, int norm_order, std::string const & label );
+    void InitializeMultiShiftSite( MultiShiftSite * ptr, bool with_dur, int norm_order, std::string const & label );
 
 	std::string PrintLogOdds(void);
 	std::string PrintLogOdds_abs(void);

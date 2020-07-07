@@ -65,6 +65,36 @@ def split_gil(data, num_splits, **kwargs):
     return list_output
 
 
+def split_list(data, num_splits, **kwargs):
+    # type: (Dict[str, Any], int, Dict[str, Any]) -> List[Dict[str, Any]]
+    pf_output_template = get_value(data, "pf_output_template", None, value_type=str)
+    arg_name_pf_output = get_value(data, "arg_name_pf_output", "pf_output", value_type=str)
+    arg_name_data = get_value(kwargs, "arg_name_data", "data", value_type=str)
+
+
+    list_of_lists = list()
+    for i in range(num_splits):
+        list_of_lists.append(list())
+
+    for index, item in enumerate(data):
+        index_of_list = index % num_splits
+
+        list_of_lists[index_of_list].append(item)
+
+    list_output = list()
+    for i in range(len(list_of_lists)):
+        val = {
+            arg_name_data: list_of_lists[i],
+        }
+
+        if pf_output_template is not None:
+            val[arg_name_pf_output]: pf_output_template.format(i)
+
+        list_output.append(val)
+
+    return list_output
+
+
 
 
 
