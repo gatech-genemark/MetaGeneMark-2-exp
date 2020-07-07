@@ -147,16 +147,16 @@ public:
     void Init( std::vector<unsigned int> const & flags, unsigned int const min_gene_length );
     void CalcGC( Data & d );
     void CalcLogP( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype );
-    void CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, GMS2_GROUP gms2_group = NONE);
+    void CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, GMS2_GROUP gms2_group = GMS2_NONE);
     void AddIniTermProb(double p_ini_non);
 
     void Run(bool best_start_before_dp, double delta);
 
-    void CalcStartScoreForPositionNative(Model* m, std::vector<unsigned char> & nt, std::vector< MapValue >::iterator itr, GMS2_GROUP gms2_group=NONE);
-    void CalcStartScoreForPositionAtypical(Model* m, std::vector<unsigned char> & nt, std::vector< MapValue >::iterator itr, GMS2_GROUP gms2_group=NONE);
+    void CalcStartScoreForPositionNative(Model* m, std::vector<unsigned char> & nt, std::vector< MapValue >::iterator itr, GMS2_GROUP gms2_group=GMS2_NONE);
+    void CalcStartScoreForPositionAtypical(Model* m, std::vector<unsigned char> & nt, std::vector< MapValue >::iterator itr, GMS2_GROUP gms2_group=GMS2_NONE);
 
-    void CalcStarts( Model* mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=NONE);
-    void CalcStartsGC(std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=NONE);
+    void CalcStarts( Model* mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=GMS2_NONE);
+    void CalcStartsGC(std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group=GMS2_NONE);
     void AddSiteInfo( Model* mod, std::vector<unsigned char> & nt );
     void AddSiteInfoAtypical( std::vector< Model* > & mod, std::vector<unsigned char> & nt, GMS2_GROUP gms2_group);
 

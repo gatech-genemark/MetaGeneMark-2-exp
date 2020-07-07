@@ -619,27 +619,27 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     
     // the following variables will hold the models that will be used
     Site *m_rbs = nullptr, *m_prom = nullptr, *m_scrbs = nullptr, *m_scprom = nullptr, *m_eus = nullptr;
-    if (gms2_group == A) {
+    if (gms2_group == GMS2_A) {
         m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_A;
     }
-    else if (gms2_group == B) {
+    else if (gms2_group == GMS2_B) {
         m_rbs = m->RBS_B.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_B;
     }
-    else if (gms2_group == C) {
+    else if (gms2_group == GMS2_C) {
         m_rbs = m->RBS_C.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_C;
         m_prom = m->PROMOTER_C.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scprom = &m->SC_PROMOTER_C;
     }
-    else if (gms2_group == D) {
+    else if (gms2_group == GMS2_D) {
         m_rbs = m->RBS_D.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_D;
         m_prom = m->PROMOTER_D.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scprom = &m->SC_PROMOTER_D;
     }
-    else if (gms2_group == X) {
+    else if (gms2_group == GMS2_X) {
         m_rbs = m->RBS_X.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_X;
         m_eus = &m->EUS;
@@ -911,28 +911,28 @@ void SequenceMap::CalcLogP( std::vector< Model* > & mod, std::vector<unsigned ch
 float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod, GMS2_GROUP gms2_group) {
     float score = 0;
     
-    if (gms2_group == GMS2_GROUP::A) {
+    if (gms2_group == GMS2_A) {
         
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_A, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_A, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_A, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == GMS2_GROUP::B) {
+    else if (gms2_group == GMS2_B) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_B, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_B, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_B, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == GMS2_GROUP::C) {
+    else if (gms2_group == GMS2_C) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_C, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_C, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_C, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == GMS2_GROUP::D) {
+    else if (gms2_group == GMS2_D) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_D, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_D, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_D, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
-    else if (gms2_group == GMS2_GROUP::X) {
+    else if (gms2_group == GMS2_X) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_X, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_X, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_X, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
@@ -2207,15 +2207,15 @@ Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
-    if (gms2_group == GMS2_GROUP::A)
+    if (gms2_group == GMS2_A)
         sptr = mod->RBS_A.get_site_with_max_score(nt, pos , status);
-    else if (gms2_group == GMS2_GROUP::B)
+    else if (gms2_group == GMS2_B)
         sptr = mod->RBS_B.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == GMS2_GROUP::C)
+    else if (gms2_group == GMS2_C)
         sptr = mod->RBS_C.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == GMS2_GROUP::D)
+    else if (gms2_group == GMS2_D)
         sptr = mod->RBS_D.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == GMS2_GROUP::X)
+    else if (gms2_group == GMS2_X)
         sptr = mod->RBS_X.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
@@ -2223,9 +2223,9 @@ Site* get_ptr_to_rbs_site(Model *mod, GMS2_GROUP gms2_group,
 //Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group) {
 //
 //    Site *sptr = nullptr;
-//    if (gms2_group == GMS2_GROUP::C)
+//    if (gms2_group == C)
 //        sptr = &mod->PROMOTER_C;
-//    else if (gms2_group == GMS2_GROUP::D)
+//    else if (gms2_group == D)
 //        sptr = &mod->PROMOTER_D;
 //
 //    return sptr;
@@ -2235,9 +2235,9 @@ Site* get_ptr_to_promoter_site(Model *mod, GMS2_GROUP gms2_group,
                           std::vector<unsigned char> & nt, int pos, unsigned int status ) {
     
     Site *sptr = nullptr;
-    if (gms2_group == GMS2_GROUP::C)
+    if (gms2_group == GMS2_C)
         sptr = mod->PROMOTER_C.get_site_with_max_score(nt, pos, status);
-    else if (gms2_group == GMS2_GROUP::D)
+    else if (gms2_group == GMS2_D)
         sptr = mod->PROMOTER_D.get_site_with_max_score(nt, pos, status);
     return sptr;
 }
