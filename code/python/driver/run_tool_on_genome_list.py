@@ -110,7 +110,7 @@ def run_tool_on_genome_list(env, gil, tool, **kwargs):
             # setup PBS jobs
             pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
             pbs.run(
-                data={"gil": gil},
+                data=gil,
                 func=helper_run_tool_on_genome_list,
                 func_kwargs={"env": env, "tool": tool, **kwargs}
             )

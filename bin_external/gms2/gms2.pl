@@ -13,7 +13,7 @@ use Cwd 'abs_path';
 use Getopt::Long;
 use File::Basename;
 
-my $VERSION = "1.09";
+my $VERSION = "1.10";
 
 # get script name
 my $scriptName = basename($0);
@@ -1051,7 +1051,7 @@ sub Usage {
 Basic Options: 
 --seq                                   File containing genome sequence in FASTA format
 --genome-type                           Type of genome: archaea, bacteria, auto 
---gcode                                 The genetic code number (default: $D_GENETIC_CODE. Choices: 11 and 4)
+--gcode                                 The genetic code number (default: $D_GENETIC_CODE. Choices: 11, 4 and 25)
 --output                                Name of output file (default: $D_FNOUTPUT)
 --format                                Format of output file (default: $D_FORMAT_OUTPUT)
 --ext                                   Name of file with external information in GFF format (PLUS mode of GMS2)

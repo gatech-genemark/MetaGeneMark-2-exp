@@ -66,12 +66,14 @@ def collect_start_info_from_gi(env, gi):
     pd_genome_run = os_join(env["pd-runs"], gi.name)
     pd_gms2 = os_join(pd_genome_run, "gms2")
     pf_mod = os_join(pd_gms2, "GMS2.mod")
-    pf_gms2_labels = os_join(pd_gms2, "gms2.gff")
+    pf_gms2_labels = os_join(pd_gms2, "prediction.gff")
 
     # get GC at genome level and average gene gc
     sequences = SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
     genome_gc = compute_gc(sequences)
-    avg_gene_gc = np.mean([compute_gc(sequences, label) for label in read_labels_from_file(pf_gms2_labels)])
+    gene_gcs = [compute_gc(sequences, label) for label in read_labels_from_file(pf_gms2_labels)]
+    avg_gene_gc = np.mean(gene_gcs)
+    median_gene_gc = np.median(gene_gcs)
 
     mod = GMS2Mod.init_from_file(pf_mod)
 
@@ -82,6 +84,8 @@ def collect_start_info_from_gi(env, gi):
         "Genome": gi.name,
         "GC": genome_gc,
         "Average Gene GC": avg_gene_gc,
+        "Median Gene GC": median_gene_gc,
+        "Genetic Code": gi.genetic_code,
         "Mod": mod,
         # # **{
         # #     x: mod.items[x] for x in {
