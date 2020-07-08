@@ -310,6 +310,8 @@ def helper_run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, **kwargs):
 
     prl_options = get_value(kwargs, "prl_options", None)        # type: ParallelizationOptions
     simultaneous_genomes = get_value(kwargs, "simultaneous_genomes", 8)
+    import pdb
+    pdb.set_trace()
 
     if prl_options is None or not prl_options["use-pbs"]:
         list_df = list()
@@ -319,7 +321,7 @@ def helper_run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, **kwargs):
     else:
         # if PBS used down the line, parallelize genome-level
         list_df = run_n_per_thread(
-            list(gil), run_tools_on_chunks_for_gi, "gi", {"tools": tools, "chunk_sizes_nt": chunk_sizes_nt, **kwargs},
+                list(gil), run_tools_on_chunks_for_gi, "gi", {"env": env, "tools": tools, "chunk_sizes_nt": chunk_sizes_nt, **kwargs},
             simultaneous_runs=simultaneous_genomes
         )
 
@@ -328,13 +330,14 @@ def helper_run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, **kwargs):
 
 def run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, pf_summary, **kwargs):
     # type: (Environment, GenomeInfoList, List[str], List[int], str, Dict[str, Any]) -> None
+    df =  helper_run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, **kwargs)
+#     list_df = list()
+#     for gi in gil:
+#         df = run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
+#         list_df.append(df)
+#
+#     df = pd.concat(list_df, ignore_index=True, sort=False)
 
-    list_df = list()
-    for gi in gil:
-        df = run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
-        list_df.append(df)
-
-    df = pd.concat(list_df, ignore_index=True, sort=False)
     df.to_csv(pf_summary, index=False)
     # prl_options = get_value(kwargs, "prl_options", None)
     #
@@ -383,7 +386,7 @@ def main(env, args):
         prl_options=prl_options,
         pf_mgm2_mod=os.path.abspath(args.pf_mgm2_mod),
         pf_mgm_mod=os.path.abspath(args.pf_mgm_mod),
-        clean=True
+        clean=True,
         simultaneous_genomes=args.simultaneous_genomes
     )
 
