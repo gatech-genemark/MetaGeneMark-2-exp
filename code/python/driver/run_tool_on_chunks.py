@@ -29,9 +29,9 @@ import mg_argparse.parallelization
 #           Parse CMD            #
 # ------------------------------ #
 from mg_options.parallelization import ParallelizationOptions
-from mg_parallelization.generic_threading import run_n_per_thread
+from mg_parallelization.generic_threading import run_n_per_thread, run_slice_per_thread
 from mg_parallelization.pbs import PBS
-from mg_pbs_data.mergers import merge_dataframes
+from mg_pbs_data.mergers import merge_dataframes, merge_lists
 from mg_pbs_data.splitters import split_gil, split_list
 
 parser = argparse.ArgumentParser("Run tool on chunks of genome, and collect predictions.")
@@ -114,19 +114,58 @@ def merge_predictions_with_offsets(list_prediction_info, pf_output):
     write_labels_to_file(labels, pf_output, shift_coordinates_by=0)
 
 
+def helper_run_chunks(env, t, list_chunk_info, gi, pd_work_tool, **kwargs):
+    # type: (Environment, str, List[[str, str, int]], GenomeInfo, str, Dict[str, Any]) -> List[[str, str, int]]
+    list_prediction_info = list()  # type: List[[str, str, int]]
+    pf_mgm2_mod = get_value(kwargs, "pf_mgm2_mod", type=str, required=t == "MGM2")
+    pf_mgm_mod = get_value(kwargs, "pf_mgm_mod", type=str, required=t == "MGM")
+
+    dn_prefix = get_value(kwargs, "dn_prefix", None, type=str)
+
+    if dn_prefix is not None:
+        dn_prefix = dn_prefix + "_"
+    else:
+        dn_prefix = ""
+
+
+    list_pd_chunks = list()
+
+
+    # run tool on separate chunks
+    for i, ci in tqdm(enumerate(list_chunk_info), gi.name, total=len(list_chunk_info)):
+        pf_chunk, seqname, offset = ci
+
+        pd_work_chunk = os_join(pd_work_tool, f"{dn_prefix}chunk_{i}")
+        pf_predictions = os_join(pd_work_chunk, "predictions.gff")
+        mkdir_p(pd_work_chunk)
+        env_curr = env.duplicate({"pd-work": pd_work_chunk})
+        if t == "GMS2":
+            run_gms2(env_curr, pf_chunk, pf_predictions)
+        elif t == "MGM2":
+            run_mgm2(env_curr, pf_chunk, pf_mgm2_mod, pf_predictions)
+        elif t == "MGM":
+            run_mgm(env_curr, pf_chunk, pf_mgm_mod, pf_predictions)
+
+        list_prediction_info.append([pf_predictions, seqname, offset])
+        list_pd_chunks.append(pd_work_chunk)
+
+    return [list_prediction_info, list_pd_chunks]
+
+
+
 def run_tools_on_chunk_size_for_gi(env, gi, tools, chunk_size_nt, **kwargs):
     # type: (Environment, GenomeInfo, List[str], int, Dict[str, Any]) -> pd.DataFrame
 
     dn_suffix = get_value(kwargs, "dn_suffix", None, type=str)
+    prl_options = get_value(kwargs, "prl_options", None)        # type: ParallelizationOptions
     clean = get_value(kwargs, "clean", default=False)
 
     if dn_suffix is not None:
-        dn_suffix = "_" + dn_suffix
+        dn_suffix = "_" + str(dn_suffix)
     else:
         dn_suffix = ""
 
-    pf_mgm2_mod = get_value(kwargs, "pf_mgm2_mod", type=str, required="MGM2" in tools)
-    pf_mgm_mod = get_value(kwargs, "pf_mgm_mod", type=str, required="MGM" in tools)
+
 
     pd_chunk_seqs = os_join(env["pd-work"], gi.name, f"{chunk_size_nt}{dn_suffix}")
     pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
@@ -140,27 +179,60 @@ def run_tools_on_chunk_size_for_gi(env, gi, tools, chunk_size_nt, **kwargs):
         pd_work_tool = os_join(env["pd-runs"], gi.name, f"chunking{dn_suffix}", f"{t}_{chunk_size_nt}")
         mkdir_p(pd_work_tool)
 
-        list_prediction_info = list()  # type: List[[str, str, int]]
+        if prl_options is None:
+            list_prediction_info, list_pd_chunks = helper_run_chunks(
+                env, t, list_chunk_info, gi, pd_work_tool, **kwargs
+            )
+        else:
+            # def helper_run_chunks(env, t, list_chunk_info, gi, pd_work_tool, pf_mgm2_mod, pf_mgm_mod, clean):
+            if prl_options["use-pbs"]:
+                pbs = PBS(env, prl_options,
+                          splitter=split_list,
+                          merger=merge_lists
+                          )
 
-        list_pd_chunks = list()
+                list_prediction_info, list_pd_chunks = pbs.run(
+                    data=list_chunk_info,
+                    func=helper_run_chunks,
+                    func_kwargs={
+                        "env": env, "t": t, "gi": gi, "pd_work_tool": pd_work_tool, **kwargs
+                    },
+                    split_kwargs={
+                        "arg_name_data": "list_chunk_info",
+                        "arg_name_jobid": "dn_prefix"
+                    }
+                )
+            else:
+                # threading
+                list_prediction_info, list_pd_chunks = run_slice_per_thread(
+                    list_chunk_info, run_tools_on_chunk_size_for_gi, "list_chunk_info",
+                    {
+                        "env": env, "t": t, "gi": gi, "pd_work_tool": pd_work_tool, **kwargs
+                    },
+                    arg_name_threadid="dn_prefix"
+                )
 
-        # run tool on separate chunks
-        for i, ci in tqdm(enumerate(list_chunk_info), gi.name, total=len(list_chunk_info)):
-            pf_chunk, seqname, offset = ci
-
-            pd_work_chunk = os_join(pd_work_tool, f"chunk_{i}")
-            pf_predictions = os_join(pd_work_chunk, "predictions.gff")
-            mkdir_p(pd_work_chunk)
-            env_curr = env.duplicate({"pd-work": pd_work_chunk})
-            if t == "GMS2":
-                run_gms2(env_curr, pf_chunk, pf_predictions)
-            elif t == "MGM2":
-                run_mgm2(env_curr, pf_chunk, pf_mgm2_mod, pf_predictions)
-            elif t == "MGM":
-                run_mgm(env_curr, pf_chunk, pf_mgm_mod, pf_predictions)
-
-            list_prediction_info.append([pf_predictions, seqname, offset])
-            list_pd_chunks.append(pd_work_chunk)
+        # list_prediction_info = list()  # type: List[[str, str, int]]
+        #
+        # list_pd_chunks = list()
+        #
+        # # run tool on separate chunks
+        # for i, ci in tqdm(enumerate(list_chunk_info), gi.name, total=len(list_chunk_info)):
+        #     pf_chunk, seqname, offset = ci
+        #
+        #     pd_work_chunk = os_join(pd_work_tool, f"chunk_{i}")
+        #     pf_predictions = os_join(pd_work_chunk, "predictions.gff")
+        #     mkdir_p(pd_work_chunk)
+        #     env_curr = env.duplicate({"pd-work": pd_work_chunk})
+        #     if t == "GMS2":
+        #         run_gms2(env_curr, pf_chunk, pf_predictions)
+        #     elif t == "MGM2":
+        #         run_mgm2(env_curr, pf_chunk, pf_mgm2_mod, pf_predictions)
+        #     elif t == "MGM":
+        #         run_mgm(env_curr, pf_chunk, pf_mgm_mod, pf_predictions)
+        #
+        #     list_prediction_info.append([pf_predictions, seqname, offset])
+        #     list_pd_chunks.append(pd_work_chunk)
 
         # merge labels from all chunks
         pf_combined_prediction = os_join(pd_work_tool, "predictions.gff")
@@ -195,36 +267,36 @@ def helper_run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs):
 def run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs):
     # type: (Environment, GenomeInfo, List[str], List[int], Dict[str, Any]) -> pd.DataFrame
 
-    prl_options = get_value(kwargs, "prl_options", None)
+    # prl_options = get_value(kwargs, "prl_options", None)
 
-    if prl_options is None:
-        df = helper_run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
-    else:
-        if prl_options["use-pbs"]:
-            pbs = PBS(env, prl_options,
-                      splitter=split_list,
-                      merger=merge_dataframes
-                      )
-
-            df = pbs.run(
-                data=chunk_sizes_nt,
-                func=helper_run_tools_on_chunks_for_gi,
-                func_kwargs={
-                    "env": env, "gi": gi, "tools": tools, **kwargs
-                },
-                split_kwargs={
-                    "arg_name_data": "chunk_sizes_nt"
-                }
-            )
-        else:
-            list_df = run_n_per_thread(
-                chunk_sizes_nt, run_tools_on_chunk_size_for_gi, "chunk_size_nt",
-                {
-                    "env": env, "gi": gi, "tools": tools, **kwargs
-                }
-            )
-
-            df = pd.concat(list_df, ignore_index=True, sort=False)
+    # if prl_options is None:
+    df = helper_run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
+    # else:
+    #     if prl_options["use-pbs"]:
+    #         pbs = PBS(env, prl_options,
+    #                   splitter=split_list,
+    #                   merger=merge_dataframes
+    #                   )
+    #
+    #         df = pbs.run(
+    #             data=chunk_sizes_nt,
+    #             func=helper_run_tools_on_chunks_for_gi,
+    #             func_kwargs={
+    #                 "env": env, "gi": gi, "tools": tools, **kwargs
+    #             },
+    #             split_kwargs={
+    #                 "arg_name_data": "chunk_sizes_nt"
+    #             }
+    #         )
+    #     else:
+    #         list_df = run_n_per_thread(
+    #             chunk_sizes_nt, run_tools_on_chunk_size_for_gi, "chunk_size_nt",
+    #             {
+    #                 "env": env, "gi": gi, "tools": tools, **kwargs
+    #             }
+    #         )
+    #
+    #         df = pd.concat(list_df, ignore_index=True, sort=False)
 
     return df
 

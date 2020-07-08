@@ -46,9 +46,12 @@ class GenericThread(threading.Thread):
         threading.Thread.__init__(self)
         self._func = func
         self._func_kwargs = func_kwargs
+        self._output = get_value(kwargs, "output", None, valid_type=dict())
 
     def run(self):
-        self._func(**self._func_kwargs)
+        out = self._func(**self._func_kwargs)
+        if self._output is not None:
+            self._output[self.ident] = out
 
 
 class GenericThreadN(threading.Thread):
@@ -68,7 +71,7 @@ class GenericThreadN(threading.Thread):
                 list_outputs.append(output)
 
         if self._output is not None:
-            self._output[self.native_id] = list_outputs
+            self._output[self.ident] = list_outputs
 
 
 def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
@@ -93,12 +96,13 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
 
     wait_for_all(active_threads)
 
+
 def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
     # type: (Collection[Any], Callable, str, Dict[str, Any], Dict[str, Any]) -> Union[List[Any], None]
     simultaneous_runs = get_value(kwargs, "simultaneous_runs", 8)
-    n = get_value(kwargs, "n", math.ceil(len(data)/simultaneous_runs), valid_type=int)
+    n = get_value(kwargs, "n", math.ceil(len(data) / simultaneous_runs), valid_type=int)
 
-    output = dict()     # type: Dict[Any, List[Any]]
+    output = dict()  # type: Dict[Any, List[Any]]
 
     data = list(data)
 
@@ -110,7 +114,6 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
 
     i = 0
     while i < len(data):
-
 
         # get n datapoints
         infos = list()
@@ -144,5 +147,54 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
     ]
 
 
+def run_slice_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
+    # type: (Collection[Any], Callable, str, Dict[str, Any], Dict[str, Any]) -> Union[List[Any], None]
+    simultaneous_runs = get_value(kwargs, "simultaneous_runs", 8)
+    n = get_value(kwargs, "n", math.ceil(len(data) / simultaneous_runs), valid_type=int)
+    arg_name_threadid = get_value(kwargs, "arg_name_threadid", None, type=str)
+
+    output = dict()  # type: Dict[Any, List[Any]]
+
+    data = list(data)
+
+    if n * simultaneous_runs > len(data):
+        n = math.ceil(len(data) / simultaneous_runs)
+
+    active_threads = list()
+    thread_id = 0
+
+    thread_kwargs = {}
 
 
+    i = 0
+    thread_id = 0
+    while i < len(data):
+
+        # get slice indices
+        left = i
+        right_excluded = min(i + n, len(data))
+
+        data_slice = data[left:right_excluded]
+
+        if arg_name_threadid is not None:
+            thread_kwargs[arg_name_threadid] = thread_id
+            thread_id += 1
+
+        thread = GenericThread(func, {data_arg_name: data_slice, **thread_kwargs, **func_kwargs}, output=output)
+
+        thread.start()
+        thread_id += 1
+
+        active_threads.append(thread)
+
+        # wait until number of active threads is low
+        if len(active_threads) >= simultaneous_runs:
+            wait_for_any(active_threads)
+
+        # time.sleep(5)
+
+    wait_for_all(active_threads)
+
+    return [
+        x for l in output.values() for x in l
+    ]
