@@ -68,7 +68,7 @@ class GenericThreadN(threading.Thread):
                 list_outputs.append(output)
 
         if self._output is not None:
-            self._output[self.native_id] = list_outputs
+            self._output[self.ident] = list_outputs
 
 
 def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
