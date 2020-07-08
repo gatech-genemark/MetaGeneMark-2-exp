@@ -1,6 +1,7 @@
 # Author: Karl Gemayel
 # Created: 7/7/20, 7:47 AM
 
+import os
 import logging
 import argparse
 import pandas as pd
@@ -180,6 +181,8 @@ def run_tools_on_chunk_size_for_gi(env, gi, tools, chunk_size_nt, **kwargs):
     if clean:
         remove_p(pd_chunk_seqs)
 
+    print(list_summary)
+
     return pd.DataFrame(list_summary)
 
 
@@ -294,8 +297,8 @@ def main(env, args):
         env, gil, args.tools, args.chunk_sizes_nt,
         args.pf_summary,
         prl_options=prl_options,
-        pf_mgm2_mod=args.pf_mgm2_mod,
-        pf_mgm_mod=args.pf_mgm_mod,
+        pf_mgm2_mod=os.path.abspath(args.pf_mgm2_mod),
+        pf_mgm_mod=os.path.abspath(args.pf_mgm_mod),
         clean=True
     )
 

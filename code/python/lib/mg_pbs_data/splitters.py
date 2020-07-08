@@ -102,7 +102,7 @@ def split_list(data, num_splits, **kwargs):
 
 # old ones
 
-def split_list(data, num_splits, pd_work, **kwargs):
+def split_list_DEPRECATED(data, num_splits, pd_work, **kwargs):
     # type: (Dict[str, Any], int, str, Dict[str, Any]) -> List[Dict[str, str]]
 
     list_pf_data = data["list_pf_data"]
