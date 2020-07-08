@@ -39,6 +39,7 @@ parser = argparse.ArgumentParser("Run tool on chunks of genome, and collect pred
 parser.add_argument('--pf-gil', required=True)
 parser.add_argument('--tools', required=True, nargs="+", choices=["GMS2", "MGM2", "MGM"], type=str.upper)
 parser.add_argument('--pf-summary', required=True, help="Output file that will contain summary of runs")
+parser.add_argument('--simultaneous-genomes', default=8, help="Number of genomes to analyze simultaneously")
 
 parser.add_argument('--pf-mgm2-mod', type=str)
 parser.add_argument('--pf-mgm-mod', type=str)
@@ -303,10 +304,21 @@ def run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs):
 
 def helper_run_tools_on_chunks(env, gil, tools, chunk_sizes_nt, **kwargs):
     # type: (Environment, GenomeInfoList, List[str], List[int], Dict[str, Any]) -> pd.DataFrame
-    list_df = list()
-    for gi in gil:
-        df = run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
-        list_df.append(df)
+
+    prl_options = get_value(kwargs, "prl_options", None)        # type: ParallelizationOptions
+    simultaneous_genomes = get_value(kwargs, "simultaneous_genomes", 8)
+
+    if prl_options is None or not prl_options["use-pbs"]:
+        list_df = list()
+        for gi in gil:
+            df = run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs)
+            list_df.append(df)
+    else:
+        # if PBS used down the line, parallelize genome-level
+        list_df = run_n_per_thread(
+            list(gil), run_tools_on_chunks_for_gi, "gi", {"tools": tools, "chunk_sizes_nt": chunk_sizes_nt, **kwargs},
+            simultaneous_runs=simultaneous_genomes
+        )
 
     return pd.concat(list_df, ignore_index=True, sort=False)
 
@@ -368,7 +380,8 @@ def main(env, args):
         prl_options=prl_options,
         pf_mgm2_mod=args.pf_mgm2_mod,
         pf_mgm_mod=args.pf_mgm_mod,
-        clean=True
+        clean=True,
+        simultaneous_genomes=args.simultaneous_genomes
     )
 
 
