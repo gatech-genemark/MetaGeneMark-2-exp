@@ -261,7 +261,7 @@ def run_tools_on_chunk_size_for_gi(env, gi, tools, chunk_size_nt, **kwargs):
 def helper_run_tools_on_chunks_for_gi(env, gi, tools, chunk_sizes_nt, **kwargs):
     # type: (Environment, GenomeInfo, List[str], List[int], Dict[str, Any]) -> pd.DataFrame
     list_df = list()
-    for cst in chunk_sizes_nt:
+    for cst in tqdm(chunk_sizes_nt, gi.name, total=len(chunk_sizes_nt)):
         df = run_tools_on_chunk_size_for_gi(env, gi, tools, cst, **kwargs)
         list_df.append(df)
     return pd.concat(list_df, ignore_index=True, sort=False)
