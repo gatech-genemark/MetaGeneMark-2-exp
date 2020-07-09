@@ -18,7 +18,7 @@ from mg_io.general import mkdir_p
 from mg_container.genome_list import GenomeInfo, GenomeInfoList
 from mg_general import add_env_args_to_parser, Environment
 from mg_general.general import get_value, os_join, run_shell_cmd
-from mg_models.shelf import run_gms2
+from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_prodigal, run_meta_prodigal
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -34,8 +34,12 @@ parser = argparse.ArgumentParser("Run external prediction tools on genome list."
 parser.add_argument('--pf-gil', required=True, help="List of genomes")
 parser.add_argument('--type', required=True, choices=["archaea", "bacteria", "auto"], help="Is the list archaea or bacteria")
 parser.add_argument('--dn-run', required=False, help="Name of directory that will contain the run")
-parser.add_argument('--tool', choices=["gms2", "prodigal"], required=True, help="Tool used for prediction")
 parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
+parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal"], required=True, help="Tool used for prediction")
+
+parser.add_argument('--pf-mgm-mod', help="Path to MGM model file")
+parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file")
+
 add_parallelization_options(parser)
 
 add_env_args_to_parser(parser)
@@ -70,6 +74,14 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
 
     if tool == "gms2":
         run_gms2(curr_env, pf_sequence, pf_prediction, **kwargs)
+    elif tool == "prodigal":
+        run_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+    elif tool == "mprodigal":
+        run_meta_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+    elif tool == "mgm2":
+        run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction)
+    elif tool == "mgm":
+        run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction)
     else:
         raise NotImplementedError()
 
@@ -139,7 +151,8 @@ def main(env, args):
 
     run_tool_on_genome_list(env, gil, args.tool, prl_options=prl_options,
                             dn_run=args.dn_run, genome_type=args.type,
-                            skip_if_exists=args.skip_if_exists)
+                            skip_if_exists=args.skip_if_exists,
+                            pf_mgm_mod=args.pf_mgm_mod, pf_mgm2_mod=args.pf_mgm2_mod)
 
 
 if __name__ == "__main__":

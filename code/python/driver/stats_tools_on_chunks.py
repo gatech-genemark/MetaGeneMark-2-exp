@@ -63,6 +63,7 @@ def stats_tools_on_chunks(env, df):
         lcd = LabelsComparisonDetailed(labels_ref, labels)
         list_entries.append({
             "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
+            "Number of genes found": len(lcd.match_3p('a')),
             **df.loc[idx, :].to_dict(),
         })
 
