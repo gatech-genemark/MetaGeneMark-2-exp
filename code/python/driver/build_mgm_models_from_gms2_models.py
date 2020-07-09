@@ -9,6 +9,8 @@ import operator
 import numpy as np
 import pandas as pd
 from typing import *
+
+import seaborn
 from tqdm import tqdm
 from statsmodels import api as sm
 import matplotlib.pyplot as plt
@@ -65,12 +67,50 @@ def get_loess(local_x, local_y):
     return loess[:, 1]
 
 
-def add_codon_probabilities(df, mgm, codons, gms2_group, **kwargs):
-    # type: (pd.DataFrame, MGMModel, List[str], str, Dict[str, Any]) -> None
+
+def visualize_start_codons(env, viz_collector):
+    # type: (Environment, Dict[str, Dict[str, Dict[str, Any]]]) -> None
+
+    list_entries = list()
+
+    for genome_type in viz_collector:
+        for group in viz_collector[genome_type]:
+            if group == "X":
+                continue
+            for codon in viz_collector[genome_type][group]:
+                vals = viz_collector[genome_type][group][codon]
+                x = vals["x"]
+                y = vals["y"]
+                y_fit = vals["y_fit"]
+
+                for i in range(len(x)):
+
+                    list_entries.append({
+                        "Genome Type": genome_type,
+                        "Group": group if genome_type == "Bacteria" else f"{group}*",
+                        "Codon": codon,
+                        "x": x[i],
+                        "y": y[i],
+                        "y_fit": y_fit[i]
+                    })
+
+    df = pd.DataFrame(list_entries)
+    g = seaborn.FacetGrid(df, col="Codon", hue="Group")
+    g.map(plt.scatter, "x", "y", alpha=.3, s=2)
+    g.set_xlabels("GC")
+    g.set_ylabels("Probability")
+    g.add_legend()
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+
+def add_codon_probabilities(env, df, mgm, codons, gms2_group, **kwargs):
+    # type: (Environment, pd.DataFrame, MGMModel, List[str], str, Dict[str, Any]) -> None
 
     genome_type = get_value(kwargs, "genome_type", required=True, choices=["Archaea", "Bacteria"])  # type: str
     plot = get_value(kwargs, "plot", False, valid_type=bool)
     gc_feature = get_value(kwargs, "gc_feature", "GC", valid_type=str)
+    viz_collector = get_value(kwargs, "viz_collector", None)
 
     genome_tag = genome_type[0]
 
@@ -84,42 +124,21 @@ def add_codon_probabilities(df, mgm, codons, gms2_group, **kwargs):
 
     df = df[df["Type"] == genome_type].copy()
 
-    values_per_codon = dict()
+    list_entries = list()
+
+    fig, ax = plt.subplots()
+    # values_per_codon = dict()
     df.sort_values(gc_feature, inplace=True)
     for c in codons:
 
         x = df[gc_feature].values
-        y = df.apply(lambda r: r["Mod"].items[c], axis=1).astype(float).values
-        y = get_loess(x, y)
+        y_original = df.apply(lambda r: r["Mod"].items[c], axis=1).astype(float).values
+        y = get_loess(x, y_original)
 
-        values_per_codon[c] = [x, y]
+        # values_per_codon[c] = [x, y]
 
 
-
-    # if plot:
-    # df_tmp = pd.DataFrame(
-    #     {
-    #         "GC": df[gc_feature].values,
-    #         **{c: values_per_codon[c][1] for c in values_per_codon}
-    #     }
-    # )
-    #
-    #     df_tmp = pd.melt(df_tmp[["GC"] + codons], ["GC"], var_name="Codon", value_name="Frequency")
-    #     fig, ax = plt.subplots(1, 1)
-    #     sns.scatterplot(df_tmp, "GC", "Frequency", hue="Codon", ax=ax, show=False,
-    #                     sns_kwargs={"alpha": 0.4, "s": 2})
-    #
-    #     for c in codons:
-    #         ax.plot(values_per_codon[c][0], values_per_codon[c][1])
-    #
-    #     plt.show()
-
-    list_entries = list()
-
-    # get average per GC
-    for c in codons:
-        current = 0
-        x, y = values_per_codon[c]
+        # x, y = values_per_codon[c]
 
         x_bin, y_bin = compute_bin_averages(x, y, gc_min, gc_max, gc_step)
 
@@ -128,6 +147,27 @@ def add_codon_probabilities(df, mgm, codons, gms2_group, **kwargs):
             list_entries.append({
                 "Codon": c, "GC": gc_tag, "Probability": prob
             })
+
+        ax.scatter(x, y_original, alpha=0.3, s=2 if genome_type == "Bacteria" else 4, label=c)
+        ax.plot(x, y)
+
+        if viz_collector is not None:
+            viz_collector[c] = dict()
+            viz_collector[c]["x"] = x
+            viz_collector[c]["y"] = y_original
+            viz_collector[c]["y_fit"] = y
+
+    plt.title(f"{genome_type}: {gms2_group}")
+    leg = ax.legend()
+    for lh in leg.legendHandles:
+        lh.set_alpha(1)
+        lh.set_sizes([4]*3)
+    plt.xlabel("GC")
+    plt.ylabel("Probability")
+    plt.xlim([20, 80])
+    plt.ylim([0, 1])
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
 
         # for gc_tag in range(gc_min, gc_max, gc_step):
         #
@@ -152,22 +192,38 @@ def add_codon_probabilities(df, mgm, codons, gms2_group, **kwargs):
         #
         #     # update MGM
         #     mgm.items_by_species_and_gc[genome_tag][str(gc_tag)].items[f"{c}_{gms2_group}"] = avg
+    # if plot:
+    # df_tmp = pd.DataFrame(
+    #     {
+    #         "GC": df[gc_feature].values,
+    #         **{c: values_per_codon[c][1] for c in values_per_codon}
+    #     }
+    # )
+    #
+    #     df_tmp = pd.melt(df_tmp[["GC"] + codons], ["GC"], var_name="Codon", value_name="Frequency")
+    #     fig, ax = plt.subplots(1, 1)
+    #     sns.scatterplot(df_tmp, "GC", "Frequency", hue="Codon", ax=ax, show=False,
+    #                     sns_kwargs={"alpha": 0.4, "s": 2})
+    #
+    #     for c in codons:
+    #         ax.plot(values_per_codon[c][0], values_per_codon[c][1])
+    #
+    #     plt.show()
 
 
-
-    if plot:
-        df_tmp = pd.DataFrame(list_entries)
-        sns.scatterplot(df_tmp, "GC", "Probability", hue="Codon", figure_options=FigureOptions(title=gms2_group))
-
-
-def add_start_codon_probabilities(df, mgm, **kwargs):
-    # type: (pd.DataFrame, MGMModel, Dict[str, Any]) -> None
-    add_codon_probabilities(df, mgm, ["ATG", "GTG", "TTG"], **kwargs)
+    # if plot:
+    #     df_tmp = pd.DataFrame(list_entries)
+    #     sns.scatterplot(df_tmp, "GC", "Probability", hue="Codon", figure_options=FigureOptions(title=gms2_group))
 
 
-def add_stop_codon_probabilities(df, mgm, **kwargs):
-    # type: (pd.DataFrame, MGMModel, Dict[str, Any]) -> None
-    add_codon_probabilities(df, mgm, ["TAA", "TAG", "TGA"], **kwargs)
+def add_start_codon_probabilities(env, df, mgm, **kwargs):
+    # type: (Environment, pd.DataFrame, MGMModel, Dict[str, Any]) -> None
+    add_codon_probabilities(env, df, mgm, ["ATG", "GTG", "TTG"], **kwargs)
+
+
+def add_stop_codon_probabilities(env, df, mgm, **kwargs):
+    # type: (Environment, pd.DataFrame, MGMModel, Dict[str, Any]) -> None
+    add_codon_probabilities(env, df, mgm, ["TAA", "TAG", "TGA"], **kwargs)
 
 
 def compute_bin_averages(x, y, x_min, x_max, x_step):
@@ -475,21 +531,31 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
 
     # start/stop codons
     if "Start Codons" in components:
+        viz_collector = dict()
         if genome_type == "Archaea":
             output_group = ["A", "D"]
             learn_from = learn_from_arc
 
+            viz_collector[genome_type] = dict()
+
             for o, l in zip(output_group, learn_from):
+                viz_collector[genome_type][o] = dict()
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
+                add_start_codon_probabilities(env, df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o,
+                                              viz_collector=viz_collector[genome_type][o])
         if genome_type == "Bacteria":
             output_group = ["A", "B", "C", "X"]
             learn_from = [{"A"}, {"B"}, {"C"}, {"A"}]
+            viz_collector[genome_type] = dict()
 
             for o, l in zip(output_group, learn_from):
+                viz_collector[genome_type][o] = dict()
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
+                add_start_codon_probabilities(env, df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o,
+                                              viz_collector=viz_collector[genome_type][o])
         # add_start_codon_probabilities(df, mgm, genome_type="Archaea", plot=plot)
+
+        visualize_start_codons(env, viz_collector)
 
     if "Stop Codons" in components and False:
         if genome_type == "Archaea":
@@ -498,14 +564,14 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_stop_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
+                add_stop_codon_probabilities(env, df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
         if genome_type == "Bacteria":
             output_group = ["A", "B", "C", "X"]
             learn_from = [{"A"}, {"B"}, {"C"}, {"A"}]
 
             for o, l in zip(output_group, learn_from):
                 df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_stop_codon_probabilities(df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
+                add_stop_codon_probabilities(env, df_curr, mgm, genome_type=genome_type, plot=plot, gms2_group=o)
     # if "Stop Codons" in components:
     #     add_stop_codon_probabilities(df, mgm, genome_type=genome_type, plot=plot)
         # add_stop_codon_probabilities(df, mgm, genome_type="Archaea", plot=plot)
@@ -635,8 +701,8 @@ def main(env, args):
 
     mgm = MGMModel.init_from_file(args.pf_mgm)
     for genome_type in {"Archaea", "Bacteria"}:
-        if genome_type != "Archaea":
-            continue
+        # if genome_type != "Archaea":
+        #     continue
         build_mgm_models_from_gms2_models(env, df, mgm, components=args.components, genome_type=genome_type,
                                       plot=args.plot, gc_feature=gc_feature)
     mgm.to_file(args.pf_output)
