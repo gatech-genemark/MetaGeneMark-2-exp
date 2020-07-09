@@ -432,6 +432,35 @@ def run_gms2(env, pf_sequence, pf_prediction, **kwargs):
 
     run_shell_cmd(cmd_run)
 
+def run_prodigal(env, pf_sequence, pf_prediction, **kwargs):
+    # type: (Environment, str, str, Dict[str, Any]) -> None
+
+    gcode = get_value(kwargs, "gcode", 11, valid_type=int)
+
+    pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
+
+    cmd_run = f"cd {env['pd-work']};\n"
+    cmd_run += "{}  -i {}  -g {}  -o {}  -f gff  -t prodigal.parameters -q \n".format(
+        pe_tool, pf_sequence, gcode, pf_prediction
+    )
+
+    run_shell_cmd(cmd_run)
+
+def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
+    # type: (Environment, str, str, Dict[str, Any]) -> None
+
+    gcode = get_value(kwargs, "gcode", 11, valid_type=int)
+
+    pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
+
+    cmd_run = f"cd {env['pd-work']};\n"
+    cmd_run += "{}  -i {}  -g {}  -o {}  -f gff  -t prodigal.parameters -q -p meta \n".format(
+        pe_tool, pf_sequence, gcode, pf_prediction
+    )
+
+    run_shell_cmd(cmd_run)
+
+
 
 def run_prodigal(env, gi, **kwargs):
     # type: (Environment, GenomeInfo, Dict[str, Any]) -> None

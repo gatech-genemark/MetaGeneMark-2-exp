@@ -576,46 +576,6 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
     #     add_stop_codon_probabilities(df, mgm, genome_type=genome_type, plot=plot)
         # add_stop_codon_probabilities(df, mgm, genome_type="Archaea", plot=plot)
 
-    # Start Context
-    if "Start Context" in components:
-        if genome_type == "Archaea":
-            output_group = ["A", "D"]
-            learn_from = learn_from_arc
-
-            for o, l in zip(output_group, learn_from):
-                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_RBS_{o}", genome_type=genome_type, plot=plot)
-        else:
-            output_group = ["A", "B", "C", "X"]
-            learn_from = [{"A"}, {"B"}, {"C"}, {"A"}]
-
-            for o, l in zip(output_group, learn_from):
-                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_RBS_{o}", genome_type=genome_type, plot=plot)
-
-
-        # promoter
-        if genome_type == "Archaea":
-            output_group = ["D"]
-            learn_from = [{"A", "D"}]   # always learn RBS form group A
-
-            for o, l in zip(output_group, learn_from):
-                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-
-                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
-                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
-                # to learn from group A genomes as well.
-                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
-        else:
-            output_group = ["C"]
-            learn_from = [{"C"}]
-
-            for o, l in zip(output_group, learn_from):
-                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
-                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
-                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
-                # to learn from group A genomes as well.
-                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type, plot=plot)
 
 
 
@@ -671,6 +631,50 @@ def build_mgm_models_from_gms2_models(env, df, mgm, **kwargs):
                     mgm,
                     "PROMOTER", f"PROMOTER_{o}", genome_type, plot=plot
                 )
+
+    # Start Context
+    if "Start Context" in components:
+        if genome_type == "Archaea":
+            output_group = ["A", "D"]
+            learn_from = learn_from_arc
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_RBS_{o}", genome_type=genome_type,
+                                                plot=plot)
+        else:
+            output_group = ["A", "B", "C", "X"]
+            learn_from = [{"A"}, {"B"}, {"C"}, {"A"}]
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_RBS_{o}", genome_type=genome_type,
+                                                plot=plot)
+
+        # promoter
+        if genome_type == "Archaea":
+            output_group = ["D"]
+            learn_from = [{"A", "D"}]  # always learn RBS form group A
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+
+                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
+                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
+                # to learn from group A genomes as well.
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type,
+                                                plot=plot)
+        else:
+            output_group = ["C"]
+            learn_from = [{"C"}]
+
+            for o, l in zip(output_group, learn_from):
+                df_curr = df[(df["Type"] == genome_type) & (df["GENOME_TYPE"].isin(l))]
+                # NOTE: SC_PROMOTER is intentionally learned from SC_RBS. This is not a bug
+                # GMS2 has equal values for SC_RBS and SC_PROMOTER. Training from SC_RBS therefore allows us
+                # to learn from group A genomes as well.
+                add_start_context_probabilities(df_curr, mgm, "SC_RBS", f"SC_PROMOTER_{o}", genome_type=genome_type,
+                                                plot=plot)
 
 
 def main(env, args):
