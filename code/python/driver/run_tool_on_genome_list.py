@@ -1,6 +1,7 @@
 # Author: Karl Gemayel
 # Created: 6/27/20, 5:54 PM
 
+import os
 import logging
 import argparse
 from typing import *
@@ -31,9 +32,10 @@ from mg_pbs_data.splitters import split_gil
 parser = argparse.ArgumentParser("Run external prediction tools on genome list.")
 
 parser.add_argument('--pf-gil', required=True, help="List of genomes")
-parser.add_argument('--type', required=True, choices=["archaea", "bacteria"], help="Is the list archaea or bacteria")
+parser.add_argument('--type', required=True, choices=["archaea", "bacteria", "auto"], help="Is the list archaea or bacteria")
 parser.add_argument('--dn-run', required=False, help="Name of directory that will contain the run")
 parser.add_argument('--tool', choices=["gms2", "prodigal"], required=True, help="Tool used for prediction")
+parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
 add_parallelization_options(parser)
 
 add_env_args_to_parser(parser)
@@ -54,6 +56,7 @@ logger = logging.getLogger("logger")  # type: logging.Logger
 def run_tool_on_gi(env, gi, tool, **kwargs):
     # type: (Environment, GenomeInfo, str, Dict[str, Any]) -> None
     dn_run = get_value(kwargs, "dn_run", tool, default_if_none=True)
+    skip_if_exists = get_value(kwargs, "skip_if_exists", False)
 
     pd_work = os_join(env["pd-runs"], gi.name, dn_run)
     curr_env = env.duplicate({"pd-work": pd_work})
@@ -61,6 +64,9 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
 
     pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
     pf_prediction = os_join(pd_work, "prediction.gff")
+
+    if os.path.isfile(pf_prediction):
+        return
 
     if tool == "gms2":
         run_gms2(curr_env, pf_sequence, pf_prediction, **kwargs)
@@ -132,7 +138,8 @@ def main(env, args):
     # write to temporary file
 
     run_tool_on_genome_list(env, gil, args.tool, prl_options=prl_options,
-                            dn_run=args.dn_run, genome_type=args.type)
+                            dn_run=args.dn_run, genome_type=args.type,
+                            skip_if_exists=args.skip_if_exists)
 
 
 if __name__ == "__main__":
