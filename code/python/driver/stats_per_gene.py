@@ -4,12 +4,13 @@
 import logging
 import argparse
 import os
-
+from Bio import SeqIO
 import pandas as pd
 from typing import *
 
 # noinspection All
-from Bio import SeqIO
+import pathmagic
+
 
 # noinspection PyUnresolvedReferences
 import mg_log  # runs init in mg_log and configures logger
