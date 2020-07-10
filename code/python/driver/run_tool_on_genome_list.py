@@ -37,8 +37,8 @@ parser.add_argument('--dn-run', required=False, help="Name of directory that wil
 parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
 parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal"], required=True, help="Tool used for prediction")
 
-parser.add_argument('--pf-mgm-mod', help="Path to MGM model file")
-parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file")
+parser.add_argument('--pf-mgm-mod', help="Path to MGM model file", type=os.path.abspath)
+parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file", type=os.path.abspath)
 
 add_parallelization_options(parser)
 

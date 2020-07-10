@@ -101,6 +101,7 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
     # type: (Collection[Any], Callable, str, Dict[str, Any], Dict[str, Any]) -> Union[List[Any], None]
     simultaneous_runs = get_value(kwargs, "simultaneous_runs", 8)
     n = get_value(kwargs, "n", math.ceil(len(data) / simultaneous_runs), valid_type=int)
+    arg_name_threadid = get_value(kwargs, "arg_name_threadid", None, type=str)
 
     output = dict()  # type: Dict[Any, List[Any]]
 
@@ -112,15 +113,20 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
     active_threads = list()
     thread_id = 0
 
+    thread_kwargs = dict()
+
     i = 0
     while i < len(data):
+        if arg_name_threadid is not None:
+            thread_kwargs[arg_name_threadid] = thread_id
+            thread_id += 1
 
         # get n datapoints
         infos = list()
         counter = 0
         while i < len(data):
             infos.append({
-                data_arg_name: data[i], **func_kwargs
+                data_arg_name: data[i], **thread_kwargs, **func_kwargs
             })
             i += 1
             counter += 1

@@ -454,7 +454,7 @@ def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
     pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
 
     cmd_run = f"cd {env['pd-work']};\n"
-    cmd_run += "{}  -i {}  -g {}  -o {}  -f gff  -t prodigal.parameters -q -p meta \n".format(
+    cmd_run += "{}  -i {}  -g {}  -o {}  -f gff  -q -p meta \n".format(
         pe_tool, pf_sequence, gcode, pf_prediction
     )
 
@@ -462,22 +462,22 @@ def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
 
 
 
-def run_prodigal(env, gi, **kwargs):
-    # type: (Environment, GenomeInfo, Dict[str, Any]) -> None
-    pd_data = env["pd-data"]
-    pd_work = env["pd-work"]
-    pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
-
-    pf_sequence = os_join(pd_data, gi.name, "sequence.fasta")
-
-    # FIXME: put in genetic code
-    cmd_run = "{}  -i {}  -g 11  -o prodigal.gff  -f gff  -t prodigal.parameters  -q \n".format(
-        pe_tool, pf_sequence
-    )
-    pf_pbs = os_join(pd_work, "run.pbs")
-    create_pbs_file(env, cmd_run, pf_pbs, job_name=gi.name, **kwargs)
-
-    run_shell_cmd("qsub {} &".format(pf_pbs))
+# def run_prodigal(env, gi, **kwargs):
+#     # type: (Environment, GenomeInfo, Dict[str, Any]) -> None
+#     pd_data = env["pd-data"]
+#     pd_work = env["pd-work"]
+#     pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
+#
+#     pf_sequence = os_join(pd_data, gi.name, "sequence.fasta")
+#
+#     # FIXME: put in genetic code
+#     cmd_run = "{}  -i {}  -g 11  -o prodigal.gff  -f gff  -t prodigal.parameters  -q \n".format(
+#         pe_tool, pf_sequence
+#     )
+#     pf_pbs = os_join(pd_work, "run.pbs")
+#     create_pbs_file(env, cmd_run, pf_pbs, job_name=gi.name, **kwargs)
+#
+#     run_shell_cmd("qsub {} &".format(pf_pbs))
 
 
 def run_mgm_and_get_accuracy(env, gi, pf_mgm):

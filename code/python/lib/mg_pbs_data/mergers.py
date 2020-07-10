@@ -20,5 +20,8 @@ def merge_dataframes(list_df):
 
 def merge_lists(list_lists):
     # type: (List[List[T]]) -> List[T]
+    merged = list()
+    for l in list_lists:
+        merged += l
 
-    return list(itertools.chain(*list_lists))
+    return merged

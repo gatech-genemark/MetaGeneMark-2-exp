@@ -37,3 +37,8 @@ class ParallelizationOptions(Options):
         # if path to compute not specified, use PBS head directory
         if self._options["pbs-pd-root-compute"] is None:
             self._options["pbs-pd-root-compute"] = self._options["pbs-pd-head"]
+
+    def update_env(self, env):
+        # type: (Environment) -> None
+        self.env = env.duplicate()
+        self._options["pbs-pd-head"] = os.path.abspath(self.env["pd-work"])
