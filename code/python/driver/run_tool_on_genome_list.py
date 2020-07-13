@@ -69,7 +69,7 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
     pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
     pf_prediction = os_join(pd_work, "prediction.gff")
 
-    if os.path.isfile(pf_prediction):
+    if skip_if_exists and os.path.isfile(pf_prediction):
         return
 
     if tool == "gms2":
