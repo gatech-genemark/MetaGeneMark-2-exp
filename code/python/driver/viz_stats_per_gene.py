@@ -3,7 +3,6 @@
 
 import logging
 import argparse
-from itertools import chain, combinations
 
 import pandas as pd
 from typing import *
@@ -18,14 +17,14 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-
+from mg_general.general import all_elements_equal, fix_names
+from mg_general.shelf import powerset
+from mg_viz import sns
+from mg_viz.general import FigureOptions, square_subplots
 
 # ------------------------------ #
 #           Parse CMD            #
 # ------------------------------ #
-from mg_general.general import all_elements_equal, fix_names
-from mg_viz import sns
-from mg_viz.general import FigureOptions, square_subplots
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene.")
 
@@ -44,12 +43,6 @@ my_env = Environment.init_from_argparse(parsed_args)
 # Setup logger
 logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
-
-
-def powerset(iterable, min_len=0):
-    """powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"""
-    s = list(iterable)
-    return [x for x in chain.from_iterable(combinations(s, r) for r in range(min_len, len(s) + 1))]
 
 
 def get_stats_at_gcfid_level(df, tools):
@@ -130,15 +123,15 @@ def viz_stats_per_gene(env, df, tools):
     for comb in ps:
         tag = ",".join(comb)
         tag_eq = "=".join(comb)
-        sns.barplot(df_stats_gcfid, "Genome", f"Match({tag})", figure_options=FigureOptions(ylim=[50,100]))
+        sns.barplot(df_stats_gcfid, "Genome", f"Match({tag})", figure_options=FigureOptions(ylim=[50, 100]))
 
     # values on same plot
-    df_tidy = pd.melt(df_stats_gcfid, id_vars=["Genome"], value_vars=["Match(GMS2,MGM)", "Match(GMS2,MGM2)"],
+    df_tidy = pd.melt(df_stats_gcfid, id_vars=["Genome"], value_vars=[x for x in df_stats_gcfid.columns if "Match(" in x],
                       var_name="Combination", value_name="Match")
 
-    fig, ax = plt.subplots(figsize=(12,4))
+    fig, ax = plt.subplots(figsize=(12, 4))
     sns.barplot(df_tidy, "Genome", "Match", hue="Combination", ax=ax, figure_options=FigureOptions(
-        ylim=[60,100]
+        ylim=[60, 100]
     ))
 
     # GC

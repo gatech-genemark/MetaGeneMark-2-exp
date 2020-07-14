@@ -129,7 +129,6 @@ def print_reduced_msa(msa_t, sort_by_starting_position=False, n=None):
     out = ""
     counter = 0
     for s, c in zip(list_sequences, counts):
-        print(f"{s}\t{c}")
         out += "{}    {}\n".format(s, c)
 
         if n is not None and counter >= n:
@@ -414,7 +413,7 @@ def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/mgm2/gmhmmp2"
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
-    print(cmd)
+
     print(run_shell_cmd(cmd))
 
 

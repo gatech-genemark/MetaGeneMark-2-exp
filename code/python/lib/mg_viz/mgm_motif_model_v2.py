@@ -127,6 +127,7 @@ class MGMMotifModelVisualizerV2:
 
         msa_t = get_value(kwargs, "msa_t", None)
         raw_motif_data = get_value(kwargs, "raw_motif_data", None)
+        pd_figures = get_value(kwargs, "pd_figures", ".")
 
         num_shifts = len(mgm_mm._shift_prior.keys())
 
@@ -162,8 +163,10 @@ class MGMMotifModelVisualizerV2:
 
         plt.tight_layout()
         plt.subplots_adjust(top=0.9)
-        plt.savefig(next_name("."))
-        plt.show()
+        plt.savefig(next_name(pd_figures))
+        plt.close()
+
+        # plt.show()
 
     @staticmethod
     def _viz_motif_pwm_from_raw_data(raw_motif_data, axes, motif_width):

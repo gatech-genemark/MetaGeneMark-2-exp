@@ -144,7 +144,6 @@ class MGMMotifModelV2(MotifModel):
 
         list_entries = list()
         for p in range(len(next(iter(self._motif[shift].values())))):
-            print(p, shift)
             list_entries.append(
                 [self._motif[shift][k][p] for k in keys]
             )

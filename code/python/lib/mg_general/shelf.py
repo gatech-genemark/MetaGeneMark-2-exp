@@ -2,6 +2,7 @@
 # Created: 2020-06-21, 8:56 a.m.
 
 import logging
+from itertools import chain, combinations
 from typing import *
 
 log = logging.getLogger(__name__)
@@ -55,3 +56,9 @@ def compute_gc(sequences, label=None):
                 gc_percent = 100.0 * gc / float(total)
 
     return gc_percent
+
+
+def powerset(iterable, min_len=0):
+    """powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"""
+    s = list(iterable)
+    return [x for x in chain.from_iterable(combinations(s, r) for r in range(min_len, len(s) + 1))]

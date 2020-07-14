@@ -31,7 +31,7 @@ def get_value(kv_pairs, key, default=None, **kwargs):
     required = _get_value_helper(kwargs, "required", False, value_type=bool)
     perform_copy = _get_value_helper(kwargs, "copy", False, value_type=bool)
     default_if_none = _get_value_helper(kwargs, "default_if_none", True, value_type=bool)
-    default_value_callable = _get_value_helper(kwargs, "default_value_callable", None, value_type=Callable)
+    default_value_callable = _get_value_helper(kwargs, "default_value_callable", None)
 
     value = _get_value_helper(kv_pairs, key, default)
     if value is None and default_if_none:
@@ -105,9 +105,15 @@ def next_name(pd_work, **kwargs):
     # type: (str, Dict[str, Any]) -> str
 
     ext = get_value(kwargs, "ext", "pdf")
-    if "counter" not in next_name.__dict__: next_name.counter = -1
-    next_name.counter += 1
-    return os_join(pd_work, "{}.{}".format(next_name.counter, ext))
+    # if "counter" not in next_name.__dict__: next_name.counter = -1
+    if "counters" not in next_name.__dict__:
+        next_name.counters = dict()
+
+    if ext not in next_name.counters:
+        next_name.counters[ext] = -1
+    next_name.counters[ext] += 1
+
+    return os_join(pd_work, "{}.{}".format(next_name.counters[ext], ext))
 
 
 def create_gene_key(genome=None, accession=None, left=None, right=None, strand=None, delimiter=";"):

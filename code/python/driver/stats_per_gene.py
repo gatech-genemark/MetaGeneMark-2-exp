@@ -188,10 +188,12 @@ def main(env, args):
         raise ValueError(f"The 'tools' and 'dn-tools' arguments"
                          f" must have equal lengths: {len(tools)} != {len(dn_tools)}")
 
+    prl_options = ParallelizationOptions(env, args.pf_parallelization_options, **vars(args))
+
     # collect tool name and directory together
     tool_to_dir = {a: b for a, b in zip(tools, dn_tools)}
 
-    stats_per_gene(env, gil, tool_to_dir, args.pf_output)
+    stats_per_gene(env, gil, tool_to_dir, args.pf_output, prl_options=prl_options)
 
 
 if __name__ == "__main__":

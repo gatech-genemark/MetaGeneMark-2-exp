@@ -230,6 +230,8 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
                              avg_bgd=avg_bgd)
 
     if plot:
+        pd_figures = get_value(kwargs, "pd_figures", env["pd-work"])
         MGMMotifModelVisualizerV2.visualize(mgm_mm, title=title, msa_t=collect["msa_t"],
-                                        raw_motif_data=raw_array_per_shift)
+                                        raw_motif_data=raw_array_per_shift,
+                                            pd_figures=pd_figures)
     return mgm_mm
