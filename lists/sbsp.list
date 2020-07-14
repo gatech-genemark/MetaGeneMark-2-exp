@@ -1,0 +1,445 @@
+gcfid,genetic-code,attributes
+GCF_000661085.1_Myco_sp_TKK-01-0051_V1,11,name=Mycobacterium [tuberculosis] TKK-01-0051;parent_id=339268.0;gc=0.0;num_genes=5614;annotation_date=01/10/2020;ancestor=Actinobacteria
+GCF_000430705.1_ASM43070v1,11,name=Arthrobacter castelli DSM 16402;parent_id=271431.0;gc=0.0;num_genes=4382;annotation_date=02/05/2020;ancestor=Actinobacteria
+GCF_000771425.1_DSM-20434,11,name=Bifidobacterium choerinum DSM 20434;parent_id=35760.0;gc=0.0;num_genes=1674;annotation_date=02/10/2020;ancestor=Actinobacteria
+GCF_003977705.1_ASM397770v1,11,name=Verrucosispora sp. FIM060022;parent_id=2630859.0;gc=0.0;num_genes=5701;annotation_date=01/09/2020;ancestor=Actinobacteria
+GCF_000010225.1_ASM1022v1,11,name=Corynebacterium glutamicum R;parent_id=1718.0;gc=0.0;num_genes=3078;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_000478885.1_ASM47888v1,11,name=Adlercreutzia equolifaciens DSM 19450;parent_id=446660.0;gc=0.0;num_genes=2278;annotation_date=02/10/2020;ancestor=Actinobacteria
+GCF_000506245.1_Williamsia_D3,11,name=Williamsia sp. D3;parent_id=2636252.0;gc=0.0;num_genes=5272;annotation_date=01/31/2020;ancestor=Actinobacteria
+GCF_900142365.1_IMG-taxon_2700988696_annotated_assembly,11,name=Pseudonocardia thermophila;parent_id=1847.0;gc=0.0;num_genes=5809;annotation_date=01/18/2020;ancestor=Actinobacteria
+GCF_000981225.1_ASM98122v1,11,name=Allosalinactinospora lopnorensis;parent_id=1631197.0;gc=0.0;num_genes=5405;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_003121705.1_ASM312170v1,11,name=Miniimonas sp. PCH200;parent_id=2626367.0;gc=0.0;num_genes=3516;annotation_date=01/04/2020;ancestor=Actinobacteria
+GCF_000341065.1_SOAPdenovo_v1.06,11,name=Nocardiopsis halotolerans DSM 44410;parent_id=124252.0;gc=0.0;num_genes=5569;annotation_date=01/22/2020;ancestor=Actinobacteria
+GCF_000706765.1_ASM70676v1,11,name=Bifidobacterium indicum LMG 11587 = DSM 20214;parent_id=1691.0;gc=0.0;num_genes=1355;annotation_date=02/10/2020;ancestor=Actinobacteria
+GCF_003182025.1_ASM318202v1,11,name=Nocardiopsis sp. L17-MgMaSL7;parent_id=2649073.0;gc=0.0;num_genes=5326;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_000375525.1_ASM37552v1,11,name=Corynebacterium propinquum DSM 44285;parent_id=43769.0;gc=0.0;num_genes=2165;annotation_date=02/05/2020;ancestor=Actinobacteria
+GCF_006740705.1_ASM674070v1,11,name=Salicibibacter halophilus;parent_id=1840198.0;gc=0.0;num_genes=3707;annotation_date=02/13/2020;ancestor=Actinobacteria
+GCF_000175375.1_ASM17537v1,11,name=Corynebacterium matruchotii ATCC 14266;parent_id=43768.0;gc=0.0;num_genes=2507;annotation_date=02/04/2020;ancestor=Actinobacteria
+GCF_003576415.1_ASM357641v1,11,name=Clavibacter sp. CFBP 8616;parent_id=2626594.0;gc=0.0;num_genes=3482;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_001017755.1_ASM101775v1,11,name=Frankia coriariae;parent_id=1854.0;gc=0.0;num_genes=4915;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_000463195.1_BCG_Glaxo,11,name=Mycobacterium tuberculosis variant bovis BCG str. Glaxo;parent_id=33892.0;gc=0.0;num_genes=4135;annotation_date=02/26/2020;ancestor=Actinobacteria
+GCF_001570925.1_ASM157092v1,11,name=[Zimmermannella] bifida NBRC 103089;parent_id=272239.0;gc=0.0;num_genes=1856;annotation_date=01/17/2020;ancestor=Actinobacteria
+GCF_001429705.1_Soil809,11,name=Yonghaparkia sp. Soil809;parent_id=2645988.0;gc=0.0;num_genes=2442;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_003097355.1_ASM309735v1,11,name=Arthrobacter humicola;parent_id=1663.0;gc=0.0;num_genes=4175;annotation_date=02/02/2020;ancestor=Actinobacteria
+GCF_001421565.1_Leaf222,11,name=Agromyces sp. Leaf222;parent_id=2639701.0;gc=0.0;num_genes=3916;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_004217515.1_ASM421751v1,11,name=Actinopolyspora sp. DSM 45956;parent_id=2639451.0;gc=0.0;num_genes=4595;annotation_date=03/09/2020;ancestor=Actinobacteria
+GCF_900175965.1_IMG-taxon_2505679031_annotated_assembly,11,name=Rubrobacter radiotolerans DSM 5868;parent_id=42256.0;gc=0.0;num_genes=3270;annotation_date=01/18/2020;ancestor=Actinobacteria
+GCF_000159155.2_ASM15915v2,11,name=Gardnerella vaginalis ATCC 14019;parent_id=2702.0;gc=0.0;num_genes=1277;annotation_date=03/10/2020;ancestor=Actinobacteria
+GCF_003344865.1_ASM334486v1,11,name=Euzebya sp. DY32-46;parent_id=2649358.0;gc=0.0;num_genes=5558;annotation_date=03/02/2020;ancestor=Actinobacteria
+GCF_000382905.1_ASM38290v1,11,name=Corynebacterium glutamicum K051;parent_id=196627.0;gc=0.0;num_genes=3007;annotation_date=02/09/2020;ancestor=Actinobacteria
+GCF_000421845.1_ASM42184v1,11,name=Leucobacter chironomi DSM 19883;parent_id=491918.0;gc=0.0;num_genes=2687;annotation_date=01/31/2020;ancestor=Actinobacteria
+GCF_003391095.1_ASM339109v1,11,name=Austwickia chelonae;parent_id=1184606.0;gc=0.0;num_genes=3141;annotation_date=02/26/2020;ancestor=Actinobacteria
+GCF_000269965.1_ASM26996v1,11,name=Bifidobacterium longum subsp. infantis ATCC 15697 = JCM 1222 = DSM 20088;parent_id=1682.0;gc=0.0;num_genes=2532;annotation_date=02/14/2020;ancestor=Actinobacteria
+GCF_006715865.1_ASM671586v1,11,name=Streptomyces sp. SLBN-31;parent_id=1707.0;gc=0.0;num_genes=3711;annotation_date=01/19/2020;ancestor=Actinobacteria
+GCF_000771225.1_DSM-20099,11,name=Bifidobacterium pseudolongum subsp. pseudolongum DSM 20099;parent_id=31954.0;gc=0.0;num_genes=1568;annotation_date=02/10/2020;ancestor=Actinobacteria
+GCF_000179395.2_ASM17939v2,11,name=Corynebacterium variabile DSM 44702;parent_id=1727.0;gc=0.0;num_genes=3114;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_003319115.1_ASM331911v1,11,name=Geodermatophilus sp. TF02-6;parent_id=2637632.0;gc=0.0;num_genes=4418;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_001046875.1_ASM104687v1,11,name=Tetrasphaera jenkinsii Ben 74;parent_id=330834.0;gc=0.0;num_genes=3612;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_004323735.1_ASM432373v1,11,name=Streptomonospora sp. M2;parent_id=2635841.0;gc=0.0;num_genes=4985;annotation_date=03/12/2020;ancestor=Actinobacteria
+GCF_003327535.1_ASM332753v1,11,name=Desertihabitans brevis;parent_id=2676837.0;gc=0.0;num_genes=3780;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_000202635.1_ASM20263v1,11,name=Microbacterium testaceum StLB037;parent_id=2033.0;gc=0.0;num_genes=3619;annotation_date=02/09/2020;ancestor=Actinobacteria
+GCF_004216915.1_ASM421691v1,11,name=Motilibacter rhizosphaerae;parent_id=1434021.0;gc=0.0;num_genes=3970;annotation_date=03/09/2020;ancestor=Actinobacteria
+GCF_004364555.1_ASM436455v1,11,name=Amnibacterium kyonggiense;parent_id=1029631.0;gc=0.0;num_genes=3632;annotation_date=02/26/2020;ancestor=Actinobacteria
+GCF_000164965.1_ASM16496v1,11,name=Bifidobacterium bifidum S17;parent_id=1681.0;gc=0.0;num_genes=1775;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_000348945.1_ArGa1,11,name=Paeniglutamicibacter gangotriensis Lz1y;parent_id=254787.0;gc=0.0;num_genes=3916;annotation_date=01/31/2020;ancestor=Actinobacteria
+GCF_900626105.1_PRJEB29220,11,name=Gulosibacter sp. Marseille-P7157;parent_id=2630216.0;gc=0.0;num_genes=2533;annotation_date=03/03/2020;ancestor=Actinobacteria
+GCF_002813205.1_ASM281320v1,11,name=Bifidobacterium psychraerophilum DSM 22366;parent_id=218140.0;gc=0.0;num_genes=2111;annotation_date=02/25/2020;ancestor=Actinobacteria
+GCF_000771505.1_DSM-20670,11,name=Bifidobacterium gallinarum DSM 20670;parent_id=78344.0;gc=0.0;num_genes=1774;annotation_date=02/14/2020;ancestor=Actinobacteria
+GCF_003971195.1_ASM397119v1,11,name=Flaviflexus sp. H23T48;parent_id=2623556.0;gc=0.0;num_genes=2528;annotation_date=03/04/2020;ancestor=Actinobacteria
+GCF_002090115.1_ASM209011v1,11,name=Demequina sp. NBRC 110054;parent_id=2620311.0;gc=0.0;num_genes=3034;annotation_date=01/18/2020;ancestor=Actinobacteria
+GCF_003576405.1_ASM357640v1,11,name=Clavibacter sp. CFBP 8615;parent_id=2626594.0;gc=0.0;num_genes=3305;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_000180155.1_ASM18015v1,11,name=Actinomyces oris K20;parent_id=544580.0;gc=0.0;num_genes=2891;annotation_date=02/24/2020;ancestor=Actinobacteria
+GCF_003044185.1_ASM304418v1,11,name=Conexibacter sp. Seoho-28;parent_id=2627773.0;gc=0.0;num_genes=4508;annotation_date=01/04/2020;ancestor=Actinobacteria
+GCF_000340965.1_SOAPdenovo_v1.06,11,name=Nocardiopsis kunsanensis DSM 44524;parent_id=141693.0;gc=0.0;num_genes=4560;annotation_date=01/22/2020;ancestor=Actinobacteria
+GCF_001029505.1_ASM102950v1,11,name=Rubrobacter aplysinae;parent_id=42255.0;gc=0.0;num_genes=3114;annotation_date=01/24/2020;ancestor=Actinobacteria
+GCF_003569805.1_ASM356980v1,11,name=Microbacterium halotolerans;parent_id=33882.0;gc=0.0;num_genes=3221;annotation_date=02/26/2020;ancestor=Actinobacteria
+GCF_003470205.1_ASM347020v1,11,name=Cellulomonas rhizosphaerae;parent_id=1707.0;gc=0.0;num_genes=3542;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_000277775.2_ASM27777v2,11,name=Mycobacteroides abscessus subsp. massiliense str. GO 06;parent_id=1962118.0;gc=0.0;num_genes=4560;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_004300825.1_ASM430082v1,11,name=Egicoccus halophilus;parent_id=1755825.0;gc=0.0;num_genes=3600;annotation_date=03/09/2020;ancestor=Actinobacteria
+GCF_003390495.1_ASM339049v1,11,name=[Mycobacterium] chelonae subsp. gwanakae;parent_id=1774.0;gc=0.0;num_genes=4943;annotation_date=03/02/2020;ancestor=Actinobacteria
+GCF_000092645.1_ASM9264v1,11,name=Thermobispora bispora DSM 43833;parent_id=2006.0;gc=0.0;num_genes=3522;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_000271205.1_ASM27120v1,11,name=Mycobacteroides abscessus 5S-0304;parent_id=36809.0;gc=0.0;num_genes=5213;annotation_date=03/11/2020;ancestor=Actinobacteria
+GCF_000514015.1_ASM51401v1,11,name=Paenarthrobacter nicotinovorans 231Sha2.1M6;parent_id=29320.0;gc=0.0;num_genes=4322;annotation_date=02/05/2020;ancestor=Actinobacteria
+GCF_001428065.1_Soil756,11,name=Tetrasphaera sp. Soil756;parent_id=2643346.0;gc=0.0;num_genes=3231;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_000582705.1_MIC448,11,name=Microbacterium sp. C448;parent_id=2609290.0;gc=0.0;num_genes=3189;annotation_date=01/06/2020;ancestor=Actinobacteria
+GCF_003194625.1_ASM319462v1,11,name=Nocardioides solisilvae;parent_id=1839.0;gc=0.0;num_genes=3409;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_000347955.2_ASM34795v2,11,name=Rhodococcus ruber Chol-4;parent_id=1830.0;gc=0.0;num_genes=4982;annotation_date=01/25/2020;ancestor=Actinobacteria
+GCF_000771705.1_JCM-15918,11,name=Bifidobacterium stercoris JCM 15918;parent_id=1680.0;gc=0.0;num_genes=1889;annotation_date=02/14/2020;ancestor=Actinobacteria
+GCF_900119495.1_PRJEB17951,11,name=Arcanobacterium urinimassiliense;parent_id=28263.0;gc=0.0;num_genes=1425;annotation_date=02/02/2020;ancestor=Actinobacteria
+GCF_000258385.1_ASM25838v1,11,name=Corynebacterium pseudotuberculosis 267;parent_id=1719.0;gc=0.0;num_genes=2060;annotation_date=02/17/2020;ancestor=Actinobacteria
+GCF_001305675.1_ASM130567v1,11,name=Gordonia phthalatica;parent_id=2053.0;gc=0.0;num_genes=4109;annotation_date=02/18/2020;ancestor=Actinobacteria
+GCF_000950575.1_ASM95057v1,11,name=Psychromicrobium lacuslunae;parent_id=2078575.0;gc=0.0;num_genes=3327;annotation_date=02/18/2020;ancestor=Actinobacteria
+GCF_002706665.1_ASM270666v1,11,name=Bifidobacterium pseudolongum subsp. globosum DSM 20092;parent_id=1690.0;gc=0.0;num_genes=1589;annotation_date=02/19/2020;ancestor=Actinobacteria
+GCF_001854225.1_ASM185422v1,11,name=Candidatus Rhodoluna planktonica;parent_id=529883.0;gc=0.0;num_genes=1345;annotation_date=02/12/2020;ancestor=Actinobacteria
+GCF_900625115.1_PRJEB29218,11,name=Adlercreutzia sp. Marseille-P7992;parent_id=2636013.0;gc=0.0;num_genes=1608;annotation_date=03/03/2020;ancestor=Actinobacteria
+GCF_000341145.1_SOAPdenovo_v1.06,11,name=Nocardiopsis xinjiangensis YIM 90004;parent_id=124285.0;gc=0.0;num_genes=4591;annotation_date=01/31/2020;ancestor=Actinobacteria
+GCF_006494655.1_ASM649465v1,11,name=Arthrobacter agilis;parent_id=1663.0;gc=0.0;num_genes=2969;annotation_date=01/05/2020;ancestor=Actinobacteria
+GCF_000231215.1_ASM23121v1,11,name=Cutibacterium acnes subsp. defendens ATCC 11828;parent_id=1905725.0;gc=0.0;num_genes=2314;annotation_date=02/14/2020;ancestor=Actinobacteria
+GCF_001050535.1_ASM105053v1,11,name=Tetrasphaera australiensis Ben110;parent_id=99480.0;gc=0.0;num_genes=4321;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_004022445.1_ASM402244v1,11,name=Agrococcus lahaulensis;parent_id=46352.0;gc=0.0;num_genes=2654;annotation_date=03/05/2020;ancestor=Actinobacteria
+GCF_900604955.1_PRJEB28794,11,name=Neoactinobaculum massilliense;parent_id=2653802.0;gc=0.0;num_genes=1504;annotation_date=03/02/2020;ancestor=Actinobacteria
+GCF_900156665.1_IMG-taxon_2681813517_annotated_assembly,11,name=Corynebacterium appendicis CIP 107643;parent_id=163202.0;gc=0.0;num_genes=2149;annotation_date=01/18/2020;ancestor=Actinobacteria
+GCF_900129455.1_IMG-taxon_2695420949_annotated_assembly,11,name=Jatrophihabitans endophyticus;parent_id=1434010.0;gc=0.0;num_genes=4202;annotation_date=01/18/2020;ancestor=Actinobacteria
+GCF_001657475.1_ASM165747v1,11,name=Enteractinococcus helveticum;parent_id=1164863.0;gc=0.0;num_genes=3455;annotation_date=02/25/2020;ancestor=Actinobacteria
+GCF_000197735.1_ASM19773v1,11,name=Glutamicibacter arilaitensis Re117;parent_id=256701.0;gc=0.0;num_genes=3585;annotation_date=02/14/2020;ancestor=Actinobacteria
+GCF_000234585.1_ASM23458v1,11,name=Mycolicibacterium thermoresistibile ATCC 19527;parent_id=1797.0;gc=0.0;num_genes=4610;annotation_date=03/11/2020;ancestor=Actinobacteria
+GCF_000975135.1_ASM97513v1,11,name=Demequina aurantiaca;parent_id=577469.0;gc=0.0;num_genes=2298;annotation_date=01/24/2020;ancestor=Actinobacteria
+GCF_000687615.1_ASM68761v1,11,name=Bifidobacterium boum DSM 20432;parent_id=78343.0;gc=0.0;num_genes=1683;annotation_date=02/06/2020;ancestor=Actinobacteria
+GCF_001424455.1_Leaf369,11,name=Geodermatophilus sp. Leaf369;parent_id=2637632.0;gc=0.0;num_genes=4232;annotation_date=02/07/2020;ancestor=Actinobacteria
+GCF_004135345.1_ASM413534v1,11,name=Xylanibacterium sp. 2JSPR-7;parent_id=2627698.0;gc=0.0;num_genes=3440;annotation_date=02/19/2020;ancestor=Actinobacteria
+GCF_000771645.1_DSM-23969,11,name=Bifidobacterium biavatii DSM 23969;parent_id=762212.0;gc=0.0;num_genes=2574;annotation_date=02/25/2020;ancestor=Actinobacteria
+GCF_003337235.1_ASM333723v1,11,name=Halopolyspora algeriensis;parent_id=1649455.0;gc=0.0;num_genes=4251;annotation_date=01/08/2020;ancestor=Actinobacteria
+GCF_000591035.1_ASM59103v1,11,name=Aeropyrum camini SY1 = JCM 12091;parent_id=229980.0;gc=0.0;num_genes=1622;annotation_date=02/17/2020;ancestor=Archaea
+GCF_003852095.1_ASM385209v1,11,name=Saccharolobus solfataricus;parent_id=2100760.0;gc=0.0;num_genes=2889;annotation_date=01/29/2020;ancestor=Archaea
+GCF_000195935.2_ASM19593v2,11,name=Pyrococcus abyssi GE5;parent_id=29292.0;gc=0.0;num_genes=1906;annotation_date=03/02/2020;ancestor=Archaea
+GCF_000337475.1_ASM33747v1,11,name=Haloterrigena limicola JCM 13563;parent_id=370323.0;gc=0.0;num_genes=3505;annotation_date=01/20/2020;ancestor=Archaea
+GCF_001469955.1_ASM146995v1,11,name=Haloprofundus marisrubri;parent_id=1911573.0;gc=0.0;num_genes=3925;annotation_date=02/07/2020;ancestor=Archaea
+GCF_001017125.1_ASM101712v1,11,name=Methanoculleus sediminis;parent_id=45989.0;gc=0.0;num_genes=2456;annotation_date=02/06/2020;ancestor=Archaea
+GCF_000337155.1_ASM33715v1,11,name=Natrinema altunense JCM 12890;parent_id=222984.0;gc=0.0;num_genes=3698;annotation_date=01/20/2020;ancestor=Archaea
+GCF_000011005.1_ASM1100v1,11,name=Methanocella paludicola SANAE;parent_id=570267.0;gc=0.0;num_genes=3017;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000336815.1_ASM33681v1,11,name=Haloferax prahovense DSM 18310;parent_id=381852.0;gc=0.0;num_genes=3973;annotation_date=02/25/2020;ancestor=Archaea
+GCF_000223905.1_ASM22390v1,11,name=Haloarcula hispanica ATCC 33960;parent_id=51589.0;gc=0.0;num_genes=3796;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000021965.1_ASM2196v1,11,name=Methanosphaerula palustris E1-9c;parent_id=475088.0;gc=0.0;num_genes=2799;annotation_date=01/05/2020;ancestor=Archaea
+GCF_000337595.1_ASM33759v1,11,name=Natrialba taiwanensis DSM 12281;parent_id=160846.0;gc=0.0;num_genes=4409;annotation_date=01/20/2020;ancestor=Archaea
+GCF_000196895.1_ASM19689v1,11,name=Halalkalicoccus jeotgali B3;parent_id=413810.0;gc=0.0;num_genes=3782;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000337175.1_ASM33717v1,11,name=Natrinema gari JCM 14663;parent_id=419186.0;gc=0.0;num_genes=3991;annotation_date=01/20/2020;ancestor=Archaea
+GCF_004297185.1_ASM429718v1,11,name=Methanofollis sp. FWC-SCC2;parent_id=2634179.0;gc=0.0;num_genes=2316;annotation_date=03/09/2020;ancestor=Archaea
+GCF_000371805.1_ASM37180v1,11,name=Methanocaldococcus villosus KIN24-T80;parent_id=667126.0;gc=0.0;num_genes=1361;annotation_date=02/05/2020;ancestor=Archaea
+GCF_000016385.1_ASM1638v1,11,name=Pyrobaculum arsenaticum DSM 13514;parent_id=121277.0;gc=0.0;num_genes=2415;annotation_date=03/06/2020;ancestor=Archaea
+GCF_003697815.1_ASM369781v1,11,name=Halalkalicoccus subterraneus;parent_id=332246.0;gc=0.0;num_genes=3832;annotation_date=02/29/2020;ancestor=Archaea
+GCF_004150385.1_ASM415038v1,11,name=Haloarcula hispanica;parent_id=2237.0;gc=0.0;num_genes=3673;annotation_date=03/08/2020;ancestor=Archaea
+GCF_002906215.1_ASM290621v1,11,name=Candidatus Nitrosocaldus islandicus;parent_id=498374.0;gc=0.0;num_genes=1690;annotation_date=01/09/2020;ancestor=Archaea
+GCF_000026045.1_ASM2604v1,11,name=Natronomonas pharaonis DSM 2160;parent_id=2257.0;gc=0.0;num_genes=2794;annotation_date=02/13/2020;ancestor=Archaea
+GCF_000006805.1_ASM680v1,11,name=Halobacterium salinarum NRC-1;parent_id=2242.0;gc=0.0;num_genes=2698;annotation_date=03/10/2020;ancestor=Archaea
+GCF_001484685.1_ASM148468v1,11,name=Thermococcus sp. 2319x1;parent_id=2627626.0;gc=0.0;num_genes=4201;annotation_date=02/11/2020;ancestor=Archaea
+GCF_000744315.1_ASM74431v1,11,name=Methanosarcina soligelidi;parent_id=2207.0;gc=0.0;num_genes=3363;annotation_date=01/23/2020;ancestor=Archaea
+GCF_000231015.2_ASM23101v3,11,name=Desulfurococcus amylolyticus DSM 16532;parent_id=94694.0;gc=0.0;num_genes=1464;annotation_date=02/14/2020;ancestor=Archaea
+GCF_000243455.1_ASM24345v2,11,name=Methanotorris formicicus Mc-S-70;parent_id=213185.0;gc=0.0;num_genes=1956;annotation_date=01/13/2020;ancestor=Archaea
+GCF_000007225.1_ASM722v1,11,name=Pyrobaculum aerophilum str. IM2;parent_id=13773.0;gc=0.0;num_genes=2513;annotation_date=02/13/2020;ancestor=Archaea
+GCF_000144915.1_ASM14491v1,11,name=Acidilobus saccharovorans 345-15;parent_id=242703.0;gc=0.0;num_genes=1491;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000204925.1_ASM20492v1,11,name=Metallosphaera cuprina Ar-4;parent_id=1006005.0;gc=0.0;num_genes=1903;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000337755.1_ASM33775v1,11,name=Haloarcula californiae ATCC 33799;parent_id=244363.0;gc=0.0;num_genes=4374;annotation_date=02/14/2020;ancestor=Archaea
+GCF_004799665.1_ASM479966v1,11,name=Halapricum salinum;parent_id=1542963.0;gc=0.0;num_genes=3366;annotation_date=01/30/2020;ancestor=Archaea
+GCF_001748385.1_ASM174838v1,11,name=Vulcanisaeta thermophila;parent_id=164450.0;gc=0.0;num_genes=2104;annotation_date=02/04/2020;ancestor=Archaea
+GCF_000337215.1_ASM33721v1,11,name=Natronolimnobius innermongolicus JCM 12255;parent_id=253107.0;gc=0.0;num_genes=4448;annotation_date=02/25/2020;ancestor=Archaea
+GCF_000336995.1_ASM33699v1,11,name=Halorubrum aidingense JCM 13560;parent_id=368623.0;gc=0.0;num_genes=3009;annotation_date=02/14/2020;ancestor=Archaea
+GCF_003602035.1_ASM360203v1,11,name=Halococcus sp. IIIV-5B;parent_id=2630403.0;gc=0.0;num_genes=3881;annotation_date=01/08/2020;ancestor=Archaea
+GCF_000189575.1_ASM18957v1,11,name=Sulfolobus islandicus HVE10/4;parent_id=43080.0;gc=0.0;num_genes=2863;annotation_date=02/13/2020;ancestor=Archaea
+GCF_000337355.1_ASM33735v1,11,name=Halorubrum kocurii JCM 14978;parent_id=478441.0;gc=0.0;num_genes=3493;annotation_date=01/30/2020;ancestor=Archaea
+GCF_001266655.1_ASM126665v1,11,name=Metallosphaera sedula;parent_id=41980.0;gc=0.0;num_genes=2336;annotation_date=02/11/2020;ancestor=Archaea
+GCF_001481295.1_ASM148129v1,11,name=Candidatus Methanomethylophilus sp. 1R26;parent_id=2648758.0;gc=0.0;num_genes=1800;annotation_date=02/18/2020;ancestor=Archaea
+GCF_004323575.1_ASM432357v1,11,name=Aeropyrum pernix;parent_id=56635.0;gc=0.0;num_genes=1708;annotation_date=03/12/2020;ancestor=Archaea
+GCF_002214365.1_ASM221436v1,11,name=Thermococcus celer Vu 13 = JCM 8558;parent_id=2264.0;gc=0.0;num_genes=1984;annotation_date=02/19/2020;ancestor=Archaea
+GCF_000447865.2_ASM44786v2,11,name=haloarchaeon 3A1_DGR;parent_id=38063.0;gc=0.0;num_genes=2835;annotation_date=03/03/2020;ancestor=Archaea
+GCF_004150395.1_ASM415039v1,11,name=Halogeometricum borinquense;parent_id=60846.0;gc=0.0;num_genes=4036;annotation_date=03/08/2020;ancestor=Archaea
+GCF_003589585.1_ASM358958v1,11,name=Candidatus Bathyarchaeota archaeon;parent_id=1700837.0;gc=0.0;num_genes=2323;annotation_date=02/26/2020;ancestor=Archaea
+GCF_000337835.1_ASM33783v1,11,name=Haloferax sulfurifontis ATCC BAA-897;parent_id=255616.0;gc=0.0;num_genes=3768;annotation_date=01/31/2020;ancestor=Archaea
+GCF_000013445.1_ASM1344v1,11,name=Methanospirillum hungatei JF-1;parent_id=2203.0;gc=0.0;num_genes=3354;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000024745.1_ASM2474v1,11,name=Saccharolobus solfataricus 98/2;parent_id=2287.0;gc=0.0;num_genes=2898;annotation_date=02/13/2020;ancestor=Archaea
+GCF_003369835.1_ASM336983v1,11,name=Halorussus rarus;parent_id=1070314.0;gc=0.0;num_genes=4263;annotation_date=02/24/2020;ancestor=Archaea
+GCF_002078205.2_ASM207820v2,11,name=Vulcanisaeta sp. EB80;parent_id=2631227.0;gc=0.0;num_genes=2595;annotation_date=02/04/2020;ancestor=Archaea
+GCF_000251105.1_ASM25110v1,11,name=Methanocella conradii HZ254;parent_id=1175444.0;gc=0.0;num_genes=2494;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000336935.1_ASM33693v1,11,name=Halococcus salifodinae DSM 8989;parent_id=36738.0;gc=0.0;num_genes=4091;annotation_date=02/14/2020;ancestor=Archaea
+GCF_000337375.1_ASM33737v1,11,name=Halorubrum lipolyticum DSM 21995;parent_id=368624.0;gc=0.0;num_genes=3260;annotation_date=01/20/2020;ancestor=Archaea
+GCF_000020905.1_ASM2090v1,11,name=Desulfurococcus amylolyticus 1221n;parent_id=94694.0;gc=0.0;num_genes=1427;annotation_date=02/13/2020;ancestor=Archaea
+GCF_000739555.1_ASM73955v1,11,name=Halolamina rubra;parent_id=1075397.0;gc=0.0;num_genes=3040;annotation_date=01/31/2020;ancestor=Archaea
+GCF_001563245.1_ASM156324v1,11,name=Methanobrevibacter olleyae;parent_id=2172.0;gc=0.0;num_genes=1860;annotation_date=02/12/2020;ancestor=Archaea
+GCF_004916935.1_ASM491693v1,11,name=Salinigranum sp. DYF38;parent_id=2631838.0;gc=0.0;num_genes=4294;annotation_date=01/30/2020;ancestor=Archaea
+GCF_000789255.1_ASM78925v1,11,name=Geoglobus acetivorans;parent_id=190818.0;gc=0.0;num_genes=2198;annotation_date=02/10/2020;ancestor=Archaea
+GCF_001402945.1_ASM140294v1,11,name=Acidiplasma aeolicum;parent_id=507753.0;gc=0.0;num_genes=1867;annotation_date=02/07/2020;ancestor=Archaea
+GCF_000012285.1_ASM1228v1,11,name=Sulfolobus acidocaldarius DSM 639;parent_id=2285.0;gc=0.0;num_genes=2296;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000258425.1_ASM25842v1,11,name=Fervidicoccus fontis Kam940;parent_id=683846.0;gc=0.0;num_genes=1351;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000008645.1_ASM864v1,11,name=Methanothermobacter thermautotrophicus str. Delta H;parent_id=145262.0;gc=0.0;num_genes=1821;annotation_date=03/10/2020;ancestor=Archaea
+GCF_002906575.1_ASM290657v1,11,name=Salinigranum rubrum;parent_id=1644057.0;gc=0.0;num_genes=4912;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000007065.1_ASM706v1,11,name=Methanosarcina mazei Go1;parent_id=2209.0;gc=0.0;num_genes=3424;annotation_date=03/10/2020;ancestor=Archaea
+GCF_001663375.1_ASM166337v1,11,name=Caldivirga sp. MU80;parent_id=76886.0;gc=0.0;num_genes=2328;annotation_date=02/08/2020;ancestor=Archaea
+GCF_000336635.1_ASM33663v1,11,name=Haloarcula japonica DSM 6131;parent_id=29282.0;gc=0.0;num_genes=4188;annotation_date=01/30/2020;ancestor=Archaea
+GCF_000275605.1_ASM27560v1,11,name=Pyrococcus furiosus COM1;parent_id=2261.0;gc=0.0;num_genes=2076;annotation_date=02/17/2020;ancestor=Archaea
+GCF_002243045.1_ASM224304v1,11,name=Methanolobus psychrotolerans;parent_id=2220.0;gc=0.0;num_genes=3041;annotation_date=03/08/2020;ancestor=Archaea
+GCF_000336875.1_ASM33687v1,11,name=Halorubrum californiensis DSM 19288;parent_id=416585.0;gc=0.0;num_genes=3589;annotation_date=01/20/2020;ancestor=Archaea
+GCF_000011185.1_ASM1118v1,11,name=Thermoplasma volcanium GSS1;parent_id=50339.0;gc=0.0;num_genes=1594;annotation_date=02/13/2020;ancestor=Archaea
+GCF_000190315.1_ASM19031v1,11,name=Vulcanisaeta moutnovskia 768-28;parent_id=985052.0;gc=0.0;num_genes=2434;annotation_date=02/17/2020;ancestor=Archaea
+GCF_004099695.1_ASM409969v1,11,name=Methanosarcina sp. MSH10X1;parent_id=2644672.0;gc=0.0;num_genes=3031;annotation_date=03/05/2020;ancestor=Archaea
+GCF_000337555.1_ASM33755v1,11,name=Natrialba asiatica DSM 12278;parent_id=64602.0;gc=0.0;num_genes=4162;annotation_date=01/30/2020;ancestor=Archaea
+GCF_000337415.1_ASM33741v1,11,name=Halorubrum tebenquichense DSM 14210;parent_id=119434.0;gc=0.0;num_genes=3362;annotation_date=02/25/2020;ancestor=Archaea
+GCF_000739065.1_ASM73906v1,11,name=Methanocaldococcus bathoardescens;parent_id=196118.0;gc=0.0;num_genes=1654;annotation_date=02/14/2020;ancestor=Archaea
+GCF_900620265.1_Nitrosopumilaceae_archaeon_O2_Ibasta,11,name=Nitrosopumilaceae archaeon;parent_id=886737.0;gc=0.0;num_genes=2103;annotation_date=03/09/2020;ancestor=Archaea
+GCF_000336715.1_ASM33671v1,11,name=Halococcus thailandensis JCM 13552;parent_id=335952.0;gc=0.0;num_genes=4153;annotation_date=02/25/2020;ancestor=Archaea
+GCF_001950595.1_ASM195059v1,11,name=Natronomonas sp. CBA1134;parent_id=2634096.0;gc=0.0;num_genes=2688;annotation_date=01/18/2020;ancestor=Archaea
+GCF_900176435.1_IMG-taxon_2579779151_annotated_assembly,11,name=Picrophilus oshimae DSM 9789;parent_id=46632.0;gc=0.0;num_genes=1570;annotation_date=02/02/2020;ancestor=Archaea
+GCF_003268005.1_ASM326800v1,11,name=Methanosphaera sp. BMS;parent_id=2643926.0;gc=0.0;num_genes=2183;annotation_date=02/20/2020;ancestor=Archaea
+GCF_000337195.1_ASM33719v1,11,name=Natrinema versiforme JCM 10478;parent_id=88724.0;gc=0.0;num_genes=4163;annotation_date=01/20/2020;ancestor=Archaea
+GCF_001433455.1_ASM143345v1,11,name=Thermococcus barophilus;parent_id=2263.0;gc=0.0;num_genes=2591;annotation_date=02/11/2020;ancestor=Archaea
+GCF_003670115.1_ASM367011v1,11,name=Halobacteriaceae archaeon SHR37;parent_id=69483.0;gc=0.0;num_genes=4478;annotation_date=02/29/2020;ancestor=Archaea
+GCF_002788215.1_ASM278821v1,11,name=Halohasta litchfieldiae;parent_id=1450140.0;gc=0.0;num_genes=3359;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000337075.1_ASM33707v1,11,name=Halorubrum hochstenium ATCC 700873;parent_id=1227480.0;gc=0.0;num_genes=2986;annotation_date=01/20/2020;ancestor=Archaea
+GCF_000725425.1_ASM72542v1,11,name=Palaeococcus pacificus DY20341;parent_id=971279.0;gc=0.0;num_genes=1970;annotation_date=02/10/2020;ancestor=Archaea
+GCF_000337695.1_ASM33769v1,11,name=Natronococcus jeotgali DSM 18795;parent_id=413812.0;gc=0.0;num_genes=4474;annotation_date=01/22/2020;ancestor=Archaea
+GCF_000234805.1_ASM23480v1,11,name=Pyrobaculum ferrireducens;parent_id=2276.0;gc=0.0;num_genes=2726;annotation_date=02/17/2020;ancestor=Archaea
+GCF_000337035.1_ASM33703v1,11,name=Halorubrum coriense DSM 10284;parent_id=64713.0;gc=0.0;num_genes=3580;annotation_date=01/31/2020;ancestor=Archaea
+GCF_003730195.1_ASM373019v1,11,name=Halosimplex sp. YPL4;parent_id=2641396.0;gc=0.0;num_genes=4876;annotation_date=03/02/2020;ancestor=Archaea
+GCF_003383095.1_ASM338309v1,11,name=Haloferax sp. Atlit-12N;parent_id=2625095.0;gc=0.0;num_genes=4017;annotation_date=01/08/2020;ancestor=Archaea
+GCF_000619765.2_Ec2009C-3279,11,name=Escherichia coli O103:H2 str. 2009C-3279;parent_id=376725.0;gc=0.0;num_genes=5191;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_001534665.1_ASM153466v1,11,name=Candidatus Arsenophonus lipoptenae;parent_id=637.0;gc=0.0;num_genes=634;annotation_date=02/18/2020;ancestor=Enterobacterales
+GCF_000566805.1_Kleb_pneu_UCI_38_V1,11,name=Klebsiella pneumoniae UCI 38;parent_id=573.0;gc=0.0;num_genes=5695;annotation_date=03/07/2020;ancestor=Enterobacterales
+GCF_000835925.1_ASM83592v1,11,name=Citrobacter rodentium;parent_id=544.0;gc=0.0;num_genes=5282;annotation_date=01/24/2020;ancestor=Enterobacterales
+GCF_000487915.2_ASM48791v2,11,name=Salmonella enterica subsp. enterica serovar Abaetetuba str. ATCC 35640;parent_id=1151172.0;gc=0.0;num_genes=4233;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_000617365.2_Ec06-3501,11,name=Escherichia coli O79:H7 str. 06-3501;parent_id=1446757.0;gc=0.0;num_genes=4936;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_000582515.1_ASM58251v1,11,name=Yersinia similis;parent_id=1649845.0;gc=0.0;num_genes=4336;annotation_date=02/10/2020;ancestor=Enterobacterales
+GCF_003337365.1_ASM333736v1,11,name=Kosakonia sp. AG348;parent_id=2632876.0;gc=0.0;num_genes=4712;annotation_date=01/08/2020;ancestor=Enterobacterales
+GCF_000828815.1_ASM82881v1,11,name=Candidatus Tachikawaea gelatinosa;parent_id=1682492.0;gc=0.0;num_genes=618;annotation_date=02/10/2020;ancestor=Enterobacterales
+GCF_001448845.1_ASM144884v1,11,name=Salmonella enterica subsp. enterica serovar Rubislaw str. SA20030553;parent_id=598.0;gc=0.0;num_genes=4681;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_001448705.2_ASM144870v2,11,name=Salmonella enterica subsp. enterica serovar Hvittingfoss str. SA20014981;parent_id=486994.0;gc=0.0;num_genes=4639;annotation_date=01/08/2020;ancestor=Enterobacterales
+GCF_000611875.2_a5_miseq_macOS_20140113,11,name=Tatumella sp. UCD-D_suzukii;parent_id=2649542.0;gc=0.0;num_genes=3317;annotation_date=01/24/2020;ancestor=Enterobacterales
+GCF_001294465.1_Mwi35017_DRAFTv2,11,name=Moellerella wisconsensis ATCC 35017;parent_id=158849.0;gc=0.0;num_genes=2874;annotation_date=02/07/2020;ancestor=Enterobacterales
+GCF_000484195.3_ASM48419v3,11,name=Salmonella enterica subsp. enterica serovar Agona str. 460004 2-1;parent_id=58095.0;gc=0.0;num_genes=4483;annotation_date=02/13/2020;ancestor=Enterobacterales
+GCF_000582575.1_Pantoea_Sequence,11,name=Pantoea ananatis Sd-1;parent_id=553.0;gc=0.0;num_genes=4474;annotation_date=02/05/2020;ancestor=Enterobacterales
+GCF_000439375.1_06-3099_v1,11,name=Tatumella saanichensis;parent_id=82986.0;gc=0.0;num_genes=3084;annotation_date=02/14/2020;ancestor=Enterobacterales
+GCF_003312485.2_ASM331248v2,11,name=Escherichia albertii;parent_id=561.0;gc=0.0;num_genes=4594;annotation_date=03/03/2020;ancestor=Enterobacterales
+GCF_000183285.1_ASM18328v1,11,name=Buchnera aphidicola str. JF99 (Acyrthosiphon pisum);parent_id=118099.0;gc=0.0;num_genes=583;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_900086565.1_39641_H02,11,name=Salmonella enterica subsp. enterica serovar Java;parent_id=57045.0;gc=0.0;num_genes=4481;annotation_date=02/12/2020;ancestor=Enterobacterales
+GCF_000506925.1_SI119944,11,name=Salmonella enterica subsp. enterica serovar Infantis str. 119944;parent_id=595.0;gc=0.0;num_genes=4782;annotation_date=01/06/2020;ancestor=Enterobacterales
+GCF_900635955.1_36672_A01,11,name=Cedecea lapagei;parent_id=158483.0;gc=0.0;num_genes=4465;annotation_date=03/04/2020;ancestor=Enterobacterales
+GCF_000155105.1_ASM15510v1,11,name=Escherichia albertii TW07627;parent_id=208962.0;gc=0.0;num_genes=4608;annotation_date=03/08/2020;ancestor=Enterobacterales
+GCF_000146305.1_ASM14630v1,11,name=Edwardsiella tarda FL6-60;parent_id=636.0;gc=0.0;num_genes=3257;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_000618965.1_Ec94-3025,11,name=Escherichia coli O104:H21 str. 94-3025;parent_id=1335302.0;gc=0.0;num_genes=4529;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_001448865.1_ASM144886v1,11,name=Salmonella enterica subsp. salamae serovar 56:z10:e n x str. 1369-73;parent_id=1243603.0;gc=0.0;num_genes=4469;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_000321045.1_ASM32104v2,11,name=Metakosakonia massiliensis JC163;parent_id=1485952.0;gc=0.0;num_genes=4689;annotation_date=01/31/2020;ancestor=Enterobacterales
+GCF_000505365.2_ASM50536v2,11,name=Salmonella enterica subsp. enterica serovar Cerro str. CFSAN001588;parent_id=340188.0;gc=0.0;num_genes=4495;annotation_date=02/11/2020;ancestor=Enterobacterales
+GCF_000314875.2_ASM31487v2,11,name=Providencia alcalifaciens Dmel2;parent_id=126385.0;gc=0.0;num_genes=3860;annotation_date=01/06/2020;ancestor=Enterobacterales
+GCF_000026545.1_ASM2654v1,11,name=Escherichia coli O127:H6 str. E2348/69;parent_id=168807.0;gc=0.0;num_genes=4938;annotation_date=02/13/2020;ancestor=Enterobacterales
+GCF_000478345.1_ASM47834v1,11,name=Enterobacter cancerogenus YZ1;parent_id=69218.0;gc=0.0;num_genes=4472;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_001448665.2_ASM144866v2,11,name=Salmonella enterica subsp. enterica serovar Gaminara str. SA20063285;parent_id=913070.0;gc=0.0;num_genes=4708;annotation_date=02/23/2020;ancestor=Enterobacterales
+GCF_000427805.1_ASM42780v1,11,name=Budvicia aquatica DSM 5075 = ATCC 35567;parent_id=82979.0;gc=0.0;num_genes=4974;annotation_date=01/31/2020;ancestor=Enterobacterales
+GCF_000688655.1_LonsB104,11,name=Lonsdalea quercina subsp. quercina;parent_id=71657.0;gc=0.0;num_genes=3308;annotation_date=03/03/2020;ancestor=Enterobacterales
+GCF_000168035.1_ASM16803v1,11,name=Yersinia intermedia ATCC 29909;parent_id=631.0;gc=0.0;num_genes=4113;annotation_date=01/30/2020;ancestor=Enterobacterales
+GCF_003122425.1_ASM312242v1,11,name=Candidatus Fukatsuia symbiotica;parent_id=1927833.0;gc=0.0;num_genes=2967;annotation_date=02/26/2020;ancestor=Enterobacterales
+GCF_000615055.1_Ec2010C-3214,11,name=Escherichia coli O103:H11 str. 2010C-3214;parent_id=1232152.0;gc=0.0;num_genes=5369;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_001039055.1_ASM103905v1,11,name=Pectobacterium carotovorum subsp. carotovorum ICMP 5702;parent_id=555.0;gc=0.0;num_genes=4232;annotation_date=02/15/2020;ancestor=Enterobacterales
+GCF_900048035.1_GEFVIR,11,name=Candidatus Gullanella endobia;parent_id=1906661.0;gc=0.0;num_genes=479;annotation_date=02/12/2020;ancestor=Enterobacterales
+GCF_000439085.1_ASM43908v1,11,name=Leminorella grimontii ATCC 33999 = DSM 5078;parent_id=82981.0;gc=0.0;num_genes=3761;annotation_date=01/31/2020;ancestor=Enterobacterales
+GCF_001448685.1_ASM144868v1,11,name=Salmonella enterica subsp. enterica serovar Hadar str. SA20026260;parent_id=149385.0;gc=0.0;num_genes=4650;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_009648815.1_ASM964881v1,11,name=Salmonella enterica subsp. houtenae str. CFSAN000552;parent_id=59205.0;gc=0.0;num_genes=4211;annotation_date=02/04/2020;ancestor=Enterobacterales
+GCF_000647475.1_I-151_clc_bio_denovo,11,name=Escherichia coli STEC O174:H46 str. I-151;parent_id=1314842.0;gc=0.0;num_genes=4828;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_000463155.2_CroZurLMG23730T_1.0,11,name=Siccibacter turicensis LMG 23730;parent_id=357233.0;gc=0.0;num_genes=3939;annotation_date=02/25/2020;ancestor=Enterobacterales
+GCF_001038685.1_ASM103868v1,11,name=Pectobacterium atrosepticum ICMP 1526;parent_id=29471.0;gc=0.0;num_genes=4331;annotation_date=02/25/2020;ancestor=Enterobacterales
+GCF_001598735.1_ASM159873v1,11,name=Yersinia enterocolitica subsp. enterocolitica NBRC 105693;parent_id=150052.0;gc=0.0;num_genes=4017;annotation_date=02/07/2020;ancestor=Enterobacterales
+GCF_003001055.1_ASM300105v1,11,name=Escherichia sp. R13;parent_id=2608889.0;gc=0.0;num_genes=4867;annotation_date=01/10/2020;ancestor=Enterobacterales
+GCF_001448905.1_ASM144890v1,11,name=Salmonella enterica subsp. enterica serovar Weslaco str. 247K;parent_id=1243597.0;gc=0.0;num_genes=4302;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_000227625.1_ASM22762v1,11,name=Escherichia coli O7:K1 str. CE10;parent_id=1072458.0;gc=0.0;num_genes=5167;annotation_date=02/13/2020;ancestor=Enterobacterales
+GCF_000259175.1_ASM25917v1,11,name=Providencia stuartii MRSN 2154;parent_id=588.0;gc=0.0;num_genes=4054;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_001038675.1_ASM103867v1,11,name=Pectobacterium brasiliense ICMP 19477;parent_id=180957.0;gc=0.0;num_genes=4377;annotation_date=02/01/2020;ancestor=Enterobacterales
+GCF_000617425.1_Ec06-3691,11,name=Escherichia coli O91:H14 str. 06-3691;parent_id=1427360.0;gc=0.0;num_genes=4703;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_001187865.1_ASM118786v1,11,name=Klebsiella sp. RIT-PI-d;parent_id=2608929.0;gc=0.0;num_genes=3843;annotation_date=01/07/2020;ancestor=Enterobacterales
+GCF_001277175.1_ASM127717v1,11,name=Cronobacter universalis NCTC 9529;parent_id=535744.0;gc=0.0;num_genes=4087;annotation_date=02/11/2020;ancestor=Enterobacterales
+GCF_000486915.2_ASM48691v2,11,name=Salmonella enterica subsp. enterica serovar Mbandaka str. ATCC 51958;parent_id=192954.0;gc=0.0;num_genes=4616;annotation_date=02/12/2020;ancestor=Enterobacterales
+GCF_900638655.1_58635_F02,11,name=Pragia fontium;parent_id=82984.0;gc=0.0;num_genes=3410;annotation_date=03/04/2020;ancestor=Enterobacterales
+GCF_001448475.1_ASM144847v1,11,name=Salmonella enterica subsp. enterica serovar Berta str. SA20103550;parent_id=28142.0;gc=0.0;num_genes=4794;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_000409265.1_Csak_2151_final_contigs,11,name=Cronobacter sakazakii 2151;parent_id=28141.0;gc=0.0;num_genes=4029;annotation_date=02/14/2020;ancestor=Enterobacterales
+GCF_000027265.1_ASM2726v1,11,name=Erwinia pyrifoliae Ep1/96;parent_id=79967.0;gc=0.0;num_genes=3701;annotation_date=02/14/2020;ancestor=Enterobacterales
+GCF_000487775.1_ASM48777v2,11,name=Salmonella enterica subsp. enterica serovar Bredeney str. CFSAN001080;parent_id=134047.0;gc=0.0;num_genes=4293;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_900477895.1_47022_G01,11,name=Salmonella enterica subsp. enterica serovar Carmel;parent_id=59201.0;gc=0.0;num_genes=4257;annotation_date=02/19/2020;ancestor=Enterobacterales
+GCF_000617745.1_Ec2010C-4529,11,name=Escherichia coli O103:H25 str. 2010C-4529;parent_id=991913.0;gc=0.0;num_genes=5199;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_003363015.1_ASM336301v1,11,name=Enterobacillus tribolii;parent_id=1822002.0;gc=0.0;num_genes=4256;annotation_date=02/26/2020;ancestor=Enterobacterales
+GCF_000284655.1_ASM28465v1,11,name=Candidatus Regiella insecticola 5.15;parent_id=138073.0;gc=0.0;num_genes=2183;annotation_date=02/05/2020;ancestor=Enterobacterales
+GCF_002752265.1_ASM275226v1,11,name=Serratia sp. OLIL2;parent_id=2647522.0;gc=0.0;num_genes=4999;annotation_date=01/03/2020;ancestor=Enterobacterales
+GCF_000487155.2_ASM48715v2,11,name=Salmonella enterica subsp. enterica serovar Inverness str. ATCC 10720;parent_id=913074.0;gc=0.0;num_genes=4766;annotation_date=02/12/2020;ancestor=Enterobacterales
+GCF_000617685.1_Ec2010C-4433,11,name=Escherichia coli O103:H2 str. 2010C-4433;parent_id=376725.0;gc=0.0;num_genes=5266;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_000617785.1_Ec2010C-4558,11,name=Escherichia coli O177:NM str. 2010C-4558;parent_id=1446705.0;gc=0.0;num_genes=5061;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_000487035.2_ASM48703v2,11,name=Salmonella enterica subsp. enterica serovar Muenster str. 0315;parent_id=82689.0;gc=0.0;num_genes=4776;annotation_date=02/12/2020;ancestor=Enterobacterales
+GCF_000147055.1_ASM14705v1,11,name=Dickeya dadantii 3937;parent_id=204038.0;gc=0.0;num_genes=4309;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_003144335.1_ASM314433v1,11,name=Proteus genomosp. 5 str. ATCC 51470;parent_id=1311788.0;gc=0.0;num_genes=3496;annotation_date=02/16/2020;ancestor=Enterobacterales
+GCF_000012025.1_ASM1202v1,11,name=Shigella boydii Sb227;parent_id=621.0;gc=0.0;num_genes=4720;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_002900365.1_ASM290036v1,11,name=Escherichia marmotae;parent_id=561.0;gc=0.0;num_genes=4645;annotation_date=01/09/2020;ancestor=Enterobacterales
+GCF_900635465.1_28869_F01,11,name=Lelliottia amnigena;parent_id=1330545.0;gc=0.0;num_genes=4140;annotation_date=03/05/2020;ancestor=Enterobacterales
+GCF_000503845.1_ASM50384v1,11,name=Salmonella enterica subsp. enterica serovar Agona str. 24249;parent_id=58095.0;gc=0.0;num_genes=4448;annotation_date=02/10/2020;ancestor=Enterobacterales
+GCF_001186215.1_ASM118621v1,11,name=Edwardsiella sp. LADL05-105;parent_id=2676541.0;gc=0.0;num_genes=3674;annotation_date=02/18/2020;ancestor=Enterobacterales
+GCF_000208425.1_ASM20842v2,11,name=Escherichia albertii TW08933;parent_id=208962.0;gc=0.0;num_genes=4388;annotation_date=02/14/2020;ancestor=Enterobacterales
+GCF_001050795.1_ASM105079v1,11,name=Yersinia enterocolitica (type O:3) str. YE12/03;parent_id=34051.0;gc=0.0;num_genes=3994;annotation_date=02/11/2020;ancestor=Enterobacterales
+GCF_000010765.1_ASM1076v1,11,name=Escherichia coli O111:H- str. 11128;parent_id=168927.0;gc=0.0;num_genes=5711;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_000148935.1_ASM14893v1,11,name=Pantoea vagans C9-1;parent_id=470934.0;gc=0.0;num_genes=4446;annotation_date=02/17/2020;ancestor=Enterobacterales
+GCF_002978555.1_ASM297855v1,11,name=Cronobacter dublinensis;parent_id=413496.0;gc=0.0;num_genes=4162;annotation_date=01/10/2020;ancestor=Enterobacterales
+GCF_000686185.1_ASM68618v1,11,name=Enterobacter cloacae JD6301;parent_id=550.0;gc=0.0;num_genes=4522;annotation_date=01/31/2020;ancestor=Enterobacterales
+GCF_003112245.1_ASM311224v1,11,name=Escherichia coli O111 str. RM9322;parent_id=1055535.0;gc=0.0;num_genes=5137;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_001050775.1_ASM105077v1,11,name=Yersinia enterocolitica (type O:5 27) str. YE149/02;parent_id=118272.0;gc=0.0;num_genes=4080;annotation_date=02/11/2020;ancestor=Enterobacterales
+GCF_009295985.1_ASM929598v1,11,name=Yersinia pestis subsp. pestis bv. Medievalis;parent_id=385964.0;gc=0.0;num_genes=4207;annotation_date=02/04/2020;ancestor=Enterobacterales
+GCF_000617045.2_Ec04-3023,11,name=Escherichia coli O103:H11 str. 04-3023;parent_id=1232152.0;gc=0.0;num_genes=4290;annotation_date=01/17/2020;ancestor=Enterobacterales
+GCF_000430165.1_ASM43016v1,11,name=Salmonella enterica subsp. enterica serovar 4 [5] 12:i:- str. 08-1736;parent_id=440524.0;gc=0.0;num_genes=4551;annotation_date=01/10/2020;ancestor=Enterobacterales
+GCF_001448785.2_ASM144878v2,11,name=Salmonella enterica subsp. enterica serovar Milwaukee str. SA19950795;parent_id=1243577.0;gc=0.0;num_genes=4849;annotation_date=02/23/2020;ancestor=Enterobacterales
+GCF_001654845.1_EsoBAA2102_DRAFTv1,11,name=Enterobacter soli ATCC BAA-2102;parent_id=885040.0;gc=0.0;num_genes=4644;annotation_date=02/19/2020;ancestor=Enterobacterales
+GCF_000617585.1_Ec2010C-4874,11,name=Escherichia coli O165:H25 str. 2010C-4874;parent_id=1446699.0;gc=0.0;num_genes=5085;annotation_date=01/13/2020;ancestor=Enterobacterales
+GCF_003419895.1_ASM341989v1,11,name=Chitinophaga sp. GDMCC 1.1288;parent_id=2619133.0;gc=0.0;num_genes=5368;annotation_date=01/08/2020;ancestor=FCB group
+GCF_003968825.1_ASM396882v1,11,name=Flavobacterium sp. LS1R10;parent_id=196869.0;gc=0.0;num_genes=2778;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000060345.1_ASM6034v1,11,name=Gramella forsetii KT0803;parent_id=411153.0;gc=0.0;num_genes=3391;annotation_date=01/05/2020;ancestor=FCB group
+GCF_002159975.1_ASM215997v1,11,name=Barnesiella sp. An22;parent_id=2645177.0;gc=0.0;num_genes=2721;annotation_date=01/01/2020;ancestor=FCB group
+GCF_900130035.1_IMG-taxon_2695421042_annotated_assembly,11,name=Wenyingzhuangia marina;parent_id=1518147.0;gc=0.0;num_genes=2738;annotation_date=01/18/2020;ancestor=FCB group
+GCF_001685485.1_ASM168548v1,11,name=Formosa haliotis;parent_id=225842.0;gc=0.0;num_genes=3590;annotation_date=01/18/2020;ancestor=FCB group
+GCF_003852495.1_ASM385249v1,11,name=Taibaiella sp. KBW10;parent_id=2618254.0;gc=0.0;num_genes=3059;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000093165.1_ASM9316v1,11,name=Blattabacterium sp. (Periplaneta americana) str. BPLAN;parent_id=367488.0;gc=0.0;num_genes=593;annotation_date=01/05/2020;ancestor=FCB group
+GCF_006346335.1_ASM634633v1,11,name=Aequorivita sp. S1-10;parent_id=2615031.0;gc=0.0;num_genes=2846;annotation_date=01/05/2020;ancestor=FCB group
+GCF_000007585.1_ASM758v1,11,name=Porphyromonas gingivalis W83;parent_id=837.0;gc=0.0;num_genes=1974;annotation_date=01/05/2020;ancestor=FCB group
+GCF_000473305.1_ASM47330v1,11,name=Bacteroidales bacterium CF;parent_id=185291.0;gc=0.0;num_genes=2251;annotation_date=01/06/2020;ancestor=FCB group
+GCF_000509245.1_ASM50924v1,11,name=Porphyromonas crevioricanis JCM 15906;parent_id=393921.0;gc=0.0;num_genes=1650;annotation_date=01/06/2020;ancestor=FCB group
+GCF_003436715.1_ASM343671v1,11,name=Prevotella sp. TF12-30;parent_id=2638335.0;gc=0.0;num_genes=3180;annotation_date=01/08/2020;ancestor=FCB group
+GCF_001483385.1_ASM148338v1,11,name=Tenacibaculum dicentrarchi;parent_id=104267.0;gc=0.0;num_genes=2457;annotation_date=01/07/2020;ancestor=FCB group
+GCF_900299505.1_Aquimarina_sp._strain_Aq107,11,name=Aquimarina sp. Aq107;parent_id=2627091.0;gc=0.0;num_genes=4666;annotation_date=01/13/2020;ancestor=FCB group
+GCF_900168115.1_IMG-taxon_2595698206_annotated_assembly,11,name=Salegentibacter salinarum;parent_id=143222.0;gc=0.0;num_genes=3685;annotation_date=01/18/2020;ancestor=FCB group
+GCF_003991195.1_ASM399119v1,11,name=Gynurincola endophyticus;parent_id=2590666.0;gc=0.0;num_genes=3707;annotation_date=01/09/2020;ancestor=FCB group
+GCF_900258545.1_PRJEB22910,11,name=Butyricimonas sp. Marseille-P4593;parent_id=2637652.0;gc=0.0;num_genes=4129;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000747525.1_ASM74752v1,11,name=Sphingobacterium sp. ML3W;parent_id=2609468.0;gc=0.0;num_genes=4446;annotation_date=01/06/2020;ancestor=FCB group
+GCF_003363715.1_ASM336371v1,11,name=Parabacteroides acidifaciens;parent_id=375288.0;gc=0.0;num_genes=3922;annotation_date=01/08/2020;ancestor=FCB group
+GCF_001483135.1_ASM148313v1,11,name=Solirubrum puertoriconensis;parent_id=1951300.0;gc=0.0;num_genes=4143;annotation_date=01/25/2020;ancestor=FCB group
+GCF_001045435.1_ASM104543v1,11,name=Chryseobacterium koreense CCUG 49689;parent_id=232216.0;gc=0.0;num_genes=2878;annotation_date=01/24/2020;ancestor=FCB group
+GCF_000709555.1_ASM70955v1,11,name=Candidatus Walczuchella monophlebidarum;parent_id=1940138.0;gc=0.0;num_genes=284;annotation_date=01/06/2020;ancestor=FCB group
+GCF_001401755.1_ASM140175v1,11,name=Aquimarina longa SW024;parent_id=1080221.0;gc=0.0;num_genes=4747;annotation_date=01/07/2020;ancestor=FCB group
+GCF_000517545.1_ASM51754v1,11,name=Bacteroides reticulotermitis JCM 10512;parent_id=1133319.0;gc=0.0;num_genes=4196;annotation_date=01/06/2020;ancestor=FCB group
+GCF_003001695.1_ASM300169v1,11,name=Muricauda pacifica;parent_id=111500.0;gc=0.0;num_genes=4022;annotation_date=01/04/2020;ancestor=FCB group
+GCF_002198115.1_ASM219811v1,11,name=Robiginitalea sediminis;parent_id=252306.0;gc=0.0;num_genes=2920;annotation_date=01/02/2020;ancestor=FCB group
+GCF_001418085.1_ASM141808v1,11,name=Lacinutrix algicola;parent_id=291183.0;gc=0.0;num_genes=3285;annotation_date=01/24/2020;ancestor=FCB group
+GCF_001077795.1_ASM107779v1,11,name=Riemerella anatipestifer Yb2;parent_id=34085.0;gc=0.0;num_genes=2038;annotation_date=01/07/2020;ancestor=FCB group
+GCF_003344365.2_ASM334436v2,11,name=Prosthecochloris sp. ZM_2;parent_id=2632826.0;gc=0.0;num_genes=2213;annotation_date=01/08/2020;ancestor=FCB group
+GCF_003149085.1_ASM314908v1,11,name=Dyadobacter jejuensis;parent_id=120831.0;gc=0.0;num_genes=4567;annotation_date=01/04/2020;ancestor=FCB group
+GCF_002964915.1_ASM296491v1,11,name=Apibacter sp. wkB309;parent_id=2630820.0;gc=0.0;num_genes=1951;annotation_date=01/04/2020;ancestor=FCB group
+GCF_000196315.1_ASM19631v1,11,name=Croceibacter atlanticus HTCC2559;parent_id=313588.0;gc=0.0;num_genes=2659;annotation_date=01/05/2020;ancestor=FCB group
+GCF_000210835.1_ASM21083v1,11,name=Bacteroides fragilis 638R;parent_id=817.0;gc=0.0;num_genes=4618;annotation_date=01/05/2020;ancestor=FCB group
+GCF_000614025.1_ASM61402v1,11,name=Prevotella aurantiaca JCM 15754;parent_id=596085.0;gc=0.0;num_genes=2521;annotation_date=01/13/2020;ancestor=FCB group
+GCF_000613785.1_ASM61378v1,11,name=Prevotella oulorum JCM 14966;parent_id=28136.0;gc=0.0;num_genes=2418;annotation_date=01/13/2020;ancestor=FCB group
+GCF_003859795.1_ASM385979v1,11,name=Alloprevotella sp. OH1205_COT-284;parent_id=2624623.0;gc=0.0;num_genes=1784;annotation_date=01/09/2020;ancestor=FCB group
+GCF_003944795.1_FEB-2018,11,name=Mangrovimonas sp. HN-E26;parent_id=2622855.0;gc=0.0;num_genes=2486;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000220625.1_ASM22062v1,11,name=Capnocytophaga canimorsus Cc5;parent_id=28188.0;gc=0.0;num_genes=2235;annotation_date=01/05/2020;ancestor=FCB group
+GCF_000614895.1_ASM61489v1,11,name=Marinilabilia salmonicolor JCM 21150;parent_id=989.0;gc=0.0;num_genes=3924;annotation_date=01/13/2020;ancestor=FCB group
+GCF_000012825.1_ASM1282v1,11,name=Bacteroides vulgatus ATCC 8482;parent_id=821.0;gc=0.0;num_genes=4111;annotation_date=01/05/2020;ancestor=FCB group
+GCF_003968755.1_ASM396875v1,11,name=Flavobacterium sp. RSP15;parent_id=196869.0;gc=0.0;num_genes=2875;annotation_date=01/09/2020;ancestor=FCB group
+GCF_002855535.1_ASM285553v1,11,name=Emticicia sp. TH156;parent_id=2627301.0;gc=0.0;num_genes=4502;annotation_date=01/03/2020;ancestor=FCB group
+GCF_003712195.1_ASM371219v1,11,name=Proteiniphilum sp. X52;parent_id=2622718.0;gc=0.0;num_genes=3400;annotation_date=01/08/2020;ancestor=FCB group
+GCF_002161555.1_ASM216155v1,11,name=Barnesiella sp. An55;parent_id=2645177.0;gc=0.0;num_genes=2415;annotation_date=01/01/2020;ancestor=FCB group
+GCF_000754405.1_ASM75440v1,11,name=Flavobacterium psychrophilum FPG3;parent_id=96345.0;gc=0.0;num_genes=2365;annotation_date=01/06/2020;ancestor=FCB group
+GCF_000253275.1_ASM25327v1,11,name=Flavobacterium branchiophilum FL-15;parent_id=55197.0;gc=0.0;num_genes=2986;annotation_date=01/05/2020;ancestor=FCB group
+GCF_900142735.1_IMG-taxon_2698536752_annotated_assembly,11,name=Flavobacterium saccharophilum;parent_id=237.0;gc=0.0;num_genes=4340;annotation_date=01/18/2020;ancestor=FCB group
+GCF_000614065.1_ASM61406v1,11,name=Prevotella dentasini JCM 15908;parent_id=589537.0;gc=0.0;num_genes=2072;annotation_date=01/13/2020;ancestor=FCB group
+GCF_003412455.1_ASM341245v1,11,name=Deminuibacter soli;parent_id=2680022.0;gc=0.0;num_genes=4780;annotation_date=01/08/2020;ancestor=FCB group
+GCF_007097495.1_ASM709749v1,11,name=Flammeovirga kamogawensis;parent_id=59739.0;gc=0.0;num_genes=5250;annotation_date=01/09/2020;ancestor=FCB group
+GCF_007971385.1_ASM797138v1,11,name=Arachidicoccus ginsenosidivorans;parent_id=1769012.0;gc=0.0;num_genes=4605;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000614205.1_ASM61420v1,11,name=Prevotella saccharolytica JCM 17484;parent_id=633701.0;gc=0.0;num_genes=2344;annotation_date=01/13/2020;ancestor=FCB group
+GCF_002210225.1_ASM221022v1,11,name=Geofilum rhodophaeum;parent_id=1236988.0;gc=0.0;num_genes=3318;annotation_date=01/08/2020;ancestor=FCB group
+GCF_000614355.1_ASM61435v1,11,name=Porphyromonas cangingivalis JCM 15983;parent_id=36874.0;gc=0.0;num_genes=2114;annotation_date=01/13/2020;ancestor=FCB group
+GCF_900489485.1_Aequorivita_CIP107455T_annotated_assembly,11,name=Aequorivita lipolytica;parent_id=153265.0;gc=0.0;num_genes=2988;annotation_date=01/19/2020;ancestor=FCB group
+GCF_007923145.1_ASM792314v1,11,name=Elizabethkingia bruuniana;parent_id=308865.0;gc=0.0;num_genes=4359;annotation_date=01/09/2020;ancestor=FCB group
+GCF_000212355.1_ASM21235v1,11,name=Dokdonia sp. 4H-3-7-5;parent_id=2615033.0;gc=0.0;num_genes=2960;annotation_date=01/05/2020;ancestor=FCB group
+GCF_003851885.1_ASM385188v1,11,name=Thermaurantimonas aggregans;parent_id=2681566.0;gc=0.0;num_genes=2255;annotation_date=01/19/2020;ancestor=FCB group
+GCF_000614145.1_ASM61414v1,11,name=Bacteroides faecichinchillae JCM 17102;parent_id=871325.0;gc=0.0;num_genes=4002;annotation_date=01/13/2020;ancestor=FCB group
+GCF_000312145.1_ASM31214v1,11,name=Alistipes senegalensis JC50;parent_id=1288121.0;gc=0.0;num_genes=3159;annotation_date=01/30/2020;ancestor=FCB group
+GCF_000477035.2_ASM47703v2,11,name=Cellulophaga baltica NN016038;parent_id=76594.0;gc=0.0;num_genes=3919;annotation_date=01/06/2020;ancestor=FCB group
+GCF_007971225.1_ASM797122v1,11,name=Panacibacter ginsenosidivorans;parent_id=1874621.0;gc=0.0;num_genes=4628;annotation_date=01/09/2020;ancestor=FCB group
+GCF_002201235.1_ASM220123v1,11,name=Polaribacter tangerinus;parent_id=52959.0;gc=0.0;num_genes=2302;annotation_date=01/02/2020;ancestor=FCB group
+GCF_003234935.1_ASM323493v1,11,name=Crocinitomix sp. SM1701;parent_id=2619166.0;gc=0.0;num_genes=3484;annotation_date=01/08/2020;ancestor=FCB group
+GCF_004378585.1_ASM437858v1,11,name=Gramella jeungdoensis;parent_id=292691.0;gc=0.0;num_genes=3149;annotation_date=01/04/2020;ancestor=FCB group
+GCF_900167975.1_IMG-taxon_2595698225_annotated_assembly,11,name=Ohtaekwangia koreensis;parent_id=1210119.0;gc=0.0;num_genes=5770;annotation_date=01/18/2020;ancestor=FCB group
+GCF_000734055.1_ASM73405v1,11,name=Riemerella anatipestifer CH3;parent_id=34085.0;gc=0.0;num_genes=2052;annotation_date=01/06/2020;ancestor=FCB group
+GCF_003340495.1_ASM334049v1,11,name=Adhaeribacter sp. HMF7616;parent_id=2629780.0;gc=0.0;num_genes=5129;annotation_date=01/08/2020;ancestor=FCB group
+GCF_900312815.1_Genome_of_Aquimarina_sp._AU474,11,name=Aquimarina sp. AU474;parent_id=2627091.0;gc=0.0;num_genes=4178;annotation_date=01/19/2020;ancestor=FCB group
+GCF_002741945.1_ASM274194v1,11,name=Gaetbulibacter sp. 4G1;parent_id=2625143.0;gc=0.0;num_genes=3393;annotation_date=01/03/2020;ancestor=FCB group
+GCF_002954265.1_ASM295426v1,11,name=Flavipsychrobacter stenotrophus;parent_id=2307285.0;gc=0.0;num_genes=4480;annotation_date=01/29/2020;ancestor=FCB group
+GCF_001543325.1_ASM154332v1,11,name=Lutibacter profundi;parent_id=358023.0;gc=0.0;num_genes=2587;annotation_date=01/07/2020;ancestor=FCB group
+GCF_003413745.1_ASM341374v1,11,name=Marixanthomonas ophiurae;parent_id=387658.0;gc=0.0;num_genes=2972;annotation_date=01/08/2020;ancestor=FCB group
+GCF_003054265.1_ASM305426v1,11,name=Kordia periserrulae;parent_id=221065.0;gc=0.0;num_genes=4000;annotation_date=01/04/2020;ancestor=FCB group
+GCF_001274615.1_ASM127461v1,11,name=Porphyromonas gingivalis AJW4;parent_id=837.0;gc=0.0;num_genes=2000;annotation_date=01/07/2020;ancestor=FCB group
+GCF_000455445.1_4401737,11,name=Prevotella timonensis 4401737 = DSM 22865 = JCM 15640;parent_id=386414.0;gc=0.0;num_genes=2512;annotation_date=01/13/2020;ancestor=FCB group
+GCF_000614865.1_ASM61486v1,11,name=Prolixibacter bellariivorans JCM 13498;parent_id=314319.0;gc=0.0;num_genes=4365;annotation_date=01/13/2020;ancestor=FCB group
+GCF_900167415.1_IMG-taxon_2582581325_annotated_assembly,11,name=Fibrobacter intestinalis;parent_id=832.0;gc=0.0;num_genes=2907;annotation_date=01/18/2020;ancestor=FCB group
+GCF_900156725.1_IMG-taxon_2681813521_annotated_assembly,11,name=Chryseobacterium chaponense;parent_id=59732.0;gc=0.0;num_genes=2728;annotation_date=01/18/2020;ancestor=FCB group
+GCF_002283555.1_ASM228355v1,11,name=Rubrivirga sp. SAORIC476;parent_id=2640460.0;gc=0.0;num_genes=3802;annotation_date=01/03/2020;ancestor=FCB group
+GCF_003254355.1_ASM325435v1,11,name=Algoriphagus ratkowskyi;parent_id=246875.0;gc=0.0;num_genes=4170;annotation_date=01/08/2020;ancestor=FCB group
+GCF_000695095.2_ASM69509v2,11,name=Gemmatimonas phototrophica;parent_id=173479.0;gc=0.0;num_genes=3920;annotation_date=01/07/2020;ancestor=FCB group
+GCF_000735695.2_ASM73569v2,11,name=Chryseobacterium haifense DSM 19056;parent_id=421525.0;gc=0.0;num_genes=2753;annotation_date=01/02/2020;ancestor=FCB group
+GCF_000613805.1_ASM61380v1,11,name=Bacteroides paurosaccharolyticus JCM 15092;parent_id=732242.0;gc=0.0;num_genes=2777;annotation_date=01/13/2020;ancestor=FCB group
+GCF_000799115.1_ASM79911v1,11,name=Pedobacter glucosidilyticus;parent_id=84567.0;gc=0.0;num_genes=3288;annotation_date=02/01/2020;ancestor=FCB group
+GCF_000246945.1_ASM24694v2,11,name=Myroides injenensis M09-0166;parent_id=1183151.0;gc=0.0;num_genes=2983;annotation_date=01/06/2020;ancestor=FCB group
+GCF_900239505.1_TNO020_V1,11,name=Tenacibaculum sp. TNO020;parent_id=2635139.0;gc=0.0;num_genes=2166;annotation_date=01/18/2020;ancestor=FCB group
+GCF_900454765.1_57530_F01,11,name=Porphyromonas macacae;parent_id=836.0;gc=0.0;num_genes=2037;annotation_date=01/19/2020;ancestor=FCB group
+GCF_007004735.1_ASM700473v1,11,name=Salinigranum sp. YJ-53;parent_id=2631838.0;gc=0.0;num_genes=4085;annotation_date=01/30/2020;ancestor=Archaea
+GCF_000964005.1_WiARP1.0,11,name=Williamsia herbipolensis;ancestor=Actinobacteria;date=01/24/2020;num_genes=4425
+GCF_002858935.1_ASM285893v1,11,name=Pantoea endophytica;ancestor=Enterobacterales;date=01/03/2020;num_genes=4654
+GCF_000662395.1_ASM66239v1,11,name=Escherichia coli O145:H28 str. RM12761;ancestor=Enterobacterales;date=01/06/2020;num_genes=5381
+GCF_000187705.1_ASM18770v1,11,name=Rahnella sp. Y9602;ancestor=Enterobacterales;date=01/05/2020;num_genes=5122
+GCF_000189555.1_ASM18955v1,11,name=Sulfolobus islandicus REY15A;ancestor=Archaea
+GCF_000521565.1_ASM52156v1,11,name=Buchnera aphidicola str. G002 (Myzus persicae);ancestor=Enterobacterales;date=01/06/2020;num_genes=1166
+GCF_900156415.1_IMG-taxon_2681812905_annotated_assembly,11,name=Pontibacter lucknowensis;ancestor=FCB group;date=01/18/2020;num_genes=3858
+GCF_000237865.1_ASM23786v1,11,name=Haloquadratum walsbyi C23;ancestor=Archaea
+GCF_900167575.1_IMG-taxon_2708742390_annotated_assembly,11,name=Okibacterium fritillariae;ancestor=Actinobacteria
+GCF_004345605.1_ASM434560v1,11,name=Rhodococcus sp. SMB37;ancestor=Actinobacteria;date=01/05/2020;num_genes=5756
+GCF_002860645.1_ASM286064v1,11,name=Actinomyces neuii;ancestor=Actinobacteria;date=01/03/2020;num_genes=2125
+GCF_000511285.2_ASM51128v2,11,name=Dickeya solani RNS 08.23.3.1.A;ancestor=Enterobacterales;date=01/08/2020;num_genes=4176
+GCF_000565525.1_ASM56552v1,11,name=Shigella flexneri Shi06GS43;ancestor=Enterobacterales;date=01/06/2020;num_genes=4464
+GCF_003208195.1_ASM320819v1,11,name=Citrobacter sp. YR018;ancestor=Enterobacterales;date=01/08/2020;num_genes=4160
+GCF_003208415.1_ASM320841v1,11,name=Pantoea sp. AG1095;ancestor=Enterobacterales;date=01/08/2020;num_genes=4435
+GCF_003383005.1_ASM338300v1,11,name=Haloferax sp. Atlit-24N;date=01/08/2020;num_genes=3855;ancestor=Archaea
+GCF_000336425.1_ASM33642v1,11,name=Serratia marcescens WW4;ancestor=Enterobacterales;date=01/06/2020;num_genes=4877
+GCF_002751995.1_ASM275199v1,11,name=Erwinia sp. OLCASP19;ancestor=Enterobacterales
+GCF_003431325.1_ASM343132v1,11,name=Acidilobus sp. 7A;parent_id=2635519.0;gc=0.0;num_genes=1523;annotation_date=02/12/2020;ancestor=Archaea
+GCF_003028445.1_ASM302844v1,11,name=Kosakonia sp. H7A;ancestor=Enterobacterales;date=01/04/2020;num_genes=5549
+GCF_003160695.1_ASM316069v1,11,name=Nocardioides sp. CCTCC AB 2018079;ancestor=Actinobacteria;date=01/04/2020;num_genes=4326
+GCF_900141805.1_IMG-taxon_2582581872_annotated_assembly,11,name=Hymenobacter daecheongensis DSM 21074;ancestor=FCB group
+GCF_001277255.1_ASM127725v1,11,name=Cronobacter condimenti 1330;ancestor=Enterobacterales;date=01/07/2020;num_genes=4109
+GCF_000337395.1_ASM33739v1,11,name=Halorubrum litoreum JCM 13561;parent_id=409316.0;gc=0.0;num_genes=3102;annotation_date=02/25/2020;ancestor=Archaea
+GCF_001047675.1_ASM104767v1,11,name=Yersinia aleksiciae;ancestor=Enterobacterales
+GCF_000220135.1_ASM22013v1,11,name=Bifidobacterium breve UCC2003;ancestor=Actinobacteria
+GCF_001275345.1_ASM127534v1,11,name=Kocuria palustris;ancestor=Actinobacteria
+GCF_003435685.1_ASM343568v1,11,name=Bacteroides sp. AM22-3LB;ancestor=FCB group;date=01/08/2020;num_genes=3220
+GCF_000800725.1_ASM80072v2,11,name=Edwardsiella sp. EA181011;ancestor=Enterobacterales;date=01/07/2020;num_genes=3455
+GCF_003028435.1_ASM302843v1,11,name=Serratia sp. Nf2;ancestor=Enterobacterales;date=01/04/2020;num_genes=4945
+GCF_004116405.1_ASM411640v1,11,name=Haloferacaceae archaeon SYSU A00711;parent_id=1727652.0;gc=0.0;num_genes=4810;annotation_date=03/07/2020;ancestor=Archaea
+GCF_002101875.1_ASM210187v1,11,name=Mycobacterium saskatchewanense;ancestor=Actinobacteria
+GCF_000444425.1_ASM44442v1,11,name=Proteus mirabilis BB2000;ancestor=Enterobacterales;date=01/06/2020;num_genes=3386
+GCF_003575975.1_ASM357597v1,11,name=Galactobacter valiniphilus;ancestor=Actinobacteria;date=01/08/2020;num_genes=3130
+GCF_003268975.1_ASM326897v1,11,name=Rahnella sp. NFIX50;ancestor=Enterobacterales;date=01/08/2020;num_genes=4863
+GCF_000614165.1_ASM61416v1,11,name=Bacteroides stercorirosoris JCM 17103;ancestor=FCB group
+GCF_000151105.2_ASM15110v2,11,name=Thermococcus barophilus MP;date=01/05/2020;num_genes=2209;ancestor=Archaea
+GCF_000152925.2_ASM15292v3,11,name=Dokdonia sp. MED134;ancestor=FCB group
+GCF_900167105.1_IMG-taxon_2582581320_annotated_assembly,11,name=Porphyromonas circumdentaria;ancestor=FCB group
+GCF_000422725.1_ASM42272v1,11,name=Flavobacterium subsaxonicum WB 4.1-42 = DSM 21790;ancestor=FCB group
+GCF_000332115.1_ASM33211v1,11,name=Nonlabens dokdonensis DSW-6;ancestor=FCB group
+GCF_000014925.1_ASM1492v1,11,name=Paenarthrobacter aurescens TC1;ancestor=Actinobacteria
+GCF_003472325.1_ASM347232v1,11,name=Collinsella sp. AM12-1;ancestor=Actinobacteria;date=01/08/2020;num_genes=1900
+GCF_003612015.1_ASM361201v1,11,name=Kalamiella piersonii;ancestor=Enterobacterales;date=01/08/2020;num_genes=4536
+GCF_000597785.2_ASM59778v2,11,name=Hafnia alvei FB1;ancestor=Enterobacterales;date=01/06/2020;num_genes=4199
+GCF_000009965.1_ASM996v1,11,name=Thermococcus kodakarensis KOD1;ancestor=Archaea
+GCF_000233435.1_ASM23343v1,11,name=Blattabacterium sp. (Mastotermes darwiniensis) str. MADAR;ancestor=FCB group;date=01/05/2020;num_genes=552
+GCF_003722095.1_ASM372209v1,11,name=Natronomonas sp. CBA1133;date=01/08/2020;num_genes=2799;ancestor=Archaea
+GCF_000091665.1_ASM9166v1,11,name=Methanocaldococcus jannaschii DSM 2661;parent_id=2190.0;gc=0.0;num_genes=1836;annotation_date=03/10/2020;ancestor=Archaea
+GCF_003846135.1_ASM384613v1,11,name=Erwinia psidii;ancestor=Enterobacterales;date=01/09/2020;num_genes=4044
+GCF_003318185.1_ASM331818v1,11,name=Tenacibaculum sp. E3R01;ancestor=FCB group;date=01/08/2020;num_genes=3612
+GCF_000214235.1_ASM21423v1,11,name=Serratia plymuthica AS9;ancestor=Enterobacterales;date=01/05/2020;num_genes=4967
+GCF_002155895.1_ASM215589v1,11,ancestor=Actinobacteria;name=Streptomyces rochei
+GCF_000233595.1_ASM23359v1,11,name=Pantoea ananatis PA13;ancestor=Enterobacterales;date=01/05/2020;num_genes=4450
+GCF_001571385.1_ASM157138v1,11,name=Methanofollis ethanolicus;date=01/25/2020;num_genes=2631;ancestor=Archaea
+GCF_003970305.1_ASM397030v1,11,name=Flavobacterium sp. LB2P53;ancestor=FCB group;date=01/09/2020;num_genes=2922
+GCF_002101785.1_ASM210178v1,11,name=Mycobacterium palustre;ancestor=Actinobacteria
+GCF_004340625.1_ASM434062v1,11,name=Rathayibacter tanaceti;ancestor=Actinobacteria;date=01/05/2020;num_genes=2965
+GCF_000742815.1_ASM74281v1,11,name=Salmonella enterica subsp. enterica serovar Choleraesuis;ancestor=Enterobacterales;date=01/06/2020;num_genes=4534
+GCF_000956175.1_ASM95617v1,11,name=Nitrosopumilus adriaticus;date=01/24/2020;num_genes=2101;ancestor=Archaea
+GCF_003435895.1_ASM343589v1,11,name=Bacteroides sp. AM16-15;ancestor=FCB group;date=01/08/2020;num_genes=3493
+GCF_002150765.1_ASM215076v1,11,name=Lentzea kentuckyensis;ancestor=Actinobacteria
+GCF_002922995.1_ASM292299v1,11,name=Lelliottia sp. 7254-16;ancestor=Enterobacterales;date=01/04/2020;num_genes=4495
+GCF_002155995.1_ASM215599v1,11,name=Crossiella equi;ancestor=Actinobacteria
+GCF_000337055.1_ASM33705v1,11,name=Halorubrum distributum JCM 9100;parent_id=29283.0;gc=0.0;num_genes=3210;annotation_date=02/10/2020;ancestor=Archaea
+GCF_007858445.1_ASM785844v1,11,name=Tsukamurella sp. HKU70;ancestor=Actinobacteria;date=01/09/2020;num_genes=4819
+GCF_008000775.1_ASM800077v1,11,name=anaerobic archaeon MK-D1;parent_id=93506.0;gc=0.0;num_genes=3925;annotation_date=02/26/2020;ancestor=Archaea
+GCF_004777465.1_ASM477746v1,11,name=Nocardioides daphniae;ancestor=Actinobacteria;date=01/09/2020;num_genes=3469
+GCF_003268855.1_ASM326885v1,11,name=Flavobacterium aciduliphilum;ancestor=FCB group;date=01/08/2020;num_genes=2487
+GCF_002929535.1_ASM292953v1,11,name=Cryobacterium sp. Y11;ancestor=Actinobacteria;date=01/04/2020;num_genes=3775
+GCF_002993285.1_ASM299328v1,11,name=Gordonia iterans;ancestor=Actinobacteria;date=01/12/2020;num_genes=3568
+GCF_000512165.1_ASM51216v1,11,name=Klebsiella pneumoniae subsp. pneumoniae Kp13;ancestor=Enterobacterales;date=01/06/2020;num_genes=5434
+GCF_002090055.1_ASM209005v1,11,name=Demequina sp. NBRC 110051;ancestor=Actinobacteria;date=01/18/2020;num_genes=2519
+GCF_900129745.1_IMG-taxon_2695420983_annotated_assembly,11,name=Winogradskyella jejuensis;ancestor=FCB group;date=01/18/2020;num_genes=2772
+GCF_000337535.1_ASM33753v1,11,name=Natrialba aegyptia DSM 13077;parent_id=129789.0;gc=0.0;num_genes=4467;annotation_date=02/25/2020;ancestor=Archaea
+GCF_003984825.1_ASM398482v1,11,name=Flavobacterium sp. RSP46;ancestor=FCB group;date=01/09/2020;num_genes=2846
+GCF_004799645.1_ASM479964v1,11,name=Natronorubrum bangense;ancestor=Archaea
+GCF_000834455.1_ASM83445v1,11,name=Yersinia rohdei;ancestor=Enterobacterales;date=01/07/2020;num_genes=3783
+GCF_000300455.3_ASM30045v4,11,name=Kosakonia sacchari SP1;ancestor=Enterobacterales;date=01/07/2020;num_genes=4557
+GCF_000336915.1_ASM33691v1,11,name=Halococcus saccharolyticus DSM 5350;parent_id=62319.0;gc=0.0;num_genes=3449;annotation_date=01/30/2020;ancestor=Archaea
+GCF_003967175.1_Sacidi_1.0,11,name=Sulfodiicoccus acidiphilus;parent_id=2017961.0;gc=0.0;num_genes=2309;annotation_date=02/19/2020;ancestor=Archaea
+GCF_000334405.1_ASM33440v1,11,name=Blattabacterium sp. (Blatta orientalis) str. Tarazona;ancestor=FCB group
+GCF_000247855.1_Kleb_oxyt_10-5243_V1,11,name=Klebsiella oxytoca 10-5243;ancestor=Enterobacterales;date=01/13/2020;num_genes=5479
+GCF_001277195.1_ASM127719v1,11,name=Cronobacter muytjensii ATCC 51329;ancestor=Enterobacterales;date=01/07/2020;num_genes=3961
+GCF_002752015.1_ASM275201v1,11,name=Erwinia sp. OLMTSP26;ancestor=Enterobacterales
