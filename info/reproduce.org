@@ -1,0 +1,530 @@
+#+TITLE: Reproducing Analysis of {{{tool}}}
+#+AUTHOR: Karl Gemayel
+#+Date: May 21 2020 
+#+OPTIONS: toc:2 H:3 num:3
+
+#+LATEX_HEADER_EXTRA:  \usepackage{mdframed}
+#+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
+#+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+# * Complete flow
+# Download Assembly file
+# Construct Taxonomy tree
+# Download genome files by ancestor name
+# Construct blast database
+
+# Given: Query genome names and ancestor
+# Download relevant genome files (from name, with access to assembly file)
+
+# Run Query on ancestor
+
+#+MACRO: tool StartLink
+
+# #+SUBTITLE: The commands used to set up, reproduce, and graph results from the {{{tool}}} paper
+
+
+* Introduction
+This document serves as a step-by-step instruction manual on how to replicate results from the {{{tool}}} paper. We note that many of the experiments are time-consuming and/or resource hungry. Therefore, we also provide raw results (from which graphs can be generated) as well as pre-constructed databases for the clades mentioned in the {{{tool}}} paper.
+
+* Downloading and installing
+** Code
+Downloading the code is fairly straightforward using =git=. The latest version can be downloaded from =WEBSITE=. To install, simply run 
+#+begin_src bash
+source config.sh
+source install.sh
+#+end_src
+
+The first command loads all environment variables (including paths to data directories, binaries, etc...), and the second command creates an executable from all python files and stores them in =$bin= for easy access. For non-unix users, you can find the python driver files in =$driverpython=.
+** External Tools
+   {{{tool}}} and {{{tool}}}+ and their analysis rely on a handful of external tools. The following need to be installed:
+   - GeneMarkS-2
+     - Used for building {{{tool}}}+ predictions, and for analysis
+     - Link: http://exon.gatech.edu/GeneMark/license_download.cgi
+   - ClustalO:
+     - Used for constructing multiple sequence alignments
+     - Link: http://www.clustal.org/omega/#Download
+   - Diamond BLAST:
+     - Used for generating target databases and finding orthologs
+     - Link: https://github.com/bbuchfink/diamond
+     - Install via Anaconda (recommended): =conda install -c bioconda diamond=
+   - Prodigal:
+     - Used for initial analysis of gene-start prediction status
+     - Link: https://github.com/hyattpd/Prodigal
+
+** Data
+*Note: As previously mentioned the data used is on the order of hundreds of gigabytes. As such, if one is only interested in reproducibility, we provide pre-built databases (and even raw statistics from our existing runs).*
+
+We provide the databases for /Enterobacterales/, /Actinobacteria/, /Archaea/, and /FCB group/, and the sequence and label files for the genomes with verified starts: /E. coli/, /H. salinarum/, /N. pharaonis/, /M. tuberculosis/, and /R. denitrificans/. We also provide the steps to create a database with for any ancestor using data that can be downloaded from NCBI's website.
+
+
+*** Downloading Assembly Summary File
+    #+begin_src bash
+      $bin/download_assembly_summary_py.sh --database refseq --pf-output $metadata/refseq_assembly_summary.txt
+    #+end_src
+
+*** Constructing Taxonomy Tree
+    #+begin_src bash
+      pd_work=$tmp/tree
+
+      mkdir -p $pd_work
+
+      $bin/download_taxonomy_dump_py.sh --pd-output $metadata/taxdump
+      $bin/build_taxonomy_tree_py.sh --pf-nodes-dmp $metadata/taxdump/nodes.dmp --pf-names-dmp $metadata/taxdump/names.dmp --pf-tree $pd_work/tree.pkl
+    #+end_src
+
+*** Download sequence/label files for different clades, and create Blast databases 
+    #+begin_src bash
+
+      function mk_path_friendly() {
+        echo "$1" | tr " " "_" | tr [:upper:] [:lower:];
+      }
+
+      dbt=refseq     # database type
+      pf_tree=$tmp/tree/tree.pkl
+      pf_ass_sum_comb=$metadata/${dbt}_assembly_summary.txt
+
+      declare -a clades=("Enterobacterales" "Actinobacteria" "Alphaproteobacteria" "FCB group" "Archaea")
+
+      # loop over clades; download data under each clade
+      for cl in ${clades[@]}; do
+        dn_cl=$(mk_path_friendly "$cl")
+        $bin/download_genomes_for_clade_py.sh --pf-tree $pf_tree --pf-assembly-summary $pf_ass_sum_comb --clade-id $cl --clade-id-type "name_txt" --favor-assembly-level-order --genomes-per-taxid 1 --pf-output-list $lists/${dbt}_${dn_cl}.list
+      done
+    #+end_src
+
+    Construct Diamond Blastp databases
+    #+begin_src bash
+
+          for cl in "${clades[@]}"; do
+            dn_cl=$(mk_path_friendly "$cl")
+
+            pd_work="$tmp/extract_sequences/${dn_cl}"
+            mkdir -p $pd_work
+
+            cd $pd_work
+
+            pf_list=$lists/${dbt}_${dn_cl}.list
+            pf_faa=$pd_work/${dbt}_${dn_cl}.faa
+            pf_db=$db/${dbt}_${dn_cl}.dmnd
+
+            # extract sequences
+            $bin/extract_annotated_sequences_py.sh --pf-genome-list $pf_list --pf-output $pf_faa
+
+            # build blast
+            $bin/build_blast_db_py.sh --pf-sequences $pf_faa --pf-db $pf_db
+
+            # clean up sequence file
+            [[ -f $pf_faa ]] & rm $pf_faa
+          done
+
+      cd $base
+    #+end_src
+*** Download query genomes from list
+    #+begin_src bash
+      pf_query_large=$lists/selected_query.list
+      pf_ass_sum_query_large=$metadata/assembly_summary_query_large.txt
+      $bin/download_genomes_from_list_py.sh --pf-genome-list $pf_query_large --pf-assembly-summary $pf_ass_sum_query_large --pf-pbs-options $config/pbs_defaults.conf
+    #+end_src
+
+
+* Code and data structure
+
+After installing {{{tool}}}, you will have the following structure:
+
+#+begin_src dot :file dir.pdf :cmdline -Tpdf
+   digraph{
+     sbsp -> data;
+     sbsp -> runs;
+     sbsp -> lists;
+     sbsp -> code;
+     sbsp -> bin
+   
+     code -> python;
+     code -> bash;
+   
+   
+     data -> G1;
+     data -> G2;
+     data -> "...";
+     data -> GN;
+
+     G1 -> "sequence.fasta";
+     G1 -> "ncbi.gff";
+     G1 -> "verified.gff";
+
+     python -> lib;
+     python -> driver;
+     }
+#+end_src
+
+#+RESULTS:
+[[file:dir.pdf]]
+
+
+The =bin= directory contains all executables related to {{{tool}}}, while the =bin_external= may contain external tools, such as GeneMarkS-2 or Prodigal. 
+
+The =data= directory will contain raw genome files (sequence and annotation labels) downloaded from NCBI. In particular, upon initial download of the code, it should contain the genomic sequences for the genomes with experimentally verified gene-starts.
+
+The =list= directory has files that contain different lists of genomes (for example, those with verified genes, those selected as NCBI query genomes, etc...)
+
+Finally the =runs= directory will contain runs of different tools, such as {{{tool}}}, GeneMarkS-2, or Prodigal (as well as one for NCBI's =PGAP=). These will be placed in a subdirectory per genome, as shown below.
+
+#+begin_src dot :file dir_runs.pdf :cmdline -Tpdf
+  digraph {
+    gms21 [label="gms2"]
+    sbsp1 [label="sbsp"]
+    prodigal1 [label="prodigal"]
+
+    gms22 [label="gms2"]
+    sbsp2 [label="sbsp"]
+    prodigal2 [label="prodigal"]
+
+  
+  runs -> G1;
+    runs -> G2;
+    runs -> "...";
+    runs -> GN;
+
+    G1 -> gms21;
+    G1 -> sbsp1;
+    G1 -> prodigal1;
+    G2 -> gms22;
+    G2 -> sbsp2;
+    G2 -> prodigal2;
+
+  }
+#+end_src
+
+#+RESULTS:
+[[file:dir_runs.pdf]]
+
+* Setting up
+Since much of the analysis is done by comparing {{{tool}}} to NCBI's PGAP, GeneMarkS-2, and/or Prodigal, we first need to run these tools and add the results to the run directory. The following script is capable of doing that (note, depending on which analysis you want to reproduce, you may not need to run the tools on all lists):
+
+#+begin_src bash
+
+  function run_tools_on_archaea() {
+    pf_list="$1"
+
+    $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_list --type archaea
+    $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_list --type archaea
+  }
+
+  function run_tools_on_bacteria() {
+    pf_list="$1"
+
+    $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_list --type bacteria
+    $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_list --type bacteria
+  }
+
+  # Representative genomes
+  run_tools_on_archaea $pf_rep_arc
+  run_tools_on_bacteria $pf_rep_bac
+
+  # Verified genomes
+  run_tools_on_archaea $pf_list_verified_arc
+  run_tools_on_bacteria $pf_list_verified_bac
+
+  # NCBI query genomes
+  run_tools_on_archaea $pf_list_qncbi_arc
+  run_tools_on_bacteria $pf_list_qncbi_bac
+#+end_src
+
+
+* Experiments
+  Unless otherwise noted, these variables (when applicable) will have the following values
+  #+begin_src bash
+
+    pf_list_verified=$lists/verified.list  # verified genomes
+    pf_list_qncbi=$lists/genbank_selected.list   # query genomes
+
+    # database and configuration files
+    pf_db_index=$db/index.csv  # database location files
+    pf_sbsp_options=$config/sbsp_defaults.conf # sbsp config file
+    pf_pbs_options=$config/pbs_defaults.conf   # PBS config file
+
+    # PBS options
+    toggle_pbs="--pf-pbs-options $config/$pf_pbs_options"  # if PBS not installed, set this option to empty: ""
+    sg=8   # number of genomes to run simutaneously (low number recommended)
+  #+end_src
+
+  #+RESULTS:
+
+** Difference in 5' predictions on Representative Genomes
+*** Data download
+    #+begin_src bash
+      pf_rep_bac=$lists/refseq_representative_bacteria.list
+      pf_rep_arc=$lists/refseq_representative_archaea.list
+      pf_assembly_bac=$metadata/assembly_summary.txt
+      $bin/download_from_ncbi_py.sh --pf-assembly-summary $pf_assembly_bac --pf-data $data --pf-output-list
+
+      # link ncbi as "tool" (for easy comparison wwith other tools)
+      cat $pf_rep_bac $pf_rep_arc | grep -v gcfid | cut -f1 -d, | while read -r line; do
+        mkdir -p $runs/$line; mkdir -p $runs/$line/ncbi;
+        ln -s $data/$line/ncbi.gff $runs/$line/ncbi/ncbi.gff ;
+      done
+    #+end_src
+
+*** Run GMS2 and Prodigal
+    #+begin_src bash
+
+      # Run on GMS2
+      $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_rep_bac --type bacteria --dn-run gms2
+      $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_rep_arc --type archaea --dn-run gms2
+
+      # Run on Prodigal
+      $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_rep_bac --type bacteria --dn-run prodigal
+      $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_rep_arc --type archaea --dn-run prodigal
+    #+end_src
+
+*** Collect statistics
+    We can now collect the statistics and create the figures to compare GMS2, Prodigal, and NCBI predictions.
+    #+begin_src bash
+      pf_stats=$pd_work/stats_tools.csv
+
+      $bin/stats_tools_5prime_py.sh --pf-genome-lists $pf_rep_bac $pf_rep_arc --list-names Bacteria Archaea --dn-tools gms2 prodigal ncbi --tool-names GMS2 Prodigal NCBI --pf-output $pf_stats
+
+      # create figures
+      $bin/viz_stats_tools_5prime_py.sh --pf-stats $pf_stats
+    #+end_src    
+
+    This should now create a file containing the following image
+    [[file:tools_5prime.pdf]]
+
+** Theoretical view of Independence
+   While not technically an experimental result, we provide the code to generate this graph for convenience. The sensitivity of the non-random algorithms $A_1$ and $A_2$ are set to 0.9, but the user can easily change them (from within) to observe the change in behavior. What remains constant is the improvement of independent algorithms over fully dependent (and random) algorithms..
+   #+begin_src bash
+     $bin/independent_predictions_py.sh 
+   #+end_src
+   [[file:figures/theory_prob_agree.pdf]]
+
+** Genomes with genes with verified starts
+*** Running {{{tool}}}
+#+BEGIN_SRC bash
+  # set this to only run on genes with verified starts
+  opt_verif="--fn-q-labels verified.gff --fn-q-labels-compare verified.gff"
+
+  # run SBSP
+  $bin/sbsp_on_genome_list_py.sh --pf-q-list $pf_list_verified --simultaneous-genomes $sg --pd-work $pd_runs --pf-sbsp-options $pf_sbsp_options  --pf-db-index $pf_db_index $opt_verif $toggle_pbs
+#+END_SRC 
+
+*** Collecting statistics
+    #+begin_src bash
+      # collect statistics per query gene (comparing SBSP, GMS2, and verified genes)
+      $bin/stats_per_query_gene_py.sh --pf-genome-list $pf_list_verified --pf-output-summary summary.csv --verified
+    #+end_src
+*** Visualizing
+    #+begin_src bash
+      $bin/viz_stats_genome_level_py.sh --pf-data summary.csv
+    #+end_src
+
+This will produce two files, =error.csv= and =coverage.csv= containing the following two tables.
+
+Error
+| Genome                | Verified |      SBSP |      GMS2 |  GMS2=SBSP |
+| E.      coli          |      769 | 96.204188 | 97.001304 |  99.582754 |
+| H.      salinarum     |      530 | 97.489540 | 98.679245 |  99.354839 |
+| M.      tuberculosis  |      701 | 93.197279 | 90.401146 |  98.282443 |
+| N.      pharaonis     |      315 | 98.226950 | 99.047619 | 100.000000 |
+| R.      denitrificans |      526 | 95.081967 | 96.571429 |  99.248120 |
+
+
+Coverage
+| Genome | Verified      | SBSP |      GMS2 |  GMS2=SBSP |         
+| E.     coli           |  769 | 99.349805 |  99.739922 | 93.498049 |
+| H.      salinarum     |  530 | 90.188679 | 100.000000 | 87.735849 |
+| M.      tuberculosis  |  701 | 83.880171 |  99.572040 | 74.750357 |
+| N.      pharaonis     |  315 | 89.523810 | 100.000000 | 87.301587 |
+| R.      denitrificans |  526 | 81.178707 |  99.809886 | 75.855513 |
+
+It also produces the per-step analysis on the verified set of genes.
+[[file:figures/verified_per_step.pdf]]
+
+** Larger set of query genomes
+*** Running SBSP
+    Prewarning, running this analysis can take a long time. Our estimate is roughly 5 days on 20 compute nodes with 8 processors each, though that number can vary based on how databases are setup, where they are located, and the cost of accessing them (e.g. databases can be copied to each node beforehand, making access much cheaper and prevent bottlenecks).
+
+    In that respect, we have also provided a CSV file containing the per-query analysis of all genes in this set, which is used for visualization of results.
+
+    #+BEGIN_SRC bash
+
+      # run SBSP
+      $bin/sbsp_on_genome_list_py.sh --pf-q-list $pf_list_qncbi --simultaneous-genomes $sg --pd-work $pd_runs --pf-sbsp-options $pf_sbsp_options  --pf-db-index $pf_db_index $toggle_pbs
+
+    #+END_SRC 
+*** Collecting statistics
+    #+begin_src bash
+      # collect statistics per query gene (comparing SBSP, GMS2, and verified genes)
+      $bin/stats_per_query_gene_py.sh --pf-genome-list $pf_list_qncbi --pf-output-summary summary.csv
+    #+end_src
+*** Visualizing
+    All images regarding the large-scale comparisons can be generated via a single script. Note that the contour plots are computationally expensive and may take ~1 hour to generate. Therefore, they are turned off by default. To enable them, run the command with the option =--with-contours=. 
+    #+begin_src bash
+      $bin/viz_stats_clade_level_py.sh --pf-data summary.csv 
+    #+end_src
+
+    #+CAPTION: The 5' error rate of NCBI compared to GMS2=SBSP for query genomes in different clades
+    [[file:figures/sen_ncbi_gms2_eq_sbsp.pdf]]
+
+    #+CAPTION: The 5' error rate of NCBI compared to GMS2=SBSP, as a function of genome GC
+    [[file:figures/sen_ncbi_gms2_eq_sbsp_vs_gc.pdf]]
+
+    #+CAPTION: Left: The sensitivity for each SBSP step on the set of verified genes (top), and the percentage (middle) and number (bottom) of SBSP genes predicted by step A alone, steps A and B, and all steps together. Right: Same analysis, for GMS2=SBSP. 
+    [[file:figures/step_sen_cov_sbsp_and_sbsp_gms2_verified.pdf]]
+    
+    #+CAPTION: The 5' error rate of NCBI compared to GMS2=SBSP, shown per step of SBSP 
+    [[file:figures/err_gms2_eq_sbsp_vs_ncbi_step.pdf]]
+
+    #+CAPTION: The variation in proximity consistency as the distance to the upstream gene increases
+    [[file:figures/pc_range.pdf]]
+
+    #+CAPTION: The percentages of components whose most frequent upstream distance lies within the -10 and +10 \textit{nt} range. A component is defined as a single query and its targets
+    [[file:figures/most_common_upstream.pdf]]
+
+    #+CAPTION: The distribution of queries by minimum and maximum Kimura distance to their orthologs. This shows that most query genes in \textit{Enterobacterales} will find an orthologs that spread the range from 0.1 to 0.5 Kimura, whereas many in \textit{Actinobacteria} have a minimum Kimura distance of above 0.3 and even 0.4
+    [[file:figures/kimura_kde.pdf]]
+
+    #+CAPTION: The distribution of average Kimura distances (per component). The y-axis shows the percentage of queries (and thus, components) that have a particular average Kimura distance to its orthologs
+    [[file:figures/kimura_avg.pdf]]
+
+    #+CAPTION: The 5' sensitivity rate of NCBI compared to GMS2=SBSP (i.e. $\Sen\textrm{(NCBI, GMS2=SBSP)}$) based on the minimum and maximum Kimura distances between a query and its targets. The color bar measures the sensitivity rate, with brighter colors indicating higher sensitivity
+    [[file:figures/sen_kimura_min_max.pdf]]
+
+    #+CAPTION: Distribution of raw blast hits across clades for the set of query genomes in Table~\ref{tab:stats_ncbi}. Left: The raw number of BLAST hits per clade. Right: The cumulative percentage of queries with \textit{at most} $N$ BLASTp hits, where $N$ varies from 0 to 5,000. The shaded band shows the standard deviation (per clade) across query genomes
+    [[file:figures/raw_blast_numbers.pdf]]    [[file:figures/raw_blast_percent.pdf]]
+
+    #+CAPTION: The effect of changing the maximum Kimura threshold on SBSP's sensitivity and coverage rates. The minimum Kimura threshold is fixed to 0.1, and $x \in \{0.2, 0.3, ..., 0.8\}$
+    [[file:figures/sen_cov_kimura_max.pdf]]
+
+    #+CAPTION: The effect of changing the minimum Kimura threshold on SBSP's sensitivity and coverage rates. The maximum Kimura threshold is fixed to 0.5, and $x \in \{0.001, 0.1, 0.2, 0.3, 0.4\}$
+    [[file:figures/sen_cov_kimura_min.pdf]]
+    
+    #+CAPTION: The performance of SBSP on small intervals of Kimura ranges: $[0.001, 0.1], [0.1, 0.2], [0.2, 0.3] \ldots [0.7, 0.8]$. The x-axis shows the mean Kimura of a block; e.g., for range $[a, b]$, the average is $(b+a)/2$
+    [[file:figures/sen_cov_kimura_block.pdf]]
+
+    #+CAPTION: Distribution of block conservation scores in regions around verified starts
+    [[file:figures/score_blk_compare.pdf]]
+
+    #+CAPTION: Distribution of 5' identity for verified starts, and upstream and downstream false 5' candidates
+    [[file:figures/score_five_prime_compare.pdf]]
+
+   
+
+
+
+    
+
+* COMMENT Running on verified genomes
+
+SBSP takes as input:
+- Query proteins: FASTA file
+- Target protein database: Diamond database
+
+It outputs:
+- GFF file containing labels
+- Multiple sequence alignment files for all queries
+- details.csv: output file containing details of predictions
+
+
+
+#+BEGIN_SRC bash
+  # List of genomes with verified genes
+  pf_list_verified=$lists/verified.list  # verified genomes
+  pf_db_index=$db/index.csv  # database location files
+  pf_sbsp_conf=$config/sbsp_defaults.conf # sbsp config file
+
+  toggle_pbs="--pf-conf-pbs $config/pbs_defaults.conf"  # if PBS not installed, set this option to empty: ""
+  sg=8   # number of genomes to run simutaneously (low number recommended)
+  opt_verif="--fn-q-labels verified.gff --fn-q-labels-true verified.gff"
+
+  $bin/sbsp_on_genome_list_py.sh --pf-q-list $pf_list_verified --simultaneous-genomes $sg --pd-work $pd_run --pf-sbsp-options $pf_sbsp_options  --pf-db-index $pf_db_index $opt_verif $toggle_pbs
+#+END_SRC 
+
+* COMMENT GMS2 on metagenomes
+** Run GMS2 on genome fragments
+#+begin_src bash :session
+$bin/run_tools_on_genome_fragments_py.sh --pf-genome-list $lists/verified.list --tools gms2 prodigal
+#+end_src
+* COMMENT Collecting Data
+
+* COMMENT Tables and Graphs
+*  COMMENT
+* COMMENT Experiments
+
+** Difference in 5' predictions on Representative Genomes
+*** Data download
+    #+begin_src bash
+      pf_rep_bac=$lists/refseq_representative_bacteria.list
+      pf_rep_arc=$lists/refseq_representative_archaea.list
+      pf_assembly_bac=$metadata/assembly_summary.txt
+      $bin/download_from_ncbi_py.sh --pf-assembly-summary $pf_assembly_bac --pf-data $data --pf-output-list
+
+      # link ncbi as "tool" (for easy comparison wwith other tools)
+      cat $pf_rep_bac $pf_rep_arc | grep -v gcfid | cut -f1 -d, | while read -r line; do
+        mkdir -p $runs/$line; mkdir -p $runs/$line/ncbi;
+        ln -s $data/$line/ncbi.gff $runs/$line/ncbi/ncbi.gff ;
+      done
+    #+end_src
+
+*** Run GMS2 and Prodigal
+    #+begin_src bash
+
+      # Run on GMS2
+      $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_rep_bac --type bacteria --dn-run gms2
+      $bin/run_tool_on_genome_list_py.sh --tool gms2 --pf-genome-list $pf_rep_arc --type archaea --dn-run gms2
+
+      # Run on Prodigal
+      $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_rep_bac --type bacteria --dn-run prodigal
+      $bin/run_tool_on_genome_list_py.sh --tool prodigal --pf-genome-list $pf_rep_arc --type archaea --dn-run prodigal
+    #+end_src
+
+*** Collect statistics
+    We can now collect the statistics and create the figures to compare GMS2, Prodigal, and NCBI predictions.
+    #+begin_src bash
+      pf_stats=$pd_work/stats_tools.csv
+
+      $bin/stats_tools_5prime_py.sh --pf-genome-lists $pf_rep_bac $pf_rep_arc --list-names Bacteria Archaea --dn-tools gms2 prodigal ncbi --tool-names GMS2 Prodigal NCBI --pf-output $pf_stats
+
+      # create figures
+      $bin/viz_stats_tools_5prime_py.sh --pf-stats $pf_stats
+    #+end_src    
+
+    This should now create a file containing the following image
+    [[file:tools_5prime.pdf]]
+
+
+** Sensitivity and coverage of GMS2 and SBSP on verified set
+   Coverage and sensitivity tables
+   Per Step (graph)
+** NCBI Sensitivity compared to GMS2=SBSP
+   Box plots
+   As function of GC (scatter)
+   Per Step
+** Sensitivity for each SBSP Step on verified genes
+** Proximity consistency
+** Proximity of components with most frequent upstream distance distribution
+** Kimura KDE
+** Average Kimura
+** Sensitivity by Kimura ranges
+** RAW Blast results
+   #+begin_src bash
+     # get stats from log files 
+   #+end_src
+
+   
+
+
+* COMMENT Experiments
+** GMS2 vs NCBI vs Prodigal
+** Sensitivity and coverage on verified set
+*** Sensitivity and Coverage tables
+*** Sensitivity per SBSP step
+** NCBI vs GMS2=SBSP
+*** Per GC
+*** Per clade
+*** 
+
+    
+
+
