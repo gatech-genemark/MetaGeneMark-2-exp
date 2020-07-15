@@ -40,6 +40,7 @@ parser.add_argument('--dn-tools', nargs="+", help="Names of run directories for 
                                                   " should have a length equal to 'tools'.")
 parser.add_argument('--pf-output', required=True, help="Output file")
 
+parser.add_argument('--pf-parallelization-options')
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
 
@@ -70,15 +71,22 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
 
     pf_predictions = {
         t: os_join(env["pd-runs"], gi.name, tools[t], "prediction.gff") for t in tools.keys()
+        if os.path.isfile(os_join(env["pd-runs"], gi.name, tools[t], "prediction.gff"))
     }
 
+    if len(pf_predictions) == 0:
+        return pd.DataFrame()
+
     name_to_labels = {
-        t: read_labels_from_file(pf_predictions[t], shift=0, name=t) for t in tools.keys()
+        t: read_labels_from_file(pf_predictions[t], shift=0, name=t) for t in pf_predictions.keys()
     }  # type: Dict[str, Labels]
 
     keys_3prime = get_unique_gene_keys(*name_to_labels.values())
 
     pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
+    if not os.path.isfile(pf_sequence):
+        return pd.DataFrame()
+
     sequences = SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
 
     genome_gc = compute_gc(sequences)
@@ -90,7 +98,7 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
         entry = dict()
 
         shortest_label = None
-        for t in tools.keys():
+        for t in pf_predictions.keys():
 
             label = name_to_labels[t].get_by_3prime_key(key)
             if label is None:
