@@ -122,6 +122,26 @@ void set_correct_gms2_start_models(Pset &pset, GMS2_GROUP gms2_group, int bac_ar
                 pset.second[i]->pTTG_X = pset.first[i]->pTTG_X;
             }
         }
+        // group C
+        else if (gms2_group == GMS2_AC) {
+            for (size_t i = 0; i < pset.first.size(); i++) {
+                pset.second[i]->RBS_C = pset.first[i]->RBS_C;
+                pset.second[i]->SC_RBS_C = pset.first[i]->SC_RBS_C;
+                pset.second[i]->PROMOTER_C = pset.first[i]->PROMOTER_C;
+                pset.second[i]->SC_PROMOTER_C = pset.first[i]->SC_PROMOTER_C;
+                
+                pset.second[i]->pATG_C = pset.first[i]->pATG_C;
+                pset.second[i]->pGTG_C = pset.first[i]->pGTG_C;
+                pset.second[i]->pTTG_C = pset.first[i]->pTTG_C;
+                
+                pset.second[i]->RBS_A = pset.first[i]->RBS_A;
+                pset.second[i]->SC_RBS_A = pset.first[i]->SC_RBS_A;
+                
+                pset.second[i]->pATG_A = pset.first[i]->pATG_A;
+                pset.second[i]->pGTG_A = pset.first[i]->pGTG_A;
+                pset.second[i]->pTTG_A = pset.first[i]->pTTG_A;
+            }
+        }
     }
 }
 
@@ -301,9 +321,9 @@ int main( int argc, char** argv )
                 char best_label = 'N';
                 float best_score = -10000000000;
                 GMS2_GROUP all_groups [] = {
-                    GMS2_A, GMS2_B, GMS2_C, GMS2_D, GMS2_X
+                    GMS2_A, GMS2_B, GMS2_C, GMS2_D, GMS2_X, GMS2_AC
                 };
-                char group_labels []  = {'A', 'B', 'C', 'D', 'X'};
+                char group_labels []  = {'A', 'B', 'C', 'D', 'X', 'Z'};
                 int best_type = 0;
                 int num_groups = 5;
                 

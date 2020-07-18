@@ -71,6 +71,11 @@ public:
     double  pGTG_A, pGTG_B, pGTG_C, pGTG_D, pGTG_X;
     double  pTTG_A, pTTG_B, pTTG_C, pTTG_D, pTTG_X;
     
+    // MGM STOP PROBABILITIES
+    double  pTAA_A, pTAA_B, pTAA_C, pTAA_D, pTAA_X;
+    double  pTGA_A, pTGA_B, pTGA_C, pTGA_D, pTGA_X;
+    double  pTAG_A, pTAG_B, pTAG_C, pTAG_D, pTAG_X;
+    
 	double toModel;
 
 	unsigned int ORF_start_marging;

@@ -113,6 +113,14 @@ Model::Model( Logger * const logger ) : logger(logger)
 	pTAA = 0;
 	pTAG = 0;
 	pTGA = 0;
+    
+    // mgm starts/stops
+    pATG_A = 0; pATG_B = 0; pATG_C = 0; pATG_D = 0; pATG_X = 0;
+    pGTG_A = 0; pGTG_B = 0; pGTG_C = 0; pGTG_D = 0; pGTG_X = 0;
+    pTTG_A = 0; pTTG_B = 0; pTTG_C = 0; pTTG_D = 0; pTTG_X = 0;
+    pTAA_A = 0; pTAA_B = 0; pTAA_C = 0; pTAA_D = 0; pTAA_X = 0;
+    pTGA_A = 0; pTGA_B = 0; pTGA_C = 0; pTGA_D = 0; pTGA_X = 0;
+    pTAG_A = 0; pTAG_B = 0; pTAG_C = 0; pTAG_D = 0; pTAG_X = 0;
 
 	logodd_ATG = 0;
 	logodd_GTG = 0;

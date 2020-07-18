@@ -62,6 +62,12 @@ public:
         logodd_Promoter       = LOG_ZERO;
         logodd_RBS_SC         = LOG_ZERO;
         logodd_Promoter_SC    = LOG_ZERO;
+        
+        // break up into motif/spacer
+        logodd_RBS_motif      = LOG_ZERO;
+        logodd_RBS_spacer      = LOG_ZERO;
+        logodd_Promoter_motif      = LOG_ZERO;
+        logodd_Promoter_spacer      = LOG_ZERO;
 
         bayes = 0;
     }
@@ -103,6 +109,12 @@ public:
     double  logodd_Promoter;
     double  logodd_RBS_SC;
     double  logodd_Promoter_SC;
+    
+    
+    double logodd_RBS_motif      ;
+    double logodd_RBS_spacer     ;
+    double logodd_Promoter_motif ;
+    double logodd_Promoter_spacer;
 
     double bayes;
 

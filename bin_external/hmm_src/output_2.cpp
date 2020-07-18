@@ -696,6 +696,12 @@ void Output::PrintGenes_EXT(std::vector< BestValue > & predictions, FastaVectorI
         attr += " promoter_score " + DoubleToString(itr->origin->logodd_Promoter, 2) + ";";
         attr += " rbs_sc_score " + DoubleToString(itr->origin->logodd_RBS_SC, 2) + ";";
         attr += " promoter_sc_score " + DoubleToString(itr->origin->logodd_Promoter_SC, 2) + ";";
+        
+        attr += " rbs_motif_score " + DoubleToString(itr->origin->logodd_RBS_motif, 2) + ";";
+        attr += " promoter_motif_score " + DoubleToString(itr->origin->logodd_Promoter_motif, 2) + ";";
+        attr += " rbs_spacer_score " + DoubleToString(itr->origin->logodd_RBS_spacer, 2) + ";";
+        attr += " promoter_spacer_score " + DoubleToString(itr->origin->logodd_Promoter_spacer, 2) + ";";
+        attr += " start_stop_score " + DoubleToString(itr->origin->logodd_start_stop, 2) + ";";
 
         attr += " " + itr->si.seq + " " + IntToString(itr->si.spacer) + " " + IntToString(itr->si.stype);
         

@@ -606,6 +606,8 @@ void SequenceMap::CalcStartScoreForPositionNative(Model* m, std::vector<unsigned
     }
 }
 
+
+
 void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsigned char> & nt, vector< MapValue >::iterator itr, GMS2_GROUP gms2_group)
 {
     float NOT_SET = -100000000;
@@ -614,6 +616,9 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     float score_scrbs = 0;       // score for start context RBS only (separate from motif/spacer score)
     float score_scprom = 0;     // score for start context promoter only (separate from motif/spacer score)
     float score_eus = 0;        // score for extended upstream signature
+    
+    float score_rbs_motif = 0;
+    float score_prom_motif = 0;
     
     bool rbs = false, prom = false, scrbs = false, scprom = false, eus = false;
     
@@ -644,20 +649,92 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
         m_scrbs = &m->SC_RBS_X;
         m_eus = &m->EUS;
     }
+    else if (gms2_group == GMS2_AC) {
+        // compare A and C for this gene
+        Site* c_m_rbs = m->RBS_C.get_site_with_max_score(nt, itr->pos, itr->status);
+        Site* c_m_scrbs = &m->SC_RBS_C;
+        Site* c_m_prom = m->PROMOTER_C.get_site_with_max_score(nt, itr->pos, itr->status);
+        Site* c_m_scprom = &m->SC_PROMOTER_C;
+        
+        Site* a_m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
+        Site* a_m_scrbs = &m->SC_RBS_A;
+        
+        // set model with higher score
+        float c_rbs_score = NOT_SET, c_prom_score = NOT_SET, a_score = NOT_SET;
+        
+        // compute a_score
+        if (a_m_rbs != NULL && a_m_rbs->is_valid)
+            a_score = a_m_rbs->GetWithDur(nt, itr->pos, itr->status);
+        if (a_m_scrbs != NULL && a_m_scrbs->is_valid) {
+            if (a_score > NOT_SET)
+                a_score += a_m_scrbs->Get(nt, itr->pos, itr->status);
+            else
+                a_score = a_m_scrbs->Get(nt, itr->pos, itr->status);
+        }
+        
+        // compute c_rbs_score
+        if (c_m_rbs != NULL && c_m_rbs->is_valid)
+            c_rbs_score = c_m_rbs->GetWithDur(nt, itr->pos, itr->status);
+        if (c_m_scrbs != NULL && c_m_scrbs->is_valid) {
+            if (c_rbs_score > NOT_SET)
+                c_rbs_score += c_m_scrbs->Get(nt, itr->pos, itr->status);
+            else
+                c_rbs_score = c_m_scrbs->Get(nt, itr->pos, itr->status);
+        }
+        
+        // compute c_prom_score
+        if (c_m_prom != NULL && c_m_prom->is_valid)
+            c_prom_score = c_m_prom->GetWithDur(nt, itr->pos, itr->status);
+        if (c_m_scprom != NULL && c_m_scprom->is_valid) {
+            if (c_prom_score > NOT_SET)
+                c_prom_score += c_m_scprom->Get(nt, itr->pos, itr->status);
+            else
+                c_prom_score = c_m_scprom->Get(nt, itr->pos, itr->status);
+        }
+        
+        // get best
+        if (c_rbs_score > c_prom_score || c_prom_score > a_score) {
+            m_rbs = m->RBS_C.get_site_with_max_score(nt, itr->pos, itr->status);
+            m_scrbs = &m->SC_RBS_C;
+            m_prom = m->PROMOTER_C.get_site_with_max_score(nt, itr->pos, itr->status);
+            m_scprom = &m->SC_PROMOTER_C;
+        }
+        else {
+            m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
+            m_scrbs = &m->SC_RBS_A;
+        }
+
+        
+    }
     
     // set which models are allowed based on gms2 group setting
     
     // compute scores
     if (m_rbs != NULL && m_rbs->is_valid) {
         score_rbs = m_rbs->GetWithDur(nt, itr->pos, itr->status);
-        
+        score_rbs_motif = m_rbs->Get(nt, itr->pos, itr->status);
+                
         itr->logodd_RBS = score_rbs;
         rbs = true;
+        
+        itr->logodd_RBS_motif = m_rbs->Get(nt, itr->pos, itr->status);
+        itr->logodd_RBS_spacer = score_rbs - itr->logodd_RBS_motif;
+        
+//        if (score_rbs_motif < -8)
+//            rbs = false;
     }
     if (m_prom != NULL && m_prom->is_valid) {
         score_prom = m_prom->GetWithDur(nt, itr->pos, itr->status);
+        score_prom_motif = m_prom->Get(nt, itr->pos, itr->status);
+        
         itr->logodd_Promoter = score_prom;
         prom = true;
+        
+        itr->logodd_Promoter_motif = m_prom->Get(nt, itr->pos, itr->status);
+        itr->logodd_Promoter_spacer = score_prom - itr->logodd_Promoter_motif;
+        
+//        if (score_prom_motif < -2)
+//            prom = false;
     }
     if (m_scrbs != NULL && m_scrbs->is_valid) {
         score_scrbs = m_scrbs->Get(nt, itr->pos, itr->status);
@@ -676,6 +753,13 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     
     
     // Get total scores for different components
+    // NOTE: It is important to compare promoter/RBS scores without spacers. This is because
+    // promoter have a very highly-peaked spacer distribution that biases results in their favor.
+    // In many cases, where no motif is selected, viterbi a motif at peak position of promoter and gives it
+    // a high spacer score. Thiis causes a problem when comparing different GMS2 groups:
+    // If a gene has no motif; then group C will get a much higher score for this gene then group A models,
+    // simply because of the spacer model. This biases genomes to be classified into group C as opposed to
+    // group A.
     float total_rbs = NOT_SET;
     if (rbs && scrbs) total_rbs = score_rbs + score_scrbs;
     else if (rbs) total_rbs = score_rbs;
@@ -697,8 +781,29 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
         // comparing negative values when EVERYTHING is negative makes no biological sense
 //        if (total_rbs > 0 || total_prom > 0 || total_eus > 0) {
             
+//        if (rbs && prom) {
+//            if (score_rbs < 0 and score_prom < 0) {
+//                itr->logodd_start = score_scrbs;
+//                return;
+//            }
+//        }
+//        else if (rbs) {
+//            if (score_rbs < 0) {
+//                itr->logodd_start = score_scrbs;
+//                return;
+//            }
+//        }
+//        else if (prom) {
+//            if (score_prom < 0) {
+//                itr->logodd_start = score_scrbs;
+//                return;
+//            }
+//        }
             // RBS has highest
             if (total_rbs >= total_prom && total_rbs >= total_eus) {
+                
+                // Add spacer score: See note above to why spacer score isn't used in comparison
+//                total_rbs = total_rbs - score_rbs_motif + score_rbs;
                 itr->logodd_start = total_rbs;
                 
                 // if rbs motif is active, set type
@@ -707,6 +812,9 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
             }
             // Promoter has highest
             else if (total_prom >= total_rbs && total_prom >= total_eus) {
+                
+                // Add spacer score: See note above to why spacer score isn't used in comparison
+//                total_prom = total_prom - score_prom_motif + score_prom;
                 itr->logodd_start = total_prom;
                 
                 // if rbs motif is active, set type
@@ -932,6 +1040,35 @@ float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_D, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isTTG )  score += mod->LogRatio( mod->pTTG_D, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
     }
+    else if (gms2_group == GMS2_AC) {
+        if ( itr->status & isATG )  {
+            float a_score = mod->LogRatio( mod->pATG_A, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+            float c_score = mod->LogRatio( mod->pATG_C, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+        }
+        else if ( itr->status & isGTG )  {
+            float a_score = mod->LogRatio( mod->pGTG_A, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+            float c_score = mod->LogRatio( mod->pGTG_C, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+        }
+        else if ( itr->status & isTTG )  {
+            float a_score = mod->LogRatio( mod->pTTG_A, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+            float c_score = mod->LogRatio( mod->pTTG_C, mod->non_2[NT::T<<4|NT::T<<2|NT::G] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+            
+        }
+        
+        
+    }
     else if (gms2_group == GMS2_X) {
         if      ( itr->status & isATG )  score += mod->LogRatio( mod->pATG_X, mod->non_2[NT::A<<4|NT::T<<2|NT::G] );
         else if ( itr->status & isGTG )  score += mod->LogRatio( mod->pGTG_X, mod->non_2[NT::G<<4|NT::T<<2|NT::G] );
@@ -940,6 +1077,69 @@ float compute_start_score_atypical(vector< MapValue >::iterator &itr, Model *mod
     
     return score;
 }
+
+float compute_stop_codon_score_atypical(vector< MapValue >::iterator &itr, Model *mod, GMS2_GROUP gms2_group) {
+    float score = 0;
+    
+    if (gms2_group == GMS2_A) {
+        
+        if      ( itr->status & isTAA )  score += mod->LogRatio( mod->pTAA_A, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+        else if ( itr->status & isTAG )  score += mod->LogRatio( mod->pTAG_A, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+        else if ( itr->status & isTGA )  score += mod->LogRatio( mod->pTGA_A, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+    }
+    else if (gms2_group == GMS2_B) {
+        if      ( itr->status & isTAA )  score += mod->LogRatio( mod->pTAA_B, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+        else if ( itr->status & isTAG )  score += mod->LogRatio( mod->pTAG_B, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+        else if ( itr->status & isTGA )  score += mod->LogRatio( mod->pTGA_B, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+    }
+    else if (gms2_group == GMS2_C) {
+        if      ( itr->status & isTAA )  score += mod->LogRatio( mod->pTAA_C, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+        else if ( itr->status & isTAG )  score += mod->LogRatio( mod->pTAG_C, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+        else if ( itr->status & isTGA )  score += mod->LogRatio( mod->pTGA_C, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+    }
+    else if (gms2_group == GMS2_D) {
+        if      ( itr->status & isTAA )  score += mod->LogRatio( mod->pTAA_D, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+        else if ( itr->status & isTAG )  score += mod->LogRatio( mod->pTAG_D, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+        else if ( itr->status & isTGA )  score += mod->LogRatio( mod->pTGA_D, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+    }
+    else if (gms2_group == GMS2_AC) {
+        if ( itr->status & isTAA )  {
+            float a_score = mod->LogRatio( mod->pTAA_A, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+            float c_score = mod->LogRatio( mod->pTAA_C, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+        }
+        else if ( itr->status & isTGA )  {
+            float a_score = mod->LogRatio( mod->pTGA_A, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+            float c_score = mod->LogRatio( mod->pTGA_C, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+        }
+        else if ( itr->status & isTAG )  {
+            float a_score = mod->LogRatio( mod->pTAG_A, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+            float c_score = mod->LogRatio( mod->pTAG_C, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+            if (a_score > c_score)
+                score += a_score;
+            else
+                score += c_score;
+            
+        }
+        
+        
+    }
+    else if (gms2_group == GMS2_X) {
+        if      ( itr->status & isTAA )  score += mod->LogRatio( mod->pTAA_X, mod->non_2[NT::T<<4|NT::A<<2|NT::A] );
+        else if ( itr->status & isTAG )  score += mod->LogRatio( mod->pTAG_X, mod->non_2[NT::T<<4|NT::A<<2|NT::G] );
+        else if ( itr->status & isTGA )  score += mod->LogRatio( mod->pTGA_X, mod->non_2[NT::T<<4|NT::G<<2|NT::A] );
+    }
+    
+    return score;
+}
+
 // ----------------------------------------------------
 void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned char> & nt, char const gtype, GMS2_GROUP gms2_group )
 {
@@ -1033,9 +1233,17 @@ void SequenceMap::CalcLogodd( std::vector< Model* > & mod, std::vector<unsigned 
 
 			double start_stop = 0;
 
-			if      ( ptr_to_end->status & isTAA )  start_stop += mod[ itr->gc ]->logodd_TAA;
-			else if ( ptr_to_end->status & isTAG )  start_stop += mod[ itr->gc ]->logodd_TAG;
-			else if ( ptr_to_end->status & isTGA )  start_stop += mod[ itr->gc ]->logodd_TGA;
+//			if      ( ptr_to_end->status & isTAA )  start_stop += mod[ itr->gc ]->logodd_TAA;
+//			else if ( ptr_to_end->status & isTAG )  start_stop += mod[ itr->gc ]->logodd_TAG;
+//			else if ( ptr_to_end->status & isTGA )  start_stop += mod[ itr->gc ]->logodd_TGA;
+//            if (gtype == NATIVE_TYPE) {
+            if      ( ptr_to_end->status & isTAA )  start_stop += mod[ itr->gc ]->logodd_TAA;
+            else if ( ptr_to_end->status & isTAG )  start_stop += mod[ itr->gc ]->logodd_TAG;
+            else if ( ptr_to_end->status & isTGA )  start_stop += mod[ itr->gc ]->logodd_TGA;
+//            }
+//            else {
+//                start_stop += compute_stop_codon_score_atypical(itr, mod[itr->gc], gms2_group);
+//            }
 
             if (gtype == NATIVE_TYPE) {
                 if      ( itr->status & isATG )  start_stop += mod[ itr->gc ]->logodd_ATG;

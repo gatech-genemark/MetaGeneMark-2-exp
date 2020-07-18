@@ -384,7 +384,7 @@ def run_gms2_with_component_toggles_and_get_accuracy(env, gi, components_off, **
 
     return {
         "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
-        "Number of Errors":  len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
+        "Number of Errors": len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
     }
 
 
@@ -407,6 +407,7 @@ def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
     log.info(cmd)
     run_shell_cmd(cmd)
+
 
 def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):
     # type: (Environment, str, str, str) -> None
@@ -431,6 +432,7 @@ def run_gms2(env, pf_sequence, pf_prediction, **kwargs):
 
     run_shell_cmd(cmd_run)
 
+
 def run_prodigal(env, pf_sequence, pf_prediction, **kwargs):
     # type: (Environment, str, str, Dict[str, Any]) -> None
 
@@ -445,6 +447,7 @@ def run_prodigal(env, pf_sequence, pf_prediction, **kwargs):
 
     run_shell_cmd(cmd_run)
 
+
 def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
     # type: (Environment, str, str, Dict[str, Any]) -> None
 
@@ -457,9 +460,7 @@ def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
         pe_tool, pf_sequence, gcode, pf_prediction
     )
 
-
     run_shell_cmd(cmd_run)
-
 
 
 # def run_prodigal(env, gi, **kwargs):
@@ -491,8 +492,9 @@ def run_mgm_and_get_accuracy(env, gi, pf_mgm):
     remove_p(pf_prediction)
     return {
         "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
-        "Number of Errors":   len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
+        "Number of Errors": len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
     }
+
 
 def run_mgm2_and_get_accuracy(env, gi, pf_mgm):
     # type: (Environment, GenomeInfo, str) -> Dict[str, Any]
@@ -503,10 +505,13 @@ def run_mgm2_and_get_accuracy(env, gi, pf_mgm):
 
     lcd = LabelsComparisonDetailed(read_labels_from_file(pf_reference), read_labels_from_file(pf_prediction))
     remove_p(pf_prediction)
-    return {
-        "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
-        "Number of Errors":   len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
-    }
+    try:
+        return {
+            "Error": 100 - 100 * len(lcd.match_3p_5p('a')) / len(lcd.match_3p('a')),
+            "Number of Errors": len(lcd.match_3p('a')) - len(lcd.match_3p_5p('a'))
+        }
+    except ZeroDivisionError:
+        return {"Error": np.nan, "Number of Errors": np.nan}
 
 
 def train_gms2_model(env, pf_new_seq, pf_labels_lst, pf_mod, **kwargs):

@@ -14,7 +14,7 @@ VER=1.06
 CXX = g++
 CXXFLAGS = -O2 -Wall -I. 
 LIBS = -lboost_program_options -lboost_iostreams
-LDFLAGS = -lm  -lstdc++  -g 
+LDFLAGS = -lm  -lstdc++ 
 
 SRCS = main.cpp \
 	data_2.cpp model_2.cpp parameter_parser_2.cpp parameters_2.cpp \
