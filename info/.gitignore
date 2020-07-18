@@ -7,3 +7,6 @@
 !*.org
 
 *_minted*
+
+# Emacs save files
+\.#*
