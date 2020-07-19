@@ -122,7 +122,7 @@ def catplot(df, x, y, hue=None, kind="box", figure_options=None, **kwargs):
 
 
 def lmplot(df, x, y, hue=None, figure_options=None, **kwargs):
-    # type: (pd.DataFrame, str, str, Union[str, None], FigureOptions, Dict[str, Any]) -> None
+    # type: (pd.DataFrame, str, str, Union[str, None], FigureOptions, Dict[str, Any]) -> sns.FacetGrid
 
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     if "aspect" not in sns_kwargs:

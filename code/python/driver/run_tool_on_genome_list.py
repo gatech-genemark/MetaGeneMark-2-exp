@@ -4,6 +4,7 @@
 import os
 import logging
 import argparse
+from subprocess import CalledProcessError
 from typing import *
 
 # noinspection All
@@ -72,19 +73,21 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
     if skip_if_exists and os.path.isfile(pf_prediction):
         return
 
-    if tool == "gms2":
-        run_gms2(curr_env, pf_sequence, pf_prediction, **kwargs)
-    elif tool == "prodigal":
-        run_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
-    elif tool == "mprodigal":
-        run_meta_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
-    elif tool == "mgm2":
-        run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction)
-    elif tool == "mgm":
-        run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction)
-    else:
-        raise NotImplementedError()
-
+    try:
+        if tool == "gms2":
+            run_gms2(curr_env, pf_sequence, pf_prediction, **kwargs)
+        elif tool == "prodigal":
+            run_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+        elif tool == "mprodigal":
+            run_meta_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+        elif tool == "mgm2":
+            run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction)
+        elif tool == "mgm":
+            run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction)
+        else:
+            raise NotImplementedError()
+    except CalledProcessError:
+        logger.warning(f"Could not run {tool} on {gi.name}")
 
 # def run_tool_on_gil(env, gil, tool, **kwargs):
 #     # type: (Environment, GenomeInfoList, str, Dict[str, Any]) -> None
