@@ -22,6 +22,7 @@ from mg_viz import sns
 #           Parse CMD            #
 # ------------------------------ #
 from mg_viz.general import FigureOptions
+from mg_viz.shelf import get_order_by_rank
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene by comparing to a reference set.")
 
@@ -30,6 +31,7 @@ parser.add_argument('--reference', required=True, nargs='+', help="List of tools
                                                                   "(ground-truth). Note: If more than one provided, "
                                                                   "their intersection (in terms of 5' end is taken as"
                                                                   " reference.")
+parser.add_argument('--tools', nargs="+", help="If set, only compare these tools. Otherwise all tools are chosen")
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -61,6 +63,8 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
             tag_eq = "=".join([t, reference])
 
             result[f"Match({tag})"] = 100 * df_group[f"5p:Match({tag_eq})"].sum()/ float(df_group[f"3p:Match({tag_eq})"].sum())
+            result[f"Number of Error({tag})"] = df_group[f"3p:Match({tag_eq})"].sum() - df_group[f"5p:Match({tag_eq})"].sum()
+
 
         result["Genome"] = gcfid
         list_entries.append(result)
@@ -73,14 +77,40 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
 
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
 
+
     # values on same plot
     df_tidy = pd.melt(df_gcfid, id_vars=["Genome"],
                       value_vars=[x for x in df_gcfid.columns if "Match(" in x],
                       var_name="Combination", value_name="Match")
 
+
+    df_tidy["Combination"] = df_tidy["Combination"].apply(lambda x: x.split("(")[1].split(",")[0])
+    combination_order = get_order_by_rank(df_tidy, "Genome", "Match", "Combination")
+
+    df_tidy["Error"] = 100 - df_tidy["Match"]
+
     fig, ax = plt.subplots(figsize=(12,4))
-    sns.barplot(df_tidy, "Genome", "Match", hue="Combination", ax=ax,
-                figure_options=FigureOptions(ylim=[60, 100]))
+
+    sns.barplot(df_tidy, "Genome", "Error", hue="Combination", ax=ax,
+                sns_kwargs={"hue_order": combination_order}, show=False,
+                figure_options=FigureOptions(ylim=[0, 40]))
+
+    fig.show()
+
+    print(df_tidy.pivot("Genome", columns="Combination", values="Error").to_csv(float_format="%.2f"))
+
+    # Number of errors
+    df_tidy = pd.melt(df_gcfid, id_vars=["Genome"],
+                      value_vars=[x for x in df_gcfid.columns if "Number of Error(" in x],
+                      var_name="Combination", value_name="Error")
+    df_tidy["Combination"] = df_tidy["Combination"].apply(lambda x: x.split("(")[1].split(",")[0])
+    print(df_tidy.pivot("Genome", columns="Combination", values="Error").to_csv(float_format="%.2f"))
+
+    fig, ax = plt.subplots(figsize=(12, 4))
+
+    sns.barplot(df_tidy, "Genome", "Error", hue="Combination", ax=ax,
+                sns_kwargs={"hue_order": combination_order}, show=False,
+                figure_options=FigureOptions())
 
     fig.show()
 
@@ -122,9 +152,6 @@ def create_joint_reference_from_list(df, list_reference):
     reference_rows = all_columns_equal(df, [f"'5p-{r}'" for r in list_reference])
     reference_values = df.loc[reference_rows, f"5p-{list_reference[0]}"]
     df.loc[reference_rows, f"5p-{reference}"] = reference_values
-
-
-
     return reference
 
 
@@ -137,9 +164,11 @@ def main(env, args):
     tools = sorted(
         set([x.split("-")[1] for x in df.columns if "5p-" in x])
     )
+    if args.tools is not None:
+        tools = args.tools + args.reference
 
     # check that reference is one of the tools
-    if isinstance(reference, list):
+    if len(reference) > 1:
         # check that all are part of tools
         for r in reference:
             if r not in tools:
@@ -152,11 +181,12 @@ def main(env, args):
 
 
     else:
+        reference = reference[0]
         if reference not in tools:
             raise ValueError(f"Unknown reference {reference}")
 
         tools = sorted(set(tools).difference(
-            {reference, "prodigal", "gms2"}
+            {reference}
         ))
 
     update_dataframe_with_stats(df, tools, reference)
