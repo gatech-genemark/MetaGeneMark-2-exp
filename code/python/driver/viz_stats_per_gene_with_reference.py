@@ -3,6 +3,7 @@
 
 import logging
 import argparse
+import numpy as np
 import pandas as pd
 from typing import *
 import matplotlib.pyplot as plt
@@ -67,8 +68,8 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
             tag_eq = "=".join([t, reference])
             
             if df_group[f"3p:Match({tag_eq})"].sum() == 0:
-                result[f"Match({tag})"] = pd.np.nan
-                result[f"Number of Error({tag})"] = pd.np.nan
+                result[f"Match({tag})"] = np.nan
+                result[f"Number of Error({tag})"] = np.nan
             else:
                 result[f"Match({tag})"] = 100 * df_group[f"5p:Match({tag_eq})"].sum() / float(df_group[f"3p:Match({tag_eq})"].sum())
                 result[f"Number of Error({tag})"] = df_group[f"3p:Match({tag_eq})"].sum() - df_group[f"5p:Match({tag_eq})"].sum()
