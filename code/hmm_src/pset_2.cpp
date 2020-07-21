@@ -277,7 +277,7 @@ void deep_copy_models_from_vector(const vector< Model* > & original, vector< Mod
     
     for (size_t i = 0; i < original.size(); i++) {
         if (original[i] != NULL) {
-            destination[i] = new Model(*(original[i]));
+            destination[i] = original[i]; // new Model(*(original[i]));
         }
     }
 }

@@ -14,6 +14,11 @@ MultiShiftSite::MultiShiftSite() {
 
 MultiShiftSite::~MultiShiftSite() {
     // nothing
+//    for (std::vector<Site*>::iterator itr = sites.begin(); itr != sites.end(); itr++) {
+//        delete *itr;
+//    }
+//    
+//    sites.clear();
 }
 
 void MultiShiftSite::add_site_with_shift(Site *site, float shift_prob) {

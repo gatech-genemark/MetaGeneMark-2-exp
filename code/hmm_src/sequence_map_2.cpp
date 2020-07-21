@@ -4,6 +4,10 @@
 // Release: 2017
 // File: sequence_map_2.cpp
 // Project: GeneMark.hmm-2 (no introns)
+//
+// Modified: Karl Gemayel
+// - MGM2: Multiple motif models (RBS/promoter) simultaneously
+// - MGM2: Shifted motif models 
 // ====================================================
 
 #include <cassert>
