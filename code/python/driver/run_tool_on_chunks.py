@@ -23,7 +23,7 @@ from mg_general.general import get_value, os_join
 from mg_general.labels import Label, Labels
 from mg_io.general import mkdir_p, remove_p
 from mg_io.labels import read_labels_from_file, write_labels_to_file
-from mg_models.shelf import run_gms2, run_mgm2, run_mgm
+from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_meta_prodigal, run_prodigal
 import mg_argparse.parallelization
 
 # ------------------------------ #
@@ -38,7 +38,8 @@ from mg_pbs_data.splitters import split_gil, split_list
 parser = argparse.ArgumentParser("Run tool on chunks of genome, and collect predictions.")
 
 parser.add_argument('--pf-gil', required=True)
-parser.add_argument('--tools', required=True, nargs="+", choices=["GMS2", "MGM2", "MGM"], type=str.upper)
+parser.add_argument('--tools', required=True, nargs="+", choices=["GMS2", "MGM2", "MGM",
+                                                                  "MPRODIGAL", "PRODIGAL"], type=str.upper)
 parser.add_argument('--pf-summary', required=True, help="Output file that will contain summary of runs")
 parser.add_argument('--simultaneous-genomes', default=8, help="Number of genomes to analyze simultaneously")
 
@@ -134,7 +135,8 @@ def helper_run_chunks(env, t, list_chunk_info, gi, pd_work_tool, **kwargs):
 
 
     # run tool on separate chunks
-    for i, ci in tqdm(enumerate(list_chunk_info), gi.name, total=len(list_chunk_info)):
+    # for i, ci in tqdm(enumerate(list_chunk_info), gi.name, total=len(list_chunk_info)):
+    for i, ci in enumerate(list_chunk_info):
         pf_chunk, seqname, offset = ci
 
         pd_work_chunk = os_join(pd_work_tool, f"{dn_prefix}chunk_{i}")
@@ -147,6 +149,10 @@ def helper_run_chunks(env, t, list_chunk_info, gi, pd_work_tool, **kwargs):
             run_mgm2(env_curr, pf_chunk, pf_mgm2_mod, pf_predictions)
         elif t == "MGM":
             run_mgm(env_curr, pf_chunk, pf_mgm_mod, pf_predictions)
+        elif t == "MPRODIGAL":
+            run_meta_prodigal(env_curr, pf_chunk, pf_predictions)
+        elif t == "PRODIGAL":
+            run_prodigal(env_curr, pf_chunk, pf_predictions)
 
         list_prediction_info.append([pf_predictions, seqname, offset])
         list_pd_chunks.append(pd_work_chunk)
@@ -216,7 +222,7 @@ def run_tools_on_chunk_size_for_gi(env, gi, tools, chunk_size_nt, **kwargs):
             else:
                 # threading
                 list_prediction_info, list_pd_chunks = run_slice_per_thread(
-                    list_chunk_info, run_tools_on_chunk_size_for_gi, "list_chunk_info",
+                    list_chunk_info, helper_run_chunks, "list_chunk_info",
                     {
                         "env": env, "t": t, "gi": gi, "pd_work_tool": pd_work_tool, **kwargs
                     },
@@ -395,7 +401,7 @@ def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     gil = GenomeInfoList.init_from_file(args.pf_gil)
     prl_options = ParallelizationOptions.init_from_dict(env, args.pf_parallelization_options, vars(args))
-
+    prl_options["num-processors"] = 1
     run_tools_on_chunks(
         env, gil, args.tools, args.chunk_sizes_nt,
         args.pf_summary,

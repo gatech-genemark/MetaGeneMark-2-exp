@@ -68,6 +68,8 @@ public:
         logodd_RBS_spacer      = LOG_ZERO;
         logodd_Promoter_motif      = LOG_ZERO;
         logodd_Promoter_spacer      = LOG_ZERO;
+        logodd_RBS_max_spacer = LOG_ZERO;
+        logodd_Promoter_max_spacer = LOG_ZERO;
 
         bayes = 0;
     }
@@ -115,6 +117,8 @@ public:
     double logodd_RBS_spacer     ;
     double logodd_Promoter_motif ;
     double logodd_Promoter_spacer;
+    double logodd_RBS_max_spacer;
+    double logodd_Promoter_max_spacer;
 
     double bayes;
 

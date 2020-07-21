@@ -85,6 +85,9 @@ void set_correct_gms2_start_models(Pset &pset, GMS2_GROUP gms2_group, int bac_ar
                 pset.second[i]->pATG_A = pset.first[i]->pATG_A;
                 pset.second[i]->pGTG_A = pset.first[i]->pGTG_A;
                 pset.second[i]->pTTG_A = pset.first[i]->pTTG_A;
+                
+//                pset.second[i]->PROMOTER_C = pset.first[i]->PROMOTER_C;
+//                pset.second[i]->SC_PROMOTER_C = pset.first[i]->SC_PROMOTER_C;
             }
         }
         // group B
@@ -331,7 +334,7 @@ int main( int argc, char** argv )
                 float score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, GMS2_NONE, 0);
                 std::cout << "Score NONE: " << score << std::endl;
                 int genome_type = get_most_common_type(seqmap.predictions);
-                
+
                 for (int bac_arc = 0; bac_arc < 2; bac_arc+=1) {
                     if (bac_arc != genome_type) {
                         continue;

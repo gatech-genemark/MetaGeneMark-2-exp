@@ -52,6 +52,8 @@ public:
 
 	double GetDirWithDur( std::vector<unsigned char> const & nt, unsigned int pos );
 	double GetRevWithDur( std::vector<unsigned char> const & nt, unsigned int pos );
+    
+    double GetMaxDurationScore() const;
 
 	SiteInfo GetDirWithDurFullInfo( std::vector<unsigned char> const & nt, unsigned int pos );
 	SiteInfo GetRevWithDurFullInfo( std::vector<unsigned char> const & nt, unsigned int pos );

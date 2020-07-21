@@ -65,6 +65,19 @@ def _init_mapping_stop_codons():
     palette = seaborn.xkcd_palette(colors)
     return {x[0]: x[1] for x in zip(conditions, palette)}
 
+def _init_mapping_tools():
+    colors = ["windows blue", "amber", "faded green", "dusty purple", "pale red"]
+    ancestors = ["mgm", "mgm2", "gms2", "mprodigal", "prodigal"]
+
+    colors += colors
+    ancestors += [x.upper() for x in ancestors]
+    palette = seaborn.xkcd_palette(colors)
+
+    return {x[0]: x[1] for x in zip(ancestors, palette)}
+
+
+
+
 class ColorMap:
 
     _mappings = {

@@ -157,6 +157,7 @@ void Site::InitializeDuration( std::string const message, double const p )
 		else
 		{
 			duration_logodd[i] = log( duration_logodd[i] ) - (width + i)*norm_for_duration;
+//            duration_logodd[i] = log( duration_logodd[i] ) - log(-norm_for_duration);
 		}
 	}
 }
@@ -408,7 +409,10 @@ double Site::GetDirWithDur( std::vector<unsigned char> const & nt, unsigned int 
 			else
 				x += unknow_letter_logodd;
 		}
-
+//
+//        if (pos == 336) {
+//            std::cout << k << " " << x << " " << duration_logodd[k] << std::endl;
+//        }
 		x += duration_logodd[k];
 
 		if ( x > best )
@@ -416,6 +420,8 @@ double Site::GetDirWithDur( std::vector<unsigned char> const & nt, unsigned int 
 			best = x;
 			best_pos = k;
 		}
+        
+        
 	}
 
 	return best;
@@ -592,4 +598,12 @@ double Site::GetWithDur( std::vector<unsigned char> const & nt, unsigned int pos
 	return LOG_ZERO;
 }
 // ----------------------------------------------------
+double Site::GetMaxDurationScore() const {
+    double max = LOG_ZERO;
+    for (size_t i = 0; i < duration_logodd.size(); i++) {
+        if (duration_logodd[i] > max)
+            max = duration_logodd[i];
+    }
+    return max;
+}
 

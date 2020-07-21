@@ -47,17 +47,28 @@ def main(env, args):
 
 
     df["Genome"] = df.apply(fix_names, axis=1)
-
+    df = df.sort_values("Chunk Size").copy()
+    df["Number of Errors"] = (df["Error"] * df["Number of genes found"] / 100.0).astype(int)
     # sns.lineplot(df_stats, "Chunk Size", "Error", hue="Genome")
 
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.scatter, "Chunk Size", "Error", alpha=.7)
     g.add_legend()
-
     plt.show()
 
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.plot, "Chunk Size", "Error", alpha=.7)
+    g.add_legend()
+    g.set_xlabels("Chunk Size (nt)")
+    plt.xlim(0, 100000)
+
+    plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
+
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+    g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
+    g.map(plt.plot, "Chunk Size", "Number of Errors", alpha=.7)
     g.add_legend()
     g.set_xlabels("Chunk Size (nt)")
     plt.xlim(0, 100000)
