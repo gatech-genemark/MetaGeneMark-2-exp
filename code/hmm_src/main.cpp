@@ -85,6 +85,9 @@ void set_correct_gms2_start_models(Pset &pset, GMS2_GROUP gms2_group, int bac_ar
                 pset.second[i]->pATG_A = pset.first[i]->pATG_A;
                 pset.second[i]->pGTG_A = pset.first[i]->pGTG_A;
                 pset.second[i]->pTTG_A = pset.first[i]->pTTG_A;
+                
+//                pset.second[i]->PROMOTER_C = pset.first[i]->PROMOTER_C;
+//                pset.second[i]->SC_PROMOTER_C = pset.first[i]->SC_PROMOTER_C;
             }
         }
         // group B

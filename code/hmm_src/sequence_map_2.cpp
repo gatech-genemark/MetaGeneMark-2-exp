@@ -631,6 +631,10 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
     if (gms2_group == GMS2_A) {
         m_rbs = m->RBS_A.get_site_with_max_score(nt, itr->pos, itr->status);
         m_scrbs = &m->SC_RBS_A;
+        
+//        m_prom = m->PROMOTER_C.get_site_with_max_score(nt, itr->pos, itr->status);
+//        m_scprom = &m->SC_PROMOTER_C;
+        
     }
     else if (gms2_group == GMS2_B) {
         m_rbs = m->RBS_B.get_site_with_max_score(nt, itr->pos, itr->status);
@@ -724,7 +728,10 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
         itr->logodd_RBS_motif = m_rbs->Get(nt, itr->pos, itr->status);
         itr->logodd_RBS_spacer = score_rbs - itr->logodd_RBS_motif;
         
-//        if (score_rbs_motif < -8)
+//        cout << m_rbs->GetMaxDurationScore() << endl;
+        itr->logodd_RBS_max_spacer = itr->logodd_RBS_spacer; // / m_rbs->GetMaxDurationScore();
+        
+//        if (score_rbs_motif < 0)
 //            rbs = false;
     }
     if (m_prom != NULL && m_prom->is_valid) {
@@ -737,7 +744,9 @@ void SequenceMap::CalcStartScoreForPositionAtypical(Model* m, std::vector<unsign
         itr->logodd_Promoter_motif = m_prom->Get(nt, itr->pos, itr->status);
         itr->logodd_Promoter_spacer = score_prom - itr->logodd_Promoter_motif;
         
-//        if (score_prom_motif < -2)
+//        cout << m_rbs->GetMaxDurationScore()  /  m_prom->GetMaxDurationScore() << endl;
+        itr->logodd_Promoter_max_spacer = itr->logodd_Promoter_spacer; // * m_rbs->GetMaxDurationScore() / m_prom->GetMaxDurationScore() ;
+//        if (score_prom_motif < 0)
 //            prom = false;
     }
     if (m_scrbs != NULL && m_scrbs->is_valid) {
@@ -2102,6 +2111,21 @@ void SequenceMap::BestPath(void)
 
 				best_value.origin = p;
                 
+                // remove spacer score from logodd
+                if (p->stype == 1) {
+//                    final_logodd  = final_logodd - p->logodd_RBS_spacer + p->logodd_RBS_max_spacer;
+                    if (p->logodd_RBS_motif < 0) {
+                        final_logodd -= p->logodd_RBS;
+                    }
+                }
+                else if (p->stype == 2) {
+//                    final_logodd = final_logodd - p->logodd_Promoter_spacer +  p->logodd_Promoter_max_spacer;
+                    
+                    if (p->logodd_Promoter_motif < 0) {
+                        final_logodd -= p->logodd_Promoter;
+                    }
+                }
+
 
 				predictions.push_back(best_value);
 			}
@@ -2123,6 +2147,20 @@ void SequenceMap::BestPath(void)
 
 				best_value.stype = p->stype;
 				best_value.origin = p;
+                
+                // remove spacer score from logodd
+                if (p->stype == 1) {
+//                    final_logodd  = final_logodd - p->logodd_RBS_spacer + p->logodd_RBS_max_spacer;
+                    if (p->logodd_RBS_motif < 0) {
+                        final_logodd -= p->logodd_RBS;
+                    }
+                }
+                else if (p->stype == 2) {
+//                    final_logodd = final_logodd - p->logodd_Promoter_spacer +  p->logodd_Promoter_max_spacer;
+                    if (p->logodd_Promoter_motif < 0) {
+                        final_logodd -= p->logodd_Promoter;
+                    }
+                }
                 
 				predictions.push_back(best_value);
 			}
