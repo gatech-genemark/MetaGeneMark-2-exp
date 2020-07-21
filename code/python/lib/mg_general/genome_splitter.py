@@ -104,8 +104,9 @@ class GenomeSplitter:
     def split_labels_into_intervals(labels):
         # type: (Labels) -> IntervalTree
         list_intervals = [
-            Interval(l.left(), l.right(), l) for l in labels
+            Interval(l.left(), l.right(), l) for l in labels if l.right() > l.left()
         ]
+
         return IntervalTree(list_intervals)
 
 
