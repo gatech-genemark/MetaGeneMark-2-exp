@@ -20,7 +20,7 @@ class GenomeSplitter:
     def __init__(self, sequences, fragment_size_nt, **kwargs):
         # type: (Dict[str, SeqRecord], int, Dict[str, Any]) -> None
 
-        self._split_genome(sequences, fragment_size_nt)
+        self._split_genome(sequences, fragment_size_nt, **kwargs)
 
     def _split_genome(self, sequences, fragment_size_nt, **kwargs):
         # type: (Dict[str, SeqRecord], int, Dict[str, Any]) -> None
@@ -45,11 +45,11 @@ class GenomeSplitter:
     def split_fasta_into_chunks(sequences, chunk_size_nt, **kwargs):
         # type: (Dict[str, SeqRecord], int, Dict[str, Any]) -> List[[SeqRecord, int]]
 
-        allow_split_in_cds = get_value(kwargs, "allow_split_in_cds", True)
+        allow_split_in_cds = get_value(kwargs, "allow_splits_in_cds", True)
         labels = get_value(kwargs, "labels", required=not allow_split_in_cds)
 
         interval_labels = None
-        if labels:
+        if not allow_split_in_cds and labels:
             interval_labels = GenomeSplitter.split_labels_into_intervals(labels)
 
         list_chunk_info = list()
@@ -66,7 +66,7 @@ class GenomeSplitter:
                 while interval_labels and left > 0 and interval_labels.overlaps_point(right_excluded-1) \
                         and right_excluded < len(seqrecord):
                     lab = interval_labels[right_excluded-1].pop().data
-                    right_excluded = lab.right + 1      # skip
+                    right_excluded = lab.right() + 1      # skip
 
                 chunk = seqrecord[left:right_excluded]  # type: SeqRecord
 
