@@ -28,6 +28,9 @@ from mg_io.labels import read_labels_from_file, write_labels_to_file
 from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_slice_per_thread, run_n_per_thread
+from mg_parallelization.pbs import PBS
+from mg_pbs_data.mergers import merge_identity
+from mg_pbs_data.splitters import split_gil
 from mg_viz.shelf import mkstemp_closed
 
 
@@ -176,6 +179,11 @@ def run_tools_on_gi(env, gi, tools, chunks, **kwargs):
     return pd.concat(list_df, sort=False, ignore_index=True)
 
 
+def run_tools_on_gil(env, gil, tools, chunks, **kwargs):
+    # type: (Environment, GenomeInfoList, List[str], List[int], Dict[str, Any]) -> None
+    for gi in gil:
+        run_tools_on_gi(env, gi, tools, chunks, **kwargs)
+
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
 
@@ -192,7 +200,19 @@ def main(env, args):
                          f" must have equal lengths: {len(tools)} != {len(dn_tools)}")
 
     if prl_options["use-pbs"]:
-        pass
+        pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
+        list_df = pbs.run(
+            gil, run_tools_on_gil,
+            {
+                "env": env, "tools": tools, "chunks": chunks, "dn_tools": dn_tools,
+                "pf_mgm2_mod": args.pf_mgm2_mod,
+                "pf_mgm_mod": args.pf_mgm_mod,
+                "num_processors": prl_options.safe_get("pbs-ppn"),
+                "allow_splits_in_cds": not args.force_split_in_intergenic
+            }
+        )
+        df = pd.concat(list_df, ignore_index=True, sort=False)
+
     else:
         list_df = run_n_per_thread(
             list(gil), run_tools_on_gi, "gi", {
@@ -205,7 +225,8 @@ def main(env, args):
         )
 
         df = pd.concat(list_df, sort=False, ignore_index=True)
-        df.to_csv(args.pf_summary, index=False)
+
+    df.to_csv(args.pf_summary, index=False)
 
 
 if __name__ == "__main__":
