@@ -53,7 +53,6 @@ def main(env, args):
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.scatter, "Chunk Size", "Error", alpha=.7)
     g.add_legend()
-
     plt.show()
 
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)

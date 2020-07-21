@@ -2,6 +2,9 @@
 # Created: 7/8/20, 9:22 AM
 
 import logging
+import os
+from tempfile import mkstemp
+
 import pandas as pd
 from typing import *
 
@@ -45,3 +48,10 @@ def get_order_by_rank(df, col_id, col_value, col_hue):
 
     # return based on order
     return [a[0] for a in sorted(total_score_per_hue.items(), key=lambda x: x[1])]
+
+
+def mkstemp_closed(**kwargs):
+    # type: (Dict[str, Any]) -> str
+    fd, pf = mkstemp(**kwargs)
+    os.close(fd)
+    return pf

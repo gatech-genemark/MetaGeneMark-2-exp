@@ -52,8 +52,7 @@ class Environment:
     def init_from_argparse(cls, parser):
         # type: (argparse.Namespace) -> Environment
 
-        return cls(**Environment.load_environment_variables(
-            parser.pd_data, parser.pd_work))
+        return cls(pd_data=parser.pd_data, pd_work=parser.pd_work)
 
     @staticmethod
     def load_environment_variables(pd_data=None, pd_work=None, **kwargs):
