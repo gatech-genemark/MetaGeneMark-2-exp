@@ -88,7 +88,7 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
     df_gcfid = df_gcfid.dropna().copy()
 
-    if len(df_gcfid) < 20:
+    if len(df_gcfid) < 4:
 
         # values on same plot
         df_tidy = pd.melt(df_gcfid, id_vars=["Genome"],

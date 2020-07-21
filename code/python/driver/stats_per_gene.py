@@ -162,11 +162,13 @@ def stats_per_gene(env, gil, tools, pf_output, **kwargs):
         # PBS parallelization
         if prl_options.safe_get("use-pbs"):
             pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
-            raise NotImplementedError()
-            # pbs.run(
-            #     data={},
-            #     , suppress_return = True
-            # )
+            list_df = pbs.run(
+                gil, helper_stats_per_gene,
+                {
+                    "env": env, "tools": tools, **kwargs
+                }
+            )
+            df = pd.concat(list_df, ignore_index=True, sort=False)
 
         # threading
         else:
