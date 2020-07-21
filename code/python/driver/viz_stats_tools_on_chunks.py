@@ -47,6 +47,7 @@ def main(env, args):
 
 
     df["Genome"] = df.apply(fix_names, axis=1)
+    df = df.sort_values("Chunk Size").copy()
 
     # sns.lineplot(df_stats, "Chunk Size", "Error", hue="Genome")
 
