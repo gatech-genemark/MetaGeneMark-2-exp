@@ -18,7 +18,7 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-from mg_general.general import fix_names
+from mg_general.general import fix_names, next_name
 from mg_viz import sns
 
 # ------------------------------ #
@@ -190,6 +190,7 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
             lh.set_alpha(1)
             lh.set_sizes([4] * len(combination_order))
 
+        plt.savefig(next_name(env["pd-work"]))
         plt.show()
 
 
