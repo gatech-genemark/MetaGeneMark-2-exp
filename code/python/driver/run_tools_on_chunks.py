@@ -158,6 +158,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
 
 def run_tools_on_gi(env, gi, tools, chunks, **kwargs):
     # type: (Environment, GenomeInfo, List[str], List[int], Dict[str, Any]) -> pd.DataFrame
+    env = env.duplicate({'pd-work': env["pd-runs"]})
 
     num_processors = get_value(kwargs, "num_processors", 1, valid_type=int)
 
