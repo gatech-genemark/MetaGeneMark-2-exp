@@ -182,8 +182,11 @@ def run_tools_on_gi(env, gi, tools, chunks, **kwargs):
 
 def run_tools_on_gil(env, gil, tools, chunks, **kwargs):
     # type: (Environment, GenomeInfoList, List[str], List[int], Dict[str, Any]) -> None
+    list_df = list()
     for gi in gil:
-        run_tools_on_gi(env, gi, tools, chunks, **kwargs)
+        list_df.append(run_tools_on_gi(env, gi, tools, chunks, **kwargs))
+
+    return pd.concat(list_df, sort=False, ignore_index=True)
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
