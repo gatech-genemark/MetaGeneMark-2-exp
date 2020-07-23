@@ -36,8 +36,8 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
     # type: (str,  int, Union[str, None], Dict[str, Any]) -> Labels
     # FIXME: only supports gff
 
-    ignore_frameshifted = get_value(kwargs, "ignore_frameshifted", False)
-    ignore_partial = get_value(kwargs, "ignore_partial", False)
+    ignore_frameshifted = get_value(kwargs, "ignore_frameshifted", True)
+    ignore_partial = get_value(kwargs, "ignore_partial", True)
     tools = get_value(kwargs, "tools", None)
     key_value_delimiter = get_value(kwargs, "key_value_delimiter", "=", valid_type=str)
 
@@ -66,7 +66,10 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
                     attributes=attributes
                 )
 
-                if label.is_partial() or label.is_frameshifted():
+                if ignore_partial and label.is_partial():
+                    continue
+
+                if ignore_frameshifted and label.is_frameshifted():
                     continue
 
                 if tools is not None and m.group(2) not in tools:

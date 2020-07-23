@@ -4,6 +4,7 @@
 import logging
 import argparse
 import os
+from timeit import default_timer as timer
 import pandas as pd
 from subprocess import CalledProcessError
 from typing import *
@@ -130,25 +131,50 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
 
         pd_run = os_join(env["pd-work"], gi.name, f"{dn}_{chunk}")
         mkdir_p(pd_run)
+
+        start = timer()
         pf_prediction = os_join(pd_run, "prediction.gff")
         run_tool_on_chunk(
             env.duplicate({"pd-work": pd_run}), t, pf_chunks, pf_prediction, **kwargs
         )
+        end = timer()
+
+        key_value_delimiters_gff = {
+            "mgm": " ",
+            "mgm2": " ",
+            "gms2": " ",
+            "mprodigal": "=",
+            "prodigal": "=",
+        }
 
         # update labels file based on offset
-        labels = read_labels_from_file(pf_prediction, shift=0)
+        labels = read_labels_from_file(pf_prediction, shift=0, key_value_delimiter=key_value_delimiters_gff.get(
+            t.lower(), "="
+        ), ignore_partial=False)
         seqname_to_offset = {x[0].id: x[1] for x in gs.split_sequences_}
+        seqname_to_info = {x[0].id: x for x in gs.split_sequences_}
         for l in labels:
+            # add attribute indicating index of chunk in original sequence (to allow for comparing of partial genes)
+            l.set_attribute_value(
+                "chunk_left_in_original", f"{seqname_to_info[l.seqname()][2]}"
+            )
+            l.set_attribute_value(
+                "chunk_right_in_original", f"{seqname_to_info[l.seqname()][3]}"
+            )
+
             l.coordinates().left += seqname_to_offset[l.seqname()]
             l.coordinates().right += seqname_to_offset[l.seqname()]
             l.set_seqname(l.seqname().split("_offset")[0])
+
+
         write_labels_to_file(labels, pf_prediction, shift_coordinates_by=0)
 
         list_entries.append({
             "Genome": gi.name,
             "Tool": t,
             "Chunk Size": chunk,
-            "Predictions": pf_prediction
+            "Predictions": pf_prediction,
+            "Runtime": end - start
         })
 
     remove_p(pf_chunks)
