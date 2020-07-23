@@ -5,12 +5,15 @@ import umap
 import umap.plot
 import logging
 import numpy as np
+import pandas as pd
 import argparse
 from typing import *
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 # noinspection All
+from mpl_toolkits.axes_grid1 import AxesGrid
+
 import pathmagic
 
 # noinspection PyUnresolvedReferences
@@ -93,50 +96,125 @@ def visualize_matrix_column(env, df, col):
         reducer = reducer.fit(mat)
         embedding = reducer.embedding_
         print(embedding.shape)
-
-        # fig, ax = plt.subplots()
         #
-        # plt.scatter(embedding[:, 0], embedding[:, 1], c=gc, marker="+")
-        # plt.colorbar()
-        # plt.show()
-        # themes = ["fire", "viridis", "inferno", "blue", "red", "green", "darkblue", "darkred", "darkgreen"]
-        # fig, axes = plt.subplots(3, 3)
-        # for ax, theme in zip(axes.ravel(), themes):
-        #     fig, ax = plt.subplots()
-        #     umap.plot.points(reducer, values=gc, theme=theme, )
-        #     plt.show()
-        ax = umap.plot.points(reducer, values=gc, cmap="viridis")
-        mappable = create_mappable_for_colorbar(gc, "viridis")
-        plt.colorbar(mappable)
-        plt.title(col.replace("_", " "))
-        plt.tight_layout()
-        save_figure(FigureOptions(
-            save_fig=next_name(env["pd-work"])
-        ))
-        plt.show()
-
-        umap.plot.points(reducer, labels=group.values, color_key_cmap="Paired")
-        plt.title(col.replace("_", " "))
-        plt.tight_layout()
-        save_figure(FigureOptions(
-            save_fig=next_name(env["pd-work"])
-        ))
-        plt.show()
-
-        # umap.plot.points(reducer, labels=group.values, color_key_cmap="Dark2")
-        # plt.title(col)
+        # # fig, ax = plt.subplots()
+        # #
+        # # plt.scatter(embedding[:, 0], embedding[:, 1], c=gc, marker="+")
+        # # plt.colorbar()
+        # # plt.show()
+        # # themes = ["fire", "viridis", "inferno", "blue", "red", "green", "darkblue", "darkred", "darkgreen"]
+        # # fig, axes = plt.subplots(3, 3)
+        # # for ax, theme in zip(axes.ravel(), themes):
+        # #     fig, ax = plt.subplots()
+        # #     umap.plot.points(reducer, values=gc, theme=theme, )
+        # #     plt.show()
+        # ax = umap.plot.points(reducer, values=gc, cmap="viridis")
+        # mappable = create_mappable_for_colorbar(gc, "viridis")
+        # plt.colorbar(mappable)
+        # plt.title(col.replace("_", " "))
+        # plt.tight_layout()
         # save_figure(FigureOptions(
         #     save_fig=next_name(env["pd-work"])
         # ))
         # plt.show()
+        #
+        # umap.plot.points(reducer, labels=group.values, color_key_cmap="Paired")
+        # plt.title(col.replace("_", " "))
+        # plt.tight_layout()
+        # save_figure(FigureOptions(
+        #     save_fig=next_name(env["pd-work"])
+        # ))
+        # plt.show()
+        #
+        # # umap.plot.points(reducer, labels=group.values, color_key_cmap="Dark2")
+        # # plt.title(col)
+        # # save_figure(FigureOptions(
+        # #     save_fig=next_name(env["pd-work"])
+        # # ))
+        # # plt.show()
+        #
+        #
+        # umap.plot.points(reducer, labels=df["Type"])
+        # plt.title(col.replace("_", " "))
+        # plt.tight_layout()
+        # save_figure(FigureOptions(
+        #     save_fig=next_name(env["pd-work"])
+        # ))
+        # plt.show()
+        #
+        #
+        # fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+        # axes[0].scatter(embedding[:, 0], embedding[:, 1], c=gc, s=2)
+        # # plt.colorbar()
+        #
+        # df_tmp = pd.DataFrame({
+        #     "x1": embedding[:, 0], "x2": embedding[:, 1], "Group": group.values
+        # })
+        # for g in df_tmp["Group"].unique():
+        #     df_subset = df_tmp[df_tmp["Group"] == g]
+        #     axes[1].scatter(df_subset["x1"], df_subset["x2"], label=g, s=2)
+        # axes[1].legend()
+        #
+        # # cleanup
+        # axes[0].get_xaxis().set_visible(False)
+        # axes[0].get_yaxis().set_visible(False)
+        # axes[1].get_xaxis().set_visible(False)
+        # axes[1].get_yaxis().set_visible(False)
+        #
+        # plt.show()
+        #
+
+        # with cbar
+        legend_size = 4
+        fig = plt.figure(figsize=(17, 6)) #subplots(1, 2, figsize=(12, 6))
+
+        grid = AxesGrid(fig, 111,
+                        nrows_ncols=(1, 3),
+                        axes_pad=0.05,
+                        cbar_mode='single',
+                        cbar_location='right',
+                        # cbar_pad=0.1
+                        )
+
+        axes = [ax for ax in grid]
+
+        df_tmp = pd.DataFrame({
+            "x1": embedding[:, 0], "x2": embedding[:, 1], "Type": df["Type"].values
+        })
+        for i, g in enumerate(sorted(df_tmp["Type"].unique())):
+            df_subset = df_tmp[df_tmp["Type"] == g]
+            axes[0].scatter(df_subset["x1"], df_subset["x2"], label=g, s=2, zorder=2-i)
+        leg = axes[0].legend()
+        for lh in leg.legendHandles:
+            lh.set_sizes([legend_size] * len(df_tmp["Type"].unique()))
+
+        df_tmp = pd.DataFrame({
+            "x1": embedding[:, 0], "x2": embedding[:, 1], "Group":
+                df.apply(lambda r: f"{r['GENOME_TYPE']}" if r["Type"] == "Bacteria" else f"{r['GENOME_TYPE']}*", axis=1).values
+        })
+        for g in sorted(df_tmp["Group"].unique()):
+            df_subset = df_tmp[df_tmp["Group"] == g]
+            axes[1].scatter(df_subset["x1"], df_subset["x2"], label=g, s=2)
+        leg = axes[1].legend(ncol=2)
+        for lh in leg.legendHandles:
+            lh.set_sizes([legend_size] * len(df_tmp["Group"].unique()))
+
+        mappable = create_mappable_for_colorbar(gc, "viridis")
+
+        axes[2].scatter(embedding[:, 0], embedding[:, 1], c=gc, s=2)
+        cbar = axes[2].cax.colorbar(mappable)
+        # cbar = grid.cbar_axes[0].colorbar(mappable)
 
 
-        umap.plot.points(reducer, labels=df["Type"])
-        plt.title(col.replace("_", " "))
+        # cleanup
+        axes[0].get_xaxis().set_visible(False)
+        axes[0].get_yaxis().set_visible(False)
+        axes[1].get_xaxis().set_visible(False)
+        axes[1].get_yaxis().set_visible(False)
+        axes[2].get_xaxis().set_visible(False)
+        axes[2].get_yaxis().set_visible(False)
         plt.tight_layout()
-        save_figure(FigureOptions(
-            save_fig=next_name(env["pd-work"])
-        ))
+        plt.savefig(next_name(env["pd-work"]))
         plt.show()
 
     # fig, ax = plt.subplots()
@@ -150,6 +228,9 @@ def main(env, args):
     logger.debug(f"Removing genetic code 4: {(df['Genetic Code'] == 4).sum()}")
     df = df[df["Genetic Code"] != 4]
     df = df.convert_dtypes().copy()
+
+    df["REMOVE"] = (df["Type"] == "Archaea") & (df["GENOME_TYPE"].isin({"B", "C", "X"}))
+    df = df[~df["REMOVE"]].copy()
 
     visualize_matrix_column(env, df, "RBS_MAT")
     visualize_matrix_column(env, df[(df["Type"] == "Bacteria") & (df["GENOME_TYPE"] == "C")], "PROMOTER_MAT")

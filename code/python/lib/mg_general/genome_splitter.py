@@ -43,7 +43,7 @@ class GenomeSplitter:
 
     @staticmethod
     def split_fasta_into_chunks(sequences, chunk_size_nt, **kwargs):
-        # type: (Dict[str, SeqRecord], int, Dict[str, Any]) -> List[[SeqRecord, int]]
+        # type: (Dict[str, SeqRecord], int, Dict[str, Any]) -> List[[SeqRecord, int, int, int]]
 
         allow_split_in_cds = get_value(kwargs, "allow_splits_in_cds", True)
         labels = get_value(kwargs, "labels", required=not allow_split_in_cds)
@@ -73,7 +73,7 @@ class GenomeSplitter:
                 # add offset information to chunk (to reassemble later)
                 chunk.id += f"_offset={offset}"
 
-                list_chunk_info.append([chunk, offset])
+                list_chunk_info.append([chunk, offset, left, right_excluded-1])
                 offset = right_excluded
                 counter += 1
 
