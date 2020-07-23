@@ -51,6 +51,17 @@ def main(env, args):
     df["Number of Errors"] = (df["Error"] * df["Number of genes found"] / 100.0).astype(int)
     # sns.lineplot(df_stats, "Chunk Size", "Error", hue="Genome")
 
+    genes_found = {
+        g: 0 for g in df["Genome"].unique()
+    }
+
+    genes_found = {
+        df.at[idx, "Genome"]: max(genes_found[df.at[idx, "Genome"]], df.at[idx, "Number of genes found"])
+        for idx in df.index
+    }
+
+    df["title"] = df.apply(lambda r: f"{r['Genome']} (from ({genes_found[r['Genome']]}))", axis=1)
+
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.scatter, "Chunk Size", "Error", alpha=.7)
     g.add_legend()
@@ -63,18 +74,29 @@ def main(env, args):
     plt.xlim(0, 100000)
 
     plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
-
+    g.set_titles("{col_name}")
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
-    g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
+    g = seaborn.FacetGrid(df, col="title", hue="Tool", col_wrap=4)
     g.map(plt.plot, "Chunk Size", "Number of Errors", alpha=.7)
     g.add_legend()
     g.set_xlabels("Chunk Size (nt)")
     plt.xlim(0, 100000)
 
     plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
+    g.set_titles("{col_name}")
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
 
+    g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
+    g.map(plt.plot, "Chunk Size", "Number of genes found", alpha=.7)
+    g.add_legend()
+    g.set_xlabels("Chunk Size (nt)")
+    plt.xlim(0, 100000)
+
+    plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
+    g.set_titles("{col_name}" )
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 

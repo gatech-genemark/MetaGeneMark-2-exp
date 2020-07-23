@@ -132,7 +132,33 @@ class Label:
             if self._attributes["partial"].lower() == "true" or self._attributes["partial"] == True:
                 return True
 
+            if self._attributes["partial"] in {"01", "11", "10"}:
+                return True
+
         return False
+
+    def incomplete_at_5prime(self):
+        # type: () -> bool
+        if "partial" in self._attributes and len(self._attributes["partial"]) == 2:
+            partial = self._attributes["partial"]
+            if self.strand() == "+" and partial[0] == "1":
+                return True
+            if self.strand() == "-" and partial[1] == "1":
+                return True
+
+        return False
+
+    def incomplete_at_3prime(self):
+        # type: () -> bool
+        if "partial" in self._attributes and len(self._attributes["partial"]) == 2:
+            partial = self._attributes["partial"]
+            if self.strand() == "+" and partial[1] == "1":
+                return True
+            if self.strand() == "-" and partial[0] == "1":
+                return True
+
+        return False
+
 
     def is_hypothetical(self):
         # type: () -> bool
