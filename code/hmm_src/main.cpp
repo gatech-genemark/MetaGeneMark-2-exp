@@ -332,7 +332,7 @@ int main( int argc, char** argv )
                 
                 // determine if archaea or bacteria
                 float score = compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, GMS2_NONE, 0);
-                std::cout << "Score NONE: " << score << std::endl;
+                //std::cout << "Score NONE: " << score << std::endl;
                 int genome_type = get_most_common_type(seqmap.predictions);
 
                 for (int bac_arc = 0; bac_arc < 2; bac_arc+=1) {
@@ -355,27 +355,27 @@ int main( int argc, char** argv )
                             best_label = group_labels[group_idx];
                             best_type = bac_arc;
                         }
-                        std::cout << (bac_arc == 0 ? "Bacteria" : "Archaea  ") << "\t" << group_labels[group_idx] << "\t" << current_score << std::endl;
+                        //std::cout << (bac_arc == 0 ? "Bacteria" : "Archaea  ") << "\t" << group_labels[group_idx] << "\t" << current_score << std::endl;
                         
-                        // output to temp file
-                        Settings      settings_tmp( argc, argv, &logger, VERSION );
-                        std::stringstream s;
-                        s << settings_tmp.out.filename << "_" << bac_arc << "_" << group_labels[group_idx];
-                        settings_tmp.out.filename = s.str();
-                        
-                        Output        output_tmp( settings_tmp, &logger, VERSION );
-                        output_tmp.Header1(pset);
-                        output_tmp.Header2( itr );
-                        output_tmp.PrintGenes(seqmap.predictions, itr, pset.genetic_code);
-                        output_tmp.Stat(itr, seqmap.final_logodd, seqmap.predictions);
-                        output_tmp.Footer();
+                        // // output to temp file
+                        // Settings      settings_tmp( argc, argv, &logger, VERSION );
+                        // std::stringstream s;
+                        // s << settings_tmp.out.filename << "_" << bac_arc << "_" << group_labels[group_idx];
+                        // settings_tmp.out.filename = s.str();
+                        // 
+                        // Output        output_tmp( settings_tmp, &logger, VERSION );
+                        // output_tmp.Header1(pset);
+                        // output_tmp.Header2( itr );
+                        // output_tmp.PrintGenes(seqmap.predictions, itr, pset.genetic_code);
+                        // output_tmp.Stat(itr, seqmap.final_logodd, seqmap.predictions);
+                        // output_tmp.Footer();
 
 //                        output_tmp.PrintGenes(seqmap.predictions, itr, pset.genetic_code);
 
                     }
                 }
                 
-                std::cout << (best_type == 0 ? "Bacteria" : "Archaea") << "\t" << "Best group: " << best_label << "\t" << best_score << std::endl;
+                //std::cout << (best_type == 0 ? "Bacteria" : "Archaea") << "\t" << "Best group: " << best_label << "\t" << best_score << std::endl;
                 
                 // rerun with best group
                 compute_logodds_and_fill_in_seqmap(pset, data, seqmap, settings, best_group, best_type);
