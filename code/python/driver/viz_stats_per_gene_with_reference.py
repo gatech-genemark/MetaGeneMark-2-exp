@@ -11,14 +11,13 @@ import matplotlib.pyplot as plt
 # noinspection All
 import seaborn
 
-import pathmagic
-
 # noinspection PyUnresolvedReferences
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-from mg_general.general import fix_names, next_name
+from mg_general.general import next_name
+from mg_stats.shelf import create_joint_reference_from_list
 from mg_viz import sns
 
 # ------------------------------ #
@@ -88,7 +87,7 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
     df_gcfid = df_gcfid.dropna().copy()
 
-    if len(df_gcfid) < 4:
+    if len(df_gcfid) < 10:
 
         # values on same plot
         df_tidy = pd.melt(df_gcfid, id_vars=["Genome"],
@@ -197,8 +196,6 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
 def update_dataframe_with_stats(df, tools, reference):
     # type: (pd.DataFrame, List[str], str) -> None
 
-
-
     for t in tools:
         tag_5p = f"5p:Match({t}={reference})"
         tag_3p = f"3p:Match({t}={reference})"
@@ -208,31 +205,6 @@ def update_dataframe_with_stats(df, tools, reference):
 
         # all tools have a prediction
         df[tag_3p] = df[[f"5p-{t}", f"5p-{reference}"]].notnull().all(axis=1)
-
-
-def all_columns_equal(df, columns=None):
-    # type: (pd.DataFrame, List[str]) -> pd.Series
-    """Return True/False series shown rows where all columns have the same value"""
-
-    if columns is None:
-        columns = df.columns.values
-
-    # create condition list
-    conditions = list()
-    for i in range(1, len(columns)):
-        conditions.append(f"(df[{columns[i-1]}] == df[{columns[i]}])")
-
-    return eval(" & ".join(conditions))
-
-def create_joint_reference_from_list(df, list_reference):
-    # type: (pd.DataFrame, List[str]) -> str
-
-    reference = "=".join(list_reference)
-
-    reference_rows = all_columns_equal(df, [f"'5p-{r}'" for r in list_reference])
-    reference_values = df.loc[reference_rows, f"5p-{list_reference[0]}"]
-    df.loc[reference_rows, f"5p-{reference}"] = reference_values
-    return reference
 
 
 def main(env, args):

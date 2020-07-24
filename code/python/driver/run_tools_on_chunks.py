@@ -45,7 +45,8 @@ parser = argparse.ArgumentParser("Run tools on genome chunks.")
 
 parser.add_argument('--pf-gil', required=True)
 parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2",
-                                                                  "mprodigal", "prodigal"], type=str.lower)
+                                                                  "mprodigal", "prodigal",
+                                                                  "ncbi", "verified"], type=str.lower)
 parser.add_argument('--dn_tools', nargs="+")
 parser.add_argument('--dn-prefix', default=None, help="Applies prefix to all run directories")
 parser.add_argument('--pf-summary', required=True, help="Output file that will contain summary of runs")
@@ -90,6 +91,12 @@ def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):
     pf_mgm2_mod = get_value(kwargs, "pf_mgm2_mod", required=tool == "mgm2")
     pf_mgm_mod = get_value(kwargs, "pf_mgm_mod", required=tool == "mgm")
 
+    pf_labels = get_value(kwargs, "pf_labels", required=tool in {"verified", "ncbi"})
+    # dn_labels = get_value(kwargs, "dn_labels", default=None)
+
+    genome_splitter = get_value(kwargs, "genome_splitter", required=tool in {"verified", "ncbi"})
+
+
     if skip_if_exists and os.path.isfile(pf_prediction):
         return
 
@@ -104,6 +111,8 @@ def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):
             run_mgm2(env, pf_sequences, pf_mgm2_mod, pf_prediction)
         elif tool == "mgm":
             run_mgm(env, pf_sequences, pf_mgm_mod, pf_prediction)
+        # elif tool in {"ncbi", "verified", "sbsp", "sbsp_plus"}:
+        #     apply_labels_to_genome_splitter(env, pf_labels, genome_splitter, )
         else:
             raise NotImplementedError()
     except CalledProcessError:
