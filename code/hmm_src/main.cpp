@@ -156,7 +156,7 @@ float compute_logodds_and_fill_in_seqmap(Pset &pset_original, Data &data, Sequen
     
     seqmap.Init(data.flag, pset.min_gene_length);
     seqmap.CalcGC(data);
-    
+
 //    if (evidence.data.size())
 //        seqmap.AddCodingEvidence(data.evi_dir_orf, data.evi_rev_orf);
     
@@ -317,7 +317,8 @@ int main( int argc, char** argv )
 				if (evidence.data.size())
 					data.ApplyEvidence(evidence.data, itr->name);
 
-				
+                seqmap.Init(data.flag, pset.min_gene_length);
+                seqmap.CalcGC(data);
 
                 // test multiple groups
                 GMS2_GROUP best_group = GMS2_NONE;

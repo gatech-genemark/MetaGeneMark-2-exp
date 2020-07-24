@@ -198,6 +198,7 @@ def tsplot(df, x, y, hue=None, figure_options=None, **kwargs):
 def barplot(df, x, y, hue=None, figure_options=None, **kwargs):
     sns_kwargs = get_value(kwargs, "sns_kwargs", dict())
     ax = get_value(kwargs, "ax", None)
+    show = get_value(kwargs, "show", ax is None)
 
     g = sns.barplot(x=x, y=y, data=df, hue=hue, ax=ax, **sns_kwargs)
 
@@ -206,6 +207,8 @@ def barplot(df, x, y, hue=None, figure_options=None, **kwargs):
 
     FigureOptions.set_properties_for_axis(g, figure_options)
     plt.tight_layout()
-    save_figure(figure_options)
-    # plt.tight_layout(rect=[-0.3,0,1,1.2])
-    plt.show()
+
+    if show:
+        save_figure(figure_options)
+        # plt.tight_layout(rect=[-0.3,0,1,1.2])
+        plt.show()

@@ -613,3 +613,13 @@ def shift_5prime(label, amount):
         label.coordinates().left += amount
     else:
         label.coordinates().right -= amount
+
+
+def get_unique_gene_keys(*args):
+    # type: (List[Labels]) -> Set[str]
+
+    keys = set()
+    for labels in args:
+        keys = keys.union(set(create_key_3prime_from_label(lab) for lab in labels))
+
+    return keys

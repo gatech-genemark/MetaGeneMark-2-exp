@@ -23,7 +23,7 @@ from mg_general import Environment, add_env_args_to_parser
 #           Parse CMD            #
 # ------------------------------ #
 from mg_general.general import get_value, os_join
-from mg_general.labels import Labels, create_key_3prime_from_label
+from mg_general.labels import Labels, get_unique_gene_keys
 from mg_general.shelf import compute_gc
 from mg_io.labels import read_labels_from_file
 from mg_options.parallelization import ParallelizationOptions
@@ -54,16 +54,6 @@ my_env = Environment.init_from_argparse(parsed_args)
 # Setup logger
 logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
-
-
-def get_unique_gene_keys(*args):
-    # type: (List[Labels]) -> Set[str]
-
-    keys = set()
-    for labels in args:
-        keys = keys.union(set(create_key_3prime_from_label(lab) for lab in labels))
-
-    return keys
 
 
 def stats_per_gene_for_gi(env, gi, tools, **kwargs):
