@@ -20,7 +20,7 @@ from mg_general import Environment
 from mg_general.general import get_value, os_join, run_shell_cmd
 from mg_general.labels_comparison_detailed import LabelsComparisonDetailed
 from mg_io.general import remove_p, load_obj
-from mg_io.labels import read_labels_from_file
+from mg_io.labels import read_labels_from_file, read_fgs_format, write_labels_to_file
 from mg_io.shelf import write_sequence_list_to_fasta_file
 from mg_models.gms2_noncoding import GMS2Noncoding
 from mg_models.motif_model import MotifModel
@@ -407,6 +407,23 @@ def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
     log.info(cmd)
     run_shell_cmd(cmd)
+
+
+def convert_fgs_to_gff(pf_input, pf_output):
+    # type: (str, str) -> None
+    labels = read_fgs_format(pf_input, shift=-1)
+    write_labels_to_file(labels, pf_output, shift_coordinates_by=-1)
+
+def run_fgs(env, pf_sequence, pf_prediction):
+    # type: (Environment, str, str) -> None
+    bin_external = env["pd-bin-external"]
+    prog = f"cd ${bin_external}/fgs; FragGeneScan"
+    pf_mod = f"illumina_5"
+    cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 0 -t {pf_mod} -p 1"
+
+    log.info(cmd)
+    print(run_shell_cmd(cmd))
+    convert_fgs_to_gff(pf_prediction + ".out", pf_prediction)
 
 
 def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):

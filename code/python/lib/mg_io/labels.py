@@ -133,3 +133,60 @@ def read_lst(pf_labels, shift=-1):
                 )
 
     return Labels(labels)
+
+
+
+def read_fgs_format(pf_labels, shift=-1):
+    # type: (str, int) -> Labels
+
+    labels = list()
+
+    # pattern = re.compile(r"([^\t]+)\t([^\t]+)\t(CDS)\t(\d+)\t(\d+)\t([^\t]+)\t([+-])\t([^\t]+)\t([^\t]+)")
+    pattern = re.compile(r"\s*(\d+)\s+(\d+)\s+([+-])\s+.+$")
+
+    # out = str(counter)
+    # out += " " + str(l["strand"])
+    # out += " " + str(l["left"] + shift)
+    # out += " " + str(l["right"] + shift)
+    # out += " " + str(l["right"] - l["left"] + 1)
+    # out += " " "nativebac" + " AGGAGG 6 1"
+    # out += " " + l["attributes"]["gene_type"]
+
+    seqname = None
+
+    with open(pf_labels, "r") as f:
+
+        for line in f:
+
+            line = line.strip()
+
+            if line.startswith(">"):
+                seqname = line.split(">", maxsplit=1)[1].strip()
+                continue
+            elif len(line.strip()) == 0 or seqname is None:
+                continue
+
+            m = pattern.match(line)
+            if m:
+                attributes = dict()
+
+                label = {
+                    "left": int(m.group(1)) + shift,
+                    "right": int(m.group(2)) + shift,
+                    "strand": m.group(3),
+                    "seqname": seqname,
+                    "attributes": attributes
+                }
+
+                labels.append(
+                    Label(
+                        Coordinates(
+                            left=label["left"],
+                            right=label["right"],
+                            strand=label["strand"]
+                        ),
+                        seqname=seqname
+                    )
+                )
+
+    return Labels(labels)

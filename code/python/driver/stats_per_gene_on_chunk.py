@@ -28,6 +28,7 @@ from mg_general.labels_comparison_detailed import LabelsComparisonDetailed
 from mg_general.shelf import compute_gc
 from mg_io.labels import read_labels_from_file
 from mg_options.parallelization import ParallelizationOptions
+from mg_parallelization.generic_threading import run_n_per_thread
 
 parser = argparse.ArgumentParser("Collects gene-level stats for runs with chunking.")
 
@@ -264,6 +265,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, **kwargs):
                     "Genome GC": genome_gc,
                     "Gene GC": gene_gc,
                     "Chunk Size": chunk_size,
+                    "Runtime": df_chunk["Runtime"].mean(),
                     **entry
                 })
 
@@ -282,30 +284,36 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
     if prl_options is None:
         df = stats_per_gene_on_chunks_for_genome(env, df_summary, **kwargs)
     else:
-        pass
-        # # PBS parallelization
-        # if prl_options.safe_get("use-pbs"):
-        #     pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
-        #     list_df = pbs.run(
-        #         gil, helper_stats_per_gene,
-        #         {
-        #             "env": env, "tools": tools, **kwargs
-        #         }
-        #     )
-        #     df = pd.concat(list_df, ignore_index=True, sort=False)
-        #
-        # # threading
-        # else:
-        #     list_df = run_n_per_thread(
-        #         list(gil), stats_per_gene_for_gi,
-        #         data_arg_name="gi",
-        #         func_kwargs={
-        #             "env": env, "tools": tools, **kwargs
-        #         },
-        #         simultaneous_runs=prl_options.safe_get("num-processors")
-        #     )
-        #
-        #     df = pd.concat(list_df, ignore_index=True, sort=False)
+
+        # stats need to be collected on from all entries of a genome. So make sure to pass
+        # all entries of a given genome together
+        list_df = [df_genome for _, df_genome in df_summary.groupby("Genome", as_index=False)]
+
+
+        # PBS parallelization
+        if prl_options.safe_get("use-pbs"):
+            # pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
+            # list_df = pbs.run(
+            #     gil, helper_stats_per_gene,
+            #     {
+            #         "env": env, "tools": tools, **kwargs
+            #     }
+            # )
+            # df = pd.concat(list_df, ignore_index=True, sort=False)
+            raise NotImplementedError()
+
+        # threading
+        else:
+            list_df = run_n_per_thread(
+                list_df, stats_per_gene_on_chunks_for_genome,
+                data_arg_name="df_summary_genome",
+                func_kwargs={
+                    "env": env, **kwargs
+                },
+                simultaneous_runs=prl_options.safe_get("num-processors")
+            )
+
+            df = pd.concat(list_df, ignore_index=True, sort=False)
 
     df.to_csv(pf_output, index=False)
 

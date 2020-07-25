@@ -19,7 +19,7 @@ from mg_io.general import mkdir_p
 from mg_container.genome_list import GenomeInfo, GenomeInfoList
 from mg_general import add_env_args_to_parser, Environment
 from mg_general.general import get_value, os_join, run_shell_cmd
-from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_prodigal, run_meta_prodigal
+from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_prodigal, run_meta_prodigal, run_fgs
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -36,7 +36,7 @@ parser.add_argument('--pf-gil', required=True, help="List of genomes")
 parser.add_argument('--type', required=True, choices=["archaea", "bacteria", "auto"], help="Is the list archaea or bacteria")
 parser.add_argument('--dn-run', required=False, help="Name of directory that will contain the run")
 parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
-parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal"], required=True, help="Tool used for prediction")
+parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal", "fgs"], required=True, help="Tool used for prediction")
 
 parser.add_argument('--pf-mgm-mod', help="Path to MGM model file", type=os.path.abspath)
 parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file", type=os.path.abspath)
@@ -84,6 +84,8 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
             run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction)
         elif tool == "mgm":
             run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction)
+        elif tool == "fgs":
+            run_fgs(env, pf_sequence, pf_prediction)
         else:
             raise NotImplementedError()
     except CalledProcessError:

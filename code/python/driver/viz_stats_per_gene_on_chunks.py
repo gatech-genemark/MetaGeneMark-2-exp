@@ -3,6 +3,8 @@
 
 import logging
 import argparse
+from functools import reduce
+
 import numpy as np
 import pandas as pd
 from typing import *
@@ -19,7 +21,7 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-from mg_general.general import all_elements_equal, fix_names
+from mg_general.general import all_elements_equal, fix_names, next_name
 from mg_general.shelf import powerset
 from mg_stats.shelf import create_joint_reference_from_list
 from mg_viz import sns
@@ -70,12 +72,45 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
                 result[f"Match({tag})"] = np.nan
                 result[f"Number of Error({tag})"] = np.nan
                 result[f"Error Rate({tag})"] = np.nan
+                result[f"Number of Error({tag})"] = np.nan
+                result[f"Number of Match({tag})"] = np.nan
+                # result[f"Number of Predictions({t},{t})"] = np.nan
             else:
                 result[f"Match({tag})"] = 100 * df_group[f"5p:Match({tag_eq})"].sum() / float(
                     df_group[f"3p:Match({tag_eq})"].sum())
                 result[f"Error Rate({tag})"] = 100 - result[f"Match({tag})"]
                 result[f"Number of Error({tag})"] = df_group[f"3p:Match({tag_eq})"].sum() - df_group[
                     f"5p:Match({tag_eq})"].sum()
+
+                result[f"Number of Found({tag})"] = df_group[f"3p:Match({tag_eq})"].sum()
+                result[f"Number of Match({tag})"] = df_group[f"5p:Match({tag_eq})"].sum()
+                # result[f"Number of Predictions({t},{t})"] = df_group[f"5p-{t}"].count()
+
+                result[f"Number of IC5p Match({tag})"] = (
+                            df_group[f"5p:Match({tag_eq})"] & df_group[f"Partial5p-{reference}"]).sum()
+                result[f"Number of IC5p Found({tag})"] = (
+                        df_group[f"3p:Match({tag_eq})"] & df_group[f"Partial5p-{reference}"]).sum()
+                result[f"IC5p Match({tag})"] = 100 * result[f"Number of IC5p Match({tag})"] / result[
+                    f"Number of IC5p Found({tag})"]
+
+                result[f"Number of IC3p Match({tag})"] = (
+                            df_group[f"5p:Match({tag_eq})"] & df_group[f"Partial3p-{reference}"]).sum()
+                result[f"Number of IC3p Found({tag})"] = (
+                        df_group[f"3p:Match({tag_eq})"] & df_group[f"Partial3p-{reference}"]).sum()
+                result[f"IC3p Match({tag})"] = 100 * result[f"Number of IC3p Match({tag})"] /  result[f"Number of IC3p Found({tag})"]
+
+                result[f"Number of Comp Match({tag})"] = (
+                        df_group[f"5p:Match({tag_eq})"] & ~(df_group[f"Partial5p-{reference}"] | df_group[f"Partial3p-{reference}"])).sum()
+                result[f"Number of Comp Found({tag})"] = (
+                        df_group[f"3p:Match({tag_eq})"] & ~(df_group[f"Partial5p-{reference}"] | df_group[f"Partial3p-{reference}"])).sum()
+                result[f"Comp Match({tag})"] = 100 * result[f"Number of Comp Match({tag})"] / result[
+                    f"Number of Comp Found({tag})"]
+
+        for t in tools + [reference]:
+            result[f"Number of Predictions({t},{t})"] = df_group[f"5p-{t}"].count()
+            result[f"Runtime({t},{t})"] = df_group[f"Runtime"].mean()
+            # result[f"Runtime({t, t})"] = df_group[f"Runtime"].mean()
+
 
         result["Genome"] = gcfid
         result["Genome GC"] = df_group.at[df_group.index[0], "Genome GC"]
@@ -154,6 +189,153 @@ def ridgeplot(df):
     plt.show()
 
 
+def number_and_match(env, df_total, hue_order, col_number, col_perc, sup_title):
+    g = seaborn.FacetGrid(df_total, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+    g.map(plt.plot, "Chunk Size", col_number, linestyle="dashed")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size")
+    g.set_titles("{col_name}")
+    g.set(ylim=(0, None))
+    g.set(xlim=(0, 5100))
+    g.set_ylabels("Number of predictions")
+    g.add_legend()
+
+    for ax, (_, subdata) in zip(g.axes, df_total.groupby('Genome')):
+        ax2 = ax.twinx()
+        subdata = subdata.sort_values("Chunk Size")
+        for hue in hue_order:
+            subdata_hue = subdata[subdata["Tool"] == hue]
+            ax2.plot(subdata_hue["Chunk Size"], subdata_hue[col_perc], label=hue)
+            # ax2.set_ylim(40,100)
+        # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
+
+    plt.tight_layout()
+    plt.savefig(next_name(env["pd-work"]))
+    plt.suptitle(sup_title)
+    plt.show()
+
+def viz_plot_per_genome_y_error_x_chunk(env, df):
+    genomes = sorted(df["Genome"].unique())
+    nrows, ncols = square_subplots(len(genomes))
+
+
+    values_to_melt = ["Match", "Number of Error", "Number of Found", "Number of Match", "Number of Predictions",
+                      "Number of IC5p Match", "Number of IC5p Found", "Number of IC3p Match", "Number of IC3p Found",
+                      "Number of Comp Match", "Number of Comp Found",
+                      "IC3p Match", "IC5p Match", "Comp Match"]
+    df_total = list()
+    for v in values_to_melt:
+        df_curr = pd.melt(df, id_vars=["Genome", "Chunk Size", "Genome GC"],
+                          value_vars=[x for x in df.columns if v == x.split("(")[0].strip()],
+                          var_name="Combination", value_name=v)
+        df_curr["Tool"] = df_curr["Combination"].apply(lambda x: x.split("(")[1].split(",")[0].upper())
+        df_total.append(df_curr)
+
+    df_total = reduce(lambda df1, df2: pd.merge(df1, df2, on=["Genome", "Chunk Size", "Genome GC", "Tool"],
+                                                how="outer"), df_total)
+
+    # df_total = pd.melt(
+    #     df_total,
+    #     id_vars=["Genome", "Chunk Size", "Genome GC", "Combination"],
+    #     value_vars=values_to_melt,
+    #     var_name="Metric", value_name="Score")
+    # dfs = [df_tmp.set_index(["Genome", "Chunk Size", "Genome GC"]) for df_tmp in df_total]
+    # dfs = pd.concat(dfs, ignore_index=True, sort=False, axis=1)
+    hue_order = sorted(df_total["Tool"].unique())
+    g = seaborn.FacetGrid(df_total, col="Genome", col_wrap=4, hue="Tool", sharey=True, hue_order=hue_order)
+    # g.map(plt.plot, "Chunk Size", "Match", marker="o")
+    g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="--")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size")
+    g.set_ylabels("Metric")
+    g.set(ylim=(0,None))
+    g.set(xlim=(None,None))
+    g.add_legend()
+
+    for ax, (_, subdata) in zip(g.axes, df_total.groupby('Genome')):
+        ax2 = ax.twinx()
+        subdata = subdata.sort_values("Chunk Size")
+        for hue in hue_order:
+            subdata_hue = subdata[subdata["Tool"] == hue]
+            ax2.plot(subdata_hue["Chunk Size"], subdata_hue["Match"], label=hue)
+            ax2.set_ylim(40,100)
+        # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
+
+    plt.tight_layout()
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+    g = seaborn.FacetGrid(df_total, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+
+    g.map(plt.plot, "Chunk Size", "Number of Predictions")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size")
+    g.set_titles("{col_name}")
+    g.set(ylim=(0,None))
+    g.set(xlim=(None,5100))
+    g.set_ylabels("Number of predictions")
+    g.add_legend()
+
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+    # Incomplete
+    g = seaborn.FacetGrid(df_total, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+    g.map(plt.plot, "Chunk Size", "Number of IC5p Found", linestyle="dashed")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size")
+    g.set_titles("{col_name}")
+    g.set(ylim=(0, None))
+    g.set(xlim=(0, 5100))
+    g.set_ylabels("Number of predictions")
+    g.add_legend()
+
+    for ax, (_, subdata) in zip(g.axes, df_total.groupby('Genome')):
+        ax2 = ax.twinx()
+        subdata = subdata.sort_values("Chunk Size")
+        for hue in hue_order:
+            subdata_hue = subdata[subdata["Tool"] == hue]
+            ax2.plot(subdata_hue["Chunk Size"], subdata_hue["IC5p Match"], label=hue)
+            # ax2.set_ylim(40,100)
+        # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
+
+    plt.tight_layout()
+    plt.savefig(next_name(env["pd-work"]))
+    plt.suptitle("IC5p")
+    plt.show()
+
+    number_and_match(env, df_total, hue_order, "Number of IC3p Match", "IC3p Match", "IC3p")
+    number_and_match(env, df_total, hue_order, "Number of Comp Match", "Comp Match", "Compp")
+
+    return
+
+    fig, axes = plt.subplots(2, 4, sharey="all", sharex="all")
+    axes = axes.ravel()
+    for i, g in enumerate(genomes):
+        ax = axes[i]  # type: plt.Axes
+
+        df_curr = df[df["Genome"] == g]
+        df_curr = pd.melt(df_curr, id_vars=["Genome", "Chunk Size"],
+                          value_vars=[x for x in df_curr.columns if "Number of Error(" in x],
+                          var_name="Combination", value_name="Number of Error")
+
+        seaborn.lineplot("Chunk Size", "Number of Error", data=df_curr, hue="Combination", ax=ax, legend=False)
+
+    plt.show()
+    fig, axes = plt.subplots(2, 4, sharey="all", sharex="all")
+    axes = axes.ravel()
+
+    for i, g in enumerate(genomes):
+        ax = axes[i]  # type: plt.Axes
+        df_curr = df[df["Genome"] == g]
+        df_curr = pd.melt(df_curr, id_vars=["Genome", "Chunk Size"],
+                          value_vars=[x for x in df_curr.columns if "Number of Found(" in x],
+                          var_name="Combination", value_name="Number of Found")
+        seaborn.lineplot("Chunk Size", "Number of Found", data=df_curr, hue="Combination", ax=ax, legend=False)
+
+
+    plt.show()
+
 def viz_stats_per_gene(env, df, tools, reference):
     # type: (Environment, pd.DataFrame, List[str], str) -> None
 
@@ -161,7 +343,9 @@ def viz_stats_per_gene(env, df, tools, reference):
     for _, df_group in df.groupby("Chunk Size", as_index=False):
         df_stats_gcfid.append(get_stats_at_gcfid_level_with_reference(df_group, tools, reference))
     df_all_chunks = pd.concat(df_stats_gcfid, ignore_index=True, sort=False)
+    viz_plot_per_genome_y_error_x_chunk(env, df_all_chunks)
 
+    return
     for chunk_size, df_stats_gcfid in df_all_chunks.groupby("Chunk Size", as_index=False):
         # ps = powerset(tools, min_len=2)
 
@@ -217,7 +401,6 @@ def viz_stats_per_gene(env, df, tools, reference):
         g.add_legend()
         plt.show()
 
-        # # GC
         # sns.lmplot(df, "Genome GC", "Gene GC", hue="Genome")
         #
         # df["GC Diff"] = df["Genome GC"] - df["Gene GC"]

@@ -26,7 +26,7 @@ from mg_general.genome_splitter import GenomeSplitter
 from mg_general.labels import Labels
 from mg_io.general import remove_p, mkdir_p
 from mg_io.labels import read_labels_from_file, write_labels_to_file
-from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm
+from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_slice_per_thread, run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -46,11 +46,12 @@ parser = argparse.ArgumentParser("Run tools on genome chunks.")
 parser.add_argument('--pf-gil', required=True)
 parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2",
                                                                   "mprodigal", "prodigal",
-                                                                  "ncbi", "verified"], type=str.lower)
+                                                                  "ncbi", "verified", "fgs"], type=str.lower)
 parser.add_argument('--dn_tools', nargs="+")
 parser.add_argument('--dn-prefix', default=None, help="Applies prefix to all run directories")
 parser.add_argument('--pf-summary', required=True, help="Output file that will contain summary of runs")
 parser.add_argument('--force-split-in-intergenic', action='store_true')
+parser.add_argument('--skip-if-exists', action='store_true')
 
 
 parser.add_argument('--pf-mgm2-mod', type=os.path.abspath)
@@ -111,6 +112,8 @@ def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):
             run_mgm2(env, pf_sequences, pf_mgm2_mod, pf_prediction)
         elif tool == "mgm":
             run_mgm(env, pf_sequences, pf_mgm_mod, pf_prediction)
+        elif tool == "fgs":
+            run_fgs(env, pf_sequences, pf_prediction)
         # elif tool in {"ncbi", "verified", "sbsp", "sbsp_plus"}:
         #     apply_labels_to_genome_splitter(env, pf_labels, genome_splitter, )
         else:
@@ -123,7 +126,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
     # type: (Environment, GenomeInfo, List[str], int, Dict[str, Any]) -> pd.DataFrame
     dn_tools = get_value(kwargs, "dn_tools", tools)
     dn_prefix = get_value(kwargs, "dn_prefix", "")
-
+    skip_if_exists = get_value(kwargs, "skip_if_exists", False)
     # split genome into chunks
     gs = GenomeSplitter(
         read_sequences_for_gi(env, gi), chunk,
@@ -145,9 +148,13 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
 
         start = timer()
         pf_prediction = os_join(pd_run, "prediction.gff")
-        run_tool_on_chunk(
-            env.duplicate({"pd-work": pd_run}), t, pf_chunks, pf_prediction, **kwargs
-        )
+        skip = False
+        if skip_if_exists and os.path.isfile(pf_prediction):
+            skip = True
+        if not skip:
+            run_tool_on_chunk(
+                env.duplicate({"pd-work": pd_run}), t, pf_chunks, pf_prediction, **kwargs
+            )
         end = timer()
 
         key_value_delimiters_gff = {
@@ -156,6 +163,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
             "gms2": " ",
             "mprodigal": "=",
             "prodigal": "=",
+            "fgs": "="
         }
 
         # update labels file based on offset
@@ -250,7 +258,8 @@ def main(env, args):
                 "pf_mgm_mod": args.pf_mgm_mod,
                 "num_processors": prl_options.safe_get("pbs-ppn"),
                 "allow_splits_in_cds": not args.force_split_in_intergenic,
-                "dn_prefix": args.dn_prefix
+                "dn_prefix": args.dn_prefix,
+                "skip_if_exists": args.skip_if_exists
             }
         )
         df = pd.concat(list_df, ignore_index=True, sort=False)
@@ -263,7 +272,8 @@ def main(env, args):
                 "pf_mgm_mod": args.pf_mgm_mod,
                 "num_processors": 1,
                 "allow_splits_in_cds": not args.force_split_in_intergenic,
-                "dn_prefix": args.dn_prefix
+                "dn_prefix": args.dn_prefix,
+                "skip_if_exists": args.skip_if_exists
             }, simultaneous_runs=7
         )
 
