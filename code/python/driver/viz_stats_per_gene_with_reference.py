@@ -7,16 +7,17 @@ import numpy as np
 import pandas as pd
 from typing import *
 import matplotlib.pyplot as plt
+import seaborn
 
 # noinspection All
-import seaborn
+import pathmagic
 
 # noinspection PyUnresolvedReferences
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-from mg_general.general import next_name
+from mg_general.general import next_name, fix_names
 from mg_stats.shelf import create_joint_reference_from_list
 from mg_viz import sns
 
@@ -81,9 +82,60 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
     return pd.DataFrame(list_entries)
 
 
+def viz_stats_as_function_of_reference_length(env, df_per_gene, tools, reference):
+    # type: (Environment, pd.DataFrame, List[str], str) -> None
+
+    list_entries = list()
+
+    max_length = np.nanmax(df_per_gene[f"Length({reference})"])
+
+    for genome, df_genome in df_per_gene.groupby("Genome", as_index=False):
+
+        df_genome = df_genome.sort_values(f"Length({reference})")
+        max_length = np.nanmax(df_genome[f"Length({reference})"])
+
+        for l in range(100, int(max_length)+100, 100):
+            curr_df = df_genome[df_genome[f"Length({reference})"] <= l]
+
+            for t in tools:
+                tag = ",".join([t, reference])
+                tag_eq = "=".join([t, reference])
+
+                list_entries.append({
+                    "Genome": genome,
+                    "Length": l,
+                    "Tool": t,
+                    "Number of Found": curr_df[f"3p:Match({tag_eq})"].sum(),
+                    "Number of Matches": curr_df[f"5p:Match({tag_eq})"].sum(),
+                    "Match Rate": 100 * curr_df[
+                        f"5p:Match({tag_eq})"].sum() / float(curr_df[f"3p:Match({tag_eq})"].sum())
+                })
+
+    df = pd.DataFrame(list_entries)
+    df["Genome"] = df.apply(fix_names, axis=1)
+
+    seaborn.lmplot("Length", "Number of Matches", data=df, hue="Genome")
+
+    g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+    # g.map(plt.plot, "Length", "Number of Found", linestyle="dashed")
+    g.map(plt.plot, "Length", "Match Rate")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Length")
+    g.set_titles("{col_name}")
+    g.set(ylim=(0, 100))
+    # g.set(xlim=(0, 5100))
+    g.set_ylabels("Number of predictions")
+    g.add_legend()
+    plt.show()
+
+    print("Hi")
+
+
+
 def viz_stats_per_gene_with_reference(env, df, tools, reference):
     # type: (Environment, pd.DataFrame, List[str], str) -> None
 
+    viz_stats_as_function_of_reference_length(env, df, tools, reference)
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
     df_gcfid = df_gcfid.dropna().copy()
 
@@ -124,6 +176,8 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
                     figure_options=FigureOptions())
 
         fig.show()
+
+        # errors as a function of gene length
     else:
         df_tidy = pd.melt(df_gcfid, id_vars=["Genome", "Genome GC"],
                           value_vars=[x for x in df_gcfid.columns if "Match(" in x],
@@ -205,6 +259,12 @@ def update_dataframe_with_stats(df, tools, reference):
 
         # all tools have a prediction
         df[tag_3p] = df[[f"5p-{t}", f"5p-{reference}"]].notnull().all(axis=1)
+
+    df[f"Length({reference})"] = df.apply(
+        lambda r: abs(r[f"3p-{reference}"] - r[f"5p-{reference}"]) + 1,
+        axis=1
+    )
+
 
 
 def main(env, args):

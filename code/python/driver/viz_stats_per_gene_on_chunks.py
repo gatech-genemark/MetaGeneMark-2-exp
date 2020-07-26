@@ -206,7 +206,7 @@ def number_and_match(env, df_total, hue_order, col_number, col_perc, sup_title):
         for hue in hue_order:
             subdata_hue = subdata[subdata["Tool"] == hue]
             ax2.plot(subdata_hue["Chunk Size"], subdata_hue[col_perc], label=hue)
-            # ax2.set_ylim(40,100)
+            ax2.set_ylim(40,100)
         # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
 
     plt.tight_layout()
@@ -272,7 +272,7 @@ def viz_plot_per_genome_y_error_x_chunk(env, df):
     g.set_xlabels("Chunk Size")
     g.set_titles("{col_name}")
     g.set(ylim=(0,None))
-    g.set(xlim=(None,5100))
+    # g.set(xlim=(None,5100))
     g.set_ylabels("Number of predictions")
     g.add_legend()
 
@@ -286,7 +286,7 @@ def viz_plot_per_genome_y_error_x_chunk(env, df):
     g.set_xlabels("Chunk Size")
     g.set_titles("{col_name}")
     g.set(ylim=(0, None))
-    g.set(xlim=(0, 5100))
+    # g.set(xlim=(0, 5100))
     g.set_ylabels("Number of predictions")
     g.add_legend()
 
@@ -296,7 +296,7 @@ def viz_plot_per_genome_y_error_x_chunk(env, df):
         for hue in hue_order:
             subdata_hue = subdata[subdata["Tool"] == hue]
             ax2.plot(subdata_hue["Chunk Size"], subdata_hue["IC5p Match"], label=hue)
-            # ax2.set_ylim(40,100)
+            ax2.set_ylim(40,100)
         # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
 
     plt.tight_layout()
@@ -304,8 +304,29 @@ def viz_plot_per_genome_y_error_x_chunk(env, df):
     plt.suptitle("IC5p")
     plt.show()
 
+    number_and_match(env, df_total, hue_order, "Number of IC5p Match", "IC5p Match", "IC5p")
     number_and_match(env, df_total, hue_order, "Number of IC3p Match", "IC3p Match", "IC3p")
-    number_and_match(env, df_total, hue_order, "Number of Comp Match", "Comp Match", "Compp")
+    number_and_match(env, df_total, hue_order, "Number of Comp Match", "Comp Match", "Comp")
+
+    df_comprehensive = df_total.groupby(["Chunk Size", "Tool"], as_index=False).sum()
+    df_comprehensive = pd.melt(df_comprehensive, id_vars=["Chunk Size", "Tool"],
+                               value_vars=[f"Number of {x} Match" for x in ["IC3p", "IC5p", "Comp"]] + ["Number of Match"],
+                               var_name="Partial", value_name="Value")
+
+    df_comprehensive_2 = pd.melt(df_total.groupby(["Chunk Size", "Tool"], as_index=False).sum(), id_vars=["Chunk Size", "Tool"],
+                               value_vars=[f"Number of {x} Found" for x in ["IC3p", "IC5p", "Comp"]] + ["Number of Found"],
+                               var_name="Partial", value_name="Value")
+
+    df_comprehensive["Match"] = 100 * df_comprehensive["Value"] / df_comprehensive_2["Value"]
+
+    g = seaborn.lmplot("Chunk Size", "Match", data=df_comprehensive, hue="Tool", col="Partial", lowess=True)
+    g.set(xlim=(0,5010), ylim=(0,100))
+    plt.show()
+
+    print(df_comprehensive.to_csv())
+
+
+
 
     return
 

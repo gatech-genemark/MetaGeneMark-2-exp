@@ -93,8 +93,10 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
             label = name_to_labels[t].get_by_3prime_key(key)
             if label is None:
                 entry[f"5p-{t}"] = None  # 5prime end
+                entry[f"3p-{t}"] = None
             else:
                 entry[f"5p-{t}"] = label.get_5prime()
+                entry[f"3p-{t}"] = label.get_3prime()
                 if shortest_label is None:
                     shortest_label = label
                 elif shortest_label.length() < label.length():
