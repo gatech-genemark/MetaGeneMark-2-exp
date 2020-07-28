@@ -10,6 +10,8 @@ import pandas as pd
 from typing import *
 import matplotlib.pyplot as plt
 import seaborn
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+
 
 # noinspection All
 from seaborn import FacetGrid
@@ -214,6 +216,66 @@ def number_and_match(env, df_total, hue_order, col_number, col_perc, sup_title):
     plt.suptitle(sup_title)
     plt.show()
 
+def viz_number_of_predictions_for_short(env, df):
+    # type: (Environment, pd.DataFrame) -> None
+
+
+    df = df[df["Tool"] != "VERIFIED"]
+    hue_order = sorted(df["Tool"].unique())
+    df["Found%"] = 100*df["Number of Found"] / df["Number of Predictions"]
+
+
+    g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+
+    xlim=(0,5100)
+
+    g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
+    g.map(plt.plot, "Chunk Size", "Number of Predictions")
+
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size (nt)")
+    g.set_titles("{col_name}", style="italic")
+    g.set(ylim=(0, None))
+    g.set(xlim=xlim)
+    g.set_ylabels("Number of predictions")
+
+    # for ax, (_, subdata) in zip(g.axes, df.groupby('Genome')):
+    #     # ax2 = ax.twinx()
+    #     ax2 = inset_axes(ax, width="50%", height="50%", loc=1, borderpad=1)
+    #
+    #     subdata = subdata.sort_values("Chunk Size")
+    #     for hue in hue_order:
+    #         subdata_hue = subdata[subdata["Tool"] == hue]
+    #         ax2.plot(subdata_hue["Chunk Size"], subdata_hue["Found%"], label=hue)
+    #         ax2.set_ylim(40,100)
+    #         ax2.set_ylabel("TPR")
+    #         ax2.set_xlim(*xlim)
+    #         ax2.set_xticks([])
+    #         ax2.set_yticks([])
+    #
+    #     # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
+
+    # plt.tight_layout()
+    g.add_legend()
+
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+    g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+
+    g.map(plt.plot, "Chunk Size", "Found%")
+    # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
+    # g.map(plt.plot, "x", "y_fit")
+    g.set_xlabels("Chunk Size (nt)")
+    g.set_titles("{col_name}", style="italic")
+    g.set(ylim=(0, None))
+    g.set(xlim=(0, 5100))
+    g.set_ylabels("Number of predictions")
+    g.add_legend()
+
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
 def viz_plot_per_genome_y_error_x_chunk(env, df):
     genomes = sorted(df["Genome"].unique())
     nrows, ncols = square_subplots(len(genomes))
@@ -233,7 +295,8 @@ def viz_plot_per_genome_y_error_x_chunk(env, df):
 
     df_total = reduce(lambda df1, df2: pd.merge(df1, df2, on=["Genome", "Chunk Size", "Genome GC", "Tool"],
                                                 how="outer"), df_total)
-
+    viz_number_of_predictions_for_short(env, df_total)
+    # return
     # df_total = pd.melt(
     #     df_total,
     #     id_vars=["Genome", "Chunk Size", "Genome GC", "Combination"],

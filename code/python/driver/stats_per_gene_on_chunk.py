@@ -29,6 +29,9 @@ from mg_general.shelf import compute_gc
 from mg_io.labels import read_labels_from_file
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
+from mg_parallelization.pbs import PBS
+from mg_pbs_data.mergers import merge_identity
+from mg_pbs_data.splitters import split_list
 
 parser = argparse.ArgumentParser("Collects gene-level stats for runs with chunking.")
 
@@ -294,15 +297,17 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 
         # PBS parallelization
         if prl_options.safe_get("use-pbs"):
-            # pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
-            # list_df = pbs.run(
-            #     gil, helper_stats_per_gene,
-            #     {
-            #         "env": env, "tools": tools, **kwargs
-            #     }
-            # )
-            # df = pd.concat(list_df, ignore_index=True, sort=False)
-            raise NotImplementedError()
+            pbs = PBS(env, prl_options, splitter=split_list, merger=merge_identity)
+            list_df = pbs.run(
+                list_df, stats_per_gene_on_chunks_for_genome,
+                {
+                    "env": env, **kwargs
+                },
+                split_kwargs={
+                    "arg_name_data": "df_summary_genome"
+                }
+            )
+            df = pd.concat(list_df, ignore_index=True, sort=False)
 
         # threading
         else:

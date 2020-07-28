@@ -425,6 +425,48 @@ def run_fgs(env, pf_sequence, pf_prediction):
     print(run_shell_cmd(cmd))
     convert_fgs_to_gff(pf_prediction + ".out", pf_prediction)
 
+def convert_mga_output_to_gff(output_str, pf_output):
+    # type: (str, str) -> None
+    i = 0
+    with open(pf_output, "w") as outfile:
+
+        print("##gff-version 3", file=outfile)  # GFF3 header
+        for xx in output_str.split("\n"):
+
+            if xx.startswith("#"):
+                if not xx.startswith("# gc") and not xx.startswith("# self"):
+                    seqid = xx[2:]
+                    i += 1
+            else:
+                (_, start, end, strand, frame, _, score, _, _, _, _) = xx.split(
+                    "\t"
+                )
+                print(
+                    seqid,
+                    "MGA",
+                    "gene",
+                    start,
+                    end,
+                    score,
+                    strand,
+                    frame,
+                    ".",
+                    sep="\t",
+                    file=outfile,
+                )
+
+
+def run_mga(env, pf_sequence, pf_prediction):
+    # type: (Environment, str, str) -> None
+    prog = f"mga"
+    cmd = f"{prog} -m {pf_sequence}"
+    output = run_shell_cmd(cmd)
+    convert_mga_output_to_gff(output, pf_prediction)
+
+def run_tritisa(env, pf_sequence, pf_initial_labels, pf_prediction):
+    # type: (Environment, str, str, str) -> None
+    bin_external = env["pd-bin-external"]
+    prog = f"cd ${bin_external}/tritisa/TriTISA"
 
 def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):
     # type: (Environment, str, str, str) -> None

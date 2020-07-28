@@ -30,4 +30,9 @@ def create_joint_reference_from_list(df, list_reference):
     reference_rows = all_columns_equal(df, [f"'5p-{r}'" for r in list_reference])
     reference_values = df.loc[reference_rows, f"5p-{list_reference[0]}"]
     df.loc[reference_rows, f"5p-{reference}"] = reference_values
+
+    reference_rows = all_columns_equal(df, [f"'3p-{r}'" for r in list_reference])
+    reference_values = df.loc[reference_rows, f"3p-{list_reference[0]}"]
+    df.loc[reference_rows, f"3p-{reference}"] = reference_values
+
     return reference

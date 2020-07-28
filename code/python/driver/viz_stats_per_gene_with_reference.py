@@ -3,6 +3,7 @@
 
 import logging
 import argparse
+import math
 import numpy as np
 import pandas as pd
 from typing import *
@@ -93,6 +94,8 @@ def viz_stats_as_function_of_reference_length(env, df_per_gene, tools, reference
 
         df_genome = df_genome.sort_values(f"Length({reference})")
         max_length = np.nanmax(df_genome[f"Length({reference})"])
+        if math.isnan(max_length):
+            continue
 
         for l in range(100, int(max_length)+100, 100):
             curr_df = df_genome[df_genome[f"Length({reference})"] <= l]
@@ -114,28 +117,33 @@ def viz_stats_as_function_of_reference_length(env, df_per_gene, tools, reference
     df = pd.DataFrame(list_entries)
     df["Genome"] = df.apply(fix_names, axis=1)
 
-    seaborn.lmplot("Length", "Number of Matches", data=df, hue="Genome")
+    if len(df["Genome"]) < 20:
 
-    g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
-    # g.map(plt.plot, "Length", "Number of Found", linestyle="dashed")
-    g.map(plt.plot, "Length", "Match Rate")
-    # g.map(plt.plot, "x", "y_fit")
-    g.set_xlabels("Length")
-    g.set_titles("{col_name}")
-    g.set(ylim=(0, 100))
-    # g.set(xlim=(0, 5100))
-    g.set_ylabels("Number of predictions")
-    g.add_legend()
-    plt.show()
+        seaborn.lmplot("Length", "Number of Matches", data=df, hue="Genome")
 
-    print("Hi")
+        g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+        # g.map(plt.plot, "Length", "Number of Found", linestyle="dashed")
+        g.map(plt.plot, "Length", "Match Rate")
+        # g.map(plt.plot, "x", "y_fit")
+        g.set_xlabels("Length")
+        g.set_titles("{col_name}")
+        g.set(ylim=(0, 100))
+        # g.set(xlim=(0, 5100))
+        g.set_ylabels("Number of predictions")
+        g.add_legend()
+        plt.show()
+
+        print("Hi")
+    else:
+        seaborn.lmplot("Length", "Number of Matches", data=df, hue="Tool")
+        plt.show()
 
 
 
 def viz_stats_per_gene_with_reference(env, df, tools, reference):
     # type: (Environment, pd.DataFrame, List[str], str) -> None
 
-    viz_stats_as_function_of_reference_length(env, df, tools, reference)
+    # viz_stats_as_function_of_reference_length(env, df, tools, reference)
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
     df_gcfid = df_gcfid.dropna().copy()
 
