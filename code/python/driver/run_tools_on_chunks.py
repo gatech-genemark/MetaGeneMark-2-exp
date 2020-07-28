@@ -26,7 +26,7 @@ from mg_general.genome_splitter import GenomeSplitter
 from mg_general.labels import Labels
 from mg_io.general import remove_p, mkdir_p
 from mg_io.labels import read_labels_from_file, write_labels_to_file
-from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs
+from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs, run_mga
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_slice_per_thread, run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -114,6 +114,8 @@ def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):
             run_mgm(env, pf_sequences, pf_mgm_mod, pf_prediction)
         elif tool == "fgs":
             run_fgs(env, pf_sequences, pf_prediction)
+        elif tool == "mga":
+            run_mga(env, pf_sequences, pf_prediction)
         # elif tool in {"ncbi", "verified", "sbsp", "sbsp_plus"}:
         #     apply_labels_to_genome_splitter(env, pf_labels, genome_splitter, )
         else:
@@ -155,39 +157,41 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
             run_tool_on_chunk(
                 env.duplicate({"pd-work": pd_run}), t, pf_chunks, pf_prediction, **kwargs
             )
+
+
+            key_value_delimiters_gff = {
+                "mgm": " ",
+                "mgm2": " ",
+                "gms2": " ",
+                "mprodigal": "=",
+                "prodigal": "=",
+                "fgs": "=",
+                "mga": "="
+            }
+
+            # update labels file based on offset
+            labels = read_labels_from_file(pf_prediction, shift=0, key_value_delimiter=key_value_delimiters_gff.get(
+                t.lower(), "="
+            ), ignore_partial=False)
+            seqname_to_offset = {x[0].id: x[1] for x in gs.split_sequences_}
+            seqname_to_info = {x[0].id: x for x in gs.split_sequences_}
+            for l in labels:
+                # add attribute indicating index of chunk in original sequence (to allow for comparing of partial genes)
+                l.set_attribute_value(
+                    "chunk_left_in_original", f"{seqname_to_info[l.seqname()][2]}"
+                )
+                l.set_attribute_value(
+                    "chunk_right_in_original", f"{seqname_to_info[l.seqname()][3]}"
+                )
+
+                l.coordinates().left += seqname_to_offset[l.seqname()]
+                l.coordinates().right += seqname_to_offset[l.seqname()]
+                l.set_seqname(l.seqname().split("_offset")[0])
+
+
+            write_labels_to_file(labels, pf_prediction, shift_coordinates_by=0)
+
         end = timer()
-
-        key_value_delimiters_gff = {
-            "mgm": " ",
-            "mgm2": " ",
-            "gms2": " ",
-            "mprodigal": "=",
-            "prodigal": "=",
-            "fgs": "="
-        }
-
-        # update labels file based on offset
-        labels = read_labels_from_file(pf_prediction, shift=0, key_value_delimiter=key_value_delimiters_gff.get(
-            t.lower(), "="
-        ), ignore_partial=False)
-        seqname_to_offset = {x[0].id: x[1] for x in gs.split_sequences_}
-        seqname_to_info = {x[0].id: x for x in gs.split_sequences_}
-        for l in labels:
-            # add attribute indicating index of chunk in original sequence (to allow for comparing of partial genes)
-            l.set_attribute_value(
-                "chunk_left_in_original", f"{seqname_to_info[l.seqname()][2]}"
-            )
-            l.set_attribute_value(
-                "chunk_right_in_original", f"{seqname_to_info[l.seqname()][3]}"
-            )
-
-            l.coordinates().left += seqname_to_offset[l.seqname()]
-            l.coordinates().right += seqname_to_offset[l.seqname()]
-            l.set_seqname(l.seqname().split("_offset")[0])
-
-
-        write_labels_to_file(labels, pf_prediction, shift_coordinates_by=0)
-
         list_entries.append({
             "Genome": gi.name,
             "Tool": t,
