@@ -44,7 +44,7 @@ parser = argparse.ArgumentParser("Run tools on genome chunks.")
 
 
 parser.add_argument('--pf-gil', required=True)
-parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2",
+parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2", "mga",
                                                                   "mprodigal", "prodigal",
                                                                   "ncbi", "verified", "fgs"], type=str.lower)
 parser.add_argument('--dn_tools', nargs="+")
