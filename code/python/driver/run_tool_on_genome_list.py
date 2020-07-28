@@ -36,7 +36,7 @@ parser.add_argument('--pf-gil', required=True, help="List of genomes")
 parser.add_argument('--type', required=True, choices=["archaea", "bacteria", "auto"], help="Is the list archaea or bacteria")
 parser.add_argument('--dn-run', required=False, help="Name of directory that will contain the run")
 parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
-parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal", "fgs"], required=True, help="Tool used for prediction")
+parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal", "fgs", "mga"], required=True, help="Tool used for prediction")
 
 parser.add_argument('--pf-mgm-mod', help="Path to MGM model file", type=os.path.abspath)
 parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file", type=os.path.abspath)

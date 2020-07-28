@@ -438,6 +438,8 @@ def convert_mga_output_to_gff(output_str, pf_output):
                     seqid = xx[2:]
                     i += 1
             else:
+                if len(xx.strip()) == 0:
+                    continue
                 (_, start, end, strand, frame, _, score, _, _, _, _) = xx.split(
                     "\t"
                 )
