@@ -411,13 +411,13 @@ def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
 
 def convert_fgs_to_gff(pf_input, pf_output):
     # type: (str, str) -> None
-    labels = read_fgs_format(pf_input, shift=-1)
-    write_labels_to_file(labels, pf_output, shift_coordinates_by=-1)
+    labels = read_fgs_format(pf_input, shift=0)
+    write_labels_to_file(labels, pf_output, shift_coordinates_by=0)
 
 def run_fgs(env, pf_sequence, pf_prediction):
     # type: (Environment, str, str) -> None
     bin_external = env["pd-bin-external"]
-    prog = f"cd ${bin_external}/fgs; FragGeneScan"
+    prog = f"cd {bin_external}/fgs; FragGeneScan"
     pf_mod = f"illumina_5"
     cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 0 -t {pf_mod} -p 1"
 
