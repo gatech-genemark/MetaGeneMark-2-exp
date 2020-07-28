@@ -446,7 +446,7 @@ def convert_mga_output_to_gff(output_str, pf_output):
                 print(
                     seqid,
                     "MGA",
-                    "gene",
+                    "CDS",
                     start,
                     end,
                     score,
