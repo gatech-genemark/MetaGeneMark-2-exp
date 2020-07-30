@@ -66,8 +66,8 @@ def _init_mapping_stop_codons():
     return {x[0]: x[1] for x in zip(conditions, palette)}
 
 def _init_mapping_tools():
-    colors = ["windows blue", "amber", "faded green", "dusty purple", "pale red"]
-    ancestors = ["mgm", "mgm2", "gms2", "mprodigal", "prodigal"]
+    colors = ["windows blue", "amber", "faded green", "dusty purple", "pale red", "beige", "grey", "black", "orange"]
+    ancestors = ["mgm", "mgm2", "gms2", "mprodigal", "prodigal", "fgs", "mga", "ncbi", "verified"]
 
     colors += colors
     ancestors += [x.upper() for x in ancestors]
@@ -88,6 +88,7 @@ class ColorMap:
         "starts": _init_mapping_start_codons(),
         "stops": _init_mapping_stop_codons(),
         "gms2_components": _init_mapping_gms2_components(),
+        "tools": _init_mapping_tools()
     }
 
     @staticmethod

@@ -4,6 +4,7 @@
 import logging
 import os
 from tempfile import mkstemp
+from matplotlib.ticker import FuncFormatter
 
 import pandas as pd
 from typing import *
@@ -55,3 +56,12 @@ def mkstemp_closed(**kwargs):
     fd, pf = mkstemp(**kwargs)
     os.close(fd)
     return pf
+
+
+def number_formatter(number, pos=None):
+    """Convert a number into a human readable format."""
+    magnitude = 0
+    while abs(number) >= 1000:
+        magnitude += 1
+        number /= 1000.0
+    return '%.0f%s' % (number, ['', 'K', 'M', 'B', 'T', 'Q'][magnitude])

@@ -27,16 +27,20 @@ class GenomeSplitter:
 
         self.split_sequences_ = GenomeSplitter.split_fasta_into_chunks(sequences, fragment_size_nt, **kwargs)
 
-    def write_to_file(self, pf_output, single=True):
-        # type: (str, bool) -> None
+    def write_to_file(self, pf_output, single=True, skip_super_short=True):
+        # type: (str, bool, bool) -> None
 
         if single:
             with open(pf_output, "w") as f:
-                SeqIO.write([x[0] for x in self.split_sequences_], f, "fasta")
+                SeqIO.write([x[0] for x in self.split_sequences_
+                            if not skip_super_short or len(x[0]) > 10
+                             ], f, "fasta")
         else:
             counter = 0
             for s in self.split_sequences_:
                 pf_output_chunk = f"{pf_output}_{counter}"
+                if skip_super_short and len(s[0]) < 10:
+                    continue
                 with open(pf_output_chunk, "w") as f:
                     SeqIO.write(s[0], f, "fasta")
                     counter += 1

@@ -5,6 +5,10 @@ import logging
 from itertools import chain, combinations
 from typing import *
 
+from Bio.SeqRecord import SeqRecord
+
+from mg_general.labels import Label
+
 log = logging.getLogger(__name__)
 
 

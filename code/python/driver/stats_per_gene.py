@@ -68,7 +68,7 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
         return pd.DataFrame()
 
     name_to_labels = {
-        t: read_labels_from_file(pf_predictions[t], shift=0, name=t) for t in pf_predictions.keys()
+        t: read_labels_from_file(pf_predictions[t], shift=-1, name=t) for t in pf_predictions.keys()
     }  # type: Dict[str, Labels]
 
     keys_3prime = get_unique_gene_keys(*name_to_labels.values())
@@ -88,6 +88,7 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
         entry = dict()
 
         shortest_label = None
+        tool_of = None
         for t in pf_predictions.keys():
 
             label = name_to_labels[t].get_by_3prime_key(key)
@@ -99,11 +100,17 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
                 entry[f"3p-{t}"] = label.get_3prime()
                 if shortest_label is None:
                     shortest_label = label
+                    tool_of = t
                 elif shortest_label.length() < label.length():
                     shortest_label = label
+                    tool_of = t
 
         # compute GC of label
-        gene_gc = compute_gc(sequences, shortest_label)
+        try:
+            gene_gc = compute_gc(sequences, shortest_label)
+        except IndexError:
+            print(tool_of, shortest_label.to_string())
+            print("done)")
 
         list_entries.append({
             "3p-key": key,

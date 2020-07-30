@@ -18,8 +18,9 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_general import Environment, add_env_args_to_parser
-from mg_general.general import next_name, fix_names
-from mg_stats.shelf import create_joint_reference_from_list
+from mg_general.general import next_name, fix_names, get_value
+from mg_stats.shelf import create_joint_reference_from_list, update_dataframe_with_stats, tidy_genome_level, \
+    _helper_df_joint_reference
 from mg_viz import sns
 
 # ------------------------------ #
@@ -31,11 +32,19 @@ from mg_viz.shelf import get_order_by_rank
 parser = argparse.ArgumentParser("Visualize statistics collected per gene by comparing to a reference set.")
 
 parser.add_argument('--pf-data', required=True)
-parser.add_argument('--reference', required=True, nargs='+', help="List of tools to be used as reference "
-                                                                  "(ground-truth). Note: If more than one provided, "
-                                                                  "their intersection (in terms of 5' end is taken as"
-                                                                  " reference.")
+parser.add_argument('--ref-3p', required=True, nargs='+', help="List of tools to be used as 3prime reference "
+                                                               "(ground-truth). Note: If more than one provided, "
+                                                               "their intersection (in terms of 5' end is taken as"
+                                                               " reference.")
+
+parser.add_argument('--ref-5p', required=True, nargs='+', help="List of tools to be used as 5prime reference "
+                                                               "(ground-truth). Note: If more than one provided, "
+                                                               "their intersection (in terms of 5' end is taken as"
+                                                               " reference.")
+
 parser.add_argument('--tools', nargs="+", help="If set, only compare these tools. Otherwise all tools are chosen")
+parser.add_argument('--parse-names', action='store_true', help="If set, try to shorten genome names. Useful only "
+                                                               "genome ID's in the data are actually names")
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -59,25 +68,36 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
 
     for gcfid, df_group in df.groupby("Genome", as_index=False):
 
-        if gcfid == 'GCF_000661085.1_Myco_sp_TKK-01-0051_V1':
-            print("yo")
-
         result = dict()
         for t in tools:
 
             tag = ",".join([t, reference])
             tag_eq = "=".join([t, reference])
-            
+
             if df_group[f"3p:Match({tag_eq})"].sum() == 0:
                 result[f"Match({tag})"] = np.nan
                 result[f"Number of Error({tag})"] = np.nan
+                result[f"Number of Found({tag})"] = np.nan
+                result[f"Number of Predictions({tag})"] = np.nan
             else:
-                result[f"Match({tag})"] = 100 * df_group[f"5p:Match({tag_eq})"].sum() / float(df_group[f"3p:Match({tag_eq})"].sum())
-                result[f"Number of Error({tag})"] = df_group[f"3p:Match({tag_eq})"].sum() - df_group[f"5p:Match({tag_eq})"].sum()
+                result[f"Match({tag})"] = 100 * df_group[f"5p:Match({tag_eq})"].sum() / float(
+                    df_group[f"3p:Match({tag_eq})"].sum())
+                result[f"Number of Error({tag})"] = df_group[f"3p:Match({tag_eq})"].sum() - df_group[
+                    f"5p:Match({tag_eq})"].sum()
+                result[f"Number of Match({tag})"] = df_group[f"5p:Match({tag_eq})"].sum()
 
+                result[f"Number of Found({tag})"] = df_group[f"3p:Match({tag_eq})"].sum()
+                result[f"Number of Predictions({tag})"] = df[f"3p-{t}"].count()
+
+                result[f"Sensitivity({t},{reference})"] = result[f"Number of Found({t},{reference})"] / df_group[
+                    f"5p-{reference}"].count()
+                result[f"Specificity({t},{reference})"] = result[f"Number of Found({t},{reference})"] / df_group[
+                    f"5p-{t}"].count()
 
         result["Genome"] = gcfid
         result["Genome GC"] = df_group.at[df_group.index[0], "Genome GC"]
+        result["Number in Reference"] = df_group[f"5p-{reference}"].count()
+
         list_entries.append(result)
 
     return pd.DataFrame(list_entries)
@@ -97,7 +117,7 @@ def viz_stats_as_function_of_reference_length(env, df_per_gene, tools, reference
         if math.isnan(max_length):
             continue
 
-        for l in range(100, int(max_length)+100, 100):
+        for l in range(100, int(max_length) + 100, 100):
             curr_df = df_genome[df_genome[f"Length({reference})"] <= l]
 
             for t in tools:
@@ -139,7 +159,6 @@ def viz_stats_as_function_of_reference_length(env, df_per_gene, tools, reference
         plt.show()
 
 
-
 def viz_stats_per_gene_with_reference(env, df, tools, reference):
     # type: (Environment, pd.DataFrame, List[str], str) -> None
 
@@ -154,13 +173,12 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
                           value_vars=[x for x in df_gcfid.columns if "Match(" in x],
                           var_name="Combination", value_name="Match")
 
-
         df_tidy["Combination"] = df_tidy["Combination"].apply(lambda x: x.split("(")[1].split(",")[0])
         combination_order = get_order_by_rank(df_tidy, "Genome", "Match", "Combination")
 
         df_tidy["Error"] = 100 - df_tidy["Match"]
 
-        fig, ax = plt.subplots(figsize=(12,4))
+        fig, ax = plt.subplots(figsize=(12, 4))
 
         sns.barplot(df_tidy, "Genome", "Error", hue="Combination", ax=ax,
                     sns_kwargs={"hue_order": combination_order}, show=False,
@@ -195,16 +213,16 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
         combination_order = get_order_by_rank(df_tidy, "Genome", "Match", "Combination")
 
         df_tidy["Error"] = 100 - df_tidy["Match"]
-        
+
         # fig, ax = plt.subplots(figsize=(8,4))
         g = seaborn.lmplot(
             "Genome GC", "Error", data=df_tidy, hue="Combination",
-                lowess=True, scatter_kws={"alpha": 0.3, "s": 2},
+            lowess=True, scatter_kws={"alpha": 0.3, "s": 2},
             legend=False,
         )
         plt.legend(loc='upper left')
         for lh in plt.legend().legendHandles:
-        # for lh in g._legend.legendHandles:
+            # for lh in g._legend.legendHandles:
             lh.set_alpha(1)
             lh.set_sizes([4] * len(combination_order))
 
@@ -232,7 +250,6 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
 
         plt.show()
 
-
         df_tidy_rate["Metric"] = "Percentage"
         df_tidy["Metric"] = "Number"
 
@@ -255,65 +272,114 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
         plt.show()
 
 
-def update_dataframe_with_stats(df, tools, reference):
-    # type: (pd.DataFrame, List[str], str) -> None
+def viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+    print(df_tidy.pivot(index="Genome", columns="Tool", values=["Number of Predictions", "Number of Found"]).to_csv())
 
-    for t in tools:
-        tag_5p = f"5p:Match({t}={reference})"
-        tag_3p = f"3p:Match({t}={reference})"
 
-        # match by 5prime end
-        df[tag_5p] = df[f"5p-{t}"] == df[f"5p-{reference}"]
+def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+    print(df_tidy.pivot(index="Genome", columns="Tool", values=["Sensitivity", "Specificity"]).to_csv())
 
-        # all tools have a prediction
-        df[tag_3p] = df[[f"5p-{t}", f"5p-{reference}"]].notnull().all(axis=1)
 
-    df[f"Length({reference})"] = df.apply(
-        lambda r: abs(r[f"3p-{reference}"] - r[f"5p-{reference}"]) + 1,
-        axis=1
-    )
+def viz_stats_3p(env, df_per_gene, tools, list_ref):
+    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+    """Visualize statistics at 3prime level"""
 
+    reference = _helper_df_joint_reference(df_per_gene, list_ref)
+    df_per_gene = update_dataframe_with_stats(df_per_gene, tools, reference).copy()
+
+    #### Genome Level
+    # compute stats per genome
+    df_stats_gcfid = list()
+    for _, df_group in df_per_gene.groupby("Genome", as_index=False):
+        df_stats_gcfid.append(get_stats_at_gcfid_level_with_reference(df_group, tools, reference))
+    df_per_genome = pd.concat(df_stats_gcfid, ignore_index=True, sort=False)
+
+    df_tidy = tidy_genome_level(env, df_per_genome)
+    df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
+    # Number of Predictions, number of found
+    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+
+    # Number of Predictions, Precision
+    # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
+
+    #### Gene Level
+
+
+def viz_stats_5p_number_of_found_number_of_5prime_match(env, df_tidy, reference, **kwargs):
+    # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
+    print(df_tidy.pivot(index="Genome", columns="Tool", values=["Number of Found", "Number of Match"]).to_csv())
+
+
+def viz_stats_5p_number_of_found_number_of_5prime_error(env, df_tidy, reference, **kwargs):
+    # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
+    tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
+    print(df_tidy.pivot(
+        index="Genome", columns="Tool", values=["Number of Found", "Number of Error"]
+    ).reorder_levels([1,0], 1)[[x.upper() for x in tool_order]].reorder_levels([1,0],1).sort_index(1,0, sort_remaining=False).to_csv(
+    ))
+
+
+def viz_stats_5p(env, df_per_gene, tools, list_ref):
+    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+    """Visualize statistics at 5prime level"""
+    reference = _helper_df_joint_reference(df_per_gene, list_ref)
+    df_per_gene = update_dataframe_with_stats(df_per_gene, tools, reference).copy()
+
+    #### Genome Level
+    # compute stats per genome
+    df_stats_gcfid = list()
+    for _, df_group in df_per_gene.groupby("Genome", as_index=False):
+        df_stats_gcfid.append(get_stats_at_gcfid_level_with_reference(df_group, tools, reference))
+    df_per_genome = pd.concat(df_stats_gcfid, ignore_index=True, sort=False)
+
+    df_tidy = tidy_genome_level(env, df_per_genome)
+    df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
+    # Number of Found, number of 5prime match
+    viz_stats_5p_number_of_found_number_of_5prime_match(env, df_tidy, reference)
+    viz_stats_5p_number_of_found_number_of_5prime_error(env, df_tidy, reference, tool_order=tools)
+    # Number of Predictions, Precision
+    # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    # viz_stats_5p_sensitivity_specificity(env, df_tidy, reference)
+
+    #### Gene Level
+
+
+def viz_stats_per_gene(env, df_per_gene, tools, list_ref_5p, list_ref_3p):
+    # type: (Environment, pd.DataFrame, List[str], List[str], List[str]) -> None
+
+    viz_stats_3p(env, df_per_gene, tools, list_ref_3p)
+    viz_stats_5p(env, df_per_gene, tools, list_ref_5p)
 
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     df = pd.read_csv(args.pf_data)
-    # df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
-    # df = df.sample(500)
+    if args.parse_names:
+        df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
 
-    reference = args.reference
-    tools = sorted(
-        set([x.split("-")[1] for x in df.columns if "5p-" in x])
-    )
+    # get tools list
+    # If not provided, extract from df
+    # Make sure it doesn't contain any references
+    all_tools = sorted(set([x.split("-")[1] for x in df.columns if "5p-" in x]))
+
+    # check that references exist
+    for list_ref in [args.ref_5p, args.ref_3p]:
+        for ref in list_ref:
+            if ref not in all_tools:
+                raise ValueError(f"Unknown reference {ref}")
+
     if args.tools is not None:
-        tools = args.tools + args.reference
-
-    # check that reference is one of the tools
-    if len(reference) > 1:
-        # check that all are part of tools
-        for r in reference:
-            if r not in tools:
-                raise ValueError(f"Unknown reference {r}")
-
-        tools = sorted(set(tools).difference(
-            {*reference}
-        ))
-        reference = create_joint_reference_from_list(df, reference)
-
-
+        tools = args.tools
     else:
-        reference = reference[0]
-        if reference not in tools:
-            raise ValueError(f"Unknown reference {reference}")
+        tools = all_tools
+        tools = sorted(set(tools).difference({*args.ref_5p}).difference({*args.ref_3p}))
 
-        tools = sorted(set(tools).difference(
-            {reference}
-        ))
+    # update_dataframe_with_stats(df, tools, args.ref_5p, args.ref_3p)
 
-    update_dataframe_with_stats(df, tools, reference)
-
-    # tools = sorted([x.split("-")[1] for x in df.columns if "5p-" in x])
-    viz_stats_per_gene_with_reference(env, df, tools, reference)
+    viz_stats_per_gene(env, df, tools, args.ref_5p, args.ref_3p)
 
 
 if __name__ == "__main__":

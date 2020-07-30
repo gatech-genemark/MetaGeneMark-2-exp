@@ -435,7 +435,7 @@ def convert_mga_output_to_gff(output_str, pf_output):
 
             if xx.startswith("#"):
                 if not xx.startswith("# gc") and not xx.startswith("# self"):
-                    seqid = xx[2:]
+                    seqid = xx[2:].strip().split()[0]
                     i += 1
             else:
                 if len(xx.strip()) == 0:
