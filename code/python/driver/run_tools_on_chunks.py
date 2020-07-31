@@ -160,7 +160,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
 
 
             key_value_delimiters_gff = {
-                "mgm": " ",
+                "mgm": "=",
                 "mgm2": " ",
                 "gms2": " ",
                 "mprodigal": "=",
@@ -169,10 +169,14 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
                 "mga": "="
             }
 
+            attribute_delimiter_gff = {
+                "mgm": ","
+            }
+
             # update labels file based on offset
             labels = read_labels_from_file(pf_prediction, shift=0, key_value_delimiter=key_value_delimiters_gff.get(
                 t.lower(), "="
-            ), ignore_partial=False)
+            ), attribute_delimiter=attribute_delimiter_gff.get(t.lower()), ignore_partial=False)
             seqname_to_offset = {x[0].id: x[1] for x in gs.split_sequences_}
             seqname_to_info = {x[0].id: x for x in gs.split_sequences_}
             for l in labels:

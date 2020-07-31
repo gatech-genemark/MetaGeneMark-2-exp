@@ -164,7 +164,7 @@ def viz_stats_per_gene_with_reference(env, df, tools, reference):
 
     # viz_stats_as_function_of_reference_length(env, df, tools, reference)
     df_gcfid = get_stats_at_gcfid_level_with_reference(df, tools, reference)
-    df_gcfid = df_gcfid.dropna().copy()
+    # df_gcfid = df_gcfid.dropna().copy()
 
     if len(df_gcfid) < 10:
 
@@ -281,6 +281,109 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
     print(df_tidy.pivot(index="Genome", columns="Tool", values=["Sensitivity", "Specificity"]).to_csv())
 
+def viz_stats_3p_missed_vs_length(env, df_per_gene, tools, reference):
+    # type: (Environment, pd.DataFrame, List[str], str) -> None
+
+    df_with_reference = df_per_gene[~df_per_gene[f"5p-{reference}"].isna()].copy()
+
+    # sort by reference length
+    df_with_reference.sort_values(f"Length({reference})", inplace=True)
+    df_with_reference.reset_index(inplace=True)
+
+    min_length = df_with_reference.iloc[0][f"Length({reference})"]
+
+
+    list_entries = list()
+    for t in tools:
+        curr_length = min_length
+        position = 0
+        number_found = 0
+
+        while True:
+
+            while position < len(df_with_reference) and curr_length >= df_with_reference.at[
+                df_with_reference.index[position], f"Length({reference})"
+            ]:
+
+                if not pd.isnull(df_with_reference.at[df_with_reference.index[position], f"5p-{t}"]):
+                    number_found += 1
+                position += 1
+
+            list_entries.append({
+                "Tool": t, "Found": number_found, "Reference": position, "Length": curr_length
+            })
+
+            if position >= len(df_with_reference):
+                break
+            curr_length = df_with_reference.at[df_with_reference.index[position], f"Length({reference})"]
+
+
+
+    df = pd.DataFrame(list_entries)
+    df["Rate"] = df["Found"] / df["Reference"]
+    seaborn.lineplot("Length", "Rate", data=df[(~df["Tool"].isin({"gms2", "prodigal"})) & (df["Length"] < 500)],
+                     hue="Tool")
+    plt.show()
+    print("hi")
+
+
+
+    # collect in bins
+    bins = [[0, 150], [150, 300], [300, 600], [600, 900], [900, float('inf')]]
+
+    list_entries = list()
+    for t in tools + [reference]:
+        df_tool = df_per_gene[~df_per_gene[f"5p-{t}"].isna()]
+        for b in bins:
+
+            # get entries where length of reference is in bin
+            len_series = df_with_reference[f"Length({reference})"]
+            mask = (len_series >= b[0]) & (len_series < b[1])
+            df_curr = df_with_reference[mask]
+
+            # count number of genes that are found by tool
+            number_found = df_curr[f"5p-{t}"].count()
+            number_reference = df_curr[f"5p-{reference}"].count()
+            number_predicted = ((df_tool[f"Length({t})"] >= b[0]) & (df_tool[f"Length({t})"] < b[1])).sum()
+
+            if t == reference:
+                number_found = 0
+
+            list_entries.append({
+                "Tool": t, "Found": number_found, "Reference": number_reference,
+                "Missed": (number_reference-number_found),
+                "Predictions": number_predicted,
+                "Exceed": max(number_predicted - number_found, 0),
+                "Bin Lower": b[0],
+                "Bin Upper": b[1]
+            })
+
+
+    df = pd.DataFrame(list_entries)
+    df["Rate"] = 100 * df["Found"] / df["Reference"]
+    # df.set_index("Tool", drop=True, inplace=True)
+    # df.reindex(tools).reset_index(inplace=True)
+
+    def reorder(l_df, l_order):
+        # type: (pd.DataFrame, List[str]) -> pd.DataFrame
+        return l_df.reindex(l_order)
+
+    print(df.pivot(index="Tool", columns="Bin Upper", values="Rate").to_csv())
+    print(reorder(df.pivot(index="Tool", columns="Bin Upper", values="Missed"), [reference] + tools).to_csv())
+
+    print(df.pivot(index="Tool", columns="Bin Upper", values="Predictions").to_csv())
+    print(df.pivot(index="Tool", columns="Bin Upper", values="Exceed").reindex([reference] + tools).to_csv())
+
+
+
+
+
+
+
+
+
+
+
 
 def viz_stats_3p(env, df_per_gene, tools, list_ref):
     # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
@@ -299,13 +402,15 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref):
     df_tidy = tidy_genome_level(env, df_per_genome)
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
     # Number of Predictions, number of found
-    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
-
-    # Number of Predictions, Precision
-    # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
-    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
+    # viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+    #
+    # # Number of Predictions, Precision
+    # # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    # viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
 
     #### Gene Level
+
+    viz_stats_3p_missed_vs_length(env, df_per_gene, tools, reference)
 
 
 def viz_stats_5p_number_of_found_number_of_5prime_match(env, df_tidy, reference, **kwargs):

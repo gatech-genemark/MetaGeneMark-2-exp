@@ -56,6 +56,11 @@ def update_dataframe_with_stats(df, tools, reference):
         # all tools have a prediction
         df[tag_3p] = df[[f"5p-{t}", f"5p-{reference}"]].notnull().all(axis=1)
 
+        df[f"Length({t})"] = df.apply(
+            lambda r: abs(r[f"3p-{t}"] - r[f"5p-{t}"]) + 1,
+            axis=1
+        )
+
     df[f"Length({reference})"] = df.apply(
         lambda r: abs(r[f"3p-{reference}"] - r[f"5p-{reference}"]) + 1,
         axis=1

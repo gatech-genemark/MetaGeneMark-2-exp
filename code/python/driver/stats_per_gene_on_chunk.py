@@ -61,16 +61,23 @@ def stats_per_gene_on_chunks_for_info(env, info, **kwargs):
     tool = get_value(info, "Tool", required=True)
 
     key_value_delimiters_gff = {
-        "mgm": " ",
+        "mgm": "=",
         "mgm2": " ",
         "gms2": " ",
         "mprodigal": "=",
         "prodigal": "=",
+        "fgs": "=",
+        "mga": "="
+    }
+
+    attribute_delimiter_gff = {
+        "mgm": ","
     }
 
     labels = read_labels_from_file(
         pf_prediction, shift=0, ignore_partial=False,
-        key_value_delimiter=key_value_delimiters_gff.get(tool.lower(), "=")
+        key_value_delimiter=key_value_delimiters_gff.get(tool.lower(), "="),
+        attribute_delimiter=attribute_delimiter_gff.get(tool.lower())
     )
 
 def apply_genome_splitter_to_labels(seqname_to_info, labels):

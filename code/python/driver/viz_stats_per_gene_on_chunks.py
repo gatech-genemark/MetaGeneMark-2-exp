@@ -123,7 +123,8 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
                 result[f"WR({t},{reference})"] = (result[f"Number of Predictions({t},{t})"] - result[
                     f"Number of Found({t},{reference})"]) / result[f"Number of Predictions({t},{t})"]
 
-                result[f"Sensitivity({t},{reference})"] = result[f"Number of Found({t},{reference})"] / df_group[f"5p-{reference}"].count()
+                result[f"Sensitivity({t},{reference})"] = result[f"Number of Found({t},{reference})"] / df_group[
+                    f"5p-{reference}"].count()
                 result[f"Specificity({t},{reference})"] = result[f"Number of Found({t},{reference})"] / result[
                     f"Number of Predictions({t},{t})"]
 
@@ -526,6 +527,7 @@ def viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+
 def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
 
@@ -554,7 +556,6 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
-
 
 
 def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
@@ -623,7 +624,6 @@ def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
     #     {**{x: ['sum'] for x in df_tidy.columns if x not in  {"Chunk Size", "Tool", "Number in Reference"}},
     #      'Number in Reference': ['sum']})
 
-
     df1["Precision"] = df1["Number of Found"] / df1["Number of Predictions"]
     df1["WR"] = (df1["Number of Predictions"] - df1["Number of Found"]) / df1["Number of Predictions"]
 
@@ -636,37 +636,13 @@ def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
                     values=["Precision", "Number of Missed", "Number of Predictions"]))
 
     print(df1.pivot(index="Chunk Size", columns="Tool",
-                    values=["Sensitivity", "Specificity", "Number of Found", "Number in Reference", "Number of Predictions"]).to_csv())
+                    values=["Sensitivity", "Specificity", "Number of Found", "Number in Reference",
+                            "Number of Predictions"]).to_csv())
     print("hi")
 
     df1 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).mean()
     print(df1.pivot(index="Chunk Size", columns="Tool",
-                values=["Sensitivity", "Specificity"]).to_csv())
-
-
-def viz_stats_3p(env, df_per_gene, tools, list_ref):
-    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
-    """Visualize statistics at 3prime level"""
-
-    reference = _helper_df_joint_reference(df_per_gene, list_ref)
-    df_per_gene = update_dataframe_with_stats(df_per_gene, tools, reference).copy()
-
-    #### Genome Level
-    # compute stats per genome
-    df_stats_gcfid = list()
-    for _, df_group in df_per_gene.groupby("Chunk Size", as_index=False):
-        df_stats_gcfid.append(get_stats_at_gcfid_level_with_reference(df_group, tools, reference))
-    df_per_genome = pd.concat(df_stats_gcfid, ignore_index=True, sort=False)
-
-    df_tidy = tidy_genome_level(env, df_per_genome)
-    df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
-    # Number of Predictions, number of found
-    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
-
-    # Number of Predictions, Precision
-    viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
-    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
-    #### Gene Level
+                    values=["Sensitivity", "Specificity"]).to_csv())
 
 
 def viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference):
@@ -690,7 +666,6 @@ def viz_stats_5p_error_rate(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
     g = seaborn.FacetGrid(df_tidy, col="Genome", col_wrap=4, hue="Tool", sharey=True, palette=CM.get_map("tools"))
 
-
     g.map(plt.plot, "Chunk Size", "Error Rate")
 
     g.set_titles("{col_name}", style="italic")
@@ -702,17 +677,18 @@ def viz_stats_5p_error_rate(env, df_tidy, reference):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+
 def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()) != "verified"].copy()
 
     for cond in ["IC5p", "IC3p", "Comp"]:
-        df_tidy[f"Error Rate {cond}"] = (df_tidy[f"Number of {cond} Found"] - df_tidy[f"Number of {cond} Match"])/ df_tidy[f"Number of {cond} Found"]
+        df_tidy[f"Error Rate {cond}"] = (df_tidy[f"Number of {cond} Found"] - df_tidy[f"Number of {cond} Match"]) / \
+                                        df_tidy[f"Number of {cond} Found"]
 
         g = seaborn.FacetGrid(df_tidy, col="Genome", col_wrap=4, hue="Tool", sharey=True, palette=CM.get_map("tools"))
 
         g.map(plt.plot, "Chunk Size", f"Error Rate {cond}")
-
 
         g.set_titles("{col_name}", style="italic")
         # g.set(ylim=(0, 1))
@@ -721,10 +697,10 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
         g.set_ylabels("Error Rate")
         g.add_legend()
         plt.suptitle({
-            "IC5p": "Incomplete at 5' end",
-            "IC3p": "Incomplete at 3' end",
-            "Comp": "Complete genes"
-        }[cond])
+                         "IC5p": "Incomplete at 5' end",
+                         "IC3p": "Incomplete at 3' end",
+                         "Comp": "Complete genes"
+                     }[cond])
         plt.savefig(next_name(env["pd-work"]))
         plt.show()
 
@@ -737,25 +713,22 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     )
     df2_tidy["Condition"] = df2_tidy["Condition"].apply(lambda x: x.split()[2])
     df_tmp = pd.melt(
-        df2, id_vars = ["Chunk Size", "Tool"],
-        value_vars = [f"Number of {cond} Match" for cond in ["IC5p", "IC3p", "Comp"]],
-        var_name = "Condition", value_name="Match"
+        df2, id_vars=["Chunk Size", "Tool"],
+        value_vars=[f"Number of {cond} Match" for cond in ["IC5p", "IC3p", "Comp"]],
+        var_name="Condition", value_name="Match"
     )
     df_tmp["Condition"] = df_tmp["Condition"].apply(lambda x: x.split()[2])
 
     df2_tidy = reduce(lambda df1, df2: pd.merge(df1, df2, on=["Chunk Size", "Condition", "Tool"],
-                                            how="outer"), [df2_tidy, df_tmp])
+                                                how="outer"), [df2_tidy, df_tmp])
 
-
-
-    df2_tidy[f"Error Rate"] = (df2_tidy[f"Found"] - df2_tidy[f"Match"])/ df2_tidy[f"Found"]
+    df2_tidy[f"Error Rate"] = (df2_tidy[f"Found"] - df2_tidy[f"Match"]) / df2_tidy[f"Found"]
 
     df2_tidy["Condition"].replace({
-            "IC5p": "Incomplete at Gene Start",
-            "IC3p": "Incomplete at Gene End",
-            "Comp": "Complete genes"
-        }, inplace=True)
-
+        "IC5p": "Incomplete at Gene Start",
+        "IC3p": "Incomplete at Gene End",
+        "Comp": "Complete genes"
+    }, inplace=True)
 
     hue_order = sorted(df_tidy["Tool"].unique())
     g = seaborn.FacetGrid(df2_tidy, col="Condition", hue="Tool", sharey=True, palette=CM.get_map("tools"),
@@ -769,8 +742,6 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_ylabels("Gene-Start Error Rate")
     g.add_legend()
 
-
-
     for ax, (_, subdata) in zip(g.axes[0], df2_tidy.groupby('Condition')):
         ax2 = ax.twinx()
         subdata = subdata.sort_values("Chunk Size")
@@ -779,7 +750,6 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
             ax2.plot(subdata_hue["Chunk Size"], subdata_hue["Found"], label=hue, linestyle="dashed")
             # ax2.set_ylim(40, 100)
         # subdata.plot(x='data_sondage', y='impossible', ax=ax2, legend=False, color='r')
-
 
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
@@ -806,11 +776,10 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     )
     df_tmp["Condition"] = df_tmp["Condition"].apply(lambda x: x.split()[2])
     df_tmp = reduce(lambda df1, df2: pd.merge(df1, df2, on=["Chunk Size", "Condition", "Tool"],
-                                                how="outer"), [df2_tidy, df_tmp])
+                                              how="outer"), [df2_tidy, df_tmp])
 
     df_tmp[f"Score"] = (df_tmp[f"Score"] - df_tmp[f"Match"]) / df_tmp[f"Score"]
     df_tmp["Metric"] = "Error Rate"
-
 
     df2_tidy = pd.concat([df2_tidy, df_tmp])
 
@@ -834,7 +803,6 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_xlabels("Chunk Size (nt)")
     # g.set_ylabels("Gene-Start Error Rate")
 
-
     for i, axes_row in enumerate(g.axes):
         for j, axes_col in enumerate(axes_row):
 
@@ -845,14 +813,13 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
                     axes_col.set_ylabel("Gene-Start Error Rate")
 
     g.add_legend()
-    plt.tight_layout(rect=[0,0,0.8,1])
+    plt.tight_layout(rect=[0, 0, 0.8, 1])
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
 
-def viz_stats_5p(env, df_per_gene, tools, list_ref):
-    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
-    """Visualize statistics at 5prime level"""
+def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
+    # type: (Environment, pd.DataFrame, List[str], List[str]) -> [str, pd.DataFrame]
     reference = _helper_df_joint_reference(df_per_gene, list_ref)
     df_per_gene = update_dataframe_with_stats(df_per_gene, tools, reference).copy()
 
@@ -866,6 +833,44 @@ def viz_stats_5p(env, df_per_gene, tools, list_ref):
     df_tidy = tidy_genome_level(env, df_per_genome)
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
 
+    return reference, df_tidy
+
+
+def viz_stats_3p_missed_vs_length(env, df_per_gene, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+
+    pass
+
+
+
+def viz_stats_3p(env, df_per_gene, tools, list_ref):
+    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+    """Visualize statistics at 3prime level"""
+    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+
+    ########## Genome Level ##########
+    # Number of Predictions, number of found
+    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+
+    # Number of Predictions, Precision
+    viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+
+    # Sensitivity Specificity
+    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
+
+
+    ########## Gene Level ##########
+
+    # Missed vs reference length
+    viz_stats_3p_missed_vs_length(env, df_per_gene, reference)
+
+
+
+def viz_stats_5p(env, df_per_gene, tools, list_ref):
+    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+    """Visualize statistics at 5prime level"""
+    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+
     # Number of 5p Errors, number of found
     viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference)
     viz_stats_5p_error_rate(env, df_tidy, reference)
@@ -875,7 +880,7 @@ def viz_stats_5p(env, df_per_gene, tools, list_ref):
 def viz_stats_per_gene(env, df_per_gene, tools, list_ref_5p, list_ref_3p):
     # type: (Environment, pd.DataFrame, List[str], List[str], List[str]) -> None
 
-    # viz_stats_3p(env, df_per_gene, tools, list_ref_3p)
+    viz_stats_3p(env, df_per_gene, tools, list_ref_3p)
     viz_stats_5p(env, df_per_gene, tools, list_ref_5p)
 
 
@@ -914,8 +919,6 @@ def main(env, args):
     else:
         tools = all_tools
         tools = sorted(set(tools).difference({*args.ref_5p}).difference({*args.ref_3p}))
-
-    # update_dataframe_with_stats(df, tools, args.ref_5p, args.ref_3p)
 
     viz_stats_per_gene(env, df, tools, args.ref_5p, args.ref_3p)
 

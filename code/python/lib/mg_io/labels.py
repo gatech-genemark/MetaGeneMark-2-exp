@@ -40,6 +40,7 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
     ignore_partial = get_value(kwargs, "ignore_partial", True)
     tools = get_value(kwargs, "tools", None)
     key_value_delimiter = get_value(kwargs, "key_value_delimiter", "=", valid_type=str)
+    attribute_delimiter = get_value(kwargs, "attribute_delimiter", ";", valid_type=str)
 
     labels = Labels(name=name)
 
@@ -54,14 +55,15 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
             m = pattern.match(line)
             if m:
 
-                attributes = create_attribute_dict(m.group(9), key_value_delimiter=key_value_delimiter)
+                attributes = create_attribute_dict(m.group(9), key_value_delimiter=key_value_delimiter,
+                                                   delimiter=attribute_delimiter)
 
                 label = Label.from_fields(
                     {
                         "left": int(m.group(4)) + shift,
                         "right": int(m.group(5)) + shift,
                         "strand": m.group(7),
-                        "seqname": m.group(1),
+                        "seqname": m.group(1).split()[0],
                     },
                     attributes=attributes
                 )

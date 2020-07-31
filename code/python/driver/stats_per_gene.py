@@ -58,7 +58,10 @@ logger = logging.getLogger("logger")  # type: logging.Logger
 
 def stats_per_gene_for_gi(env, gi, tools, **kwargs):
     # type: (Environment, GenomeInfo, Dict[str, str], Dict[str, Any]) -> pd.DataFrame
-
+    # if "Roseo" in gi.name:
+    #     print('hi')
+    # else:
+    #     return
     pf_predictions = {
         t: os_join(env["pd-runs"], gi.name, tools[t], "prediction.gff") for t in tools.keys()
         if os.path.isfile(os_join(env["pd-runs"], gi.name, tools[t], "prediction.gff"))
@@ -177,7 +180,7 @@ def stats_per_gene(env, gil, tools, pf_output, **kwargs):
                 func_kwargs={
                     "env": env, "tools": tools, **kwargs
                 },
-                simultaneous_runs=prl_options.safe_get("num-processors")
+                simultaneous_runs=1 #prl_options.safe_get("num-processors")
             )
 
             df = pd.concat(list_df, ignore_index=True, sort=False)
