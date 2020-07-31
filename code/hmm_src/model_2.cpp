@@ -623,6 +623,68 @@ std::string Model::IntToString( unsigned int index, unsigned int const order )
 
 	return key;
 }
+
+
+//////////////////////// BEGIN NEW DURATION
+void Model::InitiateLogoddIncompleDuration(unsigned int const reserved_length)
+{
+    assert(noncoding_duration_decay);
+    assert(coding_duration_decay);
+    assert(gene_min_length > 0);
+
+    logodd_incomplete_duration.resize( reserved_length, 0 );
+
+    double q = exp( -1.0 / noncoding_duration_decay );
+    double p = exp( -3.0 / coding_duration_decay );
+
+    double A = (1.0 - p)*(1.0 - p)*(1.0 - p) / (1.0 + p);
+
+    double total = 0;
+
+    logodd_incomplete_duration[3] = 1 - A;
+    total += logodd_incomplete_duration[3];
+
+    for( unsigned int i = 4; i < reserved_length; ++i )
+    {
+        if ( i%3 != 0) continue;
+
+        logodd_incomplete_duration[i] = logodd_incomplete_duration[i-3] - A*(i*i/9)*pow(p, i/3-1);
+        total += logodd_incomplete_duration[i];
+    }
+
+    Log(logodd_incomplete_duration);
+
+    total = log(total);
+
+    for (unsigned int i = 1; i < reserved_length; ++i)
+    {
+        if (i % 3 != 0) continue;
+
+        logodd_incomplete_duration[i] -= total;
+        logodd_incomplete_duration[i] -= log(1-q) + (i-1)*log(q) + log(1/(q*q) + 1/q + 1);
+    }
+}
+
+double Model::GetIncompleteDurationForORF(unsigned int const length)
+{
+    double x = 0;
+    assert(!(length % 3));
+
+    if (length < logodd_incomplete_duration.size())
+        x = logodd_incomplete_duration[length];
+    else
+    {
+        int size = logodd_incomplete_duration.size();
+        int index = size - size%3;
+
+        x = logodd_incomplete_duration[index];
+    }
+
+    return x;
+}
+//////////////////////// END NEW DURATION
+
+
 // ----------------------------------------------------
 void Model::InitiateLogoddDuration(unsigned int const reserved_length)
 {
@@ -645,28 +707,28 @@ void Model::InitiateLogoddDuration(unsigned int const reserved_length)
 		logodd_duration[i] = i*dur_r + 2*log((double)i) + dur_c;
 	}
 }
-// ----------------------------------------------------
-void Model::InitiateLogoddIncompleDuration(unsigned int const reserved_length)
-{
-	assert(noncoding_duration_decay);
-	assert(coding_duration_decay);
-	assert(gene_min_length > 0);
-
-	logodd_incomplete_duration.resize( reserved_length, LOG_ZERO );
-
-	double q = exp( -1.0 / noncoding_duration_decay );
-	double p = exp( -3.0 / coding_duration_decay );
-
-	dur_r = log(p)/3 - log(q);
-	dur_c = log((1-p)*(1-p)*(1-p)/(p*(1+p))) + log((1-q)/q) - 2*log(3.0);
-
-	for( unsigned int i = 1; i < reserved_length; ++i )
-	{
-		if ( i%3 != 0) continue;
-
-		logodd_incomplete_duration[i] = i*dur_r + 2*log((double)i) + dur_c;
-	}
-}
+// ---------------------------------------------------- OLD
+//void Model::InitiateLogoddIncompleDuration(unsigned int const reserved_length)
+//{
+//	assert(noncoding_duration_decay);
+//	assert(coding_duration_decay);
+//	assert(gene_min_length > 0);
+//
+//	logodd_incomplete_duration.resize( reserved_length, LOG_ZERO );
+//
+//	double q = exp( -1.0 / noncoding_duration_decay );
+//	double p = exp( -3.0 / coding_duration_decay );
+//
+//	dur_r = log(p)/3 - log(q);
+//	dur_c = log((1-p)*(1-p)*(1-p)/(p*(1+p))) + log((1-q)/q) - 2*log(3.0);
+//
+//	for( unsigned int i = 1; i < reserved_length; ++i )
+//	{
+//		if ( i%3 != 0) continue;
+//
+//		logodd_incomplete_duration[i] = i*dur_r + 2*log((double)i) + dur_c;
+//	}
+//}
 // ----------------------------------------------------
 double Model::GetDurationForORF(unsigned int const length)
 {
@@ -680,19 +742,19 @@ double Model::GetDurationForORF(unsigned int const length)
 
 	return x;
 }
-// ----------------------------------------------------
-double Model::GetIncompleteDurationForORF(unsigned int const length)
-{
-	double x = 0;
-	assert(!(length % 3));
-
-	if ( length < logodd_incomplete_duration.size() )
-		x = logodd_incomplete_duration[length];
-	else
-		x = length*dur_r + 2*log((double)length) + dur_c;
-
-	return x;
-}
+// ---------------------------------------------------- Old
+//double Model::GetIncompleteDurationForORF(unsigned int const length)
+//{
+//	double x = 0;
+//	assert(!(length % 3));
+//
+//	if ( length < logodd_incomplete_duration.size() )
+//		x = logodd_incomplete_duration[length];
+//	else
+//		x = length*dur_r + 2*log((double)length) + dur_c;
+//
+//	return x;
+//}
 // ----------------------------------------------------
 std::string Model::PrintDuration(void)
 {
