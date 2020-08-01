@@ -38,6 +38,7 @@ parser = argparse.ArgumentParser("Collects gene-level stats for runs with chunki
 parser.add_argument('--pf-summary', required=True)
 parser.add_argument('--pf-output', required=True)
 parser.add_argument('--reference-tools', nargs="+")
+parser.add_argument('--batch-size', default=None, type=int)
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
 
@@ -293,6 +294,8 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, **kwargs):
 
 def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
     prl_options = get_value(kwargs, "prl_options", None)  # type: ParallelizationOptions
+    append = get_value(kwargs, "append", False)
+    mode = "w" if not append else "a"
 
     # no parallelization
     if prl_options is None:
@@ -331,14 +334,30 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 
             df = pd.concat(list_df, ignore_index=True, sort=False)
 
-    df.to_csv(pf_output, index=False)
+    df.to_csv(pf_output, index=False, mode=mode)
 
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     df = pd.read_csv(args.pf_summary)
-    stats_per_gene_on_chunks(env, df, args.pf_output,
+    if args.batch_size is None:
+        stats_per_gene_on_chunks(env, df, args.pf_output,
                              reference_tools=args.reference_tools)
+    else:
+        df.reset_index(inplace=True)
+        bs = args.batch_size
+        start = 0
+        end = min(bs, len(df))
+
+        while start < len(df):
+            curr_df = df.iloc[start:end]
+
+            stats_per_gene_on_chunks(env, curr_df, args.pf_output,
+                                     reference_tools=args.reference_tools,
+                                     append=start > 0)
+            start = end
+            end = min(start + bs, len(df))
+
 
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ from mg_viz.general import square_subplots
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
     _helper_df_joint_reference
-from mg_general.general import all_elements_equal, fix_names, next_name
+from mg_general.general import all_elements_equal, fix_names, next_name, os_join
 from mg_viz.colormap import ColorMap as CM
 
 # ------------------------------ #
@@ -557,6 +557,19 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+    g = seaborn.FacetGrid(df_tidy, col="Genome", col_wrap=4, hue="Tool", sharey=True, palette=CM.get_map("tools"))
+
+    g.map(plt.plot, "Specificity", "Sensitivity")
+
+    g.set_titles("{col_name}", style="italic")
+    # g.set(ylim=(0, 1))
+    # g.set(xlim=(0, 5100))
+    g.set_ylabels("Sensitivity")
+    g.set_xlabels("Specificity")
+    g.add_legend()
+    plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
 
 def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
@@ -842,6 +855,83 @@ def viz_stats_3p_missed_vs_length(env, df_per_gene, reference):
     pass
 
 
+def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+    df2 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).sum()
+    df2["Sensitivity"] = df2["Number of Found"] / df2["Number in Reference"]
+    df2["Specificity"] = df2["Number of Found"] / df2["Number of Predictions"]
+    df2["False Positive"] = df2["Number of Predictions"] - df2["Number of Found"]
+
+
+    df2_no_ref = df2[df2["Tool"].apply(lambda x: x.lower()) != reference.lower()]
+    df2_ref = df2[df2["Tool"].apply(lambda x: x.lower()) == reference]
+
+    tools = list(df2_no_ref["Tool"].unique())
+
+    # fig, axes = plt.subplots(2, 2)
+    #
+    # for col, ax in zip(["Sensitivity", "Specificity"], axes[0]):
+    #     seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+    #                      hue_order=tools,
+    #                      palette=CM.get_map("tools"), legend=False)
+    #     ax.set_ylim(0, 1)
+    #
+    # #         ax.set(adjustable='box-forced', aspect='equal')
+    #
+    # plt.legend(tools, bbox_to_anchor=(1.05, 0.5), loc="center left")
+    #
+    # for col, ax in zip(["Number of Missed", "False Positive"], axes[1]):
+    #     seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+    #                      palette=CM.get_map("tools"), legend=False)
+    #
+    #     # add dashed for number of genes in reference
+    #     ax.plot(df2_ref["Chunk Size"], df2_ref["Number in Reference"], linestyle="dashed",
+    #             color=CM.get_map("tools")[reference.lower()])
+    #     ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+    # plt.savefig(next_name(env["pd-work"]))
+    #
+    # plt.show()
+    fig, axes = plt.subplots(2, 2)
+
+    for col, ax in zip(["Sensitivity", "Specificity"], axes[0]):
+        for t in tools:
+            df_curr = df2_no_ref[df2_no_ref["Tool"] == t]
+            ax.plot(df_curr["Chunk Size"], df_curr[col], color=CM.get_map("tools")[t.lower()],
+                    label=t)
+        # seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+        #                  hue_order=tools,
+        #                  palette=CM.get_map("tools"))
+        ax.set_ylabel(col)
+        ax.set_ylim(0, 1)
+
+    #         ax.set(adjustable='box-forced', aspect='equal')
+
+    for i, (col, ax) in enumerate(zip(["Number of Missed", "False Positive"], axes[1])):
+        for t in tools:
+            df_curr = df2_no_ref[df2_no_ref["Tool"] == t]
+            ax.plot(df_curr["Chunk Size"], df_curr[col], color=CM.get_map("tools")[t.lower()],
+                    label=t)
+        # seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+        #                  palette=CM.get_map("tools"))
+
+        # add dashed for number of genes in reference
+        ax.plot(df2_ref["Chunk Size"], df2_ref["Number in Reference"], linestyle="dashed",
+                color=CM.get_map("tools")[reference.lower()], label="RefSeq")
+        ax.set_ylabel(col)
+        ax.set_xlabel("Chunk Size (nt)")
+        ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+    # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+    # fig.legend(loc="center right")
+    handles, labels = ax.get_legend_handles_labels()
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
+    # fig.subplots_adjust(right=0.85)
+    fig.tight_layout()
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+    # plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
 
 def viz_stats_3p(env, df_per_gene, tools, list_ref):
     # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
@@ -858,12 +948,12 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref):
     # Sensitivity Specificity
     viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
 
+    viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference)
 
     ########## Gene Level ##########
 
     # Missed vs reference length
     viz_stats_3p_missed_vs_length(env, df_per_gene, reference)
-
 
 
 def viz_stats_5p(env, df_per_gene, tools, list_ref):
@@ -903,6 +993,7 @@ def main(env, args):
     df = pd.read_csv(args.pf_data)
     if args.parse_names:
         df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
+    df = df[df["Chunk Size"] < 6000].copy()
     # get tools list
     # If not provided, extract from df
     # Make sure it doesn't contain any references
