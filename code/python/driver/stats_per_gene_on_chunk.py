@@ -16,6 +16,7 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
+from mg_argparse.parallelization import add_parallelization_options
 from mg_general import Environment, add_env_args_to_parser
 
 # ------------------------------ #
@@ -39,6 +40,8 @@ parser.add_argument('--pf-summary', required=True)
 parser.add_argument('--pf-output', required=True)
 parser.add_argument('--reference-tools', nargs="+")
 parser.add_argument('--batch-size', default=None, type=int)
+add_parallelization_options(parser)
+
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
 
@@ -340,14 +343,17 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     df = pd.read_csv(args.pf_summary)
+    prl_options = ParallelizationOptions.init_from_dict(env, args.pf_parallelization_options,
+                                                        vars(args))
     if args.batch_size is None:
         stats_per_gene_on_chunks(env, df, args.pf_output,
-                             reference_tools=args.reference_tools)
+                             reference_tools=args.reference_tools,
+                                 prl_options=prl_options)
     else:
         df.reset_index(inplace=True)
         bs = args.batch_size
 
-        list_df = list([x[1] for x in df.group_by("Genome", as_index=False)])
+        list_df = list([x[1] for x in df.groupby("Genome", as_index=False)])
 
         start = 0
         end = min(bs, len(list_df))
@@ -357,7 +363,8 @@ def main(env, args):
 
             stats_per_gene_on_chunks(env, curr_df, args.pf_output,
                                      reference_tools=args.reference_tools,
-                                     append=start > 0)
+                                     append=start > 0,
+                                     prl_options=prl_options)
             start = end
             end = min(start + bs, len(list_df))
 
