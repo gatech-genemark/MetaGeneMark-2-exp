@@ -346,17 +346,20 @@ def main(env, args):
     else:
         df.reset_index(inplace=True)
         bs = args.batch_size
-        start = 0
-        end = min(bs, len(df))
 
-        while start < len(df):
-            curr_df = df.iloc[start:end]
+        list_df = list([x[1] for x in df.group_by("Genome", as_index=False)])
+
+        start = 0
+        end = min(bs, len(list_df))
+
+        while start < len(list_df):
+            curr_df = pd.concat(list_df[start:end], sort=False, ignore_index=True)
 
             stats_per_gene_on_chunks(env, curr_df, args.pf_output,
                                      reference_tools=args.reference_tools,
                                      append=start > 0)
             start = end
-            end = min(start + bs, len(df))
+            end = min(start + bs, len(list_df))
 
 
 
