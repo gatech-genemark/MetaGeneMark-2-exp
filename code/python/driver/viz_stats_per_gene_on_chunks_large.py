@@ -18,6 +18,7 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
+from mg_parallelization.generic_threading import run_one_per_thread
 from mg_viz.general import square_subplots
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
@@ -898,13 +899,21 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
 
 def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
 
-    list_df_genome = list()
-    reference = None
-    for df_per_gene_for_genome_chunk in yeild_from_file_per_genome_per_chunk(pf_data):
-        reference, df_genome = _helper_join_reference_and_tidy_data(
-            env, df_per_gene_for_genome_chunk, tools, list_ref
-        )
-        list_df_genome.append(df_genome)
+    if not True:
+        list_df_genome = list()
+        reference = None
+        for df_per_gene_for_genome_chunk in yeild_from_file_per_genome_per_chunk(pf_data):
+            reference, df_genome = _helper_join_reference_and_tidy_data(
+                env, df_per_gene_for_genome_chunk, tools, list_ref
+            )
+            list_df_genome.append(df_genome)
+    else:
+        list_ref_df = run_one_per_thread(yeild_from_file_per_genome_per_chunk(pf_data),
+                                         _helper_join_reference_and_tidy_data,
+                           "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
+                           simultaneous_runs=7)
+        list_df_genome = [x[1] for x in list_ref_df]
+        reference = list_df_genome[0][0]
 
     return reference, pd.concat(list_df_genome, ignore_index=True, sort=False)
 
