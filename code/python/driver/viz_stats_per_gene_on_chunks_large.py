@@ -864,7 +864,12 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
     prev_chunk = None
     for df_chunk in gen_df_chunk:
 
-        df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
+        if len(df_chunk) == 0:
+            continue
+        try:
+            df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
+        except TypeError:
+            continue
         if len(df_chunk) == 0:
             continue
 
@@ -894,7 +899,12 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
                     del genome_to_chunk_to_df[prev_genome][prev_chunk]
                     if len(genome_to_chunk_to_df[prev_genome]) == 0:
                         del genome_to_chunk_to_df[prev_genome]
+    # check existing dataframes aren't found in new read
+    for prev_genome in list(genome_to_chunk_to_df.keys()):
+        for prev_chunk in list(genome_to_chunk_to_df[prev_genome].keys()):
 
+                # time to remove this
+            yield genome_to_chunk_to_df[prev_genome][prev_chunk]
 
 def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
 
@@ -905,6 +915,7 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
             env, df_per_gene_for_genome_chunk, tools, list_ref
         )
         list_df_genome.append(df_genome)
+        logger.debug(f"Num rows {len(list_df_genome)}")
 
     return reference, pd.concat(list_df_genome, ignore_index=True, sort=False)
 
