@@ -81,10 +81,14 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
 
     active_threads = list()
     thread_id = 0
+    output = dict()  # type: Dict[Any, List[Any]]
+
+
     for dp in data:
 
         # Create a thread for genome and run
-        thread = GenericThread(func, {data_arg_name: dp, **func_kwargs})
+        thread = GenericThread(func, {data_arg_name: dp, **func_kwargs},
+                               output=output)
         thread.start()
         thread_id += 1
 
@@ -95,6 +99,10 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
         time.sleep(5)
 
     wait_for_all(active_threads)
+
+    return [
+        l for l in output.values()
+    ]
 
 
 def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
