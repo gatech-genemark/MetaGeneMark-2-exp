@@ -987,8 +987,9 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
                                          _helper_join_reference_and_tidy_data,
                            "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
                            simultaneous_runs=7)
-        list_df_genome = [x[1] for x in list_ref_df]
-        reference = list_ref_df[0][0]
+        if len(list_ref_df) > 0:
+            list_df_genome = [x[1] for x in list_ref_df]
+            reference = list_ref_df[0][0]
 
     logger.debug(f"Completed per-gene to genome. Num  rows: {len(list_df_genome)}")
 
@@ -1088,6 +1089,8 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     num_rows = 2
     num_cols = num_chunk_sizes
     fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all")
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
+
     from collections import abc
 
     if not isinstance(axes, abc.Iterable):
@@ -1108,7 +1111,9 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             if t == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
-            seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()])
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t,
+                            color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
             ax.set_title(f"{cs} nt")
             ax.set_ylim((-0.001, 1.001))
             if col_i == 0:
@@ -1126,7 +1131,8 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             if t == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
-            seaborn.regplot(df_curr["Genome GC"], df_curr["Specificity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()])
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Specificity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
             ax.set_title(f"{cs} nt")
             ax.set_ylim((-0.001, 1.001))
             if col_i == 0:
