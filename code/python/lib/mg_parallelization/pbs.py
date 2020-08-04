@@ -110,6 +110,56 @@ class PBS:
 
         return data_output
 
+    def run_on_generator(self, gen_data, func, func_kwargs, **kwargs):
+        # type: (Generator, Callable, Dict[str, Any], Dict[str, Any]) -> Any
+        """
+        Run function on data using PBS scheduler
+        :param data: Dictionary containing data name and value
+        :param func: function to call on data with arguments in func_kwargs
+        :param func_kwargs: Additional arguments to be passed
+        :param kwargs:
+        :return: output of merger function
+        """
+
+        job_name = get_value(kwargs, "job_name", "JOBNAME")
+
+        pf_input_package_template_formatted = os.path.join(
+            os.path.abspath(self._prl_options["pbs-pd-head"]), "input_package_{}"
+        )
+
+        num_jobs = self._prl_options["pbs-jobs"]
+
+        # 1) Parse all PBS arguments
+        self._setup_pbs_run()
+
+        # 2) Create input packages files, one for every PBS run
+        list_pf_input_job = self.create_input_package_files(
+            gen_data, func, func_kwargs, num_jobs,
+            pf_package_template_formatted=pf_input_package_template_formatted,
+            **kwargs
+        )
+
+        num_jobs = len(list_pf_input_job)
+
+        # 3) Run all
+        list_pf_output_job_packages = self.execute_function_on_input_packages(
+            pf_input_package_template_formatted,
+            job_name=job_name, num_jobs=num_jobs
+        )
+
+        # 4) Merge end-results
+        data_output = None
+        if not self._dry_run:
+            data_output = self.merge_output_package_files(list_pf_output_job_packages)
+
+        # 5) Clean
+        if self._prl_options.safe_get("pbs-clean"):
+            remove_p(*list_pf_input_job)
+            remove_p(*list_pf_output_job_packages)
+
+        return data_output
+
+
     def create_input_package_files(self, data, func, func_kwargs, num_splits, **kwargs):
         # type: (Dict, Callable, Dict[str, Any], int, Dict[str, Any]) -> List[str]
         """
@@ -149,6 +199,45 @@ class PBS:
         # Write package to disk
         list_pf_data = self._package_and_save_list_data(list_split_data, func, func_kwargs,
                                                         pf_package_template_formatted)
+
+        # return list of filenames
+        return list_pf_data
+
+    def create_input_package_files_from_generator(self, data, func, func_kwargs, num_splits, **kwargs):
+        # type: (Dict, Callable, Dict[str, Any], int, Dict[str, Any]) -> List[str]
+        """
+        Run a function on the data using PBS
+        :param data: the entire data
+        :type data: DataHandler.D
+        :param func: the function to execute on the (split) data
+        :type func: Callable
+        :param func_kwargs: the remaining arguments (i.e. not data) to be passed to the function
+        :type func_kwargs: Dict[str, Any]
+        :param num_splits: number of job splits
+        :type num_splits: int
+        :param kwargs:
+        :return: List of paths to input package files
+        :rtype: List[str]
+        """
+
+        split_collector = get_value(kwargs, "split_collector", None, valid_type=list)       # type: List
+        split_kwargs = get_value(kwargs, "split_kwargs", None)
+        if split_kwargs is None:
+            split_kwargs = dict()
+
+        pd_work_pbs = self._prl_options["pbs-pd-head"]
+
+        pf_package_template_formatted = get_value(
+            kwargs, "pf_package_template_formatted", os.path.join(pd_work_pbs, "input_package_{}")
+        )
+
+        # Split data
+        # list_split_data = self._splitter(data, num_splits, **split_kwargs)
+
+        # Write package to disk
+        list_pf_data = self._package_and_save_list_data_from_generator(
+            data, func, func_kwargs, pf_package_template_formatted, **split_kwargs
+        )
 
         # return list of filenames
         return list_pf_data
@@ -238,6 +327,24 @@ class PBS:
             pf_save = pf_package_template_formatted.format(file_number)
 
             self._package_and_save_data(data, func, func_kwargs, pf_save)
+            list_pf.append(pf_save)
+
+            file_number += 1
+
+        return list_pf
+
+    def _package_and_save_list_data_from_generator(self, gen_data, func, func_kwargs, pf_package_template_formatted,
+                                                   **kwargs):
+        # type: (Generator, Callable, Dict[str, Any], str, Dict[str, Any]) -> List[str]
+        arg_name_data = get_value(kwargs, "arg_name_data", "data")
+
+        list_pf = list()
+        file_number = 1
+
+        for data in gen_data:
+            pf_save = pf_package_template_formatted.format(file_number)
+
+            self._package_and_save_data({arg_name_data: data}, func, func_kwargs, pf_save)
             list_pf.append(pf_save)
 
             file_number += 1
