@@ -7,6 +7,7 @@ from typing import *
 from mg_general.general import get_value
 
 log = logging.getLogger(__name__)
+logger=log
 
 
 def wait_for_all(active_threads):
@@ -91,12 +92,14 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
                                output=output)
         thread.start()
         thread_id += 1
+        active_threads.append(thread)
+        logger.debug(f"Number of active threads: {len(active_threads)}")
 
         # wait until number of active threads is low
         if len(active_threads) >= simultaneous_runs:
             wait_for_any(active_threads)
 
-        time.sleep(5)
+        time.sleep(1)
 
     wait_for_all(active_threads)
 

@@ -853,11 +853,66 @@ def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     return reference, df_tidy
 
 
-
 def yeild_from_file_per_genome_per_chunk(pf_data):
     # type: (str) -> Generator[pd.DataFrame]
     """Assumes datafile has genome-chunk entries consecutively"""
-    gen_df_chunk = pd.read_csv(pf_data, chunksize=4000)
+    gen_df_chunk = pd.read_csv(pf_data, chunksize=200000)
+
+    # genomes_at_a_time
+    gaat = 8
+
+    genome_to_df = dict()      # type: Dict[str, Dict[str, pd.DataFrame]]
+    list_df_genome = list()
+    prev_genome = None
+    prev_chunk = None
+    for df_chunk in gen_df_chunk:
+
+        logger.debug(f"Read {len(df_chunk['Genome'].unique())} genomes and {len(df_chunk['Chunk Size'].unique())} chunks")
+
+        if len(df_chunk) == 0:
+            continue
+        try:
+            df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
+        except TypeError:
+            continue
+        if len(df_chunk) == 0:
+            continue
+
+        list_curr_keys = set()
+        for genome, df_curr in df_chunk.groupby("Genome"):
+            list_curr_keys.add(genome)
+
+            if genome not in genome_to_df.keys():
+                genome_to_df[genome] = pd.DataFrame()
+
+            # concatenate
+            genome_to_df[genome] = pd.concat(
+                [genome_to_df[genome], df_curr],
+                ignore_index=True, sort=False
+            )
+
+        # check existing dataframes aren't found in new read
+        for prev_genome in list(genome_to_df.keys()):
+            if prev_genome not in list_curr_keys:
+
+                # time to remove this
+                logger.debug(f"Ready to parse: {prev_genome}, num_chunks={len(list(genome_to_df[prev_genome]['Chunk Size'].unique()))}")
+                yield genome_to_df[prev_genome]
+
+                del genome_to_df[prev_genome]
+
+    # check existing dataframes aren't found in new read
+    for prev_genome in list(genome_to_df.keys()):
+
+                # time to remove this
+        yield genome_to_df[prev_genome]
+
+
+def yeild_from_file_per_genome_per_chunk_slow(pf_data):
+    # type: (str) -> Generator[pd.DataFrame]
+    """Assumes datafile has genome-chunk entries consecutively"""
+    gen_df_chunk = pd.read_csv(pf_data, chunksize=200000)
+
 
     genome_to_chunk_to_df = dict()      # type: Dict[str, Dict[str, pd.DataFrame]]
     list_df_genome = list()
@@ -895,6 +950,7 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
                 if (prev_genome, prev_chunk) not in list_curr_keys:
 
                     # time to remove this
+                    logger.debug(f"Ready to parse: {prev_genome}, {prev_chunk}")
                     yield genome_to_chunk_to_df[prev_genome][prev_chunk]
 
                     del genome_to_chunk_to_df[prev_genome][prev_chunk]
@@ -924,6 +980,8 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
                            simultaneous_runs=7)
         list_df_genome = [x[1] for x in list_ref_df]
         reference = list_df_genome[0][0]
+
+    logger.debug(f"Completed per-gene to genome. Num  rows: {len(list_df_genome)}")
 
     return reference, pd.concat(list_df_genome, ignore_index=True, sort=False)
 
