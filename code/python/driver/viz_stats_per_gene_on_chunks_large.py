@@ -21,7 +21,10 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_io.general import load_obj, save_obj
+from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_one_per_thread
+from mg_parallelization.pbs import PBS
+from mg_pbs_data.mergers import merge_identity
 from mg_viz.general import square_subplots
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
@@ -972,8 +975,8 @@ def yeild_from_file_per_genome_per_chunk_slow(pf_data):
                 # time to remove this
             yield genome_to_chunk_to_df[prev_genome][prev_chunk]
 
-def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
-
+def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref, **kwargs):
+    prl_options = get_value(kwargs, "prl_options", None)
     if not True:
         list_df_genome = list()
         reference = None
@@ -983,10 +986,23 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
             )
             list_df_genome.append(df_genome)
     else:
-        list_ref_df = run_one_per_thread(yeild_from_file_per_genome_per_chunk(pf_data),
-                                         _helper_join_reference_and_tidy_data,
-                           "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
-                           simultaneous_runs=16)
+        if prl_options is None or not prl_options["use-pbs"]:
+            list_ref_df = run_one_per_thread(yeild_from_file_per_genome_per_chunk(pf_data),
+                                             _helper_join_reference_and_tidy_data,
+                               "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
+                                   simultaneous_runs=16)
+            else:
+                # use pbs
+
+                pbs = PBS(env, prl_options, None, merger=merge_identity)
+                list_ref_df = pbs.run_on_generator(
+                    gen_data=yeild_from_file_per_genome_per_chunk(pf_data),
+                    func=_helper_join_reference_and_tidy_data,
+                    func_kwargs={"env": env, "tools": tools, "list_ref": list_ref},
+                    split_kwargs={"arg_data_name": "df_per_gene"}
+                )
+
+
         if len(list_ref_df) > 0:
             list_df_genome = [x[1] for x in list_ref_df]
             reference = list_ref_df[0][0]
@@ -1088,7 +1104,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all")
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
     reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
 
     from collections import abc
@@ -1170,7 +1186,8 @@ def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
     if pf_checkpoint is not None and os.path.isfile(pf_checkpoint):
         reference, df_tidy = load_obj(pf_checkpoint)
     else:
-        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
+        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref,
+                                                                      **kwargs)
         if pf_checkpoint is not None:
             save_obj([reference, df_tidy], pf_checkpoint)
 
@@ -1294,8 +1311,8 @@ def viz_stats_per_gene(env, pf_per_gene, tools, list_ref_5p, list_ref_3p, **kwar
     pf_checkpoint_3p = get_value(kwargs, "pf_checkpoint_3p", None)
     pf_checkpoint_5p = get_value(kwargs, "pf_checkpoint_5p", None)
 
-    viz_stats_3p(env, pf_per_gene, tools, list_ref_3p, pf_checkpoint=pf_checkpoint_3p)
-    viz_stats_5p(env, pf_per_gene, tools, list_ref_5p, pf_checkpoint=pf_checkpoint_5p)
+    viz_stats_3p(env, pf_per_gene, tools, list_ref_3p, pf_checkpoint=pf_checkpoint_3p, **kwargs)
+    viz_stats_5p(env, pf_per_gene, tools, list_ref_5p, pf_checkpoint=pf_checkpoint_5p, **kwargs)
 
 
 def tools_match_for_dataframe_row(r, tools):
@@ -1316,6 +1333,10 @@ def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     df = pd.read_csv(args.pf_data, nrows=2)
 
+    prl_options = ParallelizationOptions.init_from_dict(
+        env, args.pf_parallelization_options, vars(args)
+    )
+
     # get tools list
     # If not provided, extract from df
     # Make sure it doesn't contain any references
@@ -1335,7 +1356,8 @@ def main(env, args):
 
     viz_stats_per_gene(env, args.pf_data, tools, args.ref_5p, args.ref_3p,
                        pf_checkpoint_3p=args.pf_checkpoint_3p,
-                       pf_checkpoint_5p=args.pf_checkpoint_5p)
+                       pf_checkpoint_5p=args.pf_checkpoint_5p,
+                       prl_options=prl_options)
 
 
 if __name__ == "__main__":
