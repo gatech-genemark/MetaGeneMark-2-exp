@@ -2,6 +2,8 @@
 # Created: 6/29/20, 3:41 PM
 
 import logging
+import os
+
 import seaborn
 import argparse
 import numpy as np
@@ -18,12 +20,13 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
+from mg_io.general import load_obj, save_obj
 from mg_parallelization.generic_threading import run_one_per_thread
 from mg_viz.general import square_subplots
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
     _helper_df_joint_reference
-from mg_general.general import all_elements_equal, fix_names, next_name, os_join
+from mg_general.general import all_elements_equal, fix_names, next_name, os_join, get_value
 from mg_viz.colormap import ColorMap as CM
 
 # ------------------------------ #
@@ -37,6 +40,9 @@ parser.add_argument('--pf-data', required=True)
 
 parser.add_argument('--ref-5p', required=False, nargs="+", help="Reference(s) on which to compare 5' predictions")
 parser.add_argument('--ref-3p', required=False, nargs="+", help="Reference(s) on which to compare 3' predictions")
+
+parser.add_argument('--pf-checkpoint-3p', required=False)
+parser.add_argument('--pf-checkpoint-5p', required=False)
 
 parser.add_argument('--tools', nargs="+", help="If set, only compare these tools. Otherwise all tools are chosen")
 parser.add_argument('--parse-names', action='store_true', help="If set, try to shorten genome names. Useful only "
@@ -872,7 +878,9 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
         if len(df_chunk) == 0:
             continue
         try:
-            df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
+            # df_chunk = df_chunk[(df_chunk["Chunk Size"] >= 0) & (df_chunk["Chunk Size"] < 6000)].copy()
+            df_chunk = df_chunk[df_chunk["Chunk Size"].isin({250, 500, 1000, 1500})]
+            # df_chunk = df_chunk[df_chunk["Genome"].apply(lambda x: "Esch" in x or "Myco" in x)]
         except TypeError:
             continue
         if len(df_chunk) == 0:
@@ -923,7 +931,8 @@ def yeild_from_file_per_genome_per_chunk_slow(pf_data):
         if len(df_chunk) == 0:
             continue
         try:
-            df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
+            df_chunk = df_chunk[5000 <= df_chunk["Chunk Size"] < 6000].copy()
+
         except TypeError:
             continue
         if len(df_chunk) == 0:
@@ -1069,22 +1078,108 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
     plt.show()
 
 
-def viz_stats_3p(env, pf_data, tools, list_ref):
-    # type: (Environment, str, List[str], List[str]) -> None
+def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+
+    chunk_sizes = sorted(df_tidy["Chunk Size"].unique())
+    tools = list(df_tidy["Tool"].unique())
+    num_chunk_sizes = len(chunk_sizes)
+    # num_rows, num_cols = square_subplots(num_chunk_sizes)
+    num_rows = 2
+    num_cols = num_chunk_sizes
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="all", sharex="all")
+    from collections import abc
+
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
+
+    # one plot per chunk size
+    for i in range(num_chunk_sizes):
+        row_i = int(i / num_cols)
+        col_i = i % num_cols
+
+        cs = chunk_sizes[i]
+        ax = axes[i]
+        df_chunk = df_tidy[df_tidy["Chunk Size"] == cs]
+
+        for t in tools:
+            if t == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()])
+            ax.set_title(f"{cs} nt")
+            ax.set_ylim((-0.001, 1.001))
+            if col_i == 0:
+                ax.set_ylabel("Sensitivity")
+            else:
+                ax.set_ylabel("")
+            if row_i == num_rows - 1:
+                ax.set_xlabel("GC")
+
+        # specificity
+        ax = axes[i + num_cols]
+        for t in tools:
+            if t == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Specificity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()])
+            ax.set_title(f"{cs} nt")
+            ax.set_ylim((-0.001, 1.001))
+            if col_i == 0:
+                ax.set_ylabel("Specificity")
+            else:
+                ax.set_ylabel("")
+            ax.set_xlabel("GC")
+
+    handles, labels = ax.get_legend_handles_labels()
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
+    fig.tight_layout()
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+
+    plt.show()
+
+    # # sum across
+    # g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
+    #
+    # g.map(plt.plot, "Chunk Size", "Found%")
+    # # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
+    # # g.map(plt.plot, "x", "y_fit")
+    # g.set_xlabels("Chunk Size (nt)")
+    # g.set_titles("{col_name}", style="italic")
+    # g.set(ylim=(0, None))
+    # g.set(xlim=(0, 5100))
+    # g.set_ylabels("Number of predictions")
+    # g.add_legend()
+
+
+def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
+    # type: (Environment, str, List[str], List[str], Dict[str, Any]) -> None
     """Visualize statistics at 3prime level"""
-    reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
 
-    ########## Genome Level ##########
-    # Number of Predictions, number of found
-    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+    if pf_checkpoint is not None and os.path.isfile(pf_checkpoint):
+        reference, df_tidy = load_obj(pf_checkpoint)
+    else:
+        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
+        if pf_checkpoint is not None:
+            save_obj([reference, df_tidy], pf_checkpoint)
 
-    # Number of Predictions, Precision
-    viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    # here
+    viz_stats_3p_gc_sn_sp(env, df_tidy, reference)
 
-    # Sensitivity Specificity
-    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
-
-    viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference)
+    # ########## Genome Level ##########
+    # # Number of Predictions, number of found
+    # viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+    #
+    # # Number of Predictions, Precision
+    # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    #
+    # # Sensitivity Specificity
+    # viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
+    #
+    # viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference)
 
     ########## Gene Level ##########
 
@@ -1092,22 +1187,100 @@ def viz_stats_3p(env, pf_data, tools, list_ref):
     # viz_stats_3p_missed_vs_length(env, df_per_gene, reference)
 
 
-def viz_stats_5p(env, pf_data, tools, list_ref):
-    # type: (Environment, str, List[str], List[str]) -> None
+def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+
+    chunk_sizes = sorted(df_tidy["Chunk Size"].unique())
+    tools = list(df_tidy["Tool"].unique())
+    num_chunk_sizes = len(chunk_sizes)
+    # num_rows, num_cols = square_subplots(num_chunk_sizes)
+    num_rows = 2
+    num_cols = num_chunk_sizes
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="all", sharex="all")
+    from collections import abc
+
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
+
+    # one plot per chunk size
+    for i in range(num_chunk_sizes):
+        row_i = int(i / num_cols)
+        col_i = i % num_cols
+
+        cs = chunk_sizes[i]
+        ax = axes[i]
+        df_chunk = df_tidy[df_tidy["Chunk Size"] == cs]
+
+        for t in tools:
+            if t == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Error Rate"], ax=ax, label=t,
+                            color=CM.get_map("tools")[t.lower()])
+            ax.set_title(f"{cs} nt")
+            ax.set_ylim((-0.001, 1.001))
+            if col_i == 0:
+                ax.set_ylabel("Gene-Start Error Rate")
+            else:
+                ax.set_ylabel("")
+            if row_i == num_rows - 1:
+                ax.set_xlabel("GC")
+
+        # specificity
+        ax = axes[i + num_cols]
+        for t in tools:
+            if t == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Found"], ax=ax, label=t,
+                            color=CM.get_map("tools")[t.lower()])
+            ax.set_title(f"{cs} nt")
+            ax.set_ylim((0, None))
+            if col_i == 0:
+                ax.set_ylabel("Number of genes found")
+            else:
+                ax.set_ylabel("")
+            ax.set_xlabel("GC")
+
+    handles, labels = ax.get_legend_handles_labels()
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
+    fig.tight_layout()
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+
+    plt.show()
+
+
+def viz_stats_5p(env, pf_data, tools, list_ref, **kwargs):
+    # type: (Environment, str, List[str], List[str], Dict[str, Any]) -> None
     """Visualize statistics at 5prime level"""
-    reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
 
-    # Number of 5p Errors, number of found
-    viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference)
-    viz_stats_5p_error_rate(env, df_tidy, reference)
-    viz_stats_5p_error_rate_partial(env, df_tidy, reference)
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
+
+    if pf_checkpoint is not None and os.path.isfile(pf_checkpoint):
+        reference, df_tidy = load_obj(pf_checkpoint)
+    else:
+        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
+        if pf_checkpoint is not None:
+            save_obj([reference, df_tidy], pf_checkpoint)
+
+    # # Number of 5p Errors, number of found
+    viz_stats_5p_gc_sn_sp(env, df_tidy, reference)
+
+    # viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference)
+    # viz_stats_5p_error_rate(env, df_tidy, reference)
+    # viz_stats_5p_error_rate_partial(env, df_tidy, reference)
 
 
-def viz_stats_per_gene(env, pf_per_gene, tools, list_ref_5p, list_ref_3p):
-    # type: (Environment, str, List[str], List[str], List[str]) -> None
+def viz_stats_per_gene(env, pf_per_gene, tools, list_ref_5p, list_ref_3p, **kwargs):
+    # type: (Environment, str, List[str], List[str], List[str], Dict[str, Any]) -> None
 
-    viz_stats_3p(env, pf_per_gene, tools, list_ref_3p)
-    viz_stats_5p(env, pf_per_gene, tools, list_ref_5p)
+    pf_checkpoint_3p = get_value(kwargs, "pf_checkpoint_3p", None)
+    pf_checkpoint_5p = get_value(kwargs, "pf_checkpoint_5p", None)
+
+    viz_stats_3p(env, pf_per_gene, tools, list_ref_3p, pf_checkpoint=pf_checkpoint_3p)
+    viz_stats_5p(env, pf_per_gene, tools, list_ref_5p, pf_checkpoint=pf_checkpoint_5p)
 
 
 def tools_match_for_dataframe_row(r, tools):
@@ -1145,7 +1318,9 @@ def main(env, args):
         tools = all_tools
         tools = sorted(set(tools).difference({*args.ref_5p}).difference({*args.ref_3p}))
 
-    viz_stats_per_gene(env, args.pf_data, tools, args.ref_5p, args.ref_3p)
+    viz_stats_per_gene(env, args.pf_data, tools, args.ref_5p, args.ref_3p,
+                       pf_checkpoint_3p=args.pf_checkpoint_3p,
+                       pf_checkpoint_5p=args.pf_checkpoint_5p)
 
 
 if __name__ == "__main__":
