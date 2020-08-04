@@ -1223,7 +1223,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all")
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
 
     reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
 
