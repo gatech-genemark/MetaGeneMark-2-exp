@@ -423,12 +423,12 @@ def convert_fgs_to_gff(pf_input, pf_output):
 def run_fgs(env, pf_sequence, pf_prediction):
     # type: (Environment, str, str) -> None
     bin_external = env["pd-bin-external"]
-    # prog = f"cd {bin_external}/fgs; FragGeneScan"
-    prog=f"eval \"$(docker-machine env default)\"; docker run -v {env['pd-base']}:{env['pd-base']}  quay.io/biocontainers/fraggenescan:1.31--h516909a_2 " \
-         f"run_FragGeneScan.pl -genome={pf_sequence} -complete=0" \
-         f" -out={pf_prediction} -train=illumina_10"
+    prog = f"cd {bin_external}/fgs; FragGeneScan"
+    # prog=f"eval \"$(docker-machine env default)\"; docker run -v {env['pd-base']}:{env['pd-base']}  quay.io/biocontainers/fraggenescan:1.31--h516909a_2 " \
+    #      f"run_FragGeneScan.pl -genome={pf_sequence} -complete=0" \
+    #      f" -out={pf_prediction} -train=illumina_10"
     pf_mod = f"illumina_5"
-    cmd = f"{prog}"
+    cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 0 -t complete"
 
     log.info(cmd)
     print(run_shell_cmd(cmd))

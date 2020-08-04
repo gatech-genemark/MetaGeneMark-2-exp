@@ -133,7 +133,7 @@ class PBS:
         self._setup_pbs_run()
 
         # 2) Create input packages files, one for every PBS run
-        list_pf_input_job = self.create_input_package_files(
+        list_pf_input_job = self.create_input_package_files_from_generator(
             gen_data, func, func_kwargs, num_jobs,
             pf_package_template_formatted=pf_input_package_template_formatted,
             **kwargs

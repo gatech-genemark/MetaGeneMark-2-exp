@@ -12,6 +12,6 @@ matplotlib.rcParams.update({
     'pgf.rcfonts': False,
 })
 
-if not runningOnPycharm:
-    matplotlib.use('Agg')
+# if not runningOnPycharm:
+#     matplotlib.use('Agg')
 

@@ -46,6 +46,7 @@ parser.add_argument('--ref-3p', required=False, nargs="+", help="Reference(s) on
 
 parser.add_argument('--pf-checkpoint-3p', required=False)
 parser.add_argument('--pf-checkpoint-5p', required=False)
+parser.add_argument('--pf-parallelization-options', required=False)
 
 parser.add_argument('--tools', nargs="+", help="If set, only compare these tools. Otherwise all tools are chosen")
 parser.add_argument('--parse-names', action='store_true', help="If set, try to shorten genome names. Useful only "
@@ -991,16 +992,17 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref, **kw
                                              _helper_join_reference_and_tidy_data,
                                "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
                                    simultaneous_runs=16)
-            else:
-                # use pbs
+        else:
+            # use pbs
 
-                pbs = PBS(env, prl_options, None, merger=merge_identity)
-                list_ref_df = pbs.run_on_generator(
-                    gen_data=yeild_from_file_per_genome_per_chunk(pf_data),
-                    func=_helper_join_reference_and_tidy_data,
-                    func_kwargs={"env": env, "tools": tools, "list_ref": list_ref},
-                    split_kwargs={"arg_data_name": "df_per_gene"}
-                )
+            prl_options["pbs-clean"] = True
+            pbs = PBS(env, prl_options, None, merger=merge_identity)
+            list_ref_df = pbs.run_on_generator(
+                gen_data=yeild_from_file_per_genome_per_chunk(pf_data),
+                func=_helper_join_reference_and_tidy_data,
+                func_kwargs={"env": env, "tools": tools, "list_ref": list_ref},
+                split_kwargs={"arg_name_data": "df_per_gene"}
+            )
 
 
         if len(list_ref_df) > 0:
@@ -1293,7 +1295,7 @@ def viz_stats_5p(env, pf_data, tools, list_ref, **kwargs):
     if pf_checkpoint is not None and os.path.isfile(pf_checkpoint):
         reference, df_tidy = load_obj(pf_checkpoint)
     else:
-        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref)
+        reference, df_tidy = convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref, **kwargs)
         if pf_checkpoint is not None:
             save_obj([reference, df_tidy], pf_checkpoint)
 
