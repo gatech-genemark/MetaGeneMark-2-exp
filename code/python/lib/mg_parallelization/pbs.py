@@ -154,8 +154,8 @@ class PBS:
 
         # 5) Clean
         if self._prl_options.safe_get("pbs-clean"):
-            remove_p(*list_pf_input_job)
-            remove_p(*list_pf_output_job_packages)
+            remove_p(*[f"{x}.pkl" for x in list_pf_input_job])
+            remove_p(*[f"{x}.pkl" for x in list_pf_output_job_packages])
 
         return data_output
 
