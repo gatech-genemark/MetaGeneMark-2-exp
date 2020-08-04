@@ -856,7 +856,7 @@ def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
 def yeild_from_file_per_genome_per_chunk(pf_data):
     # type: (str) -> Generator[pd.DataFrame]
     """Assumes datafile has genome-chunk entries consecutively"""
-    gen_df_chunk = pd.read_csv(pf_data, chunksize=200000)
+    gen_df_chunk = pd.read_csv(pf_data, chunksize=1000000)
 
     # genomes_at_a_time
     gaat = 8
@@ -979,7 +979,7 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
                            "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
                            simultaneous_runs=7)
         list_df_genome = [x[1] for x in list_ref_df]
-        reference = list_df_genome[0][0]
+        reference = list_ref_df[0][0]
 
     logger.debug(f"Completed per-gene to genome. Num  rows: {len(list_df_genome)}")
 
