@@ -879,7 +879,7 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
             continue
         try:
             # df_chunk = df_chunk[(df_chunk["Chunk Size"] >= 0) & (df_chunk["Chunk Size"] < 6000)].copy()
-            df_chunk = df_chunk[df_chunk["Chunk Size"].isin({250, 500, 1000, 1500})]
+            df_chunk = df_chunk[df_chunk["Chunk Size"].isin({250, 500, 1000, 1500, 2000})]
             # df_chunk = df_chunk[df_chunk["Genome"].apply(lambda x: "Esch" in x or "Myco" in x)]
         except TypeError:
             continue
@@ -1087,7 +1087,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="all", sharex="all")
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all")
     from collections import abc
 
     if not isinstance(axes, abc.Iterable):
@@ -1117,6 +1117,8 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
                 ax.set_ylabel("")
             if row_i == num_rows - 1:
                 ax.set_xlabel("GC")
+            else:
+                ax.set_xlabel("")
 
         # specificity
         ax = axes[i + num_cols]
@@ -1196,7 +1198,10 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="all", sharex="all")
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all")
+
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
+
     from collections import abc
 
     if not isinstance(axes, abc.Iterable):
@@ -1218,15 +1223,18 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Error Rate"], ax=ax, label=t,
-                            color=CM.get_map("tools")[t.lower()])
+                            color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
             ax.set_title(f"{cs} nt")
-            ax.set_ylim((-0.001, 1.001))
+            ax.set_ylim((-0.001, 100.001))
             if col_i == 0:
                 ax.set_ylabel("Gene-Start Error Rate")
             else:
                 ax.set_ylabel("")
             if row_i == num_rows - 1:
                 ax.set_xlabel("GC")
+            else:
+                ax.set_xlabel("")
 
         # specificity
         ax = axes[i + num_cols]
@@ -1235,9 +1243,10 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Found"], ax=ax, label=t,
-                            color=CM.get_map("tools")[t.lower()])
+                            color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
             ax.set_title(f"{cs} nt")
-            ax.set_ylim((0, None))
+            # ax.set_ylim((0, None))
             if col_i == 0:
                 ax.set_ylabel("Number of genes found")
             else:
