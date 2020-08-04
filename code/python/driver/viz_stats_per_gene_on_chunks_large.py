@@ -986,7 +986,7 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref):
         list_ref_df = run_one_per_thread(yeild_from_file_per_genome_per_chunk(pf_data),
                                          _helper_join_reference_and_tidy_data,
                            "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
-                           simultaneous_runs=7)
+                           simultaneous_runs=16)
         if len(list_ref_df) > 0:
             list_df_genome = [x[1] for x in list_ref_df]
             reference = list_ref_df[0][0]
@@ -1108,7 +1108,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
         df_chunk = df_tidy[df_tidy["Chunk Size"] == cs]
 
         for t in tools:
-            if t == reference:
+            if t.lower() == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t,
@@ -1128,7 +1128,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
         # specificity
         ax = axes[i + num_cols]
         for t in tools:
-            if t == reference:
+            if t.lower() == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Specificity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()],
@@ -1225,7 +1225,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         df_chunk = df_tidy[df_tidy["Chunk Size"] == cs]
 
         for t in tools:
-            if t == reference:
+            if t.lower() == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Error Rate"], ax=ax, label=t,
@@ -1245,7 +1245,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         # specificity
         ax = axes[i + num_cols]
         for t in tools:
-            if t == reference:
+            if t.lower() == reference:
                 continue
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Found"], ax=ax, label=t,
