@@ -2,6 +2,8 @@
 # Created: 8/5/20, 8:25 AM
 
 import logging
+import os
+
 import pandas as pd
 from typing import *
 
@@ -9,6 +11,7 @@ import seaborn
 import matplotlib.pyplot as plt
 
 from mg_general import Environment
+from mg_io.general import load_obj, save_obj
 from mg_viz.colormap import ColorMap as CM
 from mg_general.general import next_name, get_value
 from mg_stats.small import _helper_join_reference_and_tidy_data, prl_join_reference_and_tidy_data
@@ -71,7 +74,7 @@ def viz_stats_large_3p_sn_sp(env, df_tidy, reference, **kwargs):
 
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Number of Found", "Sensitivity"], tool_order, reference,
-        col_to_ylim={"Specificity": (0, 1), "Sensitivity": (0, 1)}
+        col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1)}
     )
 
 
@@ -81,7 +84,7 @@ def stats_large_3p_predictions_vs_found(env, df_tidy, reference, **kwargs):
 
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Number of Predictions", "Number of Found", "Specificity"], tool_order, reference,
-        col_to_ylim={"Specificity": (0, 1), "Sensitivity": (0, 1)}
+        col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1)}
     )
 
 
@@ -92,12 +95,18 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
     df_tidy["Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]  # FIXME: compute before
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Error Rate", "Sensitivity"], tool_order, reference,
-        col_to_ylim={"Specificity": (0, 1), "Sensitivity": (0, 1)}
+        col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1), "Error Rate": (0, 0.5)}
     )
 
 
-def viz_stats_large_3p(env, df_per_gene, tools, list_ref):
-    reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
+    if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
+        reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+        if pf_checkpoint:
+            save_obj([reference, df_tidy], pf_checkpoint)
+    else:
+        reference, df_tidy = load_obj(pf_checkpoint)
 
     # Number of Predictions versus number of found
     stats_large_3p_predictions_vs_found(env, df_tidy, reference, tool_order=tools)
@@ -106,8 +115,14 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref):
     viz_stats_large_3p_sn_sp(env, df_tidy, reference, tool_order=tools)
 
 
-def viz_stats_large_5p(env, df_per_gene, tools, list_ref):
-    reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+def viz_stats_large_5p(env, df_per_gene, tools, list_ref, **kwargs):
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
+    if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
+        reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+        if pf_checkpoint:
+            save_obj([reference, df_tidy], pf_checkpoint)
+    else:
+        reference, df_tidy = load_obj(pf_checkpoint)
 
     # Number of found vs number of 5' error
     viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, tool_order=tools)

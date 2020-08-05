@@ -66,7 +66,7 @@ def _init_mapping_stop_codons():
     return {x[0]: x[1] for x in zip(conditions, palette)}
 
 def _init_mapping_tools():
-    colors = ["windows blue", "amber", "faded green", "dusty purple", "pale red", "beige", "grey", "black", "orange"]
+    colors = ["windows blue", "amber", "faded green", "dusty purple", "pale red", "dark olive", "grey", "black", "orange"]
     ancestors = ["mgm", "mgm2", "gms2", "mprodigal", "prodigal", "fgs", "mga", "ncbi", "verified"]
 
     colors += colors

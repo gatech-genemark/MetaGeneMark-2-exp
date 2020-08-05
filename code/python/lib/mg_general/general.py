@@ -47,7 +47,7 @@ def get_value(kv_pairs, key, default=None, **kwargs):
         except ValueError:
             raise ValueError(f"Key {key} has value {value} of type {type(value)}. Must have type {value_type}.")
 
-    if required and not default_if_none and value is None:
+    if required and value is None:
         raise ValueError(f"Key {key} is required.")
 
     if choices is not None and value not in choices:

@@ -309,7 +309,7 @@ class PBS:
         list_output_data = self._read_data_from_output_packages(list_pf_output_packages, as_generator)
 
         # 4-a) Merge data while loading packages one by one
-        data_output = self._merger(list_output_data)
+        data_output = self._merger(list_output_data, **kwargs)
 
         return data_output
 

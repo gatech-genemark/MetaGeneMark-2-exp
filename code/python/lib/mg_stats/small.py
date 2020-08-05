@@ -70,11 +70,16 @@ def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     df_tidy = tidy_genome_level(env, df_per_genome)
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
 
+    log.debug(f"Parsing: {', '.join(df_tidy['Genome'].unique())}")
+
     return reference, df_tidy
 
 def prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     def yield_data(gb_gen):
+        counter = 0
         for a in gb_gen:
+            log.debug(f"Parsing: {', '.join(a[1]['Genome'].unique())}, {counter}")
+            counter += 1
             yield a[1]
     list_ref_df = run_one_per_thread(yield_data(df_per_gene.groupby("Genome", as_index=False)),
                        _helper_join_reference_and_tidy_data,

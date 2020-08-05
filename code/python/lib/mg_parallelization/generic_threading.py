@@ -48,11 +48,14 @@ class GenericThread(threading.Thread):
         self._func = func
         self._func_kwargs = func_kwargs
         self._output = get_value(kwargs, "output", None, valid_type=dict())
+        self._thread_id = get_value(kwargs, "thread_id", self.ident)
+
 
     def run(self):
         out = self._func(**self._func_kwargs)
         if self._output is not None:
-            self._output[self.ident] = out
+            logger.debug(f"Self ident: {self._thread_id}")
+            self._output[self._thread_id] = out
 
 
 class GenericThreadN(threading.Thread):
@@ -62,6 +65,7 @@ class GenericThreadN(threading.Thread):
         self._func = func
         self._list_func_kwargs = list_func_kwargs
         self._output = get_value(kwargs, "output", None, valid_type=dict())
+        self._thread_id = get_value(kwargs, "thread_id", self.ident)
 
     def run(self):
         list_outputs = list()
@@ -72,7 +76,7 @@ class GenericThreadN(threading.Thread):
                 list_outputs.append(output)
 
         if self._output is not None:
-            self._output[self.ident] = list_outputs
+            self._output[self._thread_id] = list_outputs
 
 
 def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
@@ -89,7 +93,7 @@ def run_one_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
 
         # Create a thread for genome and run
         thread = GenericThread(func, {data_arg_name: dp, **func_kwargs},
-                               output=output)
+                               output=output, thread_id=thread_id)
         thread.start()
         thread_id += 1
         active_threads.append(thread)
