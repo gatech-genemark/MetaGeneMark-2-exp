@@ -8,6 +8,7 @@ import pandas as pd
 from typing import *
 
 from mg_general import Environment
+from mg_general.general import fix_names
 
 log = logging.getLogger(__name__)
 
@@ -111,3 +112,32 @@ def _helper_df_joint_reference(df, reference):
         reference = reference[0]
 
     return reference
+
+
+def check_tools_and_reference_lists(df, tools, ref_5p, ref_3p):
+    # type: (pd.DataFrame, Union[List[str], None], List[str], List[str]) -> List[str]
+    """Verifies references exist in dataframe, and returns cleaned up tools list (without references in it)"""
+    # get tools list
+    # If not provided, extract from df
+    # Make sure it doesn't contain any references
+    all_tools = sorted(set([x.split("-")[1] for x in df.columns if "5p-" in x]))
+
+    # check that references exist
+    for list_ref in [ref_5p, ref_3p]:
+        for ref in list_ref:
+            if ref not in all_tools:
+                raise ValueError(f"Unknown reference {ref}")
+
+    if tools is None:
+        tools = all_tools
+        tools = sorted(set(tools).difference({*ref_5p}).difference({*ref_3p}))
+
+    return tools
+
+
+def read_small_stats_per_gene(pf_data, parse_names=False):
+    # type: (pd.DataFrame, bool) -> pd.DataFrame
+    df = pd.read_csv(pf_data)
+    if parse_names:
+        df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
+    return df

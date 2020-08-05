@@ -147,10 +147,14 @@ class PBS:
             job_name=job_name, num_jobs=num_jobs
         )
 
+        merge_kwargs = get_value(kwargs, "merge_kwargs", dict())
+
+
         # 4) Merge end-results
         data_output = None
         if not self._dry_run:
-            data_output = self.merge_output_package_files(list_pf_output_job_packages)
+            data_output = self.merge_output_package_files(list_pf_output_job_packages, as_generator=True,
+                                                          **merge_kwargs)
 
         # 5) Clean
         if self._prl_options.safe_get("pbs-clean"):
@@ -286,18 +290,23 @@ class PBS:
         # type: (str) -> str
         return run_shell_cmd("qsub  -V " + pf_pbs, do_not_log=True).strip()
 
-    def _read_data_from_output_packages(self, list_pf_output_packages):
+    def _read_data_from_output_packages(self, list_pf_output_packages, as_generator=False):
 
-        list_data = list()
+        if not as_generator:
+            list_data = list()
 
-        for pf_output_package in list_pf_output_packages:
-            list_data.append(PBSJobPackage.load(pf_output_package)["data"])
+            for pf_output_package in list_pf_output_packages:
+                list_data.append(PBSJobPackage.load(pf_output_package)["data"])
 
-        return list_data
+            return list_data
+        else:
+            for pf_output_package in list_pf_output_packages:
+                yield PBSJobPackage.load(pf_output_package)["data"]
 
-    def merge_output_package_files(self, list_pf_output_packages):
+    def merge_output_package_files(self, list_pf_output_packages, **kwargs):
+        as_generator = get_value(kwargs, "as_generator", False)
 
-        list_output_data = self._read_data_from_output_packages(list_pf_output_packages)
+        list_output_data = self._read_data_from_output_packages(list_pf_output_packages, as_generator)
 
         # 4-a) Merge data while loading packages one by one
         data_output = self._merger(list_output_data)

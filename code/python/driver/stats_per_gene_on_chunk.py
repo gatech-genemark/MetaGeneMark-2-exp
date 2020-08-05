@@ -31,7 +31,7 @@ from mg_io.labels import read_labels_from_file
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
-from mg_pbs_data.mergers import merge_identity
+from mg_pbs_data.mergers import merge_identity, merge_dataframes_to_file
 from mg_pbs_data.splitters import split_list
 
 parser = argparse.ArgumentParser("Collects gene-level stats for runs with chunking.")
@@ -312,17 +312,18 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 
         # PBS parallelization
         if prl_options.safe_get("use-pbs"):
-            pbs = PBS(env, prl_options, splitter=split_list, merger=merge_identity)
-            list_df = pbs.run_on_generator(
+            pbs = PBS(env, prl_options, splitter=split_list, merger=merge_dataframes_to_file)
+            pbs.run_on_generator(
                 list_df, stats_per_gene_on_chunks_for_genome,
                 {
                     "env": env, **kwargs
                 },
                 split_kwargs={
                     "arg_name_data": "df_summary_genome"
-                }
+                },
+                merge_kwargs={"pf_output": pf_output}
             )
-            df = pd.concat(list_df, ignore_index=True, sort=False)
+            pd.concat(list_df, ignore_index=True, sort=False)
 
         # threading
         else:
@@ -337,7 +338,8 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 
             df = pd.concat(list_df, ignore_index=True, sort=False)
 
-    df.to_csv(pf_output, index=False, mode=mode)
+    if df is not None:
+        df.to_csv(pf_output, index=False, mode=mode)
 
 
 def main(env, args):

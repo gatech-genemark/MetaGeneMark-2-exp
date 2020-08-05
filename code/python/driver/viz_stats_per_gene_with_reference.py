@@ -402,11 +402,11 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref):
     df_tidy = tidy_genome_level(env, df_per_genome)
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
     # Number of Predictions, number of found
-    # viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
-    #
-    # # Number of Predictions, Precision
-    # # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
-    # viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
+    viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
+
+    # Number of Predictions, Precision
+    # viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference)
+    viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
 
     #### Gene Level
 
