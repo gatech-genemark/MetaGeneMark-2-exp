@@ -313,7 +313,7 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
         # PBS parallelization
         if prl_options.safe_get("use-pbs"):
             pbs = PBS(env, prl_options, splitter=split_list, merger=merge_identity)
-            list_df = pbs.run(
+            list_df = pbs.run_on_generator(
                 list_df, stats_per_gene_on_chunks_for_genome,
                 {
                     "env": env, **kwargs
