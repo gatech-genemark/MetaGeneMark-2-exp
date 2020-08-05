@@ -6,6 +6,7 @@ import pandas as pd
 from typing import *
 
 from mg_general import Environment
+from mg_parallelization.generic_threading import run_one_per_thread
 from mg_stats.shelf import _helper_df_joint_reference, update_dataframe_with_stats, tidy_genome_level
 
 log = logging.getLogger(__name__)
@@ -70,3 +71,17 @@ def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     df_tidy = df_tidy[df_tidy["Tool"].apply(lambda x: x.lower()).isin(tools + [reference])]
 
     return reference, df_tidy
+
+def prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
+    list_ref_df = run_one_per_thread(df_per_gene.groupby("Genome", as_index=False),
+                       _helper_join_reference_and_tidy_data,
+                       "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
+                       simultaneous_runs=7)
+
+    if len(list_ref_df) > 0:
+        list_df_genome = [x[1] for x in list_ref_df]
+        reference = list_ref_df[0][0]
+        return reference, pd.concat(list_df_genome, ignore_index=True, sort=False)
+    else:
+        return [None, None]
+

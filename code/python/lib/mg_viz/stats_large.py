@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from mg_general import Environment
 from mg_viz.colormap import ColorMap as CM
 from mg_general.general import next_name, get_value
-from mg_stats.small import _helper_join_reference_and_tidy_data
+from mg_stats.small import _helper_join_reference_and_tidy_data, prl_join_reference_and_tidy_data
 
 logger = logging.getLogger(__name__)
 
@@ -97,7 +97,7 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
 
 
 def viz_stats_large_3p(env, df_per_gene, tools, list_ref):
-    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+    reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
 
     # Number of Predictions versus number of found
     stats_large_3p_predictions_vs_found(env, df_tidy, reference, tool_order=tools)
@@ -107,7 +107,7 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref):
 
 
 def viz_stats_large_5p(env, df_per_gene, tools, list_ref):
-    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+    reference, df_tidy = prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
 
     # Number of found vs number of 5' error
     viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, tool_order=tools)
