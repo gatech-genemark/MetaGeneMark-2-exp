@@ -73,7 +73,10 @@ def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     return reference, df_tidy
 
 def prl_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
-    list_ref_df = run_one_per_thread(df_per_gene.groupby("Genome", as_index=False),
+    def yield_data(gb_gen):
+        for a in gb_gen:
+            yield a[1]
+    list_ref_df = run_one_per_thread(yield_data(df_per_gene.groupby("Genome", as_index=False)),
                        _helper_join_reference_and_tidy_data,
                        "df_per_gene", {"env": env, "tools": tools, "list_ref": list_ref},
                        simultaneous_runs=7)
