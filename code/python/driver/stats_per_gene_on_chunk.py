@@ -323,7 +323,8 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
                 },
                 merge_kwargs={"pf_output": pf_output}
             )
-            pd.concat(list_df, ignore_index=True, sort=False)
+            df = None
+            # pd.concat(list_df, ignore_index=True, sort=False)
 
         # threading
         else:
