@@ -427,7 +427,7 @@ def run_fgs(env, pf_sequence, pf_prediction):
     # prog=f"eval \"$(docker-machine env default)\"; docker run -v {env['pd-base']}:{env['pd-base']}  quay.io/biocontainers/fraggenescan:1.31--h516909a_2 " \
     #      f"run_FragGeneScan.pl -genome={pf_sequence} -complete=0" \
     #      f" -out={pf_prediction} -train=illumina_10"
-    pf_mod = f"illumina_5"
+    pf_mod = f"complete"
     cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 0 -t complete"
 
     log.info(cmd)

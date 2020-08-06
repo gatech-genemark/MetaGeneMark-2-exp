@@ -993,6 +993,9 @@ def main(env, args):
     df = pd.read_csv(args.pf_data)
     if args.parse_names:
         df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
+
+    import pdb
+    pdb.set_trace()
     df = df[df["Chunk Size"] < 6000].copy()
     # get tools list
     # If not provided, extract from df

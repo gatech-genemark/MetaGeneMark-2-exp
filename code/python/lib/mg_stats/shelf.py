@@ -46,7 +46,6 @@ def create_joint_reference_from_list(df, list_reference):
 
 def update_dataframe_with_stats(df, tools, reference):
     # type: (pd.DataFrame, List[str], List[str]) -> pd.DataFrame
-
     for t in tools:
         tag_5p = f"5p:Match({t}={reference})"
         tag_3p = f"3p:Match({t}={reference})"

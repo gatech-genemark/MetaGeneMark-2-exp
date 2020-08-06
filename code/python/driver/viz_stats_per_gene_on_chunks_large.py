@@ -909,6 +909,7 @@ def yeild_from_file_per_genome_per_chunk(pf_data):
 
                 # time to remove this
                 logger.debug(f"Ready to parse: {prev_genome}, num_chunks={len(list(genome_to_df[prev_genome]['Chunk Size'].unique()))}")
+
                 yield genome_to_df[prev_genome]
 
                 del genome_to_df[prev_genome]
@@ -925,17 +926,18 @@ def yeild_from_file_per_genome_per_chunk_slow(pf_data):
     """Assumes datafile has genome-chunk entries consecutively"""
     gen_df_chunk = pd.read_csv(pf_data, chunksize=200000)
 
-
     genome_to_chunk_to_df = dict()      # type: Dict[str, Dict[str, pd.DataFrame]]
     list_df_genome = list()
     prev_genome = None
     prev_chunk = None
     for df_chunk in gen_df_chunk:
 
+
         if len(df_chunk) == 0:
             continue
         try:
-            df_chunk = df_chunk[5000 <= df_chunk["Chunk Size"] < 6000].copy()
+
+            df_chunk = df_chunk[df_chunk["Chunk Size"] < 6000].copy()
 
         except TypeError:
             continue
@@ -1005,9 +1007,13 @@ def convert_per_gene_to_per_genome_optimized(env, pf_data, tools, list_ref, **kw
             )
 
 
-        if len(list_ref_df) > 0:
-            list_df_genome = [x[1] for x in list_ref_df]
-            reference = list_ref_df[0][0]
+        list_df_genome = list()
+        reference= None
+        for x in list_ref_df:
+
+            list_df_genome.append(x[1])
+            if reference is None:
+                reference = x[0]
 
     logger.debug(f"Completed per-gene to genome. Num  rows: {len(list_df_genome)}")
 
@@ -1099,15 +1105,16 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
 
 def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
+    df_tidy=df_tidy[df_tidy["Chunk Size"] < 2000]
 
     chunk_sizes = sorted(df_tidy["Chunk Size"].unique())
     tools = list(df_tidy["Tool"].unique())
     num_chunk_sizes = len(chunk_sizes)
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
-    num_rows = 2
+    num_rows = 3
     num_cols = num_chunk_sizes
     fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
 
     from collections import abc
 
@@ -1143,6 +1150,27 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             else:
                 ax.set_xlabel("")
 
+        # number of predictions
+        ax = axes[i + 2*num_cols]
+        for t in tools:
+            if t.lower() == reference.lower():
+                df_curr = df_chunk[df_chunk["Tool"] == t]
+                seaborn.regplot(df_curr["Genome GC"], df_curr["Number in Reference"], ax=ax, label=t,
+                                color=CM.get_map("tools")[t.lower()],
+                                marker=None)
+            else:
+                df_curr = df_chunk[df_chunk["Tool"] == t]
+                seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Predictions"], ax=ax, label=t,
+                                color=CM.get_map("tools")[t.lower()],
+                                marker=None)
+        ax.set_title(f"{cs} nt")
+        if col_i == 0:
+            ax.set_ylabel("Number of Predictions")
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("GC")
+
+
         # specificity
         ax = axes[i + num_cols]
         for t in tools:
@@ -1159,10 +1187,22 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
                 ax.set_ylabel("")
             ax.set_xlabel("GC")
 
+    fig.subplots_adjust(bottom=0.3)
+
     handles, labels = ax.get_legend_handles_labels()
-    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
-    fig.tight_layout()
+    #for lh in handles:
+        #lh.set_alpha(1)
+        #lh.set_sizes([8] * (len(tools)))
+        #lh._sizes = [8]
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False)
+    for lh in leg.legendHandles:
+        lh.set_alpha(1)
+        lh.set_sizes([18]*(len(tools)))
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+   #  leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
+   #  fig.tight_layout()
+   #  fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()
 
@@ -1217,6 +1257,7 @@ def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
 def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     # type: (Environment, pd.DataFrame, str) -> None
 
+    df_tidy=df_tidy[df_tidy["Chunk Size"] < 2000]
     chunk_sizes = sorted(df_tidy["Chunk Size"].unique())
     tools = list(df_tidy["Tool"].unique())
     num_chunk_sizes = len(chunk_sizes)
@@ -1225,7 +1266,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     num_cols = num_chunk_sizes
     fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
 
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
 
     from collections import abc
 
@@ -1233,6 +1274,8 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         axes = [axes]
     else:
         axes = axes.ravel()
+
+    df_tidy["Error Rate"] /= 100.0
 
     # one plot per chunk size
     for i in range(num_chunk_sizes):
@@ -1251,7 +1294,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
             ax.set_title(f"{cs} nt")
-            ax.set_ylim((-0.001, 100.001))
+            ax.set_ylim((0.0, 0.5))
             if col_i == 0:
                 ax.set_ylabel("Gene-Start Error Rate")
             else:
@@ -1266,21 +1309,33 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         for t in tools:
             if t.lower() == reference:
                 continue
+            if i == 0:
+                ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Found"], ax=ax, label=t,
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
             ax.set_title(f"{cs} nt")
-            # ax.set_ylim((0, None))
+            ax.set_ylim((0, None))
             if col_i == 0:
                 ax.set_ylabel("Number of genes found")
             else:
                 ax.set_ylabel("")
             ax.set_xlabel("GC")
 
+    fig.subplots_adjust(bottom=0.3)
+
     handles, labels = ax.get_legend_handles_labels()
-    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
-    fig.tight_layout()
+    #for lh in handles:
+        #lh.set_alpha(1)
+        #lh.set_sizes([8] * (len(tools)))
+        #lh._sizes = [8]
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False)
+    for lh in leg.legendHandles:
+        lh.set_alpha(1)
+        lh.set_sizes([18]*(len(tools)))
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()

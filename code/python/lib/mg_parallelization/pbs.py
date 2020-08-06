@@ -98,6 +98,7 @@ class PBS:
             job_name=job_name, num_jobs=num_jobs
         )
 
+        
         # 4) Merge end-results
         data_output = None
         if not self._dry_run:
@@ -106,7 +107,7 @@ class PBS:
         # 5) Clean
         if self._prl_options.safe_get("pbs-clean"):
             remove_p(*list_pf_input_job)
-            remove_p(*list_pf_output_job_packages)
+        #    remove_p(*list_pf_output_job_packages)
 
         return data_output
 
@@ -151,6 +152,7 @@ class PBS:
 
 
         # 4) Merge end-results
+        
         data_output = None
         if not self._dry_run:
             data_output = self.merge_output_package_files(list_pf_output_job_packages, as_generator=True,
@@ -159,7 +161,7 @@ class PBS:
         # 5) Clean
         if self._prl_options.safe_get("pbs-clean"):
             remove_p(*[f"{x}.pkl" for x in list_pf_input_job])
-            remove_p(*[f"{x}.pkl" for x in list_pf_output_job_packages])
+        #    remove_p(*[f"{x}.pkl" for x in list_pf_output_job_packages])
 
         return data_output
 
@@ -292,21 +294,25 @@ class PBS:
 
     def _read_data_from_output_packages(self, list_pf_output_packages, as_generator=False):
 
-        if not as_generator:
-            list_data = list()
+        # if not as_generator:
+        #     list_data = list()
 
-            for pf_output_package in list_pf_output_packages:
-                list_data.append(PBSJobPackage.load(pf_output_package)["data"])
+        #     for pf_output_package in list_pf_output_packages:
+        #         list_data.append(PBSJobPackage.load(pf_output_package)["data"])
 
-            return list_data
-        else:
-            for pf_output_package in list_pf_output_packages:
-                yield PBSJobPackage.load(pf_output_package)["data"]
+        #     return list_data
+        # else:
+        for pf_output_package in list_pf_output_packages:
+            yield PBSJobPackage.load(pf_output_package)["data"]
+        #        remove_p(pf_output_package)
 
     def merge_output_package_files(self, list_pf_output_packages, **kwargs):
         as_generator = get_value(kwargs, "as_generator", False)
 
         list_output_data = self._read_data_from_output_packages(list_pf_output_packages, as_generator)
+
+        if not as_generator:
+            list_output_data = [x for x in list_output_data]
 
         # 4-a) Merge data while loading packages one by one
         data_output = self._merger(list_output_data, **kwargs)
