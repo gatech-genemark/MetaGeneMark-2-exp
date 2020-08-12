@@ -1111,11 +1111,11 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     tools = list(df_tidy["Tool"].unique())
     num_chunk_sizes = len(chunk_sizes)
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
-    num_rows = 3
+    num_rows = 2
     num_cols = num_chunk_sizes
     fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
     reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
-
+    axes_unr = axes
     from collections import abc
 
     if not isinstance(axes, abc.Iterable):
@@ -1139,36 +1139,38 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t,
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
-            ax.set_title(f"{cs} nt")
-            ax.set_ylim((-0.001, 1.001))
-            if col_i == 0:
-                ax.set_ylabel("Sensitivity")
-            else:
-                ax.set_ylabel("")
-            if row_i == num_rows - 1:
-                ax.set_xlabel("GC")
-            else:
-                ax.set_xlabel("")
-
-        # number of predictions
-        ax = axes[i + 2*num_cols]
-        for t in tools:
-            if t.lower() == reference.lower():
-                df_curr = df_chunk[df_chunk["Tool"] == t]
-                seaborn.regplot(df_curr["Genome GC"], df_curr["Number in Reference"], ax=ax, label=t,
-                                color=CM.get_map("tools")[t.lower()],
-                                marker=None)
-            else:
-                df_curr = df_chunk[df_chunk["Tool"] == t]
-                seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Predictions"], ax=ax, label=t,
-                                color=CM.get_map("tools")[t.lower()],
-                                marker=None)
         ax.set_title(f"{cs} nt")
+        ax.set_ylim((-0.001, 1.001))
         if col_i == 0:
-            ax.set_ylabel("Number of Predictions")
+            ax.set_ylabel("Sensitivity")
         else:
             ax.set_ylabel("")
-        ax.set_xlabel("GC")
+        if row_i == num_rows - 1:
+            ax.set_xlabel("GC")
+        else:
+            ax.set_xlabel("")
+
+        # # # number of predictions
+        # # ax = axes[i + 2*num_cols]
+        # # for t in tools:
+        # #     if t.lower() == reference.lower():
+        # #         df_curr = df_chunk[df_chunk["Tool"] == t]
+        # #         seaborn.regplot(df_curr["Genome GC"], df_curr["Number in Reference"], ax=ax, label=t,
+        # #                         color=CM.get_map("tools")[t.lower()],
+        # #                         **{"lowess": True, "scatter_kws": {"s": 0, "alpha": 0.3,
+        # #                                                            "linestyle": "dashed"
+        # #                                                            }})
+        # #     else:
+        # #         df_curr = df_chunk[df_chunk["Tool"] == t]
+        # #         seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Predictions"], ax=ax, label=t,
+        # #                         color=CM.get_map("tools")[t.lower()],
+        # #                         **reg_kws)
+        # ax.set_title(f"{cs} nt")
+        # if col_i == 0:
+        #     ax.set_ylabel("Number of Predictions")
+        # else:
+        #     ax.set_ylabel("")
+        # ax.set_xlabel("GC")
 
 
         # specificity
@@ -1199,6 +1201,8 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     for lh in leg.legendHandles:
         lh.set_alpha(1)
         lh.set_sizes([18]*(len(tools)))
+
+    fig.align_ylabels(axes_unr[:, 0])
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
    #  leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
    #  fig.tight_layout()
@@ -1265,7 +1269,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     num_rows = 2
     num_cols = num_chunk_sizes
     fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
-
+    axes_unr = axes
     reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
 
     from collections import abc
@@ -1336,6 +1340,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     for lh in leg.legendHandles:
         lh.set_alpha(1)
         lh.set_sizes([18]*(len(tools)))
+    fig.align_ylabels(axes_unr[:, 0])
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()
