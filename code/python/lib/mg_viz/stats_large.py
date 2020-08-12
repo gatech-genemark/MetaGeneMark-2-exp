@@ -28,7 +28,7 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
     col_to_ylim = get_value(kwargs, "col_to_ylim", dict())
 
     fig, axes = plt.subplots(1, len(columns), sharex="all", figsize=(8 * len(columns), 6))
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2}}
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
 
     ax = None
     for ax, col in zip(axes, columns):
@@ -47,15 +47,14 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
 
     if ax is not None:
         fig.subplots_adjust(bottom=0.3)
-
         handles, labels = ax.get_legend_handles_labels()
-        for lh in handles:
-            lh.set_alpha(1)
-            lh.set_sizes([8] * (len(tool_order)))
-        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center',
-                         ncol=len(tool_order), bbox_transform=fig.transFigure)
 
-        fig.savefig(next_name(env["pd-work"]), bbox_inches="tight")
+        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tool_order), bbox_transform=fig.transFigure, frameon=False)
+        for lh in leg.legendHandles:
+            lh.set_alpha(1)
+            lh.set_sizes([18]*(len(tool_order)))
+
+        fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()
 

@@ -28,12 +28,15 @@ def merge_dataframes_to_file(dfs, **kwargs):
     header = None
     for df in dfs:
         df.sort_index(axis=1, inplace=True)
+        #print(list(df.columns.values))
         if header == None:
             header = list(df.columns.values)
         else:
 
             if header != list(df.columns.values):
-                logger.warning("Could not append dataframe to file. Header inconsistent")
+                log.warning("Could not append dataframe to file. Header inconsistent")
+         #       import pdb
+         #       pdb.set_trace()
                 continue
 
         print(len(sorted(df.columns.values)))
