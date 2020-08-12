@@ -79,9 +79,12 @@ def stats_large_3p_reference(env, df_tidy, reference, **kwargs):
     df_grouped["Sensitivity"] = df_grouped["Number of Found"] / df_grouped["Number in Reference"]
     df_grouped["Specificity"] = df_grouped["Number of Found"] / df_grouped["Number of Predictions"]
 
-    df_pivoted = reorder_pivot_by_tool(
-        df_grouped.pivot(index=["Clade", "Number in Reference"], columns="Tool", values=["Sensitivity", "Specificity"]), tool_order
-    )
+    # df_pivoted = reorder_pivot_by_tool(
+    #     df_grouped.pivot(index=["Clade", "Number in Reference"], columns="Tool", values=["Sensitivity", "Specificity"]), tool_order
+    # )
+
+    df_pivoted = df_grouped.pivot_table(index=["Clade", "Number in Reference"], columns="Tool",
+                           values=["Sensitivity", "Specificity"]).reset_index(level=1)
 
     df_pivoted.to_csv(
         next_name(env["pd-work"], ext="csv")
