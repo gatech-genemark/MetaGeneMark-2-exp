@@ -2,6 +2,7 @@
 # Created: 8/5/20, 8:06 AM
 
 import logging
+import numpy as np
 import pandas as pd
 from typing import *
 
