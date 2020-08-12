@@ -67,6 +67,27 @@ def reorder_pivot_by_tool(df_pivoted, tool_order):
     ).sort_index(1, 0, sort_remaining=False)
 
 
+def stats_large_3p_reference(env, df_tidy, reference, **kwargs):
+    # type: (Environment, pd.DataFrame, str) -> None
+    tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
+
+    if reference not in tool_order:
+        tool_order = [reference] + tool_order
+
+    # number of genes per clade
+    df_grouped = df_tidy.groupby(["Clade", "Tool"], as_index=False).sum()
+    df_grouped["Sensitivity"] = df_grouped["Number of Found"] / df_grouped["Number in Reference"]
+    df_grouped["Specificity"] = df_grouped["Number of Found"] / df_grouped["Number of Predictions"]
+
+    df_pivoted = reorder_pivot_by_tool(
+        df_grouped.pivot(index=["Clade", "Number in Reference"], columns="Tool", values=["Sensitivity", "Specificity"]), tool_order
+    )
+
+    df_pivoted.to_csv(
+        next_name(env["pd-work"], ext="csv")
+    )
+
+
 def viz_stats_large_3p_sn_sp(env, df_tidy, reference, **kwargs):
     # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
@@ -106,6 +127,9 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
             save_obj([reference, df_tidy], pf_checkpoint)
     else:
         reference, df_tidy = load_obj(pf_checkpoint)
+
+    # Reference stats
+    stats_large_3p_reference(env, df_tidy, reference)
 
     # Number of Predictions versus number of found
     stats_large_3p_predictions_vs_found(env, df_tidy, reference, tool_order=tools)

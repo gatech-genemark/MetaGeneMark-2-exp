@@ -48,6 +48,7 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
 
         result["Genome"] = gcfid
         result["Genome GC"] = df_group.at[df_group.index[0], "Genome GC"]
+        result["Clade"] = df_group.at[df_group.index[0], "Clade"]
         result["Number in Reference"] = df_group[f"5p-{reference}"].count()
 
         list_entries.append(result)

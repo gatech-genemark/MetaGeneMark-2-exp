@@ -88,7 +88,7 @@ def tidy_genome_level(env, df):
                       "IC3p Match", "IC5p Match", "Comp Match"]
     df_total = list()
 
-    list_index = [x for x in ["Genome", "Chunk Size", "Genome GC", "Number in Reference"] if x in df.columns]
+    list_index = [x for x in ["Genome", "Clade", "Chunk Size", "Genome GC", "Number in Reference"] if x in df.columns]
     for v in values_to_melt:
         value_vars = [x for x in df.columns if v == x.split("(")[0].strip()]
         if len(value_vars) == 0:
