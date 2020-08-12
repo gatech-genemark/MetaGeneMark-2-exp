@@ -120,6 +120,7 @@ def stats_per_gene_for_gi(env, gi, tools, **kwargs):
             "Genome": gi.name,
             "Genome GC": genome_gc,
             "Gene GC": gene_gc,
+            "Clade": gi.attributes.get("ancestor"),
             **entry
         })
 

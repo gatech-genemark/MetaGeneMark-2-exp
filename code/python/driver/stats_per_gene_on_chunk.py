@@ -173,6 +173,9 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, **kwargs):
 
         pf_sequence = os_join(env["pd-data"], genome, "sequence.fasta")
         sequences = SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
+        clade = None
+        if "Clade" in df_genome.columns:
+            clade = df_genome.at[df_genome.index[0], "Clade"]
 
         genome_gc = compute_gc(sequences)
 
@@ -284,6 +287,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, **kwargs):
                     "Gene GC": gene_gc,
                     "Chunk Size": chunk_size,
                     "Runtime": df_chunk["Runtime"].mean(),
+                    "Clade": clade,
                     **entry
                 })
 

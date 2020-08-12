@@ -198,6 +198,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
         end = timer()
         list_entries.append({
             "Genome": gi.name,
+            "Clade": gi.attributes.get("ancestor"),
             "Tool": t,
             "Chunk Size": chunk,
             "Predictions": pf_prediction,
