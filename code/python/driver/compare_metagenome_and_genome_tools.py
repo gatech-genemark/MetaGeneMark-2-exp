@@ -121,7 +121,7 @@ def main(env, args):
     )
 
     if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
-        if prl_options["use-pbs"]:
+        if not prl_options["use-pbs"]:
             df_list = run_n_per_thread(
                 [g for g in gil],
                 compare_for_gi,
