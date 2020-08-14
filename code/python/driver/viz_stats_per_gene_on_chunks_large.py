@@ -3,6 +3,7 @@
 
 import logging
 import os
+from textwrap import wrap
 
 import seaborn
 import argparse
@@ -25,7 +26,7 @@ from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_one_per_thread
 from mg_parallelization.pbs import PBS
 from mg_pbs_data.mergers import merge_identity
-from mg_viz.general import square_subplots
+from mg_viz.general import square_subplots, set_size
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
     _helper_df_joint_reference
@@ -1113,8 +1114,13 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
+
+    figsize = set_size("thesis", subplots=(num_rows, num_cols), legend="bottom",
+                       titles=True)
+
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=figsize)
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.05, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
     axes_unr = axes
     from collections import abc
 
@@ -1123,6 +1129,9 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     else:
         axes = axes.ravel()
 
+    wrap_val = 15
+
+    fontsize = "xx-small"
     # one plot per chunk size
     for i in range(num_chunk_sizes):
         row_i = int(i / num_cols)
@@ -1139,38 +1148,17 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             seaborn.regplot(df_curr["Genome GC"], df_curr["Sensitivity"], ax=ax, label=t,
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
-        ax.set_title(f"{cs} nt")
+        ax.set_title(f"{cs} nt", fontsize=fontsize)
         ax.set_ylim((-0.001, 1.001))
         if col_i == 0:
-            ax.set_ylabel("Sensitivity")
+            ax.set_ylabel("Sensitivity", fontsize=fontsize)
         else:
             ax.set_ylabel("")
         if row_i == num_rows - 1:
-            ax.set_xlabel("GC")
+            ax.set_xlabel("GC", fontsize=fontsize)
         else:
             ax.set_xlabel("")
-
-        # # # number of predictions
-        # # ax = axes[i + 2*num_cols]
-        # # for t in tools:
-        # #     if t.lower() == reference.lower():
-        # #         df_curr = df_chunk[df_chunk["Tool"] == t]
-        # #         seaborn.regplot(df_curr["Genome GC"], df_curr["Number in Reference"], ax=ax, label=t,
-        # #                         color=CM.get_map("tools")[t.lower()],
-        # #                         **{"lowess": True, "scatter_kws": {"s": 0, "alpha": 0.3,
-        # #                                                            "linestyle": "dashed"
-        # #                                                            }})
-        # #     else:
-        # #         df_curr = df_chunk[df_chunk["Tool"] == t]
-        # #         seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Predictions"], ax=ax, label=t,
-        # #                         color=CM.get_map("tools")[t.lower()],
-        # #                         **reg_kws)
-        # ax.set_title(f"{cs} nt")
-        # if col_i == 0:
-        #     ax.set_ylabel("Number of Predictions")
-        # else:
-        #     ax.set_ylabel("")
-        # ax.set_xlabel("GC")
+        ax.tick_params(labelsize=fontsize, length=2)
 
 
         # specificity
@@ -1181,47 +1169,34 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
             df_curr = df_chunk[df_chunk["Tool"] == t]
             seaborn.regplot(df_curr["Genome GC"], df_curr["Specificity"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
-            ax.set_title(f"{cs} nt")
-            ax.set_ylim((-0.001, 1.001))
-            if col_i == 0:
-                ax.set_ylabel("Specificity")
-            else:
-                ax.set_ylabel("")
-            ax.set_xlabel("GC")
 
-    fig.subplots_adjust(bottom=0.3)
+        ax.set_ylim((-0.001, 1.001))
+        if col_i == 0:
+            ax.set_ylabel("Specificity", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("GC", fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+
+
+    fig.subplots_adjust(bottom=0.2)
 
     handles, labels = ax.get_legend_handles_labels()
-    #for lh in handles:
-        #lh.set_alpha(1)
-        #lh.set_sizes([8] * (len(tools)))
-        #lh._sizes = [8]
 
-    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False)
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False,
+                     fontsize=fontsize)
     for lh in leg.legendHandles:
         lh.set_alpha(1)
         lh.set_sizes([18]*(len(tools)))
 
     fig.align_ylabels(axes_unr[:, 0])
+    fig.tight_layout(rect=[0,0.15,1,1], h_pad=0.5, w_pad=0.5)
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
-   #  leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
-   #  fig.tight_layout()
-   #  fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()
 
-    # # sum across
-    # g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=False)
-    #
-    # g.map(plt.plot, "Chunk Size", "Found%")
-    # # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
-    # # g.map(plt.plot, "x", "y_fit")
-    # g.set_xlabels("Chunk Size (nt)")
-    # g.set_titles("{col_name}", style="italic")
-    # g.set(ylim=(0, None))
-    # g.set(xlim=(0, 5100))
-    # g.set_ylabels("Number of predictions")
-    # g.add_legend()
+
 
 
 def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
@@ -1268,9 +1243,13 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
     # num_rows, num_cols = square_subplots(num_chunk_sizes)
     num_rows = 2
     num_cols = num_chunk_sizes
-    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=(18, 6))
+    figsize=set_size("thesis", subplots=(num_rows, num_cols), legend="bottom",
+                     titles=True)
+
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=figsize)
     axes_unr = axes
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.05, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
 
     from collections import abc
 
@@ -1280,7 +1259,9 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         axes = axes.ravel()
 
     df_tidy["Error Rate"] /= 100.0
+    wrap_val=15
 
+    fontsize="xx-small"
     # one plot per chunk size
     for i in range(num_chunk_sizes):
         row_i = int(i / num_cols)
@@ -1297,16 +1278,19 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
             seaborn.regplot(df_curr["Genome GC"], df_curr["Error Rate"], ax=ax, label=t,
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
-            ax.set_title(f"{cs} nt")
-            ax.set_ylim((0.0, 0.5))
-            if col_i == 0:
-                ax.set_ylabel("Gene-Start Error Rate")
-            else:
-                ax.set_ylabel("")
-            if row_i == num_rows - 1:
-                ax.set_xlabel("GC")
-            else:
-                ax.set_xlabel("")
+        ax.set_title(f"{cs} nt", fontsize=fontsize)
+        ax.set_ylim((0.0, 0.5))
+        if col_i == 0:
+            col_text = "\n".join(wrap("Gene-Start Error Rate", wrap_val, break_long_words=False))
+
+            ax.set_ylabel(col_text, fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        if row_i == num_rows - 1:
+            ax.set_xlabel("GC", fontsize=fontsize)
+        else:
+            ax.set_xlabel("")
+        ax.tick_params(labelsize=fontsize, length=2)
 
         # specificity
         ax = axes[i + num_cols]
@@ -1320,15 +1304,18 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
             seaborn.regplot(df_curr["Genome GC"], df_curr["Number of Found"], ax=ax, label=t,
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
-            ax.set_title(f"{cs} nt")
-            ax.set_ylim((0, None))
-            if col_i == 0:
-                ax.set_ylabel("Number of genes found")
-            else:
-                ax.set_ylabel("")
-            ax.set_xlabel("GC")
+        # ax.set_title(f"{cs} nt", )
+        ax.set_ylim((0, None))
+        if col_i == 0:
+            # col_text = "\n".join(wrap("Number of\ngenes found", wrap_val, break_long_words=False))
 
-    fig.subplots_adjust(bottom=0.3)
+            ax.set_ylabel("Number of\ngenes found", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("GC", fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+
+    fig.subplots_adjust(bottom=0.2)
 
     handles, labels = ax.get_legend_handles_labels()
     #for lh in handles:
@@ -1336,11 +1323,14 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         #lh.set_sizes([8] * (len(tools)))
         #lh._sizes = [8]
 
-    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False)
+    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False,
+                     fontsize=fontsize)
     for lh in leg.legendHandles:
         lh.set_alpha(1)
         lh.set_sizes([18]*(len(tools)))
+
     fig.align_ylabels(axes_unr[:, 0])
+    fig.tight_layout(rect=[0,0.15,1,1], h_pad=0.5, w_pad=0.5)
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
 
     plt.show()

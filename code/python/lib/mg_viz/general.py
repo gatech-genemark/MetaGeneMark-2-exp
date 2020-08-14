@@ -304,3 +304,51 @@ def square_subplots(num_items):
     num_rows = int(math.sqrt(num_items))
     num_cols = math.ceil(num_items / float(num_rows))
     return num_rows, num_cols
+
+
+def set_size(width, fraction=1, subplots=(1, 1), legend=None, titles=False):
+    """Set figure dimensions to avoid scaling in LaTeX.
+
+    Parameters
+    ----------
+    width: float or string
+            Document width in points, or string of predined document type
+    fraction: float, optional
+            Fraction of the width which you wish the figure to occupy
+    subplots: array-like, optional
+            The number of rows and columns of subplots.
+    Returns
+    -------
+    fig_dim: tuple
+            Dimensions of figure in inches
+    """
+    if width == 'thesis':
+        # width_pt = 426.79135
+        width_pt = 433.62001
+    elif width == 'beamer':
+        width_pt = 307.28987
+    else:
+        width_pt = width
+
+    # Width of figure (in pts)
+    fig_width_pt = width_pt * fraction
+    # Convert from pt to inches
+    inches_per_pt = 1 / 72.27
+
+    # Golden ratio to set aesthetic figure height
+    # https://disq.us/p/2940ij3
+    golden_ratio = (5**.5 - 1) / 2
+
+    # Figure width in inches
+    fig_width_in = fig_width_pt * inches_per_pt
+    fig_height_in = fig_width_in * golden_ratio * (subplots[0] / subplots[1])
+    # Figure height in inches
+
+    # update if legend is on bottom
+    if titles:
+        fig_height_in += subplots[0] * (fig_height_in * 0.2)
+    if legend == "bottom":
+        fig_height_in += fig_height_in * 0.2
+
+
+    return (fig_width_in, fig_height_in)

@@ -2,6 +2,8 @@
 # Created: 6/29/20, 3:41 PM
 
 import logging
+from textwrap import wrap
+
 import seaborn
 import argparse
 import numpy as np
@@ -18,7 +20,7 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
-from mg_viz.general import square_subplots
+from mg_viz.general import square_subplots, set_size
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
     _helper_df_joint_reference
@@ -29,6 +31,7 @@ from mg_viz.colormap import ColorMap as CM
 #           Parse CMD            #
 # ------------------------------ #
 from mg_viz.shelf import number_formatter
+from mg_viz.stats_large import case_insensitive_match
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene.")
 
@@ -830,6 +833,114 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
+    # show 5p error by condition (combine all tools)
+    df2 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).sum()
+    df2["Number of Comp Found"] += df2["Number of IC3p Found"]
+    df2["Number of Comp Match"] += df2["Number of IC3p Match"]
+
+    df2[f"Error Rate Comp"] = (df2[f"Number of Comp Found"] - df2[f"Number of Comp Match"]) / df2[f"Number of Comp Found"]
+    df2[f"Error Rate IC5p"] = (df2[f"Number of IC5p Found"] - df2[f"Number of IC5p Match"]) / df2[
+        f"Number of IC5p Found"]
+
+    figsize = set_size("thesis", subplots=(2,2), legend="bottom")
+
+    fig, axes = plt.subplots(2, 2, figsize=figsize, sharey="row")
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.1, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
+    from collections import abc
+
+    axes_unr = axes
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
+
+    ax = None
+    i = 0
+    fontsize = "xx-small"
+    for ax, col in zip(axes[0:2], ["Number of IC5p Found", "Number of Comp Found"]):
+        for t in tool_order:
+            if t.lower() == reference.lower():
+                continue
+            df_curr = df2[case_insensitive_match(df_tidy, "Tool", t)]
+
+            seaborn.regplot(
+                df_curr["Chunk Size"], df_curr[col], label=t, color=CM.get_map("tools")[t.lower()],
+                **reg_kws, ax=ax
+            )
+
+            if max(df_curr[col]) > 2000:
+                ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+        col_text = "\n".join(wrap(col, 20, break_long_words=False))
+        ax.set_ylabel(col_text, wrap=True, fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+
+        if i == 0:
+            ax.set_ylabel("Number of Genes Found", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("")
+        i += 1
+
+    for ax, col in zip(axes[2:], ["Error Rate IC5p", "Error Rate Comp"]):
+        for t in tool_order:
+            if t.lower() == reference.lower():
+                continue
+            df_curr = df2[case_insensitive_match(df_tidy, "Tool", t)]
+
+            seaborn.regplot(
+                df_curr["Chunk Size"], df_curr[col], label=t, color=CM.get_map("tools")[t.lower()],
+                **reg_kws, ax=ax
+            )
+
+            if max(df_curr[col]) > 2000:
+                ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+        col_text = "\n".join(wrap(col, 20, break_long_words=False))
+        ax.set_ylabel(col_text, wrap=True, fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+
+        if i == 0:
+            ax.set_ylabel("Gene-Start Errro Rate", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("Chunk Size (nt)")
+        i += 1
+
+    if ax is not None:
+        fig.subplots_adjust(bottom=0.2)
+        handles, labels = ax.get_legend_handles_labels()
+
+        labels = [{
+                      "mgm": "MGM",
+                      "mgm2": "MGM2",
+                      "mga": "MGA",
+                      "mprodigal": "MProdigal",
+                      "fgs": "FGS",
+                      "gms2": "GMS2",
+                      "prodigal": "Prodigal"
+                  }[l.lower()] for l in labels]
+
+        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
+                         bbox_transform=fig.transFigure, frameon=False,
+                         fontsize=fontsize)
+        for lh in leg.legendHandles:
+            lh.set_alpha(1)
+            lh.set_sizes([18] * (len(tool_order)))
+
+
+        for i in range(2):
+            fig.align_ylabels(axes_unr[:, i])
+
+
+        fig.tight_layout(rect=[0, 0.1, 1, 1])
+        fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,))  # bbox_inches='tight'
+
+    plt.show()
+
+
 
 def _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref):
     # type: (Environment, pd.DataFrame, List[str], List[str]) -> [str, pd.DataFrame]
@@ -966,6 +1077,8 @@ def viz_stats_5p(env, df_per_gene, tools, list_ref):
     viz_stats_5p_error_rate(env, df_tidy, reference)
     viz_stats_5p_error_rate_partial(env, df_tidy, reference)
 
+    viz_stats_5p_partial(env, df_tidy, tools, reference)
+
 
 def viz_stats_per_gene(env, df_per_gene, tools, list_ref_5p, list_ref_3p):
     # type: (Environment, pd.DataFrame, List[str], List[str], List[str]) -> None
@@ -994,8 +1107,6 @@ def main(env, args):
     if args.parse_names:
         df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
 
-    import pdb
-    pdb.set_trace()
     df = df[df["Chunk Size"] < 6000].copy()
     # get tools list
     # If not provided, extract from df

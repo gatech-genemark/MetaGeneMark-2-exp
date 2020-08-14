@@ -2,19 +2,24 @@
 # Created: 8/5/20, 8:25 AM
 
 import logging
+import math
 import os
+from textwrap import wrap
 
 import pandas as pd
 from typing import *
 
 import seaborn
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 
 from mg_general import Environment
 from mg_io.general import load_obj, save_obj
 from mg_viz.colormap import ColorMap as CM
 from mg_general.general import next_name, get_value
 from mg_stats.small import _helper_join_reference_and_tidy_data, prl_join_reference_and_tidy_data
+from mg_viz.general import set_size
+from mg_viz.shelf import number_formatter
 
 logger = logging.getLogger(__name__)
 
@@ -26,11 +31,28 @@ def case_insensitive_match(df, col, value):
 
 def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **kwargs):
     col_to_ylim = get_value(kwargs, "col_to_ylim", dict())
+    col_wrap = get_value(kwargs, "col_wrap", len(columns))
+    num_rows = math.ceil(len(columns) / float(col_wrap))
+    wrap_val = get_value(kwargs, "wrap_val", None)
+    figsize = get_value(kwargs, "figsize", (8 * col_wrap, 6 * num_rows))
+    col_x = get_value(kwargs, "col_x", "Genome GC")
+    col_x_text = get_value(kwargs, "col_x", "GC")
 
-    fig, axes = plt.subplots(1, len(columns), sharex="all", figsize=(8 * len(columns), 6))
-    reg_kws = {"lowess": True, "scatter_kws": {"s": 2, "alpha": 0.3}}
+
+    fig, axes = plt.subplots(num_rows, col_wrap, figsize=figsize)
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.1, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
+    from collections import abc
+
+    axes_unr = axes
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
 
     ax = None
+    i = j = 0
+    fontsize="xx-small"
     for ax, col in zip(axes, columns):
         for t in tool_order:
             if t.lower() == reference.lower():
@@ -38,23 +60,63 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
             df_curr = df_tidy[case_insensitive_match(df_tidy, "Tool", t)]
 
             seaborn.regplot(
-                df_curr["Genome GC"], df_curr[col], label=t, color=CM.get_map("tools")[t.lower()],
+                df_curr[col_x], df_curr[col], label=t, color=CM.get_map("tools")[t.lower()],
                 **reg_kws, ax=ax
             )
 
             if col in col_to_ylim:
                 ax.set_ylim(*col_to_ylim[col])
 
+            if max(df_curr[col]) > 2000:
+                ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+            if i != num_rows - 1:
+                ax.set_xlabel("")
+            else:
+                ax.set_xlabel(col_x_text, fontsize=fontsize)
+
+            if wrap_val:
+                col_text = "\n".join(wrap(col, wrap_val, break_long_words=False))
+            else:
+                col_text = col
+            ax.set_ylabel(col_text, wrap=True, fontsize=fontsize)
+            ax.tick_params(labelsize=fontsize, length=2)
+
+        j += 1
+        if j == col_wrap:
+            i += 1
+            j = 0
+
     if ax is not None:
-        fig.subplots_adjust(bottom=0.3)
+        fig.subplots_adjust(bottom=0.2)
         handles, labels = ax.get_legend_handles_labels()
 
-        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tool_order), bbox_transform=fig.transFigure, frameon=False)
+        labels = [{
+            "mgm": "MGM",
+            "mgm2": "MGM2",
+            "mga": "MGA",
+            "mprodigal": "MProdigal",
+            "fgs": "FGS",
+            "gms2": "GMS2",
+            "prodigal": "Prodigal"
+        }[l.lower()] for l in labels]
+
+        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
+                         bbox_transform=fig.transFigure, frameon=False,
+                         fontsize=fontsize)
         for lh in leg.legendHandles:
             lh.set_alpha(1)
-            lh.set_sizes([18]*(len(tool_order)))
+            lh.set_sizes([18] * (len(tool_order)))
 
-        fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+        if num_rows > 1:
+            for i in range(col_wrap):
+                fig.align_ylabels(axes_unr[:,i])
+
+        if num_rows == 1:
+            fig.tight_layout(rect=[0,0.05,1,1])
+        else:
+            fig.tight_layout(rect=[0,0.1,1,1])
+        fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,)) #bbox_inches='tight'
 
     plt.show()
 
@@ -68,11 +130,11 @@ def reorder_pivot_by_tool(df_pivoted, tool_order):
 
 
 def stats_large_3p_reference(env, df_tidy, reference, **kwargs):
-    # type: (Environment, pd.DataFrame, str) -> None
+    # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
 
-    if reference not in tool_order:
-        tool_order = [reference] + tool_order
+    # if reference not in tool_order:
+    #     tool_order = [reference] + tool_order
 
     # number of genes per clade
     df_grouped = df_tidy.groupby(["Clade", "Tool"], as_index=False).sum()
@@ -83,8 +145,33 @@ def stats_large_3p_reference(env, df_tidy, reference, **kwargs):
     #     df_grouped.pivot(index=["Clade", "Number in Reference"], columns="Tool", values=["Sensitivity", "Specificity"]), tool_order
     # )
 
-    df_pivoted = df_grouped.pivot_table(index=["Clade", "Number in Reference"], columns="Tool",
-                           values=["Sensitivity", "Specificity"]).reset_index(level=1)
+    df_pivoted = reorder_pivot_by_tool(df_grouped.pivot_table(
+        index=["Clade", "Number in Reference"], columns="Tool",
+        values=["Sensitivity", "Specificity"]).reset_index(
+        level=1),
+        tool_order)
+
+    df_pivoted.to_csv(
+        next_name(env["pd-work"], ext="csv")
+    )
+
+
+def stats_large_5p_overall(env, df_tidy, reference, **kwargs):
+    # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
+    tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
+
+    # if reference not in tool_order:
+    #     tool_order = [reference] + tool_order
+
+    # number of genes per clade
+    df_grouped = df_tidy.groupby(["Clade", "Tool"], as_index=False).sum()
+    df_grouped["Error Rate"] = df_grouped["Number of Error"] / df_grouped["Number of Found"]
+
+    df_pivoted = reorder_pivot_by_tool(df_grouped.pivot_table(
+        index=["Clade", "Number in Reference"], columns="Tool",
+        values=["Error Rate"]).reset_index(
+        level=1),
+        tool_order)
 
     df_pivoted.to_csv(
         next_name(env["pd-work"], ext="csv")
@@ -95,8 +182,10 @@ def viz_stats_large_3p_sn_sp(env, df_tidy, reference, **kwargs):
     # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
 
+
     plot_gc_stats_side_by_side(
-        env, df_tidy, ["Number of Found", "Sensitivity"], tool_order, reference,
+        env, df_tidy, ["Sensitivity", "Specificity", "Number of Found", "Number of Predictions"],
+        tool_order, reference, col_wrap=2, wrap_val=10, figsize=set_size(433.62001, subplots=(2,2), legend="bottom"),
         col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1)}
     )
 
@@ -118,9 +207,99 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
     df_tidy["Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]  # FIXME: compute before
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Error Rate", "Sensitivity"], tool_order, reference,
+        col_wrap=2, wrap_val=10, figsize=set_size("thesis", subplots=(1, 2), legend="bottom"),
         col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1), "Error Rate": (0, 0.5)}
     )
 
+def viz_stats_large_5p_error_vs_gc_by_clade(env, df_tidy, reference, **kwargs):
+    # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
+    tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
+
+    df_tidy["Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]
+
+    clades_sorted = sorted(df_tidy["Clade"].unique())
+    num_clades = len(clades_sorted)
+    num_rows = 2
+    subplots=(num_rows, math.ceil(num_clades/ float(num_rows)))
+    figsize = set_size("thesis", subplots=subplots,legend="bottom", titles=True)
+    col_x = "Genome GC"
+    col_x_text = "GC"
+
+    fig, axes = plt.subplots(subplots[0], subplots[1], figsize=figsize, sharex="all", sharey="all")
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.1, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
+    from collections import abc
+
+    axes_unr = axes
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
+
+    ax = None
+    fontsize = "xx-small"
+    counter = 0
+    for ax, col in zip(axes, clades_sorted):
+        for t in tool_order:
+            if t.lower() == reference.lower():
+                continue
+            df_curr = df_tidy[case_insensitive_match(df_tidy, "Tool", t)]
+            df_curr = df_curr[df_curr["Clade"] == col]
+
+            seaborn.regplot(
+                df_curr[col_x], df_curr["Error Rate"], label=t, color=CM.get_map("tools")[t.lower()],
+                **reg_kws, ax=ax
+            )
+
+            # if col in col_to_ylim:
+            #     ax.set_ylim(*col_to_ylim[col])
+
+        if max(df_curr["Error Rate"]) > 2000:
+            ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+        ax.set_xlabel(col_x_text, fontsize=fontsize)
+        ax.set_title(col, fontsize=fontsize)
+
+        ax.set_ylabel("Error Rate", wrap=True, fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+        if counter == 0:
+            ax.set_ylabel("Error Rate", wrap=True, fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+
+
+    if ax is not None:
+        fig.subplots_adjust(bottom=0.2)
+        handles, labels = ax.get_legend_handles_labels()
+
+        labels = [{
+                      "mgm": "MGM",
+                      "mgm2": "MGM2",
+                      "mga": "MGA",
+                      "mprodigal": "MProdigal",
+                      "fgs": "FGS",
+                      "gms2": "GMS2",
+                      "prodigal": "Prodigal"
+                  }[l.lower()] for l in labels]
+
+        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
+                         bbox_transform=fig.transFigure, frameon=False,
+                         fontsize=fontsize)
+        for lh in leg.legendHandles:
+            lh.set_alpha(1)
+            lh.set_sizes([18] * (len(tool_order)))
+
+        # if num_rows > 1:
+        #     for i in range():
+        #         fig.align_ylabels(axes_unr[:, i])
+
+        if num_rows == 1:
+            fig.tight_layout(rect=[0, 0.05, 1, ])
+        else:
+            fig.tight_layout(rect=[0, 0.1, 1, 1])
+        fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,))  # bbox_inches='tight'
+
+    plt.show()
 
 def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
     pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
@@ -132,7 +311,7 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
         reference, df_tidy = load_obj(pf_checkpoint)
 
     # Reference stats
-    stats_large_3p_reference(env, df_tidy, reference)
+    stats_large_3p_reference(env, df_tidy, reference, tool_order=tools)
 
     # Number of Predictions versus number of found
     stats_large_3p_predictions_vs_found(env, df_tidy, reference, tool_order=tools)
@@ -150,5 +329,9 @@ def viz_stats_large_5p(env, df_per_gene, tools, list_ref, **kwargs):
     else:
         reference, df_tidy = load_obj(pf_checkpoint)
 
+    stats_large_5p_overall(env, df_tidy, reference, tool_order=tools)
+
     # Number of found vs number of 5' error
     viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, tool_order=tools)
+
+    viz_stats_large_5p_error_vs_gc_by_clade(env, df_tidy, reference, tool_order=tools)
