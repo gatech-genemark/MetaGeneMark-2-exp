@@ -27,11 +27,16 @@ from mg_general.labels_comparison_detailed import LabelsComparisonDetailed
 from mg_general.shelf import compute_gc
 from mg_io.general import save_obj, load_obj
 from mg_io.labels import read_labels_from_file
+from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
+from mg_parallelization.pbs import PBS
+from mg_pbs_data.mergers import merge_identity
+from mg_pbs_data.splitters import split_gil
 
 parser = argparse.ArgumentParser("Compare Prodigal vs MetaProdigal, and GMS2 vs MGM2.")
 
 parser.add_argument('--pf-gil', required=True, help="List of genomes")
+parser.add_argument('--pf-parallelization-options')
 parser.add_argument('--pf-checkpoint')
 
 add_env_args_to_parser(parser)
@@ -60,15 +65,19 @@ def compare_metagenome_and_standard_tool(env, gi, tool_meta, tool_standard, tag)
 
     lcd = LabelsComparisonDetailed(label_standard, label_meta)
 
+    error = 0
+    if float(len(lcd.match_3p('a'))) > 0:
+        error = len(lcd.match_3p_not_5p('a')) / float(len(lcd.match_3p('a')))
+
     return pd.Series({
         "Genome": gi.name,
         "Tag": tag,
         "Clade": gi.attributes.get("ancestor"),
         "Match 3p 5p": len(lcd.match_3p_5p('a')),
         "Match 3p": len(lcd.match_3p('a')),
-        "Error Rate 5p": len(lcd.match_3p_not_5p('a')) / float(len(lcd.match_3p('a'))),
-        "Sensitivity": len(lcd.match_3p('a')) / len(label_standard),
-        "Specificity": len(lcd.match_3p('a')) / len(label_meta),
+        "Error Rate 5p": error,
+        "Sensitivity": len(lcd.match_3p('a')) / len(label_standard) if len(label_standard) > 0 else 0,
+        "Specificity": len(lcd.match_3p('a')) / len(label_meta) if len(label_meta) > 0 else 0
     })
 
 
@@ -87,6 +96,14 @@ def compare_for_gi(env, gi, **kwargs):
 
     return pd.DataFrame([se_prod, se_gms2])
 
+def compare_for_gil(env, gil, **kwargs):
+
+    list_df = list()
+    for gi in gil:
+        list_df.append(compare_for_gi(env, gi, **kwargs))
+
+    return pd.concat(list_df, ignore_index=True, sort=False)
+
 
 def plot_5p_difference_versus_gc(env, df):
     # type: (Environment, pd.DataFrame) -> None
@@ -99,14 +116,26 @@ def main(env, args):
     gil = GenomeInfoList.init_from_file(args.pf_gil)
     pf_checkpoint = args.pf_checkpoint
 
+    prl_options = ParallelizationOptions.init_from_dict(
+        env, args.pf_parallelization_options, vars(args)
+    )
+
     if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
-        df_list = run_n_per_thread(
-            [g for g in gil],
-            compare_for_gi,
-            data_arg_name="gi",
-            func_kwargs={"env": env}
-        )
+        if prl_options["use-pbs"]:
+            df_list = run_n_per_thread(
+                [g for g in gil],
+                compare_for_gi,
+                data_arg_name="gi",
+                func_kwargs={"env": env}
+            )
+        else:
+            pbs = PBS(env, prl_options,
+                      splitter=split_gil,
+                      merger=merge_identity)
+            df_list = pbs.run(gil, compare_for_gil, {"env": env})
+
         df = pd.concat(df_list, ignore_index=True, sort=False)
+
         if pf_checkpoint:
             save_obj(df, pf_checkpoint)
     else:
