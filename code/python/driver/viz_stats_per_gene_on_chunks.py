@@ -2,6 +2,7 @@
 # Created: 6/29/20, 3:41 PM
 
 import logging
+import os
 from textwrap import wrap
 
 import seaborn
@@ -20,11 +21,12 @@ import pathmagic
 import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
+from mg_io.general import save_obj, load_obj
 from mg_viz.general import square_subplots, set_size
 from mg_general import Environment, add_env_args_to_parser
 from mg_stats.shelf import update_dataframe_with_stats, tidy_genome_level, \
     _helper_df_joint_reference
-from mg_general.general import all_elements_equal, fix_names, next_name, os_join
+from mg_general.general import all_elements_equal, fix_names, next_name, os_join, get_value
 from mg_viz.colormap import ColorMap as CM
 
 # ------------------------------ #
@@ -39,6 +41,9 @@ parser.add_argument('--pf-data', required=True)
 
 parser.add_argument('--ref-5p', required=False, nargs="+", help="Reference(s) on which to compare 5' predictions")
 parser.add_argument('--ref-3p', required=False, nargs="+", help="Reference(s) on which to compare 3' predictions")
+
+parser.add_argument('--pf-checkpoint-5p')
+parser.add_argument('--pf-checkpoint-3p')
 
 parser.add_argument('--tools', nargs="+", help="If set, only compare these tools. Otherwise all tools are chosen")
 parser.add_argument('--parse-names', action='store_true', help="If set, try to shorten genome names. Useful only "
@@ -863,15 +868,15 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
         for t in tool_order:
             if t.lower() == reference.lower():
                 continue
-            df_curr = df2[case_insensitive_match(df_tidy, "Tool", t)]
+            df_curr = df2[case_insensitive_match(df2, "Tool", t)]
 
             seaborn.regplot(
                 df_curr["Chunk Size"], df_curr[col], label=t, color=CM.get_map("tools")[t.lower()],
                 **reg_kws, ax=ax
             )
 
-            if max(df_curr[col]) > 2000:
-                ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+        if max(df2[col]) > 2000:
+            ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
         col_text = "\n".join(wrap(col, 20, break_long_words=False))
         ax.set_ylabel(col_text, wrap=True, fontsize=fontsize)
@@ -1044,10 +1049,18 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
     plt.show()
 
 
-def viz_stats_3p(env, df_per_gene, tools, list_ref):
-    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+def viz_stats_3p(env, df_per_gene, tools, list_ref, **kwargs):
+    # type: (Environment, pd.DataFrame, List[str], List[str], Dict[str, Any]) -> None
     """Visualize statistics at 3prime level"""
-    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
+
+    if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
+        reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+
+        if pf_checkpoint:
+            save_obj([reference, df_tidy], pf_checkpoint)
+    else:
+        reference, df_tidy = load_obj(pf_checkpoint)
 
     ########## Genome Level ##########
     # Number of Predictions, number of found
@@ -1067,10 +1080,20 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref):
     viz_stats_3p_missed_vs_length(env, df_per_gene, reference)
 
 
-def viz_stats_5p(env, df_per_gene, tools, list_ref):
-    # type: (Environment, pd.DataFrame, List[str], List[str]) -> None
+def viz_stats_5p(env, df_per_gene, tools, list_ref, **kwargs):
+    # type: (Environment, pd.DataFrame, List[str], List[str], Dict[str, Any]) -> None
     """Visualize statistics at 5prime level"""
-    reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+
+    pf_checkpoint = get_value(kwargs, "pf_checkpoint", None)
+
+    if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
+        reference, df_tidy = _helper_join_reference_and_tidy_data(env, df_per_gene, tools, list_ref)
+
+        if pf_checkpoint:
+            save_obj([reference, df_tidy], pf_checkpoint)
+
+    else:
+        reference, df_tidy = load_obj(pf_checkpoint)
 
     # Number of 5p Errors, number of found
     viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference)
@@ -1080,11 +1103,11 @@ def viz_stats_5p(env, df_per_gene, tools, list_ref):
     viz_stats_5p_partial(env, df_tidy, tools, reference)
 
 
-def viz_stats_per_gene(env, df_per_gene, tools, list_ref_5p, list_ref_3p):
+def viz_stats_per_gene(env, df_per_gene, tools, list_ref_5p, list_ref_3p, **kwargs):
     # type: (Environment, pd.DataFrame, List[str], List[str], List[str]) -> None
 
-    viz_stats_3p(env, df_per_gene, tools, list_ref_3p)
-    viz_stats_5p(env, df_per_gene, tools, list_ref_5p)
+    viz_stats_3p(env, df_per_gene, tools, list_ref_3p, pf_checkpoint=kwargs.get("pf_checkpoint_3p"))
+    viz_stats_5p(env, df_per_gene, tools, list_ref_5p, pf_checkpoint=kwargs.get("pf_checkpoint_5p"))
 
 
 def tools_match_for_dataframe_row(r, tools):
@@ -1125,7 +1148,9 @@ def main(env, args):
         tools = all_tools
         tools = sorted(set(tools).difference({*args.ref_5p}).difference({*args.ref_3p}))
 
-    viz_stats_per_gene(env, df, tools, args.ref_5p, args.ref_3p)
+    viz_stats_per_gene(env, df, tools, args.ref_5p, args.ref_3p,
+                       pf_checkpoint_5p=args.pf_checkpoint_5p,
+                       pf_checkpoint_3p=args.pf_checkpoint_3p)
 
 
 if __name__ == "__main__":

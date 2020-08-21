@@ -7,6 +7,9 @@ import os
 
 import pandas as pd
 from typing import *
+
+import matplotlib.pyplot as plt
+import seaborn
 from Bio import SeqIO
 
 # noinspection All
@@ -107,13 +110,39 @@ def compare_for_gil(env, gil, **kwargs):
 
 def plot_5p_difference_versus_gc(env, df):
     # type: (Environment, pd.DataFrame) -> None
+    df = df[df["Sensitivity"] > 0.4].copy()
 
-    pass
+    # g = seaborn.FacetGrid(data=df, col="Clade", hue="Tag", sharex=True)
+    # g.map(seaborn.regplot, )
+
+    scatter_kws={"s": 2, "alpha": 0.3}
+
+    seaborn.lmplot("GC", "Error Rate 5p", data=df,
+                   hue="Tag", col="Clade",
+                   lowess=True,
+                   scatter_kws=scatter_kws)
+
+    plt.show()
+
+    df_tidy = pd.melt(df, id_vars=["Tag", "Clade", "GC"],
+                      value_vars=["Sensitivity", "Specificity"],
+                      var_name="Metric", value_name="Score")
+    g = seaborn.lmplot("GC", "Score", data=df_tidy,
+                   hue="Tag", col="Metric", lowess=True,
+                   scatter_kws=scatter_kws)
+    g.set(ylim=[0.8, 1.001])
+
+    plt.show()
+
+    # print sensitivity less than 0.4
+    print(df[df["Sensitivity"] < 0.4]["Genome"].unique())
+
+
+
 
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
-    gil = GenomeInfoList.init_from_file(args.pf_gil)
     pf_checkpoint = args.pf_checkpoint
 
     prl_options = ParallelizationOptions.init_from_dict(
@@ -121,6 +150,8 @@ def main(env, args):
     )
 
     if not pf_checkpoint or not os.path.isfile(pf_checkpoint):
+        gil = GenomeInfoList.init_from_file(args.pf_gil)
+
         if not prl_options["use-pbs"]:
             df_list = run_n_per_thread(
                 [g for g in gil],

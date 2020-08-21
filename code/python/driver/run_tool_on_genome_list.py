@@ -67,6 +67,8 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
     curr_env = env.duplicate({"pd-work": pd_work})
     mkdir_p(pd_work)
 
+    gcode = int(gi.genetic_code)
+
     pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
     pf_prediction = os_join(pd_work, "prediction.gff")
 
@@ -75,19 +77,19 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
 
     try:
         if tool == "gms2":
-            run_gms2(curr_env, pf_sequence, pf_prediction, **kwargs)
+            run_gms2(curr_env, pf_sequence, pf_prediction, gcode=gcode, **kwargs)
         elif tool == "prodigal":
-            run_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+            run_prodigal(curr_env, pf_sequence, pf_prediction, gcode=gcode, **kwargs)
         elif tool == "mprodigal":
-            run_meta_prodigal(curr_env, pf_sequence, pf_prediction, **kwargs)
+            run_meta_prodigal(curr_env, pf_sequence, pf_prediction, gcode=gcode, **kwargs)
         elif tool == "mgm2":
-            run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction)
+            run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction, gcode=gcode)
         elif tool == "mgm":
-            run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction)
+            run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction, gcode=gcode)
         elif tool == "fgs":
-            run_fgs(env, pf_sequence, pf_prediction)
+            run_fgs(env, pf_sequence, pf_prediction, gcode=gcode)
         elif tool == "mga":
-            run_mga(env, pf_sequence, pf_prediction)
+            run_mga(env, pf_sequence, pf_prediction, gcode=gcode)
         # elif tool == "tritisa":
         #     run_tritisa(env, pf_sequence, os_join(env["pd-data"], gi.name, "ncbi.gff"), pf_prediction)
         else:

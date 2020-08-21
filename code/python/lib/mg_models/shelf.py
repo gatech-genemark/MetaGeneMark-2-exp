@@ -400,7 +400,7 @@ def component_in_model_file(env, gi, component):
         return False
 
 
-def run_mgm(env, pf_sequence, pf_mgm, pf_prediction):
+def run_mgm(env, pf_sequence, pf_mgm, pf_prediction, **kwargs):
     # type: (Environment, str, str, str) -> None
     # bin_external = env["pd-bin-external"]
     # prog = f"{bin_external}/gms2/gmhmmp2"
@@ -420,7 +420,7 @@ def convert_fgs_to_gff(pf_input, pf_output):
     labels = read_fgs_format(pf_input, shift=0)
     write_labels_to_file(labels, pf_output, shift_coordinates_by=0)
 
-def run_fgs(env, pf_sequence, pf_prediction):
+def run_fgs(env, pf_sequence, pf_prediction, **kwargs):
     # type: (Environment, str, str) -> None
     bin_external = env["pd-bin-external"]
     prog = f"cd {bin_external}/fgs; FragGeneScan"
@@ -467,20 +467,24 @@ def convert_mga_output_to_gff(output_str, pf_output):
                 )
 
 
-def run_mga(env, pf_sequence, pf_prediction):
+def run_mga(env, pf_sequence, pf_prediction, **kwargs):
     # type: (Environment, str, str) -> None
     prog = f"mga"
     cmd = f"{prog} -m {pf_sequence}"
     output = run_shell_cmd(cmd)
     convert_mga_output_to_gff(output, pf_prediction)
 
-def run_tritisa(env, pf_sequence, pf_initial_labels, pf_prediction):
+def run_tritisa(env, pf_sequence, pf_initial_labels, pf_prediction, **kwargs):
     # type: (Environment, str, str, str) -> None
     bin_external = env["pd-bin-external"]
     prog = f"cd ${bin_external}/tritisa/TriTISA"
 
-def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction):
+def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction, **kwargs):
     # type: (Environment, str, str, str) -> None
+
+    gcode = get_value(kwargs, "gcode", 11, valid_type=int)
+
+
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/mgm2/gmhmmp2"
     cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
