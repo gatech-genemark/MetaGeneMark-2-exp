@@ -35,7 +35,7 @@ parser = argparse.ArgumentParser("Visualize GMS2 models over GC.")
 parser.add_argument('--pf-gil', required=True)
 parser.add_argument('--pf-checkpoint')
 
-parser.add_argument('dn-gms2', default="gms2")
+parser.add_argument('--dn-gms2', default="gms2", required=False)
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -76,7 +76,7 @@ def read_genome_data(env, gil, **kwargs):
 
     for gi in gil:
         try:
-            pf_mod = os_join(env["pd-runs"], dn_gms2, "GMS2.mod")
+            pf_mod = os_join(env["pd-runs"], gi.name, dn_gms2, "GMS2.mod")
             mod = GMS2Mod.init_from_file(pf_mod)
 
             list_mod.append(mod)
@@ -94,7 +94,7 @@ def read_genome_data(env, gil, **kwargs):
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
 
-    if not args.pf_checkpoint or os.path.isfile(args.pf_checkpoint):
+    if not args.pf_checkpoint or not os.path.isfile(args.pf_checkpoint):
         gil = GenomeInfoList.init_from_file(args.pf_gil)
         list_gi, list_mod, list_gc = read_genome_data(env, gil, dn_gms2=args.dn_gms2)
 
