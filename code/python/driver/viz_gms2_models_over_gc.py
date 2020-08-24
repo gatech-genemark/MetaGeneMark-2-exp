@@ -75,12 +75,27 @@ def viz_genome_type_per_gc(env, list_gi, list_mod, list_gc):
 
     df2 = df[df["Group"].isin({"group-a", "group-c"})]
     df2["Group"] = df2["Group"].apply(lambda x: x.split('-')[1].upper())
-    seaborn.catplot("GC", "Group", data=df2 )
-    plt.show()
+    #seaborn.catplot("GC", "Group", data=df2 )
+    #plt.show()
 
     # kde plot
-    for g in sorted(df["Group"].unique()):
-        seaborn.kdeplot(df[df["Group"] == g]["GC"], label=g)
+    df["GroupL"] = df["Group"].apply(lambda x: x.split('-')[1].upper())
+
+    fig, ax = plt.subplots(1,1)
+    for g in sorted(df["GroupL"].unique()):
+        df_group = df[df["GroupL"] == g]
+        seaborn.kdeplot(df_group["GC"], label=f"{g} ({len(df_group)})", ax=ax)
+    plt.xlabel("GC")
+    plt.ylabel("Density")
+    # handles, labels = ax.get_legend_handles_labels()
+
+    # leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=2,
+    #                  bbox_transform=fig.transFigure, frameon=False)
+    #                  # fontsize=fontsize)
+
+    # for lh in leg.legendHandles:
+    #     lh0
+    plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
     df_c = df[df["Group"] == "group-c"]
