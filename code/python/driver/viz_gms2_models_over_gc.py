@@ -27,18 +27,24 @@ from mg_general.general import os_join, get_value, next_name
 from mg_general.shelf import compute_gc
 from mg_general import Environment, add_env_args_to_parser
 from mg_io.general import save_obj, load_obj
+from mg_argparse.parallelization import add_parallelization_options
 
 # ------------------------------ #
 #           Parse CMD            #
 # ------------------------------ #
 from mg_models.gms2_noncoding import GMS2Noncoding
 from mg_models.motif_model import MotifModel
+from mg_options.parallelization import ParallelizationOptions
+from mg_parallelization.pbs import PBS
+from mg_pbs_data.mergers import merge_identity
+from mg_pbs_data.splitters import split_gil
 from mg_viz.general import square_subplots, set_size
 
 parser = argparse.ArgumentParser("Visualize GMS2 models over GC.")
 
 parser.add_argument('--pf-gil', required=True)
 parser.add_argument('--pf-checkpoint')
+add_parallelization_options(parser)
 
 parser.add_argument('--dn-gms2', default="gms2", required=False)
 
@@ -233,8 +239,9 @@ def viz_gms2_models_over_gc(env, list_gi, list_mod, list_gc, **kwargs):
     viz_genome_type_per_gc(env, list_gi, list_mod, list_gc)
 
 
-def read_genome_data(env, gil, **kwargs):
+def helper_read_genome_data(env, gil, **kwargs):
     dn_gms2 = get_value(kwargs, "dn_gms2", "gms2")
+    prl_options = get_value(kwargs, "prl_options", None)
 
     list_gi = list()
     list_mod = list()
@@ -257,12 +264,38 @@ def read_genome_data(env, gil, **kwargs):
     return list_gi, list_mod, list_gc
 
 
+def read_genome_data(env, gil, **kwargs):
+    dn_gms2 = get_value(kwargs, "dn_gms2", "gms2")
+    prl_options = get_value(kwargs, "prl_options", None)
+
+    list_gi = list()
+    list_mod = list()
+    list_gc = list()
+
+    if not prl_options or not prl_options["use-pbs"]:
+        list_gi, list_mod, list_gc = helper_read_genome_data(env, gil, **kwargs)
+    else:
+        pbs = PBS(env, prl_options, splitter=split_gil, merger=merge_identity)
+        list_results = pbs.run(
+            gil,
+            helper_read_genome_data,
+            {"env": env, **kwargs}
+        )
+        # [item for sublist in l for item in sublist]
+        list_gi = [item for l in list_results for item in l[0]]
+        list_mod = [item for l in list_results for item in l[1]]
+        list_gc = [item for l in list_results for item in l[2]]
+
+    return list_gi, list_mod, list_gc
+
+
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
 
     if not args.pf_checkpoint or not os.path.isfile(args.pf_checkpoint):
         gil = GenomeInfoList.init_from_file(args.pf_gil)
-        list_gi, list_mod, list_gc = read_genome_data(env, gil, dn_gms2=args.dn_gms2)
+        prl_options = ParallelizationOptions.init_from_dict(env, args.pf_parallelization_options, vars(args))
+        list_gi, list_mod, list_gc = read_genome_data(env, gil, dn_gms2=args.dn_gms2, prl_options=prl_options)
 
         if args.pf_checkpoint:
             save_obj([list_gi, list_mod, list_gc], args.pf_checkpoint)
