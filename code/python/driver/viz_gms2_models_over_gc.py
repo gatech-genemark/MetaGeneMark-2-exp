@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from Bio import SeqIO
 import logomaker as lm
+from tqdm import tqdm
 
 from typing import *
 
@@ -239,7 +240,7 @@ def read_genome_data(env, gil, **kwargs):
     list_mod = list()
     list_gc = list()
 
-    for gi in gil:
+    for gi in tqdm(gil, total=len(gil)):
         try:
             pf_mod = os_join(env["pd-runs"], gi.name, dn_gms2, "GMS2.mod")
             mod = GMS2Mod.init_from_file(pf_mod)
