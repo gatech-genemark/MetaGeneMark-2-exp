@@ -4,11 +4,14 @@ import copy
 import logging
 from typing import *
 
+from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
+from mg_general.general import os_join
 from mg_general.labels import Labels
 from mg_io.general import write_to_file
+from mg_io.labels import read_labels_from_file
 
 log = logging.getLogger(__name__)
 
@@ -52,3 +55,15 @@ def convert_multi_fasta_into_single_fasta(sequences, labels, new_seqname):
     joined_seq[new_seqname] = SeqRecord(seq=joined_seq[new_seqname].seq, id=new_seqname, name=new_seqname)
 
     return [joined_seq, labels]
+
+
+def read_sequences_for_gi(env, gi):
+    # type: (Environment, GenomeInfo) -> Dict[str, SeqRecord]
+    pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
+    return SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
+
+
+def read_labels_for_gi(env, gi, fn_labels="ncbi.gff"):
+    # type: (Environment, GenomeInfo, str) -> Labels
+    pf_labels = os_join(env["pd-data"], gi.name, fn_labels)
+    return read_labels_from_file(pf_labels)

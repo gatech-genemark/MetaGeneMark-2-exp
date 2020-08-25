@@ -8,8 +8,6 @@ from timeit import default_timer as timer
 import pandas as pd
 from subprocess import CalledProcessError
 from typing import *
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
 
 # noinspection All
 import pathmagic
@@ -23,12 +21,12 @@ from mg_general import Environment, add_env_args_to_parser
 import mg_argparse.parallelization
 from mg_general.general import get_value, os_join
 from mg_general.genome_splitter import GenomeSplitter
-from mg_general.labels import Labels
 from mg_io.general import remove_p, mkdir_p
 from mg_io.labels import read_labels_from_file, write_labels_to_file
+from mg_io.shelf import read_sequences_for_gi, read_labels_for_gi
 from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs, run_mga
 from mg_options.parallelization import ParallelizationOptions
-from mg_parallelization.generic_threading import run_slice_per_thread, run_n_per_thread
+from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
 from mg_pbs_data.mergers import merge_identity
 from mg_pbs_data.splitters import split_gil
@@ -72,18 +70,6 @@ my_env = Environment.init_from_argparse(parsed_args)
 # Setup logger
 logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
-
-
-def read_sequences_for_gi(env, gi):
-    # type: (Environment, GenomeInfo) -> Dict[str, SeqRecord]
-    pf_sequence = os_join(env["pd-data"], gi.name, "sequence.fasta")
-    return SeqIO.to_dict(SeqIO.parse(pf_sequence, "fasta"))
-
-
-def read_labels_for_gi(env, gi, fn_labels="ncbi.gff"):
-    # type: (Environment, GenomeInfo, str) -> Labels
-    pf_labels = os_join(env["pd-data"], gi.name, fn_labels)
-    return read_labels_from_file(pf_labels)
 
 
 def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):

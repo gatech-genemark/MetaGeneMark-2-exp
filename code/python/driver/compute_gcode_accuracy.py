@@ -10,8 +10,6 @@ import pandas as pd
 from typing import *
 
 # noinspection All
-from numpy.ma.bench import timer
-
 import pathmagic
 
 # noinspection PyUnresolvedReferences
@@ -21,10 +19,6 @@ import mg_log  # runs init in mg_log and configures logger
 from mg_container.genome_list import GenomeInfoList, GenomeInfo
 from mg_general import Environment, add_env_args_to_parser
 import mg_argparse.parallelization
-
-# ------------------------------ #
-#           Parse CMD            #
-# ------------------------------ #
 from mg_general.general import get_value, os_join
 from mg_general.genome_splitter import GenomeSplitter
 from mg_io.general import mkdir_p
@@ -35,7 +29,12 @@ from mg_parallelization.pbs import PBS
 from mg_pbs_data.mergers import merge_identity
 from mg_pbs_data.splitters import split_gil
 from mg_viz.shelf import mkstemp_closed
-from run_tools_on_chunks import read_sequences_for_gi, read_labels_for_gi
+from mg_io.shelf import read_sequences_for_gi, read_labels_for_gi
+
+# ------------------------------ #
+#           Parse CMD            #
+# ------------------------------ #
+
 
 parser = argparse.ArgumentParser("DRIVER DESCRIPTION.")
 
