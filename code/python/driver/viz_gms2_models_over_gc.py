@@ -63,6 +63,67 @@ logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
 
 
+def viz_rbs(env, df):
+    num_columns = 4
+    df = df.sample(num_columns)
+
+    figsize = set_size("thesis", subplots=(2, num_columns), titles=True)
+    fig, axes = plt.subplots(2, num_columns, sharex="row", sharey="row", figsize=figsize)
+    label_fs = "small"
+    for i, idx in enumerate(df.index):
+
+        mod = df.at[idx, "Mod"]
+
+        # get models
+        rbs_model = MotifModel(mod.items[f"RBS_MAT"], mod.items[f"RBS_POS_DISTR"])
+        nonc_mat = GMS2Noncoding(mod.items[f"NON_MAT"])
+        np_nonc_mat = nonc_mat.pwm_to_array(0)
+
+        # rbs
+        ax = axes[0][i]
+        name = df.at[idx, "Name"].split()
+        name = f"{name[0][0]}. {name[1]}"
+        ax.set_title(name, fontsize="small")
+        df_motif_mat = rbs_model.pwm_to_df()
+        df_rel = lm.transform_matrix(
+            df_motif_mat, from_type="probability", to_type="information", background=np_nonc_mat
+        )
+        lm.Logo(df_rel, ax=ax)
+        ax.set_ylim(0, 2.5)
+
+        ax.set_xticklabels([])
+        ax.set_xticks([])
+        if i == 0:
+            ax.set_ylabel("Relative Entropy", fontsize=label_fs)
+
+        # spacers
+        ax = axes[1][i]
+        df_sp = pd.DataFrame({
+            "Distance": list(range(len(rbs_model._spacer))),
+            "Probability": rbs_model._spacer,
+            "Type": ["RBS"] * len(rbs_model._spacer)
+        })
+
+        for t in df_sp["Type"].unique():
+            df_curr = df_sp[df_sp["Type"] == t]
+            ax.plot(df_curr["Distance"], df_curr["Probability"], label=t)
+
+        if i == 0:
+            ax.set_ylabel("Frequency", fontsize=label_fs)
+        ax.set_xlabel("Spacer Length", fontsize=label_fs)
+
+    ax = axes[1, num_columns - 1]
+
+    for i in range(num_columns):
+        fig.align_ylabels(axes[:, i])
+
+    fig.tight_layout(rect=[0, 0.1, 1, 1])
+    fig.savefig(next_name(env["pd-work"]))  # bbox_inches='tight'
+
+    fig.show()
+
+
+
 def viz_genome_type_per_gc(env, list_gi, list_mod, list_gc):
     # type: (Environment, List[GenomeInfo], List[GMS2Mod], List[float]) -> None
     df = pd.DataFrame({
@@ -83,10 +144,15 @@ def viz_genome_type_per_gc(env, list_gi, list_mod, list_gc):
 
     fig, ax = plt.subplots(1,1)
     for g in sorted(df["GroupL"].unique()):
+        if g not in {"A", "C"}:
+            continue
         df_group = df[df["GroupL"] == g]
-        seaborn.kdeplot(df_group["GC"], label=f"{g} ({len(df_group)})", ax=ax)
+        seaborn.kdeplot(df_group["GC"], label=f"{g} ({len(df_group)})", ax=ax,
+                        color={"C": "green", "A": "blue"}[g])
     plt.xlabel("GC")
     plt.ylabel("Density")
+    plt.xlim(10, 90)
+    plt.tight_layout()
     # handles, labels = ax.get_legend_handles_labels()
 
     # leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=2,
@@ -98,6 +164,7 @@ def viz_genome_type_per_gc(env, list_gi, list_mod, list_gc):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+    df_b = df[df["Group"] == "group-b"]
     df_c = df[df["Group"] == "group-c"]
 
     # remove manually
@@ -245,6 +312,8 @@ def viz_genome_type_per_gc(env, list_gi, list_mod, list_gc):
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,))  # bbox_inches='tight'
 
     fig.show()
+
+    viz_rbs(env, df_b)
 
 
 

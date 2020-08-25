@@ -536,6 +536,18 @@ def run_meta_prodigal(env, pf_sequence, pf_prediction, **kwargs):
 
     run_shell_cmd(cmd_run)
 
+def run_meta_prodigal_autogcode(env, pf_sequence, pf_prediction, **kwargs):
+    # type: (Environment, str, str, Dict[str, Any]) -> None
+
+    pe_tool = os_join(env["pd-bin-external"], "prodigal", "prodigal")
+
+    cmd_run = f"cd {env['pd-work']};\n"
+    cmd_run += "{}  -i {}  -g {}  -o {}  -f gff  -q -p meta \n".format(
+        pe_tool, pf_sequence, "auto", pf_prediction
+    )
+
+    run_shell_cmd(cmd_run)
+
 
 # def run_prodigal(env, gi, **kwargs):
 #     # type: (Environment, GenomeInfo, Dict[str, Any]) -> None
@@ -622,3 +634,38 @@ def relative_entropy(motif, background, component=None):
             result += sp[i] * math.log2(sp[i] / (1.0 / sp_length))
 
     return result
+
+
+def run_mgm2_autogcode(env, pf_sequence, pf_prediction, **kwargs):
+    # type: (Environment, str, str, Dict[str, Any]) -> None
+
+    bin_external = env["pd-bin-external"]
+    prog = f"{bin_external}/mgm2_auto/run_mgm.pl"
+
+    cmd = f"{prog} --seq {pf_sequence} --out {pf_prediction} --clean"
+    run_shell_cmd(cmd)
+
+def run_tool(env, pf_sequences, pf_prediction, tool, **kwargs):
+    # type: (Environment, str, str, str, Dict[str, Any]) -> None
+
+    tool = tool.lower()
+
+    tool_to_func = {
+        "mgm": run_mgm,
+        "mgm2": run_mgm2,
+        "gms2": run_gms2,
+        "mprodigal": run_meta_prodigal,
+        "prodigal": run_prodigal,
+        "mga": run_mga,
+        "fgs": run_fgs
+    }
+
+    if tool not in tool_to_func:
+        raise ValueError(f"Unknown tool {tool}. Accepted values: " + ",".join(sorted(tool_to_func.keys())))
+
+    tool_to_func[tool](
+        env,
+        pf_sequence=pf_sequences,
+        pf_prediction=pf_prediction,
+        **kwargs
+    )
