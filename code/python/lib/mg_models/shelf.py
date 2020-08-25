@@ -657,7 +657,9 @@ def run_tool(env, pf_sequences, pf_prediction, tool, **kwargs):
         "mprodigal": run_meta_prodigal,
         "prodigal": run_prodigal,
         "mga": run_mga,
-        "fgs": run_fgs
+        "fgs": run_fgs,
+        "mgm2_autogcode": run_mgm2_autogcode,
+        "mprodigal_autogcode": run_meta_prodigal_autogcode,
     }
 
     if tool not in tool_to_func:

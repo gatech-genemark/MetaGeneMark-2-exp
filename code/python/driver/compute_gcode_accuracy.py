@@ -141,7 +141,7 @@ def compute_gcode_accuracy_for_tool_on_sequence(env, tool, pf_sequences, pf_pred
     skip_if_exists = get_value(kwargs, "skip_if_exists", False)
 
     if not skip_if_exists or (skip_if_exists and not os.path.isfile(pf_prediction)):
-        run_tool(env, pf_sequences, pf_prediction, **kwargs)
+        run_tool(env, pf_sequences, pf_prediction, tool + "_autogcode", **kwargs)
 
     dict_entries = get_accuracy_gcode_predicted(tool, pf_prediction, gcode_true)
     dict_entries["True Gcode"] = gcode_true
