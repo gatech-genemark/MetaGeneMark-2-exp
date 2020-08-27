@@ -19,7 +19,8 @@ from mg_io.general import mkdir_p
 from mg_container.genome_list import GenomeInfo, GenomeInfoList
 from mg_general import add_env_args_to_parser, Environment
 from mg_general.general import get_value, os_join, run_shell_cmd
-from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_prodigal, run_meta_prodigal, run_fgs, run_mga
+from mg_models.shelf import run_gms2, run_mgm2, run_mgm, run_prodigal, run_meta_prodigal, run_fgs, run_mga, \
+    run_mgm2_autogcode
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -90,6 +91,8 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
             run_fgs(env, pf_sequence, pf_prediction, gcode=gcode)
         elif tool == "mga":
             run_mga(env, pf_sequence, pf_prediction, gcode=gcode)
+        elif tool == "mgm2_auto":
+            run_mgm2_autogcode(env, pf_sequence, pf_prediction)
         # elif tool == "tritisa":
         #     run_tritisa(env, pf_sequence, os_join(env["pd-data"], gi.name, "ncbi.gff"), pf_prediction)
         else:
