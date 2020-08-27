@@ -57,13 +57,13 @@ def read_labels_from_file(filename, shift=-1, name=None, **kwargs):
 
                 attributes = create_attribute_dict(m.group(9), key_value_delimiter=key_value_delimiter,
                                                    delimiter=attribute_delimiter)
-
+                attributes["score"] = m.group(6)
                 label = Label.from_fields(
                     {
                         "left": int(m.group(4)) + shift,
                         "right": int(m.group(5)) + shift,
                         "strand": m.group(7),
-                        "seqname": m.group(1).split()[0],
+                        "seqname": m.group(1).split()[0]
                     },
                     attributes=attributes
                 )

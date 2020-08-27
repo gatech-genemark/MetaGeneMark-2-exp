@@ -249,20 +249,19 @@ def main(env, args):
         df = pd.concat(list_df, ignore_index=True, sort=False)
 
     else:
-        # list_df = run_n_per_thread(
-        #     list(gil), run_tools_on_gi, "gi", {
-        #         "env": env, "chunks": chunks, "tools": tools, "dn_tools": dn_tools,
-        #         "pf_mgm2_mod": args.pf_mgm2_mod,
-        #         "pf_mgm_mod": args.pf_mgm_mod,
-        #         "num_processors": 1,
-        #         "allow_splits_in_cds": not args.force_split_in_intergenic,
-        #         "dn_prefix": args.dn_prefix,
-        #         "skip_if_exists": args.skip_if_exists
-        #     }, simultaneous_runs=7
-        # )
-        #
-        # df = pd.concat(list_df, sort=False, ignore_index=True)
-        pass
+        list_df = run_n_per_thread(
+            list(gil), compute_gcode_accuracy, "gi", {
+                "env": env, "chunks": chunks, "tools": tools, "dn_tools": dn_tools,
+                "pf_mgm2_mod": args.pf_mgm2_mod,
+                "pf_mgm_mod": args.pf_mgm_mod,
+                "num_processors": 1,
+                "allow_splits_in_cds": not args.force_split_in_intergenic,
+                "dn_prefix": args.dn_prefix,
+                "skip_if_exists": args.skip_if_exists
+            }, simultaneous_runs=7
+        )
+
+        df = pd.concat(list_df, sort=False, ignore_index=True)
 
     df.to_csv(args.pf_summary, index=False)
 
