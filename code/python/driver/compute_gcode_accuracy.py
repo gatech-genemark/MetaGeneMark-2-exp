@@ -21,7 +21,7 @@ from mg_general import Environment, add_env_args_to_parser
 import mg_argparse.parallelization
 from mg_general.general import get_value, os_join
 from mg_general.genome_splitter import GenomeSplitter
-from mg_io.general import mkdir_p
+from mg_io.general import mkdir_p, remove_p
 from mg_models.shelf import run_tool
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
@@ -136,18 +136,99 @@ def get_accuracy_gcode_predicted(tool, pf_prediction, gcode_true):
 
 
 def compute_gcode_accuracy_for_tool_on_sequence(env, tool, pf_sequences, pf_prediction, **kwargs):
-    # type: (Environment, str, str, str, Dict[str, Any]) -> pd.Series
+    # type: (Environment, str, str, str, Dict[str, Any]) -> pd.DataFrame
 
     gcode_true = get_value(kwargs, "gcode_true", required=True, type=str)
     skip_if_exists = get_value(kwargs, "skip_if_exists", False)
+    pf_summary = get_value(kwargs, "pf_summary", None)
 
     if not skip_if_exists or (skip_if_exists and not os.path.isfile(pf_prediction)):
         run_tool(env, pf_sequences, pf_prediction, tool + "_autogcode", **kwargs)
 
-    dict_entries = get_accuracy_gcode_predicted(tool, pf_prediction, gcode_true)
-    dict_entries["True Gcode"] = gcode_true
 
-    return pd.Series(dict_entries)
+    list_entries = list()
+    if tool == "mgm2" and pf_summary:
+        data = pd.read_csv(pf_summary)
+
+
+        for idx in data.index:
+            pf = data.at[idx, "pf"]
+            p4 = data.at[idx, "p4"]
+            p11 = data.at[idx, "p11"]
+            dict_entries = get_accuracy_gcode_predicted(tool, pf, gcode_true)
+
+            dict_entries["True Gcode"] = gcode_true
+            dict_entries["p4"] = p4
+            dict_entries["p11"] = p11
+
+            list_entries.append(dict_entries)
+
+            remove_p(pf)
+        remove_p(pf_summary)
+
+
+    else:
+        dict_entries = get_accuracy_gcode_predicted(tool, pf_prediction, gcode_true)
+        dict_entries["True Gcode"] = gcode_true
+        dict_entries["p4"] = -1
+        dict_entries["p11"] = -1
+
+        list_entries.append(dict_entries)
+
+    return pd.DataFrame(list_entries)
+
+def compute_gcode_accuracy_for_tools_on_chunk_deprecated(env, gi, tools, chunk, **kwargs):
+    # type: (Environment, GenomeInfo, List[str], int, Dict[str, Any]) -> pd.DataFrame
+
+    dn_tools = get_value(kwargs, "dn_tools", tools)
+    dn_prefix = get_value(kwargs, "dn_prefix", "")
+
+    gcode_true = int(gi.genetic_code)
+
+    # split genome into chunks
+    gs = GenomeSplitter(
+        read_sequences_for_gi(env, gi), chunk,
+        labels=read_labels_for_gi(env, gi),
+        allow_splits_in_cds=kwargs.get("allow_splits_in_cds")
+    )
+
+    pf_chunks = mkstemp_closed(dir=env["pd-work"], suffix=".fasta")
+    gs.write_to_file(pf_chunks)
+
+    list_entries = list()
+
+    ran_prod = False
+
+    for p4 in range(0, 40, 5):
+        for p11 in range(0,40,5):
+
+            for t, dn in zip(tools, dn_tools):
+                if ran_prod and t == "mprodigal":
+                    continue
+
+                pd_run = os_join(env["pd-work"], gi.name, f"{dn_prefix}{dn}_{chunk}_{p4}_{p11}")
+                mkdir_p(pd_run)
+
+                pf_prediction = os_join(pd_run, "prediction.gff")
+                results = compute_gcode_accuracy_for_tool_on_sequence(env, t, pf_chunks, pf_prediction,
+                                                                      gcode_true=gcode_true, p11=p11, p4=p4, **kwargs)
+
+                results["Genome"] = gi.name
+                results["Chunk Size"] = chunk
+                results["p4"] = p4
+                results["p11"] = p11
+
+                if t == "mprodigal":
+                    ran_prod = True
+                    results["p4"] = -1
+                    results["p11"] = -1
+
+                list_entries.append(results)
+
+
+    remove_p(pf_chunks)
+    return pd.DataFrame(list_entries)
+
 
 
 def compute_gcode_accuracy_for_tools_on_chunk(env, gi, tools, chunk, **kwargs):
@@ -168,21 +249,60 @@ def compute_gcode_accuracy_for_tools_on_chunk(env, gi, tools, chunk, **kwargs):
     pf_chunks = mkstemp_closed(dir=env["pd-work"], suffix=".fasta")
     gs.write_to_file(pf_chunks)
 
-    list_entries = list()
+    list_df = list()
 
     for t, dn in zip(tools, dn_tools):
         pd_run = os_join(env["pd-work"], gi.name, f"{dn_prefix}{dn}_{chunk}")
         mkdir_p(pd_run)
 
         pf_prediction = os_join(pd_run, "prediction.gff")
+        pf_summary = os_join(pd_run, "hyper.csv")
         results = compute_gcode_accuracy_for_tool_on_sequence(env, t, pf_chunks, pf_prediction,
-                                                              gcode_true=gcode_true, **kwargs)
+                                                              gcode_true=gcode_true,
+                                                              pf_summary=pf_summary, **kwargs)
 
         results["Genome"] = gi.name
         results["Chunk Size"] = chunk
-        list_entries.append(results)
+        list_df.append(results)
 
-    return pd.DataFrame(list_entries)
+    remove_p(pf_chunks)
+
+    return pd.concat(list_df, ignore_index=True, sort=False)
+
+
+# def compute_gcode_accuracy_for_tools_on_chunk(env, gi, tools, chunk, **kwargs):
+#     # type: (Environment, GenomeInfo, List[str], int, Dict[str, Any]) -> pd.DataFrame
+#
+#     dn_tools = get_value(kwargs, "dn_tools", tools)
+#     dn_prefix = get_value(kwargs, "dn_prefix", "")
+#
+#     gcode_true = int(gi.genetic_code)
+#
+#     # split genome into chunks
+#     gs = GenomeSplitter(
+#         read_sequences_for_gi(env, gi), chunk,
+#         labels=read_labels_for_gi(env, gi),
+#         allow_splits_in_cds=kwargs.get("allow_splits_in_cds")
+#     )
+#
+#     pf_chunks = mkstemp_closed(dir=env["pd-work"], suffix=".fasta")
+#     gs.write_to_file(pf_chunks)
+#
+#     list_entries = list()
+#
+#     for t, dn in zip(tools, dn_tools):
+#         pd_run = os_join(env["pd-work"], gi.name, f"{dn_prefix}{dn}_{chunk}")
+#         mkdir_p(pd_run)
+#
+#         pf_prediction = os_join(pd_run, "prediction.gff")
+#         results = compute_gcode_accuracy_for_tool_on_sequence(env, t, pf_chunks, pf_prediction,
+#                                                               gcode_true=gcode_true, **kwargs)
+#
+#         results["Genome"] = gi.name
+#         results["Chunk Size"] = chunk
+#         list_entries.append(results)
+#
+#     return pd.DataFrame(list_entries)
 
 
 def compute_gcode_accuracy_for_gi(env, gi, tools, chunks, **kwargs):

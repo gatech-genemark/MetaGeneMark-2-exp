@@ -642,7 +642,15 @@ def run_mgm2_autogcode(env, pf_sequence, pf_prediction, **kwargs):
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/mgm2_auto/run_mgm.pl"
 
-    cmd = f"{prog} --seq {pf_sequence} --out {pf_prediction} --clean"
+    p4 = get_value(kwargs, "p4", 10)
+    p11 = get_value(kwargs, "p11", 20)
+
+    pf_summary = get_value(kwargs, "pf_summary", None)
+    opt = ""
+    if pf_summary:
+        opt = f" --pf-summary {pf_summary} "
+
+    cmd = f"{prog} --seq {pf_sequence} --out {pf_prediction} --clean --p4 {p4} --p11 {p11} {opt}"
     run_shell_cmd(cmd)
 
 def run_tool(env, pf_sequences, pf_prediction, tool, **kwargs):
