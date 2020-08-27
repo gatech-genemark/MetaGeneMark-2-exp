@@ -149,7 +149,7 @@ def run_n_per_thread(data, func, data_arg_name, func_kwargs, **kwargs):
                 break
 
         # Create a thread for genome and run
-        thread = GenericThreadN(func, infos, output=output)
+        thread = GenericThreadN(func, infos, thread_id=thread_id, output=output)
         thread.start()
         thread_id += 1
 

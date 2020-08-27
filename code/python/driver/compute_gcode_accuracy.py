@@ -50,7 +50,7 @@ parser.add_argument('--skip-if-exists', action='store_true')
 parser.add_argument('--pf-mgm2-mod', type=os.path.abspath)
 parser.add_argument('--pf-mgm-mod', type=os.path.abspath)
 parser.add_argument('--chunk-sizes-nt', nargs="+",
-                    default=[100000, 500000], type=int)
+                    default=[250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 5000], type=int)
                     # default=[250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 5000], type=int)
 
 mg_argparse.parallelization.add_parallelization_options(parser)
@@ -129,7 +129,9 @@ def get_accuracy_gcode_predicted(tool, pf_prediction, gcode_true):
     return {
         "Matches": num_matches,
         "Mismatches": num_mismatches,
-        "Total Contigs": total
+        "Match Rate": num_matches / float(total) if total > 0 else 0,
+        "Total Contigs": total,
+        "Tool": tool
     }
 
 
@@ -154,7 +156,7 @@ def compute_gcode_accuracy_for_tools_on_chunk(env, gi, tools, chunk, **kwargs):
     dn_tools = get_value(kwargs, "dn_tools", tools)
     dn_prefix = get_value(kwargs, "dn_prefix", "")
 
-    gcode_true = gi.genetic_code
+    gcode_true = int(gi.genetic_code)
 
     # split genome into chunks
     gs = GenomeSplitter(
@@ -177,6 +179,7 @@ def compute_gcode_accuracy_for_tools_on_chunk(env, gi, tools, chunk, **kwargs):
                                                               gcode_true=gcode_true, **kwargs)
 
         results["Genome"] = gi.name
+        results["Chunk Size"] = chunk
         list_entries.append(results)
 
     return pd.DataFrame(list_entries)
@@ -250,7 +253,7 @@ def main(env, args):
 
     else:
         list_df = run_n_per_thread(
-            list(gil), compute_gcode_accuracy, "gi", {
+            list(gil), compute_gcode_accuracy_for_gi, "gi", {
                 "env": env, "chunks": chunks, "tools": tools, "dn_tools": dn_tools,
                 "pf_mgm2_mod": args.pf_mgm2_mod,
                 "pf_mgm_mod": args.pf_mgm_mod,
