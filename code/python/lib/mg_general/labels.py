@@ -95,7 +95,7 @@ class Label:
         out += "\t" + "CDS"
         out += "\t" + str(self._fields["coordinates"].to_string("left", shift_coordinates_by))
         out += "\t" + str(self._fields["coordinates"].to_string("right", shift_coordinates_by))
-        out += "\t" "."
+        out += "\t" + "."
         out += "\t" + str(self._fields["coordinates"].to_string("strand"))
         out += "\t" + "."
 

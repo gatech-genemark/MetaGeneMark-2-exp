@@ -13,6 +13,7 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_container.gms2_mod import GMS2Mod
+from mg_container.mgm_model import MGMModel
 from mg_general import Environment, add_env_args_to_parser
 
 # ------------------------------ #
@@ -103,13 +104,18 @@ def get_tags_from_components(list_components, list_groups):
 
 
 def update_target_model_from_source(mod_source, mod_target, list_tags):
-    # type: (GMS2Mod, GMS2Mod, List[str]) -> GMS2Mod
+    # type: (MGMModel, MGMModel, List[str]) -> MGMModel
     import copy
     mod_output = copy.deepcopy(mod_target)
 
-    for tag in list_tags:
-        if tag in mod_source.items.keys():
-            mod_target.items[tag] = mod_source.items[tag]
+    for species in mod_source.items_by_species_and_gc.keys():
+        for gc in mod_source.items_by_species_and_gc[species].keys():
+            target = mod_output.items_by_species_and_gc[species][gc]
+            source = mod_source.items_by_species_and_gc[species][gc]
+
+            for tag in list_tags:
+                if tag in source.items.keys():
+                    target.items[tag] = source.items[tag]
 
     return mod_output
 
@@ -117,11 +123,11 @@ def update_target_model_from_source(mod_source, mod_target, list_tags):
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
 
-    mod_source = GMS2Mod.init_from_file(args.pf_source)
-    mod_target = GMS2Mod.init_from_file(args.pf_target)
+    mod_source = MGMModel.init_from_file(args.pf_source)
+    mod_target = MGMModel.init_from_file(args.pf_target)
 
-    list_groups = args.list_groups
-    list_tags = get_tags_from_components(args.list_components, list_groups)
+    list_groups = args.groups
+    list_tags = get_tags_from_components(args.components, list_groups)
 
     mod_output = update_target_model_from_source(mod_source, mod_target, list_tags)
     mod_output.to_file(args.pf_output)

@@ -482,12 +482,16 @@ def run_tritisa(env, pf_sequence, pf_initial_labels, pf_prediction, **kwargs):
 def run_mgm2(env, pf_sequence, pf_mgm, pf_prediction, **kwargs):
     # type: (Environment, str, str, str) -> None
 
-    gcode = get_value(kwargs, "gcode", 11, valid_type=int)
-
+    gcode = get_value(kwargs, "gcode", None)
+    fmt = get_value(kwargs, "fmt", "gff")
 
     bin_external = env["pd-bin-external"]
     prog = f"{bin_external}/mgm2/gmhmmp2"
-    cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format gff"
+
+    if gcode:
+        pf_mgm = os_join(env["pd-bin-external"], "mgm2", f"mgm2_{gcode}.mod")
+
+    cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format {fmt}"
 
     print(run_shell_cmd(cmd))
 

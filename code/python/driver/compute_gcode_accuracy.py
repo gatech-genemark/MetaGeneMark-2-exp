@@ -385,7 +385,6 @@ def main(env, args):
         )
 
         df = pd.concat(list_df, sort=False, ignore_index=True)
-        pass
 
     df.to_csv(args.pf_summary, index=False)
 
