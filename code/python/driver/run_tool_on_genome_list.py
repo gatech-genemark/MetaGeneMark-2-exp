@@ -100,6 +100,7 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
     except CalledProcessError:
         logger.warning(f"Could not run {tool} on {gi.name}")
 
+
 # def run_tool_on_gil(env, gil, tool, **kwargs):
 #     # type: (Environment, GenomeInfoList, str, Dict[str, Any]) -> None
 #
