@@ -29,6 +29,8 @@ from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.pbs import PBS
 from mg_pbs_data.mergers import merge_identity
 from mg_pbs_data.splitters import split_gil
+from mg_argparse.parallelization import add_parallelization_options
+
 
 
 # ------------------------------ #
@@ -38,7 +40,12 @@ from mg_pbs_data.splitters import split_gil
 
 parser = argparse.ArgumentParser("Plot the distribution of GMS2 groups across GC.")
 
-# FILL IN ARGUMENTS
+parser.add_argument('--pf-gil', required=True)
+parser.add_argument('--pf-checkpoint')
+add_parallelization_options(parser)
+
+parser.add_argument('--dn-gms2', default="gms2", required=False)
+
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()

@@ -44,7 +44,7 @@ parser.add_argument('--dn-prefix', default="gct", help="Applies prefix to all ru
 parser.add_argument('--force-split-in-intergenic', action='store_true')
 parser.add_argument('--skip-if-exists', action='store_true')
 parser.add_argument('--pf-parallelization-options')
-parser.add_argument('--chunk-sizes-nt', nargs="+", default=[50000, 100000])# default=[250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 5000 ], type=int)
+parser.add_argument('--chunk-sizes-nt', nargs="+", default=[250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 5000 ], type=int)
 
 
 add_env_args_to_parser(parser)
