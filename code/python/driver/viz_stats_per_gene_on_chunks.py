@@ -838,6 +838,65 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
+    # paper
+    df2_tidy.loc[df2_tidy["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
+    hue_order = sorted(df2_tidy["Tool"].unique())
+    figsize = set_size("thesis", subplots=(2,2), legend=True, titles=True)
+    fig, axes = plt.subplots(2, 2, sharex="all", sharey="row", figsize=figsize)
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Found") & (df2_tidy["Condition"] == "Incomplete at Gene Start") & (df2_tidy["Tool"] == h)
+        axes[0][0].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Found") & (df2_tidy["Condition"] == "Complete at Gene Start") & (df2_tidy["Tool"] == h)
+        axes[0][1].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Error Rate") & (df2_tidy["Condition"] == "Incomplete at Gene Start") & (df2_tidy["Tool"] == h)
+        axes[1][0].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Error Rate") & (df2_tidy["Condition"] == "Complete at Gene Start") & (df2_tidy["Tool"] == h)
+        axes[1][1].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    axes[0][0].set_title("Incomplete at Gene Start", style="italic")
+    axes[0][1].set_title("Complete at Gene Start", style="italic")
+
+    axes[0][0].yaxis.set_major_formatter(FuncFormatter(number_formatter))
+    axes[0][1].yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+    axes[1][0].set_xlabel("Chunk Size (nt)")
+    axes[1][1].set_xlabel("Chunk Size (nt)")
+
+    axes[0][0].set_ylabel("Number of Genes Found")
+    axes[1][0].set_ylabel("Gene-Start Error Rate")
+
+    handles, labels = axes[0][0].get_legend_handles_labels()
+
+    # leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=5,
+    #                  bbox_transform=fig.transFigure, frameon=False)
+    fig.align_ylabels(axes[:,0])
+    # plt.tight_layout(rect=[0, 0.1, 1, 1])
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left', frameon=False)
+    # fig.subplots_adjust(right=0.85)
+    fig.tight_layout()
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+    plt.show()
+
+
 def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
     # show 5p error by condition (combine all tools)
     df2 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).sum()
@@ -980,7 +1039,9 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
 
 
     df2_no_ref = df2[df2["Tool"].apply(lambda x: x.lower()) != reference.lower()]
-    df2_ref = df2[df2["Tool"].apply(lambda x: x.lower()) == reference]
+    df2_ref = df2[df2["Tool"].apply(lambda x: x.lower()) == reference.lower()]
+
+    df2_no_ref.loc[df2_no_ref["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
 
     tools = list(df2_no_ref["Tool"].unique())
 
@@ -1041,12 +1102,17 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
     # fig.legend(loc="center right")
     handles, labels = ax.get_legend_handles_labels()
 
-    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left')
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left', frameon=False)
     # fig.subplots_adjust(right=0.85)
+    fig.align_ylabels(axes[:,0])
+
     fig.tight_layout()
+
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
     # plt.savefig(next_name(env["pd-work"]))
     plt.show()
+
+
 
 
 def viz_stats_3p(env, df_per_gene, tools, list_ref, **kwargs):

@@ -52,7 +52,7 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
 
     ax = None
     i = j = 0
-    fontsize="xx-small"
+    fontsize="small"
     for ax, col in zip(axes, columns):
         for t in tool_order:
             if t.lower() == reference.lower():
@@ -211,6 +211,9 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
         col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1), "Error Rate": (0, 0.5)}
     )
 
+    print(df_tidy.groupby("Tool", as_index=False).mean().to_csv(index=False))
+    print(df_tidy.groupby("Tool", as_index=False).sum().to_csv(index=False))
+
 def viz_stats_large_5p_error_vs_gc_by_clade(env, df_tidy, reference, **kwargs):
     # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
@@ -328,6 +331,7 @@ def viz_stats_large_5p(env, df_per_gene, tools, list_ref, **kwargs):
             save_obj([reference, df_tidy], pf_checkpoint)
     else:
         reference, df_tidy = load_obj(pf_checkpoint)
+
 
     stats_large_5p_overall(env, df_tidy, reference, tool_order=tools)
 
