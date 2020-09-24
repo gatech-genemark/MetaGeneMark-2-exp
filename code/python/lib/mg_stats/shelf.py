@@ -41,6 +41,23 @@ def create_joint_reference_from_list(df, list_reference):
     reference_values = df.loc[reference_rows, f"3p-{list_reference[0]}"]
     df.loc[reference_rows, f"3p-{reference}"] = reference_values
 
+    list_partial = [f"'Partial3p-{r}'" for r in list_reference if f"Partial3p-{r}" in df.columns.values]
+    if len(list_partial) > 0:
+
+        reference_rows = all_columns_equal(df, list_partial)
+        reference_values = df.loc[reference_rows, f"Partial3p-{list_reference[0]}"]
+        df.loc[reference_rows, f"Partial3p-{reference}"] = reference_values
+
+
+
+    list_partial = [f"'Partial5p-{r}'" for r in list_reference if f"Partial5p-{r}" in df.columns.values]
+    if len(list_partial) > 0:
+
+        reference_rows = all_columns_equal(df, list_partial)
+        reference_values = df.loc[reference_rows, f"Partial5p-{list_reference[0]}"]
+        df.loc[reference_rows, f"Partial5p-{reference}"] = reference_values
+
+
     return reference
 
 

@@ -502,10 +502,11 @@ def run_gms2(env, pf_sequence, pf_prediction, **kwargs):
     genome_type = get_value(kwargs, "genome_type", "auto", valid_type=str)
     gcode = get_value(kwargs, "gcode", 11, valid_type=int)
 
+    fmt = get_value(kwargs, "fmt", "gff")
     pe_tool = os_join(env["pd-bin-external"], "gms2", "gms2.pl")
 
     cmd_run = f"cd {env['pd-work']};\n"
-    cmd_run += f"{pe_tool} --gcode {gcode} --format gff --out {pf_prediction} --seq {pf_sequence}  "
+    cmd_run += f"{pe_tool} --gcode {gcode} --format {fmt} --out {pf_prediction} --seq {pf_sequence}  "
     cmd_run += f"--v --genome-type {genome_type} --fgio-dist-thresh 25"
 
     run_shell_cmd(cmd_run)
