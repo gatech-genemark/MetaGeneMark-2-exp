@@ -310,7 +310,7 @@ def viz_number_of_predictions_for_short(env, df):
     plt.savefig(next_name(env["pd-work"]))
     plt.show()
 
-    df = df[df["Tool"].isin({"MGM2", "MPRODIGAL", "FGS", "MGA"})]
+    df = df[df["Tool"].isin({"MGM2", "MProdigal", "FGS", "MGA"})]
     g = seaborn.FacetGrid(df, col="Genome", col_wrap=4, hue="Tool", sharey=True)
 
     g.map(plt.plot, "Recall", "Precision")
@@ -1213,6 +1213,8 @@ def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
             save_obj([reference, df_tidy], pf_checkpoint)
 
     # here
+    df_tidy.loc[df_tidy["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
+
     viz_stats_3p_gc_sn_sp(env, df_tidy, reference)
 
     # ########## Genome Level ##########
@@ -1349,6 +1351,7 @@ def viz_stats_5p(env, pf_data, tools, list_ref, **kwargs):
         if pf_checkpoint is not None:
             save_obj([reference, df_tidy], pf_checkpoint)
 
+    df_tidy.loc[df_tidy["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
     # # Number of 5p Errors, number of found
     viz_stats_5p_gc_sn_sp(env, df_tidy, reference)
 

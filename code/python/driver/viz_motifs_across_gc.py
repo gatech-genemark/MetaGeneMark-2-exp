@@ -27,7 +27,7 @@ from mg_general import Environment, add_env_args_to_parser
 # ------------------------------ #
 from mg_general.general import next_name
 from mg_models.shelf import read_archaea_bacteria_inputs
-from mg_viz.general import save_figure, FigureOptions
+from mg_viz.general import save_figure, FigureOptions, set_size
 from mg_viz.shelf import create_mappable_for_colorbar
 
 parser = argparse.ArgumentParser("DRIVER DESCRIPTION.")
@@ -165,8 +165,10 @@ def visualize_matrix_column(env, df, col):
         #
 
         # with cbar
-        legend_size = 4
+        legend_size = 20
+        # figsize = set_size("thesis", subplots=(2,3))
         fig = plt.figure(figsize=(17, 6)) #subplots(1, 2, figsize=(12, 6))
+        # fig = plt.figure(figsize=figsize)  # subplots(1, 2, figsize=(12, 6))
 
         grid = AxesGrid(fig, 111,
                         nrows_ncols=(1, 3),
@@ -177,6 +179,7 @@ def visualize_matrix_column(env, df, col):
                         )
 
         axes = [ax for ax in grid]
+        fontsize="x-large"
 
         df_tmp = pd.DataFrame({
             "x1": embedding[:, 0], "x2": embedding[:, 1], "Type": df["Type"].values
@@ -184,7 +187,7 @@ def visualize_matrix_column(env, df, col):
         for i, g in enumerate(sorted(df_tmp["Type"].unique())):
             df_subset = df_tmp[df_tmp["Type"] == g]
             axes[0].scatter(df_subset["x1"], df_subset["x2"], label=g, s=2, zorder=2-i)
-        leg = axes[0].legend()
+        leg = axes[0].legend(fontsize=fontsize)
         for lh in leg.legendHandles:
             lh.set_sizes([legend_size] * len(df_tmp["Type"].unique()))
 
@@ -195,14 +198,14 @@ def visualize_matrix_column(env, df, col):
         for g in sorted(df_tmp["Group"].unique()):
             df_subset = df_tmp[df_tmp["Group"] == g]
             axes[1].scatter(df_subset["x1"], df_subset["x2"], label=g, s=2)
-        leg = axes[1].legend(ncol=2)
+        leg = axes[1].legend(ncol=2, fontsize=fontsize)
         for lh in leg.legendHandles:
             lh.set_sizes([legend_size] * len(df_tmp["Group"].unique()))
 
         mappable = create_mappable_for_colorbar(gc, "viridis")
 
         axes[2].scatter(embedding[:, 0], embedding[:, 1], c=gc, s=2)
-        cbar = axes[2].cax.colorbar(mappable)
+        cbar = axes[2].cax.colorbar(mappable, fontsize=fontsize)
         # cbar = grid.cbar_axes[0].colorbar(mappable)
 
 
