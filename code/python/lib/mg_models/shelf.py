@@ -449,7 +449,7 @@ def convert_mga_output_to_gff(output_str, pf_output):
             else:
                 if len(xx.strip()) == 0:
                     continue
-                (_, start, end, strand, frame, _, score, _, _, _, _) = xx.split(
+                (_, start, end, strand, frame, partial, score, _, _, _, _) = xx.split(
                     "\t"
                 )
                 print(
@@ -462,6 +462,7 @@ def convert_mga_output_to_gff(output_str, pf_output):
                     strand,
                     frame,
                     ".",
+                    f"partial={partial}",
                     sep="\t",
                     file=outfile,
                 )
