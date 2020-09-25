@@ -181,6 +181,8 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, **kwargs):
 
 
         reference_tools = get_value(kwargs, "reference_tools", None)        # type: Union[List[str], None]
+        if reference_tools:
+            reference_tools = sorted(reference_tools)
 
         # if multiple reference, merge them first by 5
         list_reference_labels = list()

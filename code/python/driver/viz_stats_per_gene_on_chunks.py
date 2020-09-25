@@ -959,7 +959,7 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
                 **reg_kws, ax=ax
             )
 
-            if max(df_curr[col]) > 2000:
+            if len(df_curr[col])> 0 and max(df_curr[col]) > 2000:
                 ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
         col_text = "\n".join(wrap(col, 20, break_long_words=False))
@@ -967,7 +967,7 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
         ax.tick_params(labelsize=fontsize, length=2)
 
         if i == 0:
-            ax.set_ylabel("Gene-Start Errro Rate", fontsize=fontsize)
+            ax.set_ylabel("Gene-Start Error Rate", fontsize=fontsize)
         else:
             ax.set_ylabel("")
         ax.set_xlabel("Chunk Size (nt)")
@@ -1129,6 +1129,9 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref, **kwargs):
         reference, df_tidy = load_obj(pf_checkpoint)
 
     ########## Genome Level ##########
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
+
     # Number of Predictions, number of found
     viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference)
 
@@ -1162,6 +1165,9 @@ def viz_stats_5p(env, df_per_gene, tools, list_ref, **kwargs):
         reference, df_tidy = load_obj(pf_checkpoint)
 
     # Number of 5p Errors, number of found
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
+
     viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference)
     viz_stats_5p_error_rate(env, df_tidy, reference)
     viz_stats_5p_error_rate_partial(env, df_tidy, reference)

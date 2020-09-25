@@ -1214,6 +1214,8 @@ def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
 
     # here
     df_tidy.loc[df_tidy["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
 
     viz_stats_3p_gc_sn_sp(env, df_tidy, reference)
 
@@ -1352,6 +1354,9 @@ def viz_stats_5p(env, pf_data, tools, list_ref, **kwargs):
             save_obj([reference, df_tidy], pf_checkpoint)
 
     df_tidy.loc[df_tidy["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
+
     # # Number of 5p Errors, number of found
     viz_stats_5p_gc_sn_sp(env, df_tidy, reference)
 
