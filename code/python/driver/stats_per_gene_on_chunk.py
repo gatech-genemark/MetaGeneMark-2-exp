@@ -344,7 +344,6 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
 
     if df is not None:
         df.sort_index(axis=1, inplace=True)
-        print(mode, header)
         df.to_csv(pf_output, index=False, mode=mode, header=mode=="w")
 
 

@@ -428,10 +428,11 @@ def run_fgs(env, pf_sequence, pf_prediction, **kwargs):
     #      f"run_FragGeneScan.pl -genome={pf_sequence} -complete=0" \
     #      f" -out={pf_prediction} -train=illumina_10"
     pf_mod = f"complete"
-    cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 0 -t complete"
+    cmd = f"{prog} -s {pf_sequence} -o {pf_prediction} -w 1 -t complete"
 
     log.info(cmd)
     print(run_shell_cmd(cmd))
+    run_shell_cmd(f"cp {pf_prediction} {pf_prediction}.copy")
     convert_fgs_to_gff(pf_prediction + ".out", pf_prediction)
 
 def convert_mga_output_to_gff(output_str, pf_output):
@@ -452,6 +453,40 @@ def convert_mga_output_to_gff(output_str, pf_output):
                 (_, start, end, strand, frame, partial, score, _, _, _, _) = xx.split(
                     "\t"
                 )
+
+
+                frame = int(frame)
+                start = int(start)
+                end = int(end)
+                if frame > 0:
+                    if strand == "+":
+                        start += frame
+                    else:
+                        end -= frame
+
+                # if stop is partial, check if should be shifted
+                if partial == "10" or partial == "00":
+                    gene_length = end - start + 1
+                    rem = gene_length % 3
+                    if rem > 0:
+                        if strand == "+":
+                            end -= rem
+                        else:
+                            start += rem
+
+                # fix MGA's partial
+                if partial == "11":
+                    partial = "00"
+                elif partial == "00":
+                    partial == "11"
+                elif partial == "10":
+                    if strand == "+":
+                        partial = "01"
+                elif partial == "01":
+                    if strand == "+":
+                        partial = "10"
+
+
                 print(
                     seqid,
                     "MGA",
@@ -461,7 +496,6 @@ def convert_mga_output_to_gff(output_str, pf_output):
                     score,
                     strand,
                     frame,
-                    ".",
                     f"partial={partial}",
                     sep="\t",
                     file=outfile,
@@ -474,6 +508,10 @@ def run_mga(env, pf_sequence, pf_prediction, **kwargs):
     cmd = f"{prog} -m {pf_sequence}"
     output = run_shell_cmd(cmd)
     convert_mga_output_to_gff(output, pf_prediction)
+    run_shell_cmd(f"cp {pf_prediction} {pf_prediction}.copy")
+    with open(f"{pf_prediction}.backup", "w") as f:
+        f.write(output)
+        f.close()
 
 def run_tritisa(env, pf_sequence, pf_initial_labels, pf_prediction, **kwargs):
     # type: (Environment, str, str, str) -> None

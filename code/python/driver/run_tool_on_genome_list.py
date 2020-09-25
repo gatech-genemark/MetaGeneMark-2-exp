@@ -38,6 +38,7 @@ parser.add_argument('--type', required=True, choices=["archaea", "bacteria", "au
 parser.add_argument('--dn-run', required=False, help="Name of directory that will contain the run")
 parser.add_argument('--skip-if-exists', action="store_true", default=False, help="If set, tool isn't run if predictions.gff file exists")
 parser.add_argument('--tool', choices=["gms2", "prodigal", "mgm", "mgm2", "mprodigal", "fgs", "mga", "mgm2_auto"], required=True, help="Tool used for prediction")
+parser.add_argument('--fmt', default="gff", help="Format of output file (beta)")
 
 parser.add_argument('--pf-mgm-mod', help="Path to MGM model file", type=os.path.abspath)
 parser.add_argument('--pf-mgm2-mod', help="Path to MGM model file", type=os.path.abspath)
@@ -84,9 +85,9 @@ def run_tool_on_gi(env, gi, tool, **kwargs):
         elif tool == "mprodigal":
             run_meta_prodigal(curr_env, pf_sequence, pf_prediction, gcode=gcode, **kwargs)
         elif tool == "mgm2":
-            run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction, gcode=gcode)
+            run_mgm2(curr_env, pf_sequence, kwargs.get("pf_mgm2_mod"), pf_prediction, gcode=gcode, **kwargs)
         elif tool == "mgm":
-            run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction, gcode=gcode)
+            run_mgm(curr_env, pf_sequence, kwargs.get("pf_mgm_mod"), pf_prediction, gcode=gcode, **kwargs)
         elif tool == "fgs":
             run_fgs(env, pf_sequence, pf_prediction, gcode=gcode)
         elif tool == "mga":
@@ -167,7 +168,8 @@ def main(env, args):
     run_tool_on_genome_list(env, gil, args.tool, prl_options=prl_options,
                             dn_run=args.dn_run, genome_type=args.type,
                             skip_if_exists=args.skip_if_exists,
-                            pf_mgm_mod=args.pf_mgm_mod, pf_mgm2_mod=args.pf_mgm2_mod)
+                            pf_mgm_mod=args.pf_mgm_mod, pf_mgm2_mod=args.pf_mgm2_mod,
+                            fmt=args.fmt)
 
 
 if __name__ == "__main__":

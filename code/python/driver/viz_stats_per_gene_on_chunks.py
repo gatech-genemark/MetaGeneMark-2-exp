@@ -959,7 +959,7 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
                 **reg_kws, ax=ax
             )
 
-            if max(df_curr[col]) > 2000:
+            if len(df_curr[col]) > 0 and  max(df_curr[col]) > 2000:
                 ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
         col_text = "\n".join(wrap(col, 20, break_long_words=False))
@@ -980,6 +980,7 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
         labels = [{
                       "mgm": "MGM",
                       "mgm2": "MGM2",
+                      "mgm2_auto": "MGM2",
                       "mga": "MGA",
                       "mprodigal": "MProdigal",
                       "fgs": "FGS",
@@ -1189,12 +1190,20 @@ def tools_match_for_dataframe_row(r, tools):
 
     return all_elements_equal(list_5ps)
 
+def check_columns(df):
+    for col in df.columns:
+        weird = (df[[col]].applymap(type) != df[[col]].iloc[0].apply(type)).any(axis=1)
+        if len(df[weird]) > 0:
+            print(col)
 
 def main(env, args):
     # type: (Environment, argparse.Namespace) -> None
     df = pd.read_csv(args.pf_data)
     if args.parse_names:
         df["Genome"] = df[["Genome"]].apply(fix_names, axis=1)
+
+    #check_columns(df)
+    #return
 
     df = df[df["Chunk Size"] < 6000].copy()
     # get tools list
@@ -1213,6 +1222,7 @@ def main(env, args):
     else:
         tools = all_tools
         tools = sorted(set(tools).difference({*args.ref_5p}).difference({*args.ref_3p}))
+
 
     viz_stats_per_gene(env, df, tools, args.ref_5p, args.ref_3p,
                        pf_checkpoint_5p=args.pf_checkpoint_5p,
