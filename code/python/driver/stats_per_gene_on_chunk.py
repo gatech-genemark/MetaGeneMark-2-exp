@@ -317,7 +317,7 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
         # PBS parallelization
         if prl_options.safe_get("use-pbs"):
             pbs = PBS(env, prl_options, splitter=split_list, merger=merge_dataframes_to_file)
-            pbs.run_on_generator(
+            list_gen = pbs.run_on_generator(
                 list_df, stats_per_gene_on_chunks_for_genome,
                 {
                     "env": env, **kwargs
@@ -327,8 +327,7 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
                 },
                 merge_kwargs={"pf_output": pf_output}
             )
-            df = None
-            # pd.concat(list_df, ignore_index=True, sort=False)
+            df = None # = pd.concat([x for x in list_gen], ignore_index=True, sort=False)
 
         # threading
         else:
@@ -344,6 +343,8 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
             df = pd.concat(list_df, ignore_index=True, sort=False)
 
     if df is not None:
+        df.sort_index(axis=1, inplace=True)
+        print(mode, header)
         df.to_csv(pf_output, index=False, mode=mode, header=mode=="w")
 
 
