@@ -325,7 +325,7 @@ def stats_per_gene_on_chunks(env, df_summary, pf_output, **kwargs):
                 split_kwargs={
                     "arg_name_data": "df_summary_genome"
                 },
-                merge_kwargs={"pf_output": pf_output}
+                merge_kwargs={"pf_output": pf_output, "append": append}
             )
             df = None
             # pd.concat(list_df, ignore_index=True, sort=False)
