@@ -24,7 +24,7 @@ from mg_general.genome_splitter import GenomeSplitter
 from mg_io.general import remove_p, mkdir_p
 from mg_io.labels import read_labels_from_file, write_labels_to_file
 from mg_io.shelf import read_sequences_for_gi, read_labels_for_gi
-from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs, run_mga
+from mg_models.shelf import run_gms2, run_prodigal, run_meta_prodigal, run_mgm2, run_mgm, run_fgs, run_mga, run_mgm2_autogcode
 from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.generic_threading import run_n_per_thread
 from mg_parallelization.pbs import PBS
@@ -42,7 +42,7 @@ parser = argparse.ArgumentParser("Run tools on genome chunks.")
 
 
 parser.add_argument('--pf-gil', required=True)
-parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2", "mga",
+parser.add_argument('--tools', required=True, nargs="+", choices=["gms2", "mgm", "mgm2", "mga", "mgm2_auto",
                                                                   "mprodigal", "prodigal",
                                                                   "ncbi", "verified", "fgs"], type=str.lower)
 parser.add_argument('--dn_tools', nargs="+")
@@ -102,6 +102,8 @@ def run_tool_on_chunk(env, tool, pf_sequences, pf_prediction, **kwargs):
             run_fgs(env, pf_sequences, pf_prediction)
         elif tool == "mga":
             run_mga(env, pf_sequences, pf_prediction)
+        elif tool == "mgm2_auto":
+            run_mgm2_autogcode(env, pf_sequences, pf_prediction)
         # elif tool in {"ncbi", "verified", "sbsp", "sbsp_plus"}:
         #     apply_labels_to_genome_splitter(env, pf_labels, genome_splitter, )
         else:

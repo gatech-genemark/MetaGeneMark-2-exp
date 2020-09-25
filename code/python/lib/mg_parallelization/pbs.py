@@ -98,15 +98,15 @@ class PBS:
             job_name=job_name, num_jobs=num_jobs
         )
 
-        
+
         # 4) Merge end-results
         data_output = None
         if not self._dry_run:
             data_output = self.merge_output_package_files(list_pf_output_job_packages)
 
         # 5) Clean
-        if self._prl_options.safe_get("pbs-clean"):
-            remove_p(*list_pf_input_job)
+        #if self._prl_options.safe_get("pbs-clean"):
+            #remove_p(*list_pf_input_job)
         #    remove_p(*list_pf_output_job_packages)
 
         return data_output
@@ -152,15 +152,15 @@ class PBS:
 
 
         # 4) Merge end-results
-        
+
         data_output = None
         if not self._dry_run:
             data_output = self.merge_output_package_files(list_pf_output_job_packages, as_generator=True,
                                                           **merge_kwargs)
 
         # 5) Clean
-        if self._prl_options.safe_get("pbs-clean"):
-            remove_p(*[f"{x}.pkl" for x in list_pf_input_job])
+        #if self._prl_options.safe_get("pbs-clean"):
+            #remove_p(*[f"{x}.pkl" for x in list_pf_input_job])
         #    remove_p(*[f"{x}.pkl" for x in list_pf_output_job_packages])
 
         return data_output

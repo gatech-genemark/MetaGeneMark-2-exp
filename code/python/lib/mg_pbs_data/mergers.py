@@ -23,7 +23,10 @@ def merge_dataframes(list_df):
 def merge_dataframes_to_file(dfs, **kwargs):
     # type: (Iterable[pd.DataFrame], Dict[str, Any]) -> None
     pf_output = get_value(kwargs, "pf_output", required=True)
-    remove_p(pf_output)
+    append = get_value(kwargs, "append", default=False)
+
+    if not append:
+        remove_p(pf_output)
     counter = 0
     header = None
     for df in dfs:
@@ -35,6 +38,9 @@ def merge_dataframes_to_file(dfs, **kwargs):
 
             if header != list(df.columns.values):
                 log.warning("Could not append dataframe to file. Header inconsistent")
+                print (header)
+                print(list(df.columns.values))
+                print (" ")
          #       import pdb
          #       pdb.set_trace()
                 continue

@@ -20,6 +20,8 @@ import mg_log  # runs init in mg_log and configures logger
 
 # Custom imports
 from mg_container.genome_list import GenomeInfoList
+from mg_viz.general import square_subplots, set_size
+
 from mg_container.gms2_mod import GMS2Mod
 from mg_general import Environment, add_env_args_to_parser
 from mg_general.general import get_value, os_join, next_name
@@ -29,6 +31,8 @@ from mg_options.parallelization import ParallelizationOptions
 from mg_parallelization.pbs import PBS
 from mg_pbs_data.mergers import merge_identity
 from mg_pbs_data.splitters import split_gil
+from mg_argparse.parallelization import add_parallelization_options
+
 
 
 # ------------------------------ #
@@ -38,7 +42,12 @@ from mg_pbs_data.splitters import split_gil
 
 parser = argparse.ArgumentParser("Plot the distribution of GMS2 groups across GC.")
 
-# FILL IN ARGUMENTS
+parser.add_argument('--pf-gil', required=True)
+parser.add_argument('--pf-checkpoint')
+add_parallelization_options(parser)
+
+parser.add_argument('--dn-gms2', default="gms2", required=False)
+
 
 add_env_args_to_parser(parser)
 parsed_args = parser.parse_args()
@@ -63,7 +72,7 @@ def helper_read_group_data(env, gil, **kwargs):
 
     for gi in gil:
         try:
-            dn_gms2 = "gms2" if gi.genetic_code == 11 else "gms2_known"
+            dn_gms2 = "gms2" if int(gi.genetic_code) == 11 else "gms2_known"
 
             pf_mod = os_join(env["pd-runs"], gi.name, dn_gms2, "GMS2.mod")
             mod = GMS2Mod.init_from_file(pf_mod)
@@ -112,24 +121,32 @@ def viz_gms2_groups_over_gc(env, df):
 
     df = df.sort_values(["Group", "GC"], ignore_index=True).copy()
     df["Genetic Code"] = df["Genetic Code"].astype(int)
+    df[df["Group"] == "D2"] = "D"
+    indeces = (df["Ancestor"] == "Archaea") & (df["Genetic Code"] == 11)
+    #df.loc[indeces, "Group"] = df[indeces]["Group"].apply(lambda x: f"{x}*")
 
-    fig, axes = plt.subplots(1, 2, sharex="all")
+    figsize = set_size("thesis", subplots=(2, 3), titles=True)
+    #figsize = (figsize[0], figsize[1]*2)
 
-    for gcode, ax in zip([4, 11], axes):
+    fig, axes = plt.subplots(1, 2, sharex="all", sharey="all", figsize=figsize)
+
+    for i, gcode in enumerate([4, 11]):
+        ax = axes[i]
         curr_df = df[df["Genetic Code"] == gcode]
+
+        ax.set_title(f"Genetic Code {gcode}")
 
         # manual filtering
         if gcode == 4:
             curr_df = curr_df[curr_df["Group"].isin({"A", "C"})]
 
-        fig, ax = plt.subplots(1, 1)
         for g in sorted(curr_df["Group"].unique()):
             df_group = curr_df[curr_df["Group"] == g]
             seaborn.kdeplot(df_group["GC"], label=f"{g} ({len(df_group)})", ax=ax,
-                            color={"C": "green", "A": "blue"}[g])
+                    color={"C": "green", "A": "blue", "B": "orange", "D": "purple", "A*": "gray", "X": "red"}[g])
 
-    plt.xlabel("GC")
-    plt.ylabel("Density")
+        if i == 0:
+            ax.set_ylabel("Density")
     plt.xlim(10, 90)
     plt.tight_layout()
     # handles, labels = ax.get_legend_handles_labels()
