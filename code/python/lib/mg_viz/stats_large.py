@@ -19,7 +19,7 @@ from mg_viz.colormap import ColorMap as CM
 from mg_general.general import next_name, get_value
 from mg_stats.small import _helper_join_reference_and_tidy_data, prl_join_reference_and_tidy_data
 from mg_viz.general import set_size
-from mg_viz.shelf import number_formatter
+from mg_viz.shelf import number_formatter, update_tool_names_to_full
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +37,8 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
     figsize = get_value(kwargs, "figsize", (8 * col_wrap, 6 * num_rows))
     col_x = get_value(kwargs, "col_x", "Genome GC")
     col_x_text = get_value(kwargs, "col_x", "GC")
-
-
+    legend_cols = get_value(kwargs, "legend_cols", len(tool_order))
+    legend_pos = get_value(kwargs, "legend_pos", "bottom")
     fig, axes = plt.subplots(num_rows, col_wrap, figsize=figsize)
     reg_kws = {"lowess": True, "scatter_kws": {"s": 0.1, "alpha": 0.3},
                "line_kws": {"linewidth": 1}}
@@ -88,23 +88,31 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
             j = 0
 
     if ax is not None:
-        fig.subplots_adjust(bottom=0.2)
+        if legend_pos == "bottom":
+            fig.subplots_adjust(bottom=0.2)
+        else:
+            fig.subplots_adjust(right=0.8)
         handles, labels = ax.get_legend_handles_labels()
 
-        labels = [{
-            "mgm": "MGM",
-            "mgm2": "mgm2",
-            "mgm2_auto": "MGM2",
-            "mga": "MGA",
-            "mprodigal": "MProdigal",
-            "fgs": "FGS",
-            "gms2": "GMS2",
-            "prodigal": "Prodigal"
-        }[l.lower()] for l in labels]
+        # labels = [{
+        #     "mgm": "MGM",
+        #     "mgm2": "MGM2",
+        #     "mga": "MGA",
+        #     "mprodigal": "MProdigal",
+        #     "fgs": "FGS",
+        #     "gms2": "GMS2",
+        #     "prodigal": "Prodigal"
+        # }[l.lower()] for l in labels]
+        labels = update_tool_names_to_full(labels)
 
-        leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
-                         bbox_transform=fig.transFigure, frameon=False,
-                         fontsize=fontsize)
+        if legend_pos == "bottom" or True:
+            leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=legend_cols,
+                             bbox_transform=fig.transFigure, frameon=False,
+                             fontsize="xx-small")
+        else:
+            leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left',
+                             frameon=False,
+                             fontsize=18)
         for lh in leg.legendHandles:
             lh.set_alpha(1)
             lh.set_sizes([18] * (len(tool_order)))
@@ -113,10 +121,13 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
             for i in range(col_wrap):
                 fig.align_ylabels(axes_unr[:,i])
 
-        if num_rows == 1:
-            fig.tight_layout(rect=[0,0.05,1,1])
-        else:
-            fig.tight_layout(rect=[0,0.1,1,1])
+        if legend_pos == "bottom" or True:
+            if num_rows == 1:
+                fig.tight_layout(rect=[0,0.05,1,1])
+            else:
+                fig.tight_layout(rect=[0,0.1,1,1])
+        # else:
+        #     fig.tight_layout(rect=[0, 0, 1, 1])
         fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,)) #bbox_inches='tight'
 
     plt.show()
@@ -183,11 +194,20 @@ def viz_stats_large_3p_sn_sp(env, df_tidy, reference, **kwargs):
     # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
 
+    df_tidy["3' FN Error Rate"] = 1- df_tidy["Sensitivity"]
+    df_tidy["3' FP Error Rate"] = 1 - df_tidy["Specificity"]
 
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Sensitivity", "Specificity", "Number of Found", "Number of Predictions"],
         tool_order, reference, col_wrap=2, wrap_val=10, figsize=set_size(433.62001, subplots=(2,2), legend="bottom"),
         col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1)}
+    )
+
+    plot_gc_stats_side_by_side(
+        env, df_tidy, ["3' FN Error Rate", "3' FP Error Rate"],
+        tool_order, reference, col_wrap=2, wrap_val=10, figsize=set_size(433.62001, subplots=(1, 2), legend="bottom"),
+        col_to_ylim={"3' FN Error Rate": (0, 0.2), "3' FP Error Rate": (0, 0.2)},
+        legend_cols = math.ceil(len(tool_order)), legend_pos="right"
     )
 
 
@@ -205,11 +225,19 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
     # type: (Environment, pd.DataFrame, str, Dict[str, Any]) -> None
     tool_order = get_value(kwargs, "tool_order", sorted(df_tidy["Tool"].unique()))
 
-    df_tidy["Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]  # FIXME: compute before
+    df_tidy["Gene Start Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]  # FIXME: compute before
+    df_tidy["3' FN Error Rate"] = 1 - df_tidy["Sensitivity"]
     plot_gc_stats_side_by_side(
-        env, df_tidy, ["Error Rate", "Sensitivity"], tool_order, reference,
+        env, df_tidy, ["Gene Start Error Rate", "3' FN Error Rate"], tool_order, reference,
         col_wrap=2, wrap_val=10, figsize=set_size("thesis", subplots=(1, 2), legend="bottom"),
-        col_to_ylim={"Specificity": (0.5, 1), "Sensitivity": (0.5, 1), "Error Rate": (0, 0.5)}
+        col_to_ylim={"Specificity": (0.5, 1), "Gene Start Error Rate": (0, 0.3), "3' FN Error Rate": (0, 0.3)}
+    )
+
+    df_tidy["Gene 5' Error Rate"] = df_tidy["Gene Start Error Rate"]
+    plot_gc_stats_side_by_side(
+        env, df_tidy, ["Gene 5' Error Rate", "3' FN Error Rate"], tool_order, reference,
+        col_wrap=2, wrap_val=10, figsize=set_size("thesis", subplots=(1, 2), legend="bottom"),
+        col_to_ylim={"Specificity": (0.5, 1), "Gene 5' Error Rate": (0, 0.3), "3' FN Error Rate": (0, 0.15)}
     )
 
     print(df_tidy.groupby("Tool", as_index=False).mean().to_csv(index=False))
@@ -276,15 +304,16 @@ def viz_stats_large_5p_error_vs_gc_by_clade(env, df_tidy, reference, **kwargs):
         fig.subplots_adjust(bottom=0.2)
         handles, labels = ax.get_legend_handles_labels()
 
-        labels = [{
-                      "mgm": "MGM",
-                      "mgm2": "MGM2",
-                      "mga": "MGA",
-                      "mprodigal": "MProdigal",
-                      "fgs": "FGS",
-                      "gms2": "GMS2",
-                      "prodigal": "Prodigal"
-                  }[l.lower()] for l in labels]
+        # labels = [{
+        #               "mgm": "MGM",
+        #               "mgm2": "MGM2",
+        #               "mga": "MGA",
+        #               "mprodigal": "MProdigal",
+        #               "fgs": "FGS",
+        #               "gms2": "GMS2",
+        #               "prodigal": "Prodigal"
+        #           }[l.lower()] for l in labels]
+        labels = update_tool_names_to_full(labels)
 
         leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
                          bbox_transform=fig.transFigure, frameon=False,
@@ -315,6 +344,9 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
         reference, df_tidy = load_obj(pf_checkpoint)
 
     # Reference stats
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
+
     stats_large_3p_reference(env, df_tidy, reference, tool_order=tools)
 
     # Number of Predictions versus number of found
@@ -333,6 +365,8 @@ def viz_stats_large_5p(env, df_per_gene, tools, list_ref, **kwargs):
     else:
         reference, df_tidy = load_obj(pf_checkpoint)
 
+    df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
+    reference = reference.replace("MGM2_AUTO", "MGM2")
 
     stats_large_5p_overall(env, df_tidy, reference, tool_order=tools)
 

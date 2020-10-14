@@ -36,7 +36,7 @@ from mg_viz.colormap import ColorMap as CM
 # ------------------------------ #
 #           Parse CMD            #
 # ------------------------------ #
-from mg_viz.shelf import number_formatter
+from mg_viz.shelf import number_formatter, update_tool_names_to_full
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene.")
 
@@ -267,7 +267,7 @@ def viz_number_of_predictions_for_short(env, df):
         ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
     # g.map(plt.plot, "x", "y_fit")
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, None))
     g.set(xlim=xlim)
@@ -300,7 +300,7 @@ def viz_number_of_predictions_for_short(env, df):
     g.map(plt.plot, "Chunk Size", "Found%")
     # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
     # g.map(plt.plot, "x", "y_fit")
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, None))
     g.set(xlim=(0, 5100))
@@ -336,7 +336,7 @@ def viz_number_of_predictions_for_short(env, df):
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Score")
     g.add_legend()
 
@@ -536,7 +536,7 @@ def viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Score")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -553,7 +553,7 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Sensitivity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -566,7 +566,7 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Specificity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -602,7 +602,7 @@ def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Number of Predictions")
     g.add_legend()
 
@@ -683,7 +683,7 @@ def viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Sensitivity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -699,7 +699,7 @@ def viz_stats_5p_error_rate(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Error Rate")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -721,7 +721,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
         g.set_titles("{col_name}", style="italic")
         # g.set(ylim=(0, 1))
         g.set(xlim=(0, 5100))
-        g.set_xlabels("Chunk Size (nt)")
+        g.set_xlabels("Fragment Size (nt)")
         g.set_ylabels("Error Rate")
         g.add_legend()
         plt.suptitle({
@@ -766,7 +766,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Gene-Start Error Rate")
     g.add_legend()
 
@@ -828,7 +828,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     # g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     # g.set_ylabels("Gene-Start Error Rate")
 
     for i, axes_row in enumerate(g.axes):
@@ -1089,7 +1089,7 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
         ax.plot(df2_ref["Chunk Size"], df2_ref["Number in Reference"], linestyle="dashed",
                 color=CM.get_map("tools")[reference.lower()], label="RefSeq")
         ax.set_ylabel(col)
-        ax.set_xlabel("Chunk Size (nt)")
+        ax.set_xlabel("Fragment Size (nt)")
         ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
@@ -1197,6 +1197,102 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     plt.show()
 
 
+def viz_stats_3p_gc_sn_sp_inv(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+    df_tidy=df_tidy[df_tidy["Chunk Size"] < 2000]
+
+    chunk_sizes = sorted(df_tidy["Chunk Size"].unique())
+    tools = list(df_tidy["Tool"].unique())
+    num_chunk_sizes = len(chunk_sizes)
+    # num_rows, num_cols = square_subplots(num_chunk_sizes)
+    num_rows = 2
+    num_cols = num_chunk_sizes
+
+    figsize = set_size("thesis", subplots=(num_rows, num_cols), legend="bottom",
+                       titles=True)
+
+    fig, axes = plt.subplots(num_rows, num_cols, sharey="row", sharex="all", figsize=figsize)
+    reg_kws = {"lowess": True, "scatter_kws": {"s": 0.05, "alpha": 0.3},
+               "line_kws": {"linewidth": 1}}
+    axes_unr = axes
+    from collections import abc
+
+    if not isinstance(axes, abc.Iterable):
+        axes = [axes]
+    else:
+        axes = axes.ravel()
+
+    wrap_val = 15
+
+    df_tidy["3' FN Error Rate"] = 1 - df_tidy["Sensitivity"]
+    df_tidy["3' FP Error Rate"] = 1 - df_tidy["Specificity"]
+
+    fontsize = "xx-small"
+    # one plot per chunk size
+    for i in range(num_chunk_sizes):
+        row_i = int(i / num_cols)
+        col_i = i % num_cols
+
+        cs = chunk_sizes[i]
+        ax = axes[i]
+        df_chunk = df_tidy[df_tidy["Chunk Size"] == cs]
+
+        for t in tools:
+            if t.lower() == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["3' FN Error Rate"], ax=ax, label=t,
+                            color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
+        ax.set_title(f"{cs} nt", fontsize=fontsize)
+        ax.set_ylim((-0.001, 0.5))
+        if col_i == 0:
+            ax.set_ylabel("3' FN Error Rate", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        if row_i == num_rows - 1:
+            ax.set_xlabel("GC", fontsize=fontsize)
+        else:
+            ax.set_xlabel("")
+        ax.tick_params(labelsize=fontsize, length=2)
+
+
+        # specificity
+        ax = axes[i + num_cols]
+        for t in tools:
+            if t.lower() == reference:
+                continue
+            df_curr = df_chunk[df_chunk["Tool"] == t]
+            seaborn.regplot(df_curr["Genome GC"], df_curr["3' FP Error Rate"], ax=ax, label=t, color=CM.get_map("tools")[t.lower()],
+                            **reg_kws)
+
+        ax.set_ylim((-0.001, 1.001))
+        if col_i == 0:
+            ax.set_ylabel("3' FP Error Rate", fontsize=fontsize)
+        else:
+            ax.set_ylabel("")
+        ax.set_xlabel("GC", fontsize=fontsize)
+        ax.tick_params(labelsize=fontsize, length=2)
+
+
+    fig.subplots_adjust(bottom=0.2)
+
+    handles, labels = ax.get_legend_handles_labels()
+    labels = update_tool_names_to_full(labels)
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False,
+                     fontsize=fontsize)
+    for lh in leg.legendHandles:
+        lh.set_alpha(1)
+        lh.set_sizes([18]*(len(tools)))
+
+    fig.align_ylabels(axes_unr[:, 0])
+    fig.tight_layout(rect=[0,0.15,1,1], h_pad=0.5, w_pad=0.5)
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+
+    plt.show()
+
+
 
 
 def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
@@ -1218,6 +1314,7 @@ def viz_stats_3p(env, pf_data, tools, list_ref, **kwargs):
     reference = reference.replace("MGM2_AUTO", "MGM2")
 
     viz_stats_3p_gc_sn_sp(env, df_tidy, reference)
+    viz_stats_3p_gc_sn_sp_inv(env, df_tidy, reference)
 
     # ########## Genome Level ##########
     # # Number of Predictions, number of found
@@ -1283,9 +1380,9 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
         ax.set_title(f"{cs} nt", fontsize=fontsize)
-        ax.set_ylim((0.0, 0.5))
+        ax.set_ylim((0.0, 0.50001))
         if col_i == 0:
-            col_text = "\n".join(wrap("Gene-Start Error Rate", wrap_val, break_long_words=False))
+            col_text = "\n".join(wrap("Gene 5' Error Rate", wrap_val, break_long_words=False))
 
             ax.set_ylabel(col_text, fontsize=fontsize)
         else:
@@ -1326,6 +1423,7 @@ def viz_stats_5p_gc_sn_sp(env, df_tidy, reference):
         #lh.set_alpha(1)
         #lh.set_sizes([8] * (len(tools)))
         #lh._sizes = [8]
+    labels = update_tool_names_to_full(labels)
 
     leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False,
                      fontsize=fontsize)

@@ -32,7 +32,7 @@ from mg_viz.colormap import ColorMap as CM
 # ------------------------------ #
 #           Parse CMD            #
 # ------------------------------ #
-from mg_viz.shelf import number_formatter
+from mg_viz.shelf import number_formatter, update_tool_names_to_full
 from mg_viz.stats_large import case_insensitive_match
 
 parser = argparse.ArgumentParser("Visualize statistics collected per gene.")
@@ -260,7 +260,7 @@ def viz_number_of_predictions_for_short(env, df):
         ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
     # g.map(plt.plot, "x", "y_fit")
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, None))
     g.set(xlim=xlim)
@@ -293,7 +293,7 @@ def viz_number_of_predictions_for_short(env, df):
     g.map(plt.plot, "Chunk Size", "Found%")
     # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
     # g.map(plt.plot, "x", "y_fit")
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, None))
     g.set(xlim=(0, 5100))
@@ -309,7 +309,7 @@ def viz_number_of_predictions_for_short(env, df):
     g.map(plt.plot, "Recall", "Precision")
     # g.map(plt.plot, "Chunk Size", "Number of Found", linestyle="dashed")
     # g.map(plt.plot, "x", "y_fit")
-    # g.set_xlabels("Chunk Size (nt)")
+    # g.set_xlabels("Fragment Size (nt)")
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, 1))
     g.set(xlim=(0, 1))
@@ -329,7 +329,7 @@ def viz_number_of_predictions_for_short(env, df):
     g.set_titles("{col_name}", style="italic")
     g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Score")
     g.add_legend()
 
@@ -529,7 +529,7 @@ def viz_stats_3p_number_of_predictions_number_of_found(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Score")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -546,7 +546,7 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Sensitivity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -559,7 +559,7 @@ def viz_stats_3p_sensitivity_specificity(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Specificity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -595,7 +595,7 @@ def viz_stats_3p_number_of_predictions_precision(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Number of Predictions")
     g.add_legend()
 
@@ -676,7 +676,7 @@ def viz_stats_5p_number_of_errors_number_of_found(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Sensitivity")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -692,7 +692,7 @@ def viz_stats_5p_error_rate(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Error Rate")
     g.add_legend()
     plt.savefig(next_name(env["pd-work"]))
@@ -714,7 +714,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
         g.set_titles("{col_name}", style="italic")
         # g.set(ylim=(0, 1))
         g.set(xlim=(0, 5100))
-        g.set_xlabels("Chunk Size (nt)")
+        g.set_xlabels("Fragment Sizee (nt)")
         g.set_ylabels("Error Rate")
         g.add_legend()
         plt.suptitle({
@@ -759,7 +759,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     g.set_ylabels("Gene-Start Error Rate")
     g.add_legend()
 
@@ -821,7 +821,7 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     g.set_titles("{col_name}", style="italic")
     # g.set(ylim=(0, 1))
     # g.set(xlim=(0, 5100))
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     # g.set_ylabels("Gene-Start Error Rate")
 
     for i, axes_row in enumerate(g.axes):
@@ -878,14 +878,14 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     axes[0][0].yaxis.set_major_formatter(FuncFormatter(number_formatter))
     axes[0][1].yaxis.set_major_formatter(FuncFormatter(number_formatter))
 
-    axes[1][0].set_xlabel("Chunk Size (nt)")
-    axes[1][1].set_xlabel("Chunk Size (nt)")
+    axes[1][0].set_xlabel("Fragment Size (nt)")
+    axes[1][1].set_xlabel("Fragment Size (nt)")
 
     axes[0][0].set_ylabel("Number of Genes Found")
-    axes[1][0].set_ylabel("Gene-Start Error Rate")
+    axes[1][0].set_ylabel("Gene 5' Error Rate")
 
     handles, labels = axes[0][0].get_legend_handles_labels()
-
+    labels = update_tool_names_to_full(labels)
     # leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=5,
     #                  bbox_transform=fig.transFigure, frameon=False)
     fig.align_ylabels(axes[:,0])
@@ -970,23 +970,24 @@ def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
             ax.set_ylabel("Gene-Start Error Rate", fontsize=fontsize)
         else:
             ax.set_ylabel("")
-        ax.set_xlabel("Chunk Size (nt)")
+        ax.set_xlabel("Fragment Size (nt)")
         i += 1
 
     if ax is not None:
         fig.subplots_adjust(bottom=0.2)
         handles, labels = ax.get_legend_handles_labels()
 
-        labels = [{
-                      "mgm": "MGM",
-                      "mgm2": "MGM2",
-                      "mgm2_auto": "MGM2",
-                      "mga": "MGA",
-                      "mprodigal": "MProdigal",
-                      "fgs": "FGS",
-                      "gms2": "GMS2",
-                      "prodigal": "Prodigal"
-                  }[l.lower()] for l in labels]
+        # labels = [{
+        #               "mgm": "MGM",
+        #               "mgm2": "MGM2",
+        #               "mgm2_auto": "MGM2",
+        #               "mga": "MGA",
+        #               "mprodigal": "MProdigal",
+        #               "fgs": "FGS",
+        #               "gms2": "GMS2",
+        #               "prodigal": "Prodigal"
+        #           }[l.lower()] for l in labels]
+        labels = update_tool_names_to_full(labels)
 
         leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=len(tool_order),
                          bbox_transform=fig.transFigure, frameon=False,
@@ -1036,6 +1037,7 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
     df2 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).sum()
     df2["Sensitivity"] = df2["Number of Found"] / df2["Number in Reference"]
     df2["Specificity"] = df2["Number of Found"] / df2["Number of Predictions"]
+
     df2["False Positive"] = df2["Number of Predictions"] - df2["Number of Found"]
 
 
@@ -1096,16 +1098,87 @@ def viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference):
         ax.plot(df2_ref["Chunk Size"], df2_ref["Number in Reference"], linestyle="dashed",
                 color=CM.get_map("tools")[reference.lower()], label="RefSeq")
         ax.set_ylabel(col)
-        ax.set_xlabel("Chunk Size (nt)")
+        ax.set_xlabel("Fragment Size (nt)")
         ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
     # fig.legend(loc="center right")
     handles, labels = ax.get_legend_handles_labels()
-
+    labels = update_tool_names_to_full(labels)
     leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left', frameon=False)
     # fig.subplots_adjust(right=0.85)
     fig.align_ylabels(axes[:,0])
+
+    fig.tight_layout()
+
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+    # plt.savefig(next_name(env["pd-work"]))
+    plt.show()
+
+
+def viz_stats_3p_sensitivity_specificity_inv(env, df_tidy, reference):
+    # type: (Environment, pd.DataFrame, str) -> None
+    df2 = df_tidy.groupby(["Chunk Size", "Tool"], as_index=False).sum()
+    df2["Sensitivity"] = df2["Number of Found"] / df2["Number in Reference"]
+    df2["Specificity"] = df2["Number of Found"] / df2["Number of Predictions"]
+    df2["3' FP Error Rate"] = 1 - df2["Specificity"]
+    df2["3' FN Error Rate"] = 1 - df2["Sensitivity"]
+
+    df2["False Positive"] = df2["Number of Predictions"] - df2["Number of Found"]
+
+    df2_no_ref = df2[df2["Tool"].apply(lambda x: x.lower()) != reference.lower()]
+    df2_ref = df2[df2["Tool"].apply(lambda x: x.lower()) == reference.lower()]
+
+    df2_no_ref.loc[df2_no_ref["Tool"] == "MPRODIGAL", "Tool"] = "MProdigal"
+
+    tools = list(df2_no_ref["Tool"].unique())
+
+    # fig, axes = plt.subplots(2, 2)
+    #
+    # for col, ax in zip(["Sensitivity", "Specificity"], axes[0]):
+    #     seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+    #                      hue_order=tools,
+    #                      palette=CM.get_map("tools"), legend=False)
+    #     ax.set_ylim(0, 1)
+    #
+    # #         ax.set(adjustable='box-forced', aspect='equal')
+    #
+    # plt.legend(tools, bbox_to_anchor=(1.05, 0.5), loc="center left")
+    #
+    # for col, ax in zip(["Number of Missed", "False Positive"], axes[1]):
+    #     seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+    #                      palette=CM.get_map("tools"), legend=False)
+    #
+    #     # add dashed for number of genes in reference
+    #     ax.plot(df2_ref["Chunk Size"], df2_ref["Number in Reference"], linestyle="dashed",
+    #             color=CM.get_map("tools")[reference.lower()])
+    #     ax.yaxis.set_major_formatter(FuncFormatter(number_formatter))
+    # plt.savefig(next_name(env["pd-work"]))
+    #
+    # plt.show()
+    fig, axes = plt.subplots(1, 2, figsize=set_size("thesis", subplots=(2,2)))
+
+    # here
+
+
+    for col, ax in zip(["3' FN Error Rate", "3' FP Error Rate"], axes):
+        for t in tools:
+            df_curr = df2_no_ref[df2_no_ref["Tool"] == t]
+            ax.plot(df_curr["Chunk Size"], df_curr[col], color=CM.get_map("tools")[t.lower()],
+                    label=t)
+        # seaborn.lineplot("Chunk Size", col, data=df2_no_ref, hue="Tool", ax=ax,
+        #                  hue_order=tools,
+        #                  palette=CM.get_map("tools"))
+        ax.set_ylabel(col)
+        ax.set_ylim(0, 0.5)
+        ax.set_xlabel("Fragment Size (nt)")
+
+    # fig.legend(loc="center right")
+    handles, labels = ax.get_legend_handles_labels()
+    labels = update_tool_names_to_full(labels)
+
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left', frameon=False)
+    # fig.subplots_adjust(right=0.85)
 
     fig.tight_layout()
 
@@ -1143,6 +1216,7 @@ def viz_stats_3p(env, df_per_gene, tools, list_ref, **kwargs):
     viz_stats_3p_sensitivity_specificity(env, df_tidy, reference)
 
     viz_stats_3p_sensitivity_specificity_collective(env, df_tidy, reference)
+    viz_stats_3p_sensitivity_specificity_inv(env, df_tidy, reference)
 
     ########## Gene Level ##########
 

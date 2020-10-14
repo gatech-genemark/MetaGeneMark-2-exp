@@ -12,6 +12,39 @@ from typing import *
 log = logging.getLogger(__name__)
 
 
+def update_tool_names_to_full(names):
+    # type: (List[str]) -> List[str]
+    # d = {
+    #   "mgm": "MGM",
+    #   "mgm2": "MGM2",
+    #   "mgm2_auto": "MGM2",
+    #   "mga": "MGA",
+    #   "mprodigal": "MProdigal",
+    #   "fgs": "FGS",
+    #   "gms2": "GMS2",
+    #   "prodigal": "Prodigal"
+    # }
+
+    d = {
+        "mgm": "MetaGeneMark",
+        "mgm2": "MetaGeneMark2",
+        "mgm2_auto": "MetaGeneMark2",
+        "mga": "MetaGeneAnnotator",
+        "mprodigal": "MetaProdigal",
+        "fgs": "FragGeneScan",
+        "gms2": "GeneMarkS-2",
+        "prodigal": "Prodigal"
+    }
+
+    updated = list()
+    for n in names:
+        n = n.lower()
+        if n in d:
+            updated.append(d[n])
+        else:
+            updated.append(n)
+    return updated
+
 def create_mappable_for_colorbar(values, cmap):
     import matplotlib.colors
     import matplotlib.cm

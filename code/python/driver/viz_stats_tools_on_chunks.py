@@ -70,7 +70,7 @@ def main(env, args):
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.plot, "Chunk Size", "Error", alpha=.7)
     g.add_legend()
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     plt.xlim(0, 100000)
 
     plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
@@ -81,7 +81,7 @@ def main(env, args):
     g = seaborn.FacetGrid(df, col="title", hue="Tool", col_wrap=4)
     g.map(plt.plot, "Chunk Size", "Number of Errors", alpha=.7)
     g.add_legend()
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     plt.xlim(0, 100000)
 
     plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
@@ -92,7 +92,7 @@ def main(env, args):
     g = seaborn.FacetGrid(df, col="Genome", hue="Tool", col_wrap=4)
     g.map(plt.plot, "Chunk Size", "Number of genes found", alpha=.7)
     g.add_legend()
-    g.set_xlabels("Chunk Size (nt)")
+    g.set_xlabels("Fragment Size (nt)")
     plt.xlim(0, 100000)
 
     plt.ticklabel_format(axis="x", style="sci", scilimits=(0, 0))
