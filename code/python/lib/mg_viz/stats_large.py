@@ -93,7 +93,8 @@ def plot_gc_stats_side_by_side(env, df_tidy, columns, tool_order, reference, **k
 
         labels = [{
             "mgm": "MGM",
-            "mgm2": "MGM2",
+            "mgm2": "mgm2",
+            "mgm2_auto": "MGM2",
             "mga": "MGA",
             "mprodigal": "MProdigal",
             "fgs": "FGS",
