@@ -21,8 +21,8 @@ from mg_general import Environment, add_env_args_to_parser
 # ------------------------------ #
 from mg_general.general import next_name
 from mg_io.general import load_obj
-from mg_models.shelf import run_msa_on_sequences, create_numpy_for_column_with_extended_motif, fix_genome_type, \
-    get_consensus_sequence
+from mg_models.shelf import create_numpy_for_column_with_extended_motif, fix_genome_type, \
+    get_consensus_sequence, helper_clusters_by_heuristic
 
 parser = argparse.ArgumentParser("DRIVER DESCRIPTION.")
 
@@ -48,56 +48,6 @@ def clusters_by_msa(env, df):
     _, update_shifts = create_numpy_for_column_with_extended_motif(env, df, "RBS_MAT")
 
     return update_shifts
-
-def count_mismatches(s1, s2):
-    # type: (str, str) -> int
-    assert(len(s1) == len(s2))
-
-    return sum([1 for i in range(len(s1)) if s1[i] != s2[i]])
-
-def helper_clusters_by_heuristic(env, df):
-    # type: (Environment, pd.DataFrame) -> np.ndarray
-    seqs = [df.loc[idx, "CONSENSUS_RBS_MAT"] for idx in df.index]
-    clusters = [0] * len(seqs)
-
-    freqs = df["CONSENSUS_RBS_MAT"].value_counts().to_dict()
-    unique_seqs_ordered = [s for s in sorted(freqs.keys(), key=lambda item: item[1], reverse=True)]
-
-
-    seq_to_cluster = dict()
-    cluster_to_seqs = dict()        # type: (Dict[int, List[str]])
-
-    cluster_id = 0
-    for i in range(len(unique_seqs_ordered)):
-        s = unique_seqs_ordered[i]
-
-        # try and find an existing cluster
-        found_id = None
-
-        for curr_id in sorted(cluster_to_seqs.keys()):
-            # make sure all seqs have the difference of 1
-            mismatch_less_n = True
-            for t in cluster_to_seqs[curr_id]:
-                if count_mismatches(s, t) > 1:
-                    mismatch_less_n = False
-
-            if mismatch_less_n:
-                found_id = curr_id
-                break
-
-        if found_id is not None:
-            cluster_to_seqs[found_id].append(s)
-            seq_to_cluster[s] = found_id
-        else:
-            cluster_to_seqs[cluster_id] = [s]
-            seq_to_cluster[s] = cluster_id
-            cluster_id += 1
-
-    # put them back into original list
-    for i in range(len(seqs)):
-        clusters[i] = seq_to_cluster[seqs[i]]
-
-    return np.array(clusters)
 
 
 def clusters_by_heuristic(env, df):
