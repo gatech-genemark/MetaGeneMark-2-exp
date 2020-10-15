@@ -13,7 +13,8 @@ from mg_general.general import get_value
 from mg_models.gms2_noncoding import GMS2Noncoding
 from mg_models.mgm_motif_model import MGMMotifModel
 from mg_models.mgm_motif_model_v2 import MGMMotifModelV2
-from mg_models.shelf import create_numpy_for_column_with_extended_motif, get_position_distributions_by_shift
+from mg_models.shelf import create_numpy_for_column_with_extended_motif, get_position_distributions_by_shift, \
+    create_numpy_for_column_by_clustering
 from mg_viz.mgm_motif_model import MGMMotifModelVisualizer
 from mg_viz.mgm_motif_model_v2 import MGMMotifModelVisualizerV2
 
@@ -144,6 +145,7 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
     title = get_value(kwargs, "title", "")
     plot = get_value(kwargs, "plot", False, valid_type=bool)
     gc_feature = get_value(kwargs, "gc_feature", "GC", valid_type=str)
+    cluster_by = get_value(kwargs, "cluster_by", "msa")
 
 
     # filter out consensus sequences that don't appear very frequently
@@ -156,7 +158,12 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
 
     # run alignment of consensus sequences and get back shifts
     collect = dict()
-    array, update_shifts = create_numpy_for_column_with_extended_motif(env, df, col,
+    if cluster_by == "msa":
+        array, update_shifts = create_numpy_for_column_with_extended_motif(env, df, col,
+                                                                       collect)
+    else:
+        print("Heuristic")
+        array, update_shifts = create_numpy_for_column_by_clustering(env, df, col,
                                                                        collect)
 
     # Separate motifs per shift
@@ -232,6 +239,6 @@ def build_mgm_motif_model_for_gc_v2(env, df, col, **kwargs):
     if plot:
         pd_figures = get_value(kwargs, "pd_figures", env["pd-work"])
         MGMMotifModelVisualizerV2.visualize(mgm_mm, title=title, msa_t=collect["msa_t"],
-                                        raw_motif_data=raw_array_per_shift,
+                                        raw_motif_data=raw_array_per_shift, cluster_by=cluster_by,
                                             pd_figures=pd_figures)
     return mgm_mm

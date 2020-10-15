@@ -56,10 +56,14 @@ class MGMMotifModelVisualizerV2:
         #     a = at / 2.0
         #     t = 1 - a - g - c
         #     bgd = [a, c, g, t]
-        info_mat = lm.transform_matrix(mgm_mm.pwm_to_df(shift),
+        try:
+
+            info_mat = lm.transform_matrix(mgm_mm.pwm_to_df(shift),
                                        from_type='probability',
                                        to_type='information',
                                        background=mgm_mm._kwargs["avg_bgd"])
+        except Exception:
+            return
 
         # df = mgm_mm.pwm_to_df()
         #
@@ -101,8 +105,8 @@ class MGMMotifModelVisualizerV2:
         ax.set_ylabel("Probability")
 
     @staticmethod
-    def _viz_prior(mgm_mm, ax):
-        # type: (MGMMotifModelV2, plt.Axes) -> None
+    def _viz_prior(mgm_mm, ax, cluster_by=None):
+        # type: (MGMMotifModelV2, plt.Axes, str) -> None
 
         n_show = 3
         x = sorted(mgm_mm._shift_prior.keys())
@@ -118,7 +122,11 @@ class MGMMotifModelVisualizerV2:
 
         seaborn.barplot(x, y, ax=ax, color="blue")
         ax.set_ylabel("Probability")
-        ax.set_xlabel("Shift")
+        if cluster_by is None or cluster_by == "msa":
+            ax.set_xlabel("Shift")
+        else:
+            ax.set_xlabel("Cluster")
+
         ax.set_ylim(0, 1)
 
     @staticmethod
@@ -128,6 +136,7 @@ class MGMMotifModelVisualizerV2:
         msa_t = get_value(kwargs, "msa_t", None)
         raw_motif_data = get_value(kwargs, "raw_motif_data", None)
         pd_figures = get_value(kwargs, "pd_figures", ".")
+        cluster_by = get_value(kwargs, "cluster_by", valid=["msa", "heuristic"])
 
         num_shifts = len(mgm_mm._shift_prior.keys())
 
@@ -144,7 +153,7 @@ class MGMMotifModelVisualizerV2:
 
             if raw_motif_data is None:
                 MGMMotifModelVisualizerV2._viz_motif_pwm(mgm_mm, axes_box, s)
-            else:
+            elif s in raw_motif_data:
                 MGMMotifModelVisualizerV2._viz_motif_pwm_from_raw_data(raw_motif_data[s], axes_box,
                                                                        mgm_mm.motif_width())
 
@@ -154,10 +163,13 @@ class MGMMotifModelVisualizerV2:
         ax_pos_dist = plt.subplot2grid(shape, (num_shifts, 2))
 
         MGMMotifModelVisualizerV2._viz_spacer(mgm_mm, ax_pos_dist)
-        MGMMotifModelVisualizerV2._viz_prior(mgm_mm, ax_counts)
+        MGMMotifModelVisualizerV2._viz_prior(mgm_mm, ax_counts, cluster_by=cluster_by)
 
-        if msa_t is not None:
+        if cluster_by == "msa" and msa_t is not None:
             MGMMotifModelVisualizerV2._viz_msa(msa_t, ax_text)
+        elif cluster_by == "heuristic" and msa_t is not None:
+            MGMMotifModelVisualizerV2._viz_heuristic(msa_t, ax_text)
+
 
         plt.suptitle("Gc range: {}".format(title))
 
@@ -207,3 +219,26 @@ class MGMMotifModelVisualizerV2:
             seaborn.boxplot("Position", "Probability", data=df, ax=ax, color="red", fliersize=0)
             seaborn.lineplot(df_mean["Position"], df_mean["Probability"], ax=ax, color="blue")
             ax.set_ylim(*ylim)
+
+    @classmethod
+    def _viz_heuristic(cls, clustering, ax):
+        # type: ([Dict[int, List[str]], Dict[int, Dict[str, int]]], plt.Axes) -> None
+        fp = FontProperties()
+        fp.set_family("monospace")
+
+        out = ""
+        for c in sorted(clustering[0]):
+            out += f"Cluster {c}\n"
+            for seq in clustering[0][c]:
+                out += f"{seq}   {clustering[1][c][seq]}\n"
+            out += "\n"
+
+        ax.text(0, 0, out,
+                horizontalalignment='left',
+                verticalalignment='center',
+                fontproperties=fp, usetex=False)
+
+        ax.set_xlim(*[-0.2, 0.4])
+        ax.set_ylim(*[-0.4, 0.4])
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)

@@ -49,6 +49,8 @@ parser.add_argument('--components', nargs="+",
 parser.add_argument('--genome-type', choices=["Archaea", "Bacteria"], default=None,
                     help="Set if only want to build for single set. Leave empty for both")
 
+parser.add_argument('--cluster-by', default="msa", choices=["msa", "heuristic"], type=str.lower)
+
 parser.add_argument('--gc-feature', default="GC")
 parser.add_argument('--plot', default=False, action="store_true")
 parser.add_argument('--pf-learn-from-options')
@@ -527,9 +529,11 @@ def add_motif_probabilities(env, df, mgm, input_tag, output_tag, genome_type, **
     plot = get_value(kwargs, "plot", False)
     pd_figures = get_value(kwargs, "pd_figures", env["pd-work"])
     pd_figures = os_join(pd_figures, input_tag)
+    cluster_by = get_value(kwargs, "cluster_by", "msa")
     # env = env.duplicate({"pd-work": os_join(env["pd-work"], input_tag)})
     mkdir_p(pd_figures)
-    motif_by_gc = build_mgm_motif_models_for_all_gc(env, df, f"{input_tag}_MAT", plot=plot, pd_figures=pd_figures)
+    motif_by_gc = build_mgm_motif_models_for_all_gc(env, df, f"{input_tag}_MAT", plot=plot, pd_figures=pd_figures,
+                                                    cluster_by=cluster_by)
 
     # width = 6 if tag == "RBS" else 12
     # dur = 14 if tag == "RBS" else 28
@@ -791,7 +795,8 @@ def main(env, args):
             env, df, mgm, components=args.components, genome_type=genome_type,
             plot=args.plot, gc_feature=gc_feature,
             pd_figures=pd_figures,
-            learn_from=learn_from
+            learn_from=learn_from,
+            cluster_by=args.cluster_by
         )
 
     # write new MGM file to output

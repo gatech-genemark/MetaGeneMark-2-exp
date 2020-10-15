@@ -263,6 +263,44 @@ def create_numpy_for_column_with_extended_motif(env, df, col, other=dict()):
 
     return create_extended_numpy_for_column_and_shifts(df, col, shifts, w), shifts
 
+def create_numpy_for_column_by_clustering(env, df, col, other=dict()):
+    # type: (Environment, pd.DataFrame, str) -> np.ndarray
+
+    example = df.at[df.index[0], "Mod"].items[col]
+
+    # run alignment
+    consensus_seqs = gather_consensus_sequences(env, df, col)
+    msa_t = run_msa_on_sequences(env, consensus_seqs, outputorder="input-order")
+    n = len(df)  # number of examples
+    w = msa_t.alignment_length()
+    b = len(example)  # number of bases (letters)
+
+
+    # get position of shift
+    shifts = helper_clusters_by_heuristic(env, pd.DataFrame({"CONSENSUS_RBS_MAT": consensus_seqs}))
+    w = len(next(iter(example.values()))) + max(shifts)
+
+    shift_to_seqs = dict()
+    shift_to_seq_to_count = dict()
+    for s, c in zip(shifts, consensus_seqs):
+        if s not in shift_to_seqs:
+            shift_to_seqs[s] = set()
+            shift_to_seq_to_count[s] = dict()
+        if c not in shift_to_seq_to_count[s]:
+            shift_to_seq_to_count[s][c] = 0
+
+        shift_to_seqs[s].add(c)
+        shift_to_seq_to_count[s][c] += 1
+
+
+    for s in shift_to_seqs:
+        shift_to_seqs[s] = sorted(shift_to_seqs[s])
+
+    other["msa_t"] = (shift_to_seqs, shift_to_seq_to_count)
+
+
+    return create_extended_numpy_for_column_and_shifts(df, col, shifts, w), shifts
+
 
 def fix_genome_type(df):
     # type: (pd.DataFrame) -> None
@@ -723,3 +761,55 @@ def run_tool(env, pf_sequences, pf_prediction, tool, **kwargs):
         pf_prediction=pf_prediction,
         **kwargs
     )
+
+
+def count_mismatches(s1, s2):
+    # type: (str, str) -> int
+    assert(len(s1) == len(s2))
+
+    return sum([1 for i in range(len(s1)) if s1[i] != s2[i]])
+
+
+def helper_clusters_by_heuristic(env, df):
+    # type: (Environment, pd.DataFrame) -> np.ndarray
+    seqs = [df.loc[idx, "CONSENSUS_RBS_MAT"] for idx in df.index]
+    clusters = [0] * len(seqs)
+
+    freqs = df["CONSENSUS_RBS_MAT"].value_counts().to_dict()
+    unique_seqs_ordered = [s for s in sorted(freqs.keys(), key=lambda item: item[1], reverse=True)]
+
+
+    seq_to_cluster = dict()
+    cluster_to_seqs = dict()        # type: (Dict[int, List[str]])
+
+    cluster_id = 0
+    for i in range(len(unique_seqs_ordered)):
+        s = unique_seqs_ordered[i]
+
+        # try and find an existing cluster
+        found_id = None
+
+        for curr_id in sorted(cluster_to_seqs.keys()):
+            # make sure all seqs have the difference of 1
+            mismatch_less_n = True
+            for t in cluster_to_seqs[curr_id]:
+                if count_mismatches(s, t) > 2:
+                    mismatch_less_n = False
+
+            if mismatch_less_n:
+                found_id = curr_id
+                break
+
+        if found_id is not None:
+            cluster_to_seqs[found_id].append(s)
+            seq_to_cluster[s] = found_id
+        else:
+            cluster_to_seqs[cluster_id] = [s]
+            seq_to_cluster[s] = cluster_id
+            cluster_id += 1
+
+    # put them back into original list
+    for i in range(len(seqs)):
+        clusters[i] = seq_to_cluster[seqs[i]]
+
+    return np.array(clusters)
