@@ -8,7 +8,7 @@
 #+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
 #+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
 
-#+MACRO: tool MetaGeneMark2
+#+MACRO: tool MetaGeneMarkS
 
 # #+SUBTITLE: The commands used to set up, reproduce, and graph results from the {{{tool}}} paper
 
@@ -133,8 +133,8 @@ Finally the =runs= directory will contain runs of different tools, such as {{{to
      cd $tmp/build_models
 
      # collect model information
-     pf_mods_bac=bac.pkl
-     pf_mods_arc=arc.pkl
+     pf_mods_bac=$base/raw_models/bac.pkl
+     pf_mods_arc=$base/raw_models/arc.pkl
 
      # build models
      pf_mgm2_11=mgm2_11.mod
@@ -176,11 +176,11 @@ Finally the =runs= directory will contain runs of different tools, such as {{{to
      }
 
      pf_mgm_mod=$bin_external/mgm/MetaGeneMark_v1.mod
-     pf_mgm2_mod=$bin_external/mgm2/mgm2_11.mod
+     pf_mgm2_mod=$bin_external/mgm2_auto/mgm2_11.mod
      pf_prl_options=$config/parallelization_pbs_2.conf
 
-     declare -a tools=(mgm fgs mga mprodigal mgm2 prodigal gms2);
-     declare -a mgtools=(mgm fgs mga mprodigal mgm2);
+     declare -a tools=(mgm fgs mga mprodigal mgm2_auto prodigal gms2);
+     declare -a mgtools=(mgm fgs mga mprodigal mgm2_auto);
 
      # Setting this to empty removes PBS parallelization.
      toggle_pbs=""
