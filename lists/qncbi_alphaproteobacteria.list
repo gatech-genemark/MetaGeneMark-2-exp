@@ -1,0 +1,101 @@
+gcfid,genetic-code,attributes
+GCF_000013165.1_ASM1316v1,11.0,name=Neorickettsia sennetsu str. Miyayama;parent_id=951.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001192655.1_ASM119265v1,11.0,name=Caedimonas varicaedens;parent_id=2100210.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900537175.1_ASM90053717v1,11.0,name=Lentilitoribacter sp. Alg239-R112;parent_id=2647570.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000378345.1_ASM37834v1,11.0,name=Hirschia maritima DSM 19733;parent_id=1121961.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_006542355.1_ASM654235v1,11.0,name=Swingsia samuiensis;parent_id=1649499.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001563365.1_ASM156336v1,11.0,name=Zymomonas mobilis;parent_id=541.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003634015.1_ASM363401v1,11.0,name=Litorimonas taeanensis;parent_id=1167830.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900752615.1_ERS396295_46,11.0,name=Alphaproteobacteria bacterium;parent_id=33807.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000428525.1_ASM42852v1,11.0,name=Hellea balneolensis DSM 19091;parent_id=287478.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002742285.1_ASM274228v1,11.0,name=Amylibacter kogurei;parent_id=1617805.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002849365.1_ASM284936v1,11.0,name=Anaplasma marginale;parent_id=768.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000688235.1_ASM68823v1,11.0,name=Terasakiella pusilla DSM 6293;parent_id=64973.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000238815.1_ASM23881v2,11.0,name=SAR116 cluster alpha proteobacterium HIMB100;parent_id=909942.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900215605.1_IMG-taxon_2728369261_annotated_assembly,11.0,name=Cohaesibacter gelatinilyticus;parent_id=655352.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003259955.1_ASM325995v1,11.0,name=Falsochrobactrum ovis;parent_id=1649292.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003314995.1_ASM331499v1,11.0,name=Pseudochrobactrum asaccharolyticum;parent_id=354349.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000378165.1_ASM37816v1,11.0,name=Saccharibacter floricola DSM 15669;parent_id=231053.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000374005.1_ASM37400v1,11.0,name=Kiloniella laminariae DSM 19542;parent_id=454162.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_006542335.1_ASM654233v1,11.0,name=Neokomagataea tanensis;parent_id=1223423.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900109555.1_IMG-taxon_2622736522_annotated_assembly,11.0,name=Pacificibacter marinus;parent_id=1042323.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900116575.1_IMG-taxon_2693429873_annotated_assembly,11.0,name=Pseudovibrio denitrificans;parent_id=258255.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003433515.1_ASM343351v1,11.0,name=Maritalea myrionectae;parent_id=623276.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000365025.1_ASM36502v1,11.0,name=Robiginitomaculum antarcticum DSM 21748;parent_id=437507.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000812685.1_S20958,11.0,name=Halocynthiibacter namhaensis;parent_id=1579315.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_011806425.1_ASM1180642v1,11.0,name=Thalassospira lucentensis;parent_id=168934.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000156115.1_ASM15611v1,11.0,name=Rhodobacteraceae bacterium HTCC2083;parent_id=58840.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000738435.1_ASM73843v1,11.0,name=Planktomarina temperata RCA23;parent_id=1284658.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001650955.1_ASM165095v1,11.0,name=Sphingomonadales bacterium EhC05;parent_id=451299.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003254185.1_ASM325418v1,11.0,name=Planktotalea frisia;parent_id=1195766.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001049735.1_N.ignavaCECT5292_MIRA,11.0,name=Nereida ignava;parent_id=282198.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000014865.1_ASM1486v1,11.0,name=Magnetococcus marinus MC-1;parent_id=1124597.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001746755.1_ASM174675v1,11.0,name=Magnetovibrio blakemorei;parent_id=1313115.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003933235.1_ASM393323v1,11.0,name=Sphingorhabdus wooponensis;parent_id=1434046.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900197605.1_Phyllobacteriaceae_bacterium_Water_Bin73,11.0,name=Phyllobacteriaceae bacterium Water-Bin73;parent_id=102274.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_005518135.1_ASM551813v1,11.0,name=Pelagicola litoralis;parent_id=765413.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000420665.1_ASM42066v1,11.0,name=Ponticaulis koreensis DSM 19734;parent_id=1123045.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003318155.1_ASM331815v1,11.0,name=Phaeobacter gallaeciensis;parent_id=302485.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002003665.1_ASM200366v1,11.0,name=Bombella intestini;parent_id=1654741.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900142085.1_IMG-taxon_2700988697_annotated_assembly,11.0,name=Pseudopelagicola gijangensis;parent_id=1649483.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000348745.1_ASM34874v1,11.0,name=Micavibrio aeruginosavorus EPB;parent_id=349221.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000155735.2_ASM15573v2,11.0,name=Octadecabacter arcticus 238;parent_id=53946.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002892465.1_ASM289246v1,11.0,name=Nesiotobacter exalbescens;parent_id=500577.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003330885.1_ASM333088v1,11.0,name=Rhodobiaceae bacterium;parent_id=1712260.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000161835.1_ASM16183v1,11.0,name=Thalassobium sp. R2A62;parent_id=2624311.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003208435.1_ASM320843v1,11.0,name=Pelagimonas varians;parent_id=1434029.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900302465.1_A.donghaensisCECT8599_Spades_Prokka,11.0,name=Ascidiaceihabitans donghaensis;parent_id=1648492.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001611975.1_ASM161197v1,11.0,name=Haematospirillum jordaniae;parent_id=1804663.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003385955.1_ASM338595v1,11.0,name=Aestuariispira insulae;parent_id=1647175.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_008579105.1_ASM857910v1,11.0,name=Kordiimonadales bacterium JCM 17843;parent_id=1236964.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000382325.1_ASM38232v1,11.0,name=Woodsholea maritima DSM 17123;parent_id=240237.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002105465.1_ASM210546v1,11.0,name=Aquidulcibacter paucihalophilus;parent_id=2052989.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900107355.1_IMG-taxon_2693429861_annotated_assembly,11.0,name=Lentibacter algarum;parent_id=1434014.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004006175.1_ASM400617v1,11.0,name=Parasedimentitalea marina;parent_id=2738399.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004342225.1_ASM434222v1,11.0,name=Martelella mediterranea;parent_id=293088.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003937445.1_ASM393744v1,11.0,name=Ochrobactrum anthropi;parent_id=528.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_006385175.1_ASM638517v1,11.0,name=Emcibacter nanhaiensis;parent_id=1602338.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900129685.1_IMG-taxon_2617270829_annotated_assembly,11.0,name=Cognatishimia maritima;parent_id=2211635.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002005445.1_ASM200544v1,11.0,name=Acetobacter aceti;parent_id=151157.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000179775.1_ASM17977v1,11.0,name=Ahrensia sp. R2A130;parent_id=2685101.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_012720115.1_ASM1272011v1,11.0,name=Sneathiella chinensis;parent_id=510690.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000745425.1_ASM74542v1,11.0,name=Beijerinckia mobilis;parent_id=532.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001550055.1_ASM155005v1,11.0,name=Kordiimonas lacus;parent_id=288021.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003860205.1_ASM386020v1,11.0,name=Brucellaceae bacterium VT-16-1752;parent_id=174575.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900109295.1_IMG-taxon_2619619643_annotated_assembly,11.0,name=Cognatiyoonia koreensis;parent_id=2211636.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_009711415.1_ASM971141v1,11.0,name=Roseibium denhamense;parent_id=150830.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000715015.1_Ery_DSM_6997_v1,11.0,name=Erythrobacter longus;parent_id=1041.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003989725.1_ASM398972v1,11.0,name=Brucella abortus;parent_id=234.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900104305.1_IMG-taxon_2617270918_annotated_assembly,11.0,name=Filomicrobium insigne;parent_id=119044.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000697575.1_ASM69757v1,11.0,name=Kozakia baliensis;parent_id=153497.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001719615.1_ASM171961v1,11.0,name=Neptunicoccus sediminis;parent_id=2137249.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_013371215.1_ASM1337121v1,11.0,name=Parasphingorhabdus flavimaris;parent_id=2709685.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900111945.1_IMG-taxon_2617270836_annotated_assembly,11.0,name=Litoreibacter janthinus;parent_id=947567.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900184935.1_C.lipolyticum_CECT8621_Spades_Prokka,11.0,name=Confluentimicrobium lipolyticum;parent_id=1609958.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900184815.1_B.aestuarii_CECT8489_Spades_Prokka,11.0,name=Boseongicola aestuarii;parent_id=1648497.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900108225.1_IMG-taxon_2617270859_annotated_assembly,11.0,name=Thalassococcus halodurans;parent_id=436357.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003254175.1_ASM325417v1,11.0,name=Celeribacter halophilus;parent_id=875170.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_013030225.1_ASM1303022v1,11.0,name=Ruegeria lacuscaerulensis;parent_id=97050.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004358675.1_ASM435867v1,11.0,name=Fluviibacterium aquatile;parent_id=2661844.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001202045.1_ASM120204v1,11.0,name=Pseudorhodobacter ferrugineus;parent_id=238783.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_012295595.1_ASM1229559v1,11.0,name=Thalassobius gelatinovorus;parent_id=335927.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900116725.1_IMG-taxon_2619619030_annotated_assembly,11.0,name=Aliiroseovarius crassostreae;parent_id=1658781.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001953055.1_ASM195305v1,11.0,name=Salaquimonas pukyongi;parent_id=2712688.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001889445.1_ASM188944v1,11.0,name=Granulibacter bethesdensis;parent_id=364409.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003097295.1_ASM309729v1,11.0,name=Thalassobacter stenotrophicus;parent_id=266808.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900115865.1_IMG-taxon_2684622851_annotated_assembly,11.0,name=Donghicola eburneus;parent_id=393277.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_001403915.1_L.aggregataCECT4801_Spades_Prokka,11.0,name=Labrenzia aggregata;parent_id=478070.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002983865.1_ASM298386v1,11.0,name=Roseobacter denitrificans;parent_id=2433.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003347575.1_ASM334757v1,11.0,name=Epibacterium mobile;parent_id=1649279.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004564215.1_ASM456421v1,11.0,name=Beijerinckiaceae bacterium;parent_id=45405.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900129125.1_IMG-taxon_2582581264_annotated_assembly,11.0,name=Acidocella aminolytica 101 = DSM 11237;parent_id=33998.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_900231835.1_IMG-taxon_2710264757_annotated_assembly,11.0,name=Monaibacterium marinum;parent_id=2029873.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_002115725.1_ASM211572v1,11.0,name=Marivita cryptomonadis;parent_id=659428.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004365885.1_ASM436588v1,11.0,name=Rhodobaca barguzinensis;parent_id=119541.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004005845.1_ASM400584v1,11.0,name=Hwanghaeella grinnelliae;parent_id=2605940.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_003576345.1_ASM357634v1,11.0,name=Henriciella barbarensis;parent_id=453849.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_004216655.1_ASM421665v1,11.0,name=Phyllobacterium myrsinacearum;parent_id=28100.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_009498475.1_ASM949847v1,11.0,name=Agrobacterium tumefaciens;parent_id=1183400.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000473205.1_ASM47320v1,11.0,name=Pseudophaeobacter arcticus DSM 23566;parent_id=385492.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_011040495.1_ASM1104049v1,11.0,name=Pseudohalocynthiibacter aestuariivivens;parent_id=1759417.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria
+GCF_000968135.1_ASM96813v1,11.0,name=Magnetospira sp. QH-2;parent_id=2685734.0;gc=0.0;num_genes=0;annotation_date=;ancestor=Alphaproteobacteria

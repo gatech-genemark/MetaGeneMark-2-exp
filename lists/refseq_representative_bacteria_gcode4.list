@@ -1,0 +1,102 @@
+gcfid,genetic-code,attributes
+GCF_001547975.1_ASM154797v1,4.0,name=Mycoplasma arginini;parent_id=2093.0;gc=0;num_genes=0;annotation_date=08/28/2019;ancestor=Bacteria
+GCF_000695835.1_ASM69583v1,4.0,name=Mycoplasma californicum;parent_id=2093.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_001886855.1_ASM188685v1,4.0,name=Spiroplasma citri;parent_id=2132.0;gc=0;num_genes=0;annotation_date=12/16/2019;ancestor=Bacteria
+GCF_000820525.2_SMSRO_2016,4.0,name=Spiroplasma poulsonii;parent_id=2132.0;gc=0;num_genes=0;annotation_date=12/26/2019;ancestor=Bacteria
+GCF_000828855.1_ASM82885v1,4.0,name=Mycoplasma canadense;parent_id=2093.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000691385.1_MhyoNPL7v1.0_of_Mycoplasma_hyosynoviae_strain_NPL7_genome,4.0,name=Mycoplasma hyosynoviae;parent_id=2093.0;gc=0;num_genes=0;annotation_date=10/29/2019;ancestor=Bacteria
+GCF_900176265.1_IMG-taxon_2585428149_annotated_assembly,4.0,name=Mycoplasma agassizii;parent_id=2093.0;gc=0;num_genes=0;annotation_date=07/29/2019;ancestor=Bacteria
+GCF_001900245.1_ASM190024v1,4.0,name=Mycoplasma pullorum;parent_id=2093.0;gc=0;num_genes=0;annotation_date=12/16/2019;ancestor=Bacteria
+GCF_000941075.1_ASM94107v1,4.0,name=Mycoplasma dispar;parent_id=2093.0;gc=0;num_genes=0;annotation_date=08/03/2019;ancestor=Bacteria
+GCF_000733865.1_ASM73386v1,4.0,name=Mycoplasma buteonis;parent_id=2093.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_900167035.1_IMG-taxon_2582581322_annotated_assembly,4.0,name=Mycoplasma verecundum;parent_id=2093.0;gc=0;num_genes=0;annotation_date=07/29/2019;ancestor=Bacteria
+GCF_001715535.1_ASM171553v1,4.0,name=Spiroplasma helicoides;parent_id=2132.0;gc=0;num_genes=0;annotation_date=12/16/2019;ancestor=Bacteria
+GCF_001267155.1_ASM126715v1,4.0,name=Spiroplasma litorale;parent_id=2132.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_001262715.1_ASM126271v1,4.0,name=Spiroplasma turonicum;parent_id=2132.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000020065.1_ASM2006v1,4.0,name=Mycoplasma arthritidis 158L3-1;parent_id=2111.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000027325.1_ASM2732v1,4.0,name=Mycoplasma genitalium G37;parent_id=2097.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000008205.1_ASM820v1,4.0,name=Mycoplasma hyopneumoniae J;parent_id=2099.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000008365.1_ASM836v1,4.0,name=Mycoplasma mobile 163K;parent_id=2118.0;gc=0;num_genes=0;annotation_date=12/14/2019;ancestor=Bacteria
+GCF_000011225.1_ASM1122v1,4.0,name=Mycoplasma penetrans HF-2;parent_id=28227.0;gc=0;num_genes=0;annotation_date=10/19/2019;ancestor=Bacteria
+GCF_000195875.1_ASM19587v1,4.0,name=Mycoplasma pulmonis UAB CTIP;parent_id=2107.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_001274875.1_ASM127487v1,4.0,name=Spiroplasma kunkelii CR2-3x;parent_id=47834.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000183385.1_ASM18338v1,4.0,name=Mycoplasma bovis PG45;parent_id=28903.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_001029265.1_ASM102926v1,4.0,name=Spiroplasma eriocheiris;parent_id=2132.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000012765.1_ASM1276v1,4.0,name=Mycoplasma capricolum subsp. capricolum ATCC 27343;parent_id=40479.0;gc=0;num_genes=0;annotation_date=11/28/2019;ancestor=Bacteria
+GCF_000085865.1_ASM8586v1,4.0,name=Mycoplasma hominis ATCC 23114;parent_id=2098.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000063605.1_ASM6360v1,4.0,name=Mycoplasma agalactiae PG2;parent_id=2110.0;gc=0;num_genes=0;annotation_date=11/25/2019;ancestor=Bacteria
+GCF_001281045.1_ASM128104v1,4.0,name=Spiroplasma cantharicola;parent_id=2132.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000019345.1_ASM1934v1,4.0,name=Ureaplasma parvum serovar 3 str. ATCC 27815;parent_id=38504.0;gc=0;num_genes=0;annotation_date=12/07/2019;ancestor=Bacteria
+GCF_000025845.1_ASM2584v1,4.0,name=Mycoplasma crocodyli MP145;parent_id=50052.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000092585.1_ASM9258v1,4.0,name=Mycoplasma gallisepticum str. R(low);parent_id=233150.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000224105.1_ASM22410v1,4.0,name=Mycoplasma putrefaciens KS1;parent_id=2123.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000524555.1_ASM52455v1,4.0,name=Mycoplasma bovoculi M165/69;parent_id=45362.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000875755.1_ASM87575v1,4.0,name=Mycoplasma yeatsii GM274B;parent_id=51365.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000815065.1_ASM81506v1,4.0,name=Mycoplasma flocculare ATCC 27399;parent_id=2128.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000178375.1_ASM17837v1,4.0,name=Mycoplasma alligatoris A21JP2;parent_id=47687.0;gc=0;num_genes=0;annotation_date=12/14/2019;ancestor=Bacteria
+GCF_000179035.2_ASM17903v2,4.0,name=Mycoplasma suis str. Illinois;parent_id=57372.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000565195.1_ASM56519v1,4.0,name=Spiroplasma mirum ATCC 29335;parent_id=2144.0;gc=0;num_genes=0;annotation_date=12/09/2019;ancestor=Bacteria
+GCF_000186005.1_ASM18600v1,4.0,name=Mycoplasma fermentans M64;parent_id=2115.0;gc=0;num_genes=0;annotation_date=08/25/2019;ancestor=Bacteria
+GCF_000221305.1_ASM22130v1,4.0,name=Mycoplasma anatis 1340;parent_id=171279.0;gc=0;num_genes=0;annotation_date=12/30/2019;ancestor=Bacteria
+GCF_000227355.1_ASM22735v1,4.0,name=Mycoplasma iowae 695;parent_id=2116.0;gc=0;num_genes=0;annotation_date=07/05/2019;ancestor=Bacteria
+GCF_001553195.1_ASM155319v1,4.0,name=Mycoplasma canis PG 14;parent_id=29555.0;gc=0;num_genes=0;annotation_date=12/04/2019;ancestor=Bacteria
+GCF_000313635.1_ASM31363v1,4.0,name=Mycoplasma hyorhinis SK76;parent_id=2100.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000621085.1_ASM62108v1,4.0,name=Mycoplasma gallinarum DSM 19816;parent_id=29557.0;gc=0;num_genes=0;annotation_date=12/09/2019;ancestor=Bacteria
+GCF_000701485.1_ASM70148v1,4.0,name=Mycoplasma sturni DSM 22021;parent_id=39047.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000327395.1_ASM32739v1,4.0,name=Mycoplasma feriruminatoris;parent_id=656088.0;gc=0;num_genes=0;annotation_date=11/25/2019;ancestor=Bacteria
+GCF_000367765.1_version_1.0,4.0,name=Mycoplasma auris 15026;parent_id=51363.0;gc=0;num_genes=0;annotation_date=10/28/2019;ancestor=Bacteria
+GCF_000367445.1_ACN,4.0,name=Mycoplasma alkalescens 14918;parent_id=45363.0;gc=0;num_genes=0;annotation_date=10/28/2019;ancestor=Bacteria
+GCF_000367805.1_version_1.0,4.0,name=Mycoplasma bovigenitalium 51080;parent_id=2112.0;gc=0;num_genes=0;annotation_date=10/28/2019;ancestor=Bacteria
+GCF_000731915.1_ASM73191v1,4.0,name=Ureaplasma diversum NCTC 246;parent_id=42094.0;gc=0;num_genes=0;annotation_date=12/09/2019;ancestor=Bacteria
+GCF_000277795.1_ASM27779v1,4.0,name=Mycoplasma wenyonii str. Massachusetts;parent_id=65123.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000328725.1_ASM32872v1,4.0,name=Mycoplasma cynos C142;parent_id=171284.0;gc=0;num_genes=0;annotation_date=12/14/2019;ancestor=Bacteria
+GCF_000969625.1_ASM96962v1,4.0,name=Mycoplasma meleagridis ATCC 25294;parent_id=29561.0;gc=0;num_genes=0;annotation_date=10/30/2019;ancestor=Bacteria
+GCF_000420105.1_ASM42010v1,4.0,name=Mycoplasma orale ATCC 23714;parent_id=2121.0;gc=0;num_genes=0;annotation_date=12/14/2019;ancestor=Bacteria
+GCF_000485555.1_ASM48555v1,4.0,name=Mycoplasma salivarium ATCC 23064;parent_id=2124.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000969765.1_ASM96976v1,4.0,name=Mycoplasma synoviae ATCC 25204;parent_id=2109.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000439435.1_ASM43943v1,4.0,name=Spiroplasma taiwanense CT-1;parent_id=2145.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000439455.1_ASM43945v1,4.0,name=Spiroplasma diminutum CUAS-1;parent_id=216936.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000400935.1_ASM40093v1,4.0,name=Spiroplasma chrysopicola DF-1;parent_id=216933.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000400955.1_ASM40095v1,4.0,name=Spiroplasma syrphidicola EA-1;parent_id=216945.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000565175.1_ASM56517v1,4.0,name=Spiroplasma culicicola AES-1;parent_id=216935.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000565215.1_ASM56521v1,4.0,name=Spiroplasma sabaudiense Ar-1343;parent_id=216944.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000500935.1_ASM50093v1,4.0,name=Spiroplasma apis B31;parent_id=2137.0;gc=0;num_genes=0;annotation_date=08/02/2019;ancestor=Bacteria
+GCF_000483165.1_ASM48316v1,4.0,name=Acholeplasma multilocale ATCC 49900;parent_id=264638.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000526235.1_ASM52623v1,4.0,name=Acholeplasma granularum ATCC 19168;parent_id=264635.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000428705.1_ASM42870v1,4.0,name=Acholeplasma axanthum ATCC 25176;parent_id=29552.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000518825.1_ASM51882v1,4.0,name=Mesoplasma chauliocola ATCC 49578;parent_id=216427.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000518305.1_ASM51830v1,4.0,name=Mycoplasma imitans ATCC 51306;parent_id=29560.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000526835.1_ASM52683v1,4.0,name=Entomoplasma somnilux ATCC 49194;parent_id=215578.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000526855.1_ASM52685v1,4.0,name=Entomoplasma luminosum ATCC 49195;parent_id=214888.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000518285.1_ASM51828v1,4.0,name=Entomoplasma lucivorax ATCC 49196;parent_id=209274.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000477415.1_ASM47741v1,4.0,name=Mycoplasma parvum str. Indiana;parent_id=984991.0;gc=0;num_genes=0;annotation_date=08/26/2019;ancestor=Bacteria
+GCF_000687735.1_ASM68773v1,4.0,name=Acholeplasma equifetale ATCC 29724;parent_id=264634.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000702765.1_ASM70276v1,4.0,name=Acholeplasma hippikon ATCC 29725;parent_id=264636.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000687835.1_ASM68783v1,4.0,name=Acholeplasma modicum ATCC 29102;parent_id=2150.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000685885.1_ASM68588v1,4.0,name=Entomoplasma melaleucae ATCC 49191;parent_id=81459.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000702725.1_ASM70272v1,4.0,name=Mesoplasma photuris ATCC 49581;parent_id=217731.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000686545.1_ASM68654v1,4.0,name=Mesoplasma syrphidae ATCC 51578;parent_id=225999.0;gc=0;num_genes=0;annotation_date=12/16/2019;ancestor=Bacteria
+GCF_000701785.1_ASM70178v1,4.0,name=Mycoplasma alvi ATCC 29626;parent_id=78580.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000702805.1_ASM70280v1,4.0,name=Mycoplasma anseris ATCC 49234;parent_id=92400.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000702745.1_ASM70274v1,4.0,name=Mycoplasma cloacale ATCC 35276;parent_id=92401.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000701825.1_ASM70182v1,4.0,name=Mycoplasma collis ATCC 35278;parent_id=2127.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000712175.1_ASM71217v1,4.0,name=Mycoplasma columbinum ATCC 29257;parent_id=114881.0;gc=0;num_genes=0;annotation_date=12/09/2019;ancestor=Bacteria
+GCF_000701845.1_ASM70184v1,4.0,name=Mycoplasma columborale ATCC 29258;parent_id=171282.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000687815.1_ASM68781v1,4.0,name=Mycoplasma elephantis ATCC 51980;parent_id=114882.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000687775.1_ASM68777v1,4.0,name=Mycoplasma felifaucium ATCC 43428;parent_id=35768.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000701865.1_ASM70186v1,4.0,name=Mycoplasma felis ATCC 23391;parent_id=33923.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000687855.1_ASM68785v1,4.0,name=Mycoplasma glycophilum ATCC 35277;parent_id=171285.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000701805.1_ASM70180v1,4.0,name=Mycoplasma iners ATCC 19705;parent_id=76630.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000686585.1_ASM68658v1,4.0,name=Mycoplasma lipofaciens ATCC 35015;parent_id=114884.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000712185.1_ASM71218v1,4.0,name=Mycoplasma opalescens ATCC 27921;parent_id=114886.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000685905.1_ASM68590v1,4.0,name=Mycoplasma pirum ATCC 25960;parent_id=2122.0;gc=0;num_genes=0;annotation_date=12/09/2019;ancestor=Bacteria
+GCF_000702785.1_ASM70278v1,4.0,name=Mycoplasma primatum ATCC 25948;parent_id=55604.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000702705.1_ASM70270v1,4.0,name=Mycoplasma simbae ATCC 49888;parent_id=36744.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000620005.1_ASM62000v1,4.0,name=Mycoplasma spumans ATCC 19526;parent_id=92406.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000687795.1_ASM68779v1,4.0,name=Mycoplasma testudinis ATCC 43263;parent_id=33924.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000712165.1_ASM71216v1,4.0,name=Ureaplasma canigenitalium ATCC 51252;parent_id=42092.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000508245.1_ASM50824v1,4.0,name=Mycoplasma ovis str. Michigan;parent_id=171632.0;gc=0;num_genes=0;annotation_date=08/27/2019;ancestor=Bacteria
+GCF_000526955.1_ASM52695v1,4.0,name=Mycoplasma cricetuli ATCC 35279;parent_id=171283.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000753815.1_genomic_workbench,4.0,name=Mycoplasma ovipneumoniae NM2010;parent_id=29562.0;gc=0;num_genes=0;annotation_date=11/30/2019;ancestor=Bacteria
+GCF_000622165.1_ASM62216v1,4.0,name=Mycoplasma molare ATCC 27746;parent_id=171288.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
+GCF_000622205.1_ASM62220v1,4.0,name=Mycoplasma leonicaptivi ATCC 49890;parent_id=36742.0;gc=0;num_genes=0;annotation_date=12/15/2019;ancestor=Bacteria
