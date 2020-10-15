@@ -346,6 +346,10 @@ def viz_stats_large_3p(env, df_per_gene, tools, list_ref, **kwargs):
     # Reference stats
     df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
     reference = reference.replace("MGM2_AUTO", "MGM2")
+    tools = tools.copy()
+    for i in range(len(tools)):
+        if tools[i].upper() == "MGM2_AUTO":
+            tools[i] = "MGM2"
 
     stats_large_3p_reference(env, df_tidy, reference, tool_order=tools)
 
@@ -367,6 +371,10 @@ def viz_stats_large_5p(env, df_per_gene, tools, list_ref, **kwargs):
 
     df_tidy.loc[df_tidy["Tool"] == "MGM2_AUTO", "Tool"] = "MGM2"
     reference = reference.replace("MGM2_AUTO", "MGM2")
+    tools = tools.copy()
+    for i in range(len(tools)):
+        if tools[i].upper() == "MGM2_AUTO":
+            tools[i] = "MGM2"
 
     stats_large_5p_overall(env, df_tidy, reference, tool_order=tools)
 

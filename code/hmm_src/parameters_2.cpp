@@ -271,7 +271,7 @@ void Parameters::LoadSite( ParameterParser & parser, parameter_map & par, std::s
 
 void Parameters::LoadMultiShiftSite( ParameterParser & parser, parameter_map & par, std::string & buffer, std::string const label, MultiShiftSite * ptr_ms, bool with_dur )
 {
-    int max_allowed_shift = 3;
+    int max_allowed_shift = 5;
     
     
     
