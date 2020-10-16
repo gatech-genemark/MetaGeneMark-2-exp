@@ -40,6 +40,7 @@ parser = argparse.ArgumentParser("Collect GeneMarkS-2 model files from existing 
 
 parser.add_argument('--pf-gil', required=True, help="File containing genome information list")
 parser.add_argument('--pf-output', required=True, help="Path to output file")
+parser.add_argument('--dn-gms2', default="gms2")
 add_parallelization_options(parser)
 
 add_env_args_to_parser(parser)
@@ -57,14 +58,15 @@ logging.basicConfig(level=parsed_args.loglevel)
 logger = logging.getLogger("logger")  # type: logging.Logger
 
 
-def collect_start_info_from_gi(env, gi):
-    # type: (Environment, GenomeInfo) -> Dict[str, Any]
+def collect_start_info_from_gi(env, gi, **kwargs):
+    # type: (Environment, GenomeInfo, Dict[str, Any]) -> Dict[str, Any]
     pd_genome = os_join(env["pd-data"], gi.name)
     pf_sequence = os_join(pd_genome, "sequence.fasta")
+    dn_gms2 = get_value(kwargs, "dn_gms2", "gms2", valid_type=str)
 
 
     pd_genome_run = os_join(env["pd-runs"], gi.name)
-    pd_gms2 = os_join(pd_genome_run, "gms2")
+    pd_gms2 = os_join(pd_genome_run, dn_gms2)
     pf_mod = os_join(pd_gms2, "GMS2.mod")
     pf_gms2_labels = os_join(pd_gms2, "prediction.gff")
 
@@ -100,10 +102,11 @@ def collect_start_info_from_gi(env, gi):
 def collect_start_info_from_gil(env, gil, **kwargs):
     # type: (Environment, GenomeInfoList, Dict[str, Any]) -> pd.DataFrame
     pf_output = get_value(kwargs, "pf_output", None, valid_type=str)
+    dn_gms2 = get_value(kwargs, "dn_gms2", "gms2", valid_type=str)
 
     list_entries = list()
     for gi in tqdm(gil, total=len(gil)):
-        entry = collect_start_info_from_gi(env, gi)
+        entry = collect_start_info_from_gi(env, gi, dn_gms2=dn_gms2)
         list_entries.append(entry)
 
     df = pd.DataFrame(list_entries)
@@ -143,12 +146,12 @@ def main(env, args):
             data=gil,
             func=collect_start_info_from_gil,
             func_kwargs={
-                "env": env,
+                "env": env, "dn_gms2": args.dn_gms2
             }
         )
 
     else:
-        df = collect_start_info_from_gil(env, gil)
+        df = collect_start_info_from_gil(env, gil, dn_gms2=args.dn_gms2)
 
     save_obj(df, args.pf_output)
 
