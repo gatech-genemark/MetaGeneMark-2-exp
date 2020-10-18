@@ -27,8 +27,8 @@ def update_tool_names_to_full(names):
 
     d = {
         "mgm": "MetaGeneMark",
-        "mgm2": "MetaGeneMark2",
-        "mgm2_auto": "MetaGeneMark2",
+        "mgm2": "MetaGeneMarkS",
+        "mgm2_auto": "MetaGeneMarkS",
         "mga": "MetaGeneAnnotator",
         "mprodigal": "MetaProdigal",
         "fgs": "FragGeneScan",

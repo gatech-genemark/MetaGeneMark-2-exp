@@ -470,8 +470,8 @@ def run_fgs(env, pf_sequence, pf_prediction, **kwargs):
 
     log.info(cmd)
     print(run_shell_cmd(cmd))
-    run_shell_cmd(f"cp {pf_prediction} {pf_prediction}.copy")
     convert_fgs_to_gff(pf_prediction + ".out", pf_prediction)
+    run_shell_cmd(f"cp {pf_prediction} {pf_prediction}.copy")
 
 def convert_mga_output_to_gff(output_str, pf_output):
     # type: (str, str) -> None
