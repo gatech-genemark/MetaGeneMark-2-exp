@@ -78,7 +78,7 @@ function analyze_mgm2_vs_mprodigal() {
     gcfid="$1"
 
     pf_verified=$data/$gcfid/verified.gff
-    pf_mgm2=$runs/$gcfid/mgm2_rerun/prediction.gff
+    pf_mgm2=$runs/$gcfid/mgms_rerun/prediction.gff
     pf_mprodigal=$runs/$gcfid/mprodigal/prediction.gff
 
     # get correct false predictions by each 
