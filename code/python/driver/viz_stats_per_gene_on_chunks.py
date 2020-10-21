@@ -896,6 +896,66 @@ def viz_stats_5p_error_rate_partial(env, df_tidy, reference):
     fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
     plt.show()
 
+    # thesis
+    figsize = set_size("thesis", subplots=(2, 2), legend=True, titles=True)
+    fig, axes = plt.subplots(2, 2, sharex="all", sharey="row", figsize=figsize)
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Found") & (df2_tidy["Condition"] == "Incomplete at Gene Start") & (
+                    df2_tidy["Tool"] == h)
+        axes[0][0].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Found") & (df2_tidy["Condition"] == "Complete at Gene Start") & (
+                    df2_tidy["Tool"] == h)
+        axes[0][1].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Error Rate") & (df2_tidy["Condition"] == "Incomplete at Gene Start") & (
+                    df2_tidy["Tool"] == h)
+        axes[1][0].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    for h in hue_order:
+        ids = (df2_tidy["Metric"] == "Error Rate") & (df2_tidy["Condition"] == "Complete at Gene Start") & (
+                    df2_tidy["Tool"] == h)
+        axes[1][1].plot(
+            df2_tidy.loc[ids, "Chunk Size"], df2_tidy.loc[ids, "Score"],
+            label=h, color=CM.get_map("tools")[h.upper()]
+        )
+
+    axes[0][0].set_title("Incomplete at Gene Start", style="italic")
+    axes[0][1].set_title("Complete at Gene Start", style="italic")
+
+    axes[0][0].yaxis.set_major_formatter(FuncFormatter(number_formatter))
+    axes[0][1].yaxis.set_major_formatter(FuncFormatter(number_formatter))
+
+    axes[1][0].set_xlabel("Fragment Size (nt)")
+    axes[1][1].set_xlabel("Fragment Size (nt)")
+
+    axes[0][0].set_ylabel("Number of Genes Found")
+    axes[1][0].set_ylabel("Gene Start Error Rate")
+
+    handles, labels = axes[0][0].get_legend_handles_labels()
+    labels = update_tool_names_to_full(labels)
+    # leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.1), loc='upper center', ncol=5,
+    #                  bbox_transform=fig.transFigure, frameon=False)
+    fig.align_ylabels(axes[:, 0])
+    # plt.tight_layout(rect=[0, 0.1, 1, 1])
+    leg = fig.legend(handles, labels, bbox_to_anchor=(1.05, 0.5), loc='center left', frameon=False)
+    # fig.subplots_adjust(right=0.85)
+    fig.tight_layout()
+    fig.savefig(next_name(env["pd-work"]), bbox_extra_artists=(leg,), bbox_inches='tight')
+    plt.show()
+
 
 def viz_stats_5p_partial(env, df_tidy, tool_order, reference):
     # show 5p error by condition (combine all tools)

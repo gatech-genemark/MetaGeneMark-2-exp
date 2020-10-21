@@ -142,12 +142,14 @@ def visualize_start_codons(env, viz_collector):
                 for i in range(len(x)):
                     list_entries.append({
                         "Genome Type": genome_type,
-                        "Group": group if genome_type == "Bacteria" else f"{group}*",
+                        "Group": group if genome_type == "Bacteria" else f"A*,D*",
                         "Codon": codon,
                         "x": x[i],
                         "y": y[i],
                         "y_fit": y_fit[i]
                     })
+            if genome_type == "Archaea":
+                break
 
     df = pd.DataFrame(list_entries)
     g = seaborn.FacetGrid(df, col="Codon", hue="Group")
@@ -156,8 +158,19 @@ def visualize_start_codons(env, viz_collector):
     g.set_xlabels("GC")
     g.set_ylabels("Probability")
     g.add_legend()
-    plt.savefig(next_name(env["pd-work"]))
+    g.set_titles(col_template='{col_name}')
+    leg = g._legend
+    for lh in leg.legendHandles:
+        lh.set_alpha(1)
+        lh.set_sizes([14] * 3)
+    #
+    # g.fig.subplots_adjust(top=.8)
+    # g.fig.suptitle(genome_type)
+
+
+    g.fig.savefig(next_name(env["pd-work"]))
     plt.close()
+
     # plt.show()
 
 
@@ -780,7 +793,7 @@ def main(env, args):
     learn_from = LearnFromOptions.init_from_dict(env, args.pf_learn_from_options, vars(args))
 
     # Build models for archaea and bacteria
-    for genome_type in {"Archaea", "Bacteria"}:
+    for genome_type in ["Archaea", "Bacteria"]:
 
         if args.genome_type and args.genome_type != genome_type:
             # skip if specified by command line argument

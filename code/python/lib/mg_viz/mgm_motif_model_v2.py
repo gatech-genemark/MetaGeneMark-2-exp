@@ -229,16 +229,16 @@ class MGMMotifModelVisualizerV2:
         out = ""
         for c in sorted(clustering[0]):
             out += f"Cluster {c}\n"
-            for seq in clustering[0][c]:
+            for seq in sorted(clustering[0][c], key=lambda x: clustering[1][c][x], reverse=True):
                 out += f"{seq}   {clustering[1][c][seq]}\n"
             out += "\n"
 
-        ax.text(0, 0, out,
+        ax.text(0.3, 0.4, out,
                 horizontalalignment='left',
-                verticalalignment='center',
+                verticalalignment='center', transform=ax.transAxes,
                 fontproperties=fp, usetex=False)
 
-        ax.set_xlim(*[-0.2, 0.4])
-        ax.set_ylim(*[-0.4, 0.4])
+        # ax.set_xlim(*[-0.4, 0.4])
+        # ax.set_ylim(*[-0.4, 0.4])
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
