@@ -1149,7 +1149,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
                             color=CM.get_map("tools")[t.lower()],
                             **reg_kws)
         ax.set_title(f"{cs} nt", fontsize=fontsize)
-        ax.set_ylim((-0.001, 1.001))
+        ax.set_ylim((0.4999, 1.001))
         if col_i == 0:
             ax.set_ylabel("Sensitivity", fontsize=fontsize)
         else:
