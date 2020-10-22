@@ -1182,6 +1182,7 @@ def viz_stats_3p_gc_sn_sp(env, df_tidy, reference):
     fig.subplots_adjust(bottom=0.2)
 
     handles, labels = ax.get_legend_handles_labels()
+    labels = update_tool_names_to_full(labels)
 
 
     leg = fig.legend(handles, labels, bbox_to_anchor=(0.5, 0.2), loc='upper center', ncol=len(tools), bbox_transform=fig.transFigure, frameon=False,
