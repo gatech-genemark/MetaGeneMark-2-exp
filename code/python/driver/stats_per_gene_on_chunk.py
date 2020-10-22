@@ -105,52 +105,93 @@ def apply_genome_splitter_to_labels(seqname_to_info, labels):
     list_labels = list()
 
     for lab in labels:
-        left_chunk = seqname_to_interval_tree[lab.seqname()][lab.left()]
-        right_chunk = seqname_to_interval_tree[lab.seqname()][lab.right()]
+        overlapping = seqname_to_interval_tree[lab.seqname()].overlap(lab.left(), lab.right() + 1)
 
-        if len(left_chunk) == 0:
-            left_chunk = None
-        else:
-            left_chunk = left_chunk.pop().data
+        if len(overlapping) > 2:
+            for chunk in overlapping:
 
-        if len(right_chunk) == 0:
-            right_chunk = None
-        else:
-            right_chunk = right_chunk.pop().data
+                # partial both
+                if lab.left() < chunk[0] and lab.right() > chunk[1]:
+                    lab_partial = copy.deepcopy(lab)
+                    lab_partial.coordinates().right = chunk[1]
+                    lab_partial.coordinates().left = chunk[0]
+                    lab_partial.coordinates().right -= (lab_partial.length() % 3)
+                    lab_partial.set_attribute_value("partial", "11")
+                    list_labels.append(lab_partial)
+
+                # partial left
+                elif lab.left() < chunk[0]:
+                    lab_partial = copy.deepcopy(lab)
+                    lab_partial.coordinates().left = chunk[0]
+                    lab_partial.coordinates().left += (lab_partial.length() % 3) # make multiple of 3
+                    if lab_partial.get_attribute_value("partial") in {"01", "11"}:
+                        lab_partial.set_attribute_value("partial", "11")
+                    else:
+                        lab_partial.set_attribute_value("partial", "10")
+
+                    list_labels.append(lab_partial)
+                # partial right
+                elif lab.right() > chunk[1]:
+                    lab_partial = copy.deepcopy(lab)
+                    lab_partial.coordinates().right = chunk[1]
+                    lab_partial.coordinates().right += (lab_partial.length() % 3)  # make multiple of 3
+                    if lab_partial.get_attribute_value("partial") in {"10", "11"}:
+                        lab_partial.set_attribute_value("partial", "11")
+                    else:
+                        lab_partial.set_attribute_value("partial", "01")
+
+                    list_labels.append(lab_partial)
 
 
-        if left_chunk == right_chunk:
-            # no splitting
-            list_labels.append(lab)
-        else:
-            # splitting, create two partial labels
-            lab_left = copy.deepcopy(lab)
-            lab_right = copy.deepcopy(lab)
 
 
-            # label in left chunk has partial on right
-            if left_chunk is not None:
-                lab_left.coordinates().right = left_chunk[1]
-                lab_left.coordinates().right -= (lab_left.length() % 3) # make multiple of 3
-                assert (lab_left.length() % 3 == 0)
-                if lab_left.get_attribute_value("partial") in {"10", "11"}:
-                    lab_left.set_attribute_value("partial", "11")
-                else:
-                    lab_left.set_attribute_value("partial", "01")
+        if len(overlapping) <= 2:
+            left_chunk = seqname_to_interval_tree[lab.seqname()][lab.left()]
+            right_chunk = seqname_to_interval_tree[lab.seqname()][lab.right()]
 
-                list_labels.append(lab_left)
+            if len(left_chunk) == 0:
+                left_chunk = None
+            else:
+                left_chunk = left_chunk.pop().data
 
-            # label in right chunk has partial on left
-            if right_chunk is not None:
-                lab_right.coordinates().left = right_chunk[0]
-                lab_right.coordinates().left += (lab_right.length() % 3) # make multiple of 3
-                assert(lab_right.length() %3 == 0)
-                if lab_right.get_attribute_value("partial") in {"01", "11"}:
-                    lab_right.set_attribute_value("partial", "11")
-                else:
-                    lab_right.set_attribute_value("partial", "10")
+            if len(right_chunk) == 0:
+                right_chunk = None
+            else:
+                right_chunk = right_chunk.pop().data
 
-                list_labels.append(lab_right)
+
+            if left_chunk == right_chunk:
+                # no splitting
+                list_labels.append(lab)
+            else:
+                # splitting, create two partial labels
+                lab_left = copy.deepcopy(lab)
+                lab_right = copy.deepcopy(lab)
+
+
+                # label in left chunk has partial on right
+                if left_chunk is not None:
+                    lab_left.coordinates().right = left_chunk[1]
+                    lab_left.coordinates().right -= (lab_left.length() % 3) # make multiple of 3
+                    assert (lab_left.length() % 3 == 0)
+                    if lab_left.get_attribute_value("partial") in {"10", "11"}:
+                        lab_left.set_attribute_value("partial", "11")
+                    else:
+                        lab_left.set_attribute_value("partial", "01")
+
+                    list_labels.append(lab_left)
+
+                # label in right chunk has partial on left
+                if right_chunk is not None:
+                    lab_right.coordinates().left = right_chunk[0]
+                    lab_right.coordinates().left += (lab_right.length() % 3) # make multiple of 3
+                    assert(lab_right.length() %3 == 0)
+                    if lab_right.get_attribute_value("partial") in {"01", "11"}:
+                        lab_right.set_attribute_value("partial", "11")
+                    else:
+                        lab_right.set_attribute_value("partial", "10")
+
+                    list_labels.append(lab_right)
 
     return Labels(list_labels)
 
