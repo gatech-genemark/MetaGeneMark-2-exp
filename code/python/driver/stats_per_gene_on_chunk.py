@@ -107,7 +107,22 @@ def apply_genome_splitter_to_labels(seqname_to_info, labels):
     for lab in labels:
         overlapping = seqname_to_interval_tree[lab.seqname()].overlap(lab.left(), lab.right() + 1)
 
-        if len(overlapping) > 2:
+        left_chunk = seqname_to_interval_tree[lab.seqname()][lab.left()]
+        right_chunk = seqname_to_interval_tree[lab.seqname()][lab.right()]
+
+        if len(left_chunk) > 0:
+            left_chunk = left_chunk.pop()
+            overlapping.update([left_chunk])
+
+        if len(right_chunk) > 0:
+            right_chunk = right_chunk.pop()
+
+            overlapping.update([right_chunk])
+
+
+
+
+        if False and len(overlapping) > 2:
             for chunk in overlapping:
 
                 # partial both
