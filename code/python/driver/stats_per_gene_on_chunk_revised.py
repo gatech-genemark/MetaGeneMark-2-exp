@@ -199,7 +199,7 @@ def apply_genome_splitter_to_labels(seqname_to_info, labels):
                 if right_chunk is not None:
                     lab_right.coordinates().left = right_chunk[0]
                     lab_right.coordinates().left += (lab_right.length() % 3) # make multiple of 3
-                    assert(lab_right.length() %3 == 0)
+                    assert(lab_right.length() % 3 == 0)
                     if lab_right.get_attribute_value("partial") in {"01", "11"}:
                         lab_right.set_attribute_value("partial", "11")
                     else:
@@ -342,6 +342,26 @@ def merge_labels_by_5p(list_labels):
 
     return merged_reference_labels
 
+
+def filter_labels_shorter_than(labels, threshold_nt, threshold_nt_partial=None):
+    # type: (Labels, int, int) -> Labels
+
+    if threshold_nt_partial is None:
+        threshold_nt_partial = threshold_nt
+
+    list_labels = list()
+    for lab in labels:
+        if lab.is_partial():
+            if lab.length() >= threshold_nt_partial:
+                list_labels.append(lab)
+        else:
+            if lab.length() >= threshold_nt:
+                list_labels.append(lab)
+
+    return Labels(list_labels, name=labels.name)
+
+
+
 def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_fn, reference_tools_fp, **kwargs):
     # type: (Environment, pd.DataFrame, List[str], List[str], Dict[str, Any]) -> pd.DataFrame
     """Input is summary dataframe for all entries of a given genome (including all chunks)
@@ -385,15 +405,18 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
         ref_labels_fn = merge_labels_by_5p(list_reference_labels_fn)
         ref_labels_fp = merge_labels_by_5p(list_reference_labels_fp)
 
+        ref_labels_fn = filter_labels_shorter_than(ref_labels_fn, 90)
+        ref_labels_fp = filter_labels_shorter_than(ref_labels_fp, 90)
+
 
         for chunk_size, df_chunk in df_genome.groupby("Chunk Size", as_index=False):        # type: int, pd.DataFrame
 
             # read all label files for chunk
             tool_to_labels = {
-                df_chunk.at[idx, "Tool"]: read_labels_from_file(
+                df_chunk.at[idx, "Tool"]: filter_labels_shorter_than(read_labels_from_file(
                     df_chunk.at[idx, "Predictions"],
                     shift=-1, ignore_partial=False
-                )
+                ), 90)
                 for idx in df_chunk.index
             }
 
