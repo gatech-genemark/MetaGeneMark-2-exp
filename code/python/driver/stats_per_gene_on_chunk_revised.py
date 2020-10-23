@@ -433,6 +433,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
                         "Genome": genome,
                         "Tool": t,
                         "Genome GC": genome_gc,
+                        "Chunk Size": chunk_size,
                         **compare_chunked_prediction_to_annotation(env, tool_to_labels[t], chunked_ref_labels_fp,
                                                                    chunked_ref_labels_fn)
                     }
