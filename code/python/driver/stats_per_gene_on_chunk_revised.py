@@ -225,6 +225,12 @@ def get_interval_with_largest_overlap(label, overlaps):
 
     return best_interval, score
 
+def overlap_size_more_than_fraction(lab1, lab2, frac=0.3):
+    # type: (Label, Label, float) -> bool
+
+    overlap_size = min(lab1.right(), lab2.right()) - max(lab1.left(), lab2.left())
+
+    return overlap_size / lab1.length() > frac or overlap_size / lab2.length() > frac
 
 def has_same_3prime_end(partial, full):
     # type: (Label, Label) -> bool
@@ -233,7 +239,10 @@ def has_same_3prime_end(partial, full):
         return False
 
     strand = partial.strand()
-    buffer = 3      # used because sometimes we don't know exact frame
+    buffer = 20      # used because sometimes we don't know exact frame
+
+    if overlap_size_more_than_fraction(partial, full):
+        return True
 
     if strand == "+":
         # partial at 3prime end
@@ -284,6 +293,8 @@ def compare_chunked_prediction_to_annotation(env, labels_pred, labels_ref_fp, la
         "Total Reference": 0
     }
 
+    seqs = SeqIO.to_dict(SeqIO.parse("/Users/karl/repos/mg-starts/data/GCF_000006805.1_ASM680v1/sequence.fasta", "fasta"))
+
     ref_intervals = convert_ref_labels_to_intervals(labels_ref_fp)
     for lab in labels_pred:
 
@@ -291,7 +302,8 @@ def compare_chunked_prediction_to_annotation(env, labels_pred, labels_ref_fp, la
         if lab.seqname() in ref_intervals and lab.strand() in ref_intervals[lab.seqname()]:
             overlaps = ref_intervals[lab.seqname()][lab.strand()].overlap(lab.left(), lab.right())
             if len(overlaps) == 0:
-                result["FP"] += 1
+                # result["FP"] += 1
+                pass
             else:
                 largest_overlap, score = get_interval_with_largest_overlap(lab, overlaps)
 
@@ -299,6 +311,7 @@ def compare_chunked_prediction_to_annotation(env, labels_pred, labels_ref_fp, la
                     result["TP"] += 1
                 else:
                     result["FP"] += 1
+                    has_same_3prime_end(lab, largest_overlap.data)
 
         else:
             result["FP"] += 1
@@ -453,6 +466,8 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
             chunked_ref_labels_fp = apply_genome_splitter_to_labels(seqname_to_chunks, ref_labels_fp)
 
             for t in tool_to_labels:
+                # if t != "mgm2":
+                #     continue
                 list_entries.append(
                     {
                         "Genome": genome,
@@ -519,6 +534,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
             #     })
 
 
+    print(pd.DataFrame(list_entries).to_csv())
     return pd.DataFrame(list_entries)
 
 
