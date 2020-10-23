@@ -41,6 +41,7 @@ parser.add_argument('--pf-output', required=True)
 parser.add_argument('--reference-tools-fn', nargs="+")
 parser.add_argument('--reference-tools-fp', nargs="+")
 parser.add_argument('--batch-size', default=None, type=int)
+parser.add_argument('--min-gene-length-nt', type=int, default=90)
 add_parallelization_options(parser)
 
 add_env_args_to_parser(parser)
@@ -378,6 +379,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
 
     reference_tools_fp = sorted(reference_tools_fp) if isinstance(reference_tools_fp, list) else reference_tools_fp
     reference_tools_fn = sorted(reference_tools_fn) if isinstance(reference_tools_fn, list) else reference_tools_fn
+    min_gene_length_nt = get_value(kwargs, "min_gene_length_nt", 90)
 
     list_entries = list()
     for genome, df_genome in df_summary_genome.groupby("Genome", as_index=False):
@@ -405,8 +407,8 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
         ref_labels_fn = merge_labels_by_5p(list_reference_labels_fn)
         ref_labels_fp = merge_labels_by_5p(list_reference_labels_fp)
 
-        ref_labels_fn = filter_labels_shorter_than(ref_labels_fn, 90)
-        ref_labels_fp = filter_labels_shorter_than(ref_labels_fp, 90)
+        ref_labels_fn = filter_labels_shorter_than(ref_labels_fn, min_gene_length_nt)
+        ref_labels_fp = filter_labels_shorter_than(ref_labels_fp, min_gene_length_nt)
 
 
         for chunk_size, df_chunk in df_genome.groupby("Chunk Size", as_index=False):        # type: int, pd.DataFrame
@@ -416,7 +418,7 @@ def stats_per_gene_on_chunks_for_genome(env, df_summary_genome, reference_tools_
                 df_chunk.at[idx, "Tool"]: filter_labels_shorter_than(read_labels_from_file(
                     df_chunk.at[idx, "Predictions"],
                     shift=-1, ignore_partial=False
-                ), 90)
+                ), min_gene_length_nt)
                 for idx in df_chunk.index
             }
 
@@ -582,6 +584,7 @@ def main(env, args):
         stats_per_gene_on_chunks(env, df, args.pf_output,
                                  reference_tools_fn=args.reference_tools_fn,
                                  reference_tools_fp=args.reference_tools_fp,
+                                 min_gene_length_nt=args.min_gene_length_nt,
                                  prl_options=prl_options)
     else:
         df.reset_index(inplace=True)
@@ -598,6 +601,7 @@ def main(env, args):
             stats_per_gene_on_chunks(env, curr_df, args.pf_output,
                                      reference_tools_fn=args.reference_tools_fn,
                                      reference_tools_fp=args.reference_tools_fp,
+                                     min_gene_length_nt=args.min_gene_length_nt,
                                      append=start > 0,
                                      prl_options=prl_options)
             start = end
