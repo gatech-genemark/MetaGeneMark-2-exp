@@ -86,6 +86,9 @@ class Label:
         # type: () -> int
         return self.coordinates().right
 
+    def __str__(self):
+        return self.to_string()
+
     def to_string(self, shift_coordinates_by=0):
         # FIXME: prints in GFF format only for now
         # seqname, source, feature, left, right, score, strand, frame, attributes
