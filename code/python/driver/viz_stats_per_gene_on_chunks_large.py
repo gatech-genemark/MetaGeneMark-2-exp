@@ -76,8 +76,8 @@ def get_stats_at_gcfid_level_with_reference(df, tools, reference):
 
     list_entries = list()
 
-    for t in tools:
-        df = df[~(df[f"Partial5p-{t}"] == True) & (df[f"Partial3p-{t}"] == True)]
+    for t in tools + [reference]:
+        df = df[~((df[f"Partial5p-{t}"] == True) & (df[f"Partial3p-{t}"] == True))]
 
     for gcfid, df_group in df.groupby("Genome", as_index=False):
 

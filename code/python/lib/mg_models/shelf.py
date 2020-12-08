@@ -449,16 +449,16 @@ def run_mgm(env, pf_sequence, pf_mgm, pf_prediction, **kwargs):
     fmt = get_value(kwargs, "fmt", "gff")
 
     bin_external = env["pd-bin-external"]
-    # prog = f"{bin_external}/mgm/gmhmmp"
-    # cmd = f"{prog} -v -m {pf_mgm} -o {pf_prediction} -f G {pf_sequence}"
-    # log.info(cmd)
-    # print(run_shell_cmd(cmd))
+    prog = f"{bin_external}/mgm/gmhmmp"
+    cmd = f"{prog} -v -m {pf_mgm} -o {pf_prediction} -f G {pf_sequence}"
+    log.info(cmd)
+    print(run_shell_cmd(cmd))
 
-    prog = f"{bin_external}/gms2/gmhmmp2"
-    pf_mgm = os_join(env["pd-bin-external"], "gms2", f"mgm_{gcode}.mod")
-    cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format {fmt}"
+    # prog = f"{bin_external}/gms2/gmhmmp2"
+    # pf_mgm = os_join(env["pd-bin-external"], "gms2", f"mgm_{gcode}.mod")
+    # cmd = f"{prog} -M {pf_mgm} -s {pf_sequence} -o {pf_prediction} --format {fmt}"
 
-    run_shell_cmd(cmd)
+    # run_shell_cmd(cmd)
 
 
 

@@ -55,7 +55,6 @@ def merge_dataframes_to_file(dfs, **kwargs):
          #       pdb.set_trace()
                 continue
 
-        print(len(sorted(df.columns.values)))
         df.to_csv(pf_output, index=False, mode="a", header=counter==0)
         counter += 1
 

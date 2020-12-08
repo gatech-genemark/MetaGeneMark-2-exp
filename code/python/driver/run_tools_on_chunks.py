@@ -148,9 +148,10 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
 
 
             key_value_delimiters_gff = {
-                "mgm": "=",
+                "mgm": " ",
                 "mgm2": " ",
                 "gms2": " ",
+                "mgm2_auto": " ",
                 "mprodigal": "=",
                 "prodigal": "=",
                 "fgs": "=",
@@ -158,7 +159,7 @@ def run_tools_on_chunk(env, gi, tools, chunk, **kwargs):
             }
 
             attribute_delimiter_gff = {
-                "mgm": ","
+                "mgm": ";"
             }
 
             # update labels file based on offset

@@ -234,9 +234,10 @@ def viz_stats_large_5p_error_vs_sensitivity(env, df_tidy, reference, **kwargs):
 
     df_tidy["Gene Start Error Rate"] = df_tidy["Number of Error"] / df_tidy["Number of Found"]  # FIXME: compute before
     df_tidy["1 - Sensitivity"] = 1 - df_tidy["Sensitivity"]
+    df_tidy["3' FN Error Rate"] = 1 - df_tidy["Sensitivity"]
     plot_gc_stats_side_by_side(
         env, df_tidy, ["Gene Start Error Rate", "1 - Sensitivity"], tool_order, reference,
-        col_wrap=2, wrap_val=10, figsize=set_size("thesis", subplots=(1, 2), legend="bottom"),
+        col_wrap=2, wrap_val=15, figsize=set_size("thesis", subplots=(1, 2), legend="bottom"),
         col_to_ylim={"Specificity": (0.5, 1), "Gene Start Error Rate": (0, 0.3), "1 - Sensitivity": (0, 0.15)}
     )
 

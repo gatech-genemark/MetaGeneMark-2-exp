@@ -293,7 +293,6 @@ def compare_chunked_prediction_to_annotation(env, labels_pred, labels_ref_fp, la
         "Total Reference": 0
     }
 
-    seqs = SeqIO.to_dict(SeqIO.parse("/Users/karl/repos/mg-starts/data/GCF_000006805.1_ASM680v1/sequence.fasta", "fasta"))
 
     ref_intervals = convert_ref_labels_to_intervals(labels_ref_fp)
     for lab in labels_pred:
