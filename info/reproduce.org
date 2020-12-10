@@ -261,7 +261,7 @@ Finally the =runs= directory will contain runs of different tools, such as {{{to
       pf_gil=$lists/verified.list
 
       # run on chunks
-      chunk_sizes="250 500 750 1000 1250 1500 1750 2000 2250 2500 2750 3000 5000 10000 15000 20000 30000 40000 50000"
+      chunk_sizes="250 500 750 1000 1250 1500 1750 2000 2250 2500 2750 3000 5000"
       pf_runs_summary=$(pwd)/runs_summary_chunks_verified.csv
       $bin/run_tools_on_chunks_py.sh --pf-gil $pf_gil --tools "${tools[@]}" --pf-mgm2-mod $pf_mgm2_mod --pf-mgm-mod $pf_mgm_mod --pd-work $runs --pf-summary $pf_runs_summary  --chunk-sizes-nt $chunk_sizes ${toggle_pbs}
 
