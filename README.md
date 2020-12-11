@@ -26,6 +26,36 @@ This can then be activate via
 
 See `info/reproduce.[html|pdf]` for more information.
 
+## Installing MetaGeneMarkS locally
+Running MetaGeneMarkS using automatic genetic code detection is done through the =run_mgm.pl= script found in =$code/hmm_src=. The below compiles the C++ binary and copies all the relevant components to =$bin_external/mgm2_auto=.
+
+     cd code/hmm_src;
+     pf_makefile=Makefile.macos    # NOTE: change based on operating system
+     make -f $pf_makefile
+
+
+This generates a binary =gmhmmp2=.
+
+## Running MetaGeneMarkS
+Running MetaGeneMarkS with automatic genetic code detection is done using =run_mgm.pl=. The following files should be in the same directory: =run_mgm.pl=, =gmhmmp2=, =mgm2_11.mod=, =mgm2_4.mod=. MetaGeneMarkS can then be run (from anywhere) using:
+
+    $path_to_binary/run_mgm.pl --seq [name]  --out [name]
+
+    Required options:
+         --seq  [name]            nucleotide sequence of metagenome in FASTA format.
+         --out  [name]            output file with coordinates of predicted protein coding genes.
+
+    Output options:
+
+           --nt  [name]           output file with nucleotide sequences of predicted genes in FASTA format.
+           --aa  [name]           output file with protein sequences of predicted genes in FASTA format.
+           --format  [gtf]       format of output file with gene coordinates: gtf or gff3.
+           --clean               delete temporay files
+
+    Other parameters:
+          --verbose
+
+
 ## Reproducing Results
 
 We provide a document detailing how to reproduce all results. This can be found at `info/reproduce.[html|pdf]`
