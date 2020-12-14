@@ -1,0 +1,9 @@
+gcfid,genetic-code,attributes
+Aeropyrum_pernix_K1_uid57757,11,name="Aeropyrum pernnix";ancestor=Archaea;
+Deinococcus_deserti_VCD115_uid58615,11,name="Deinococcus deserti"
+Escherichia_coli_K_12_substr__MG1655_uid57779,11,name=Escherichia coli;ancestor=Enterobacterales;num_genes=4140
+Halobacterium_salinarum_R1_uid61571,11,name=Halobacterium salinarum;ancestor=Archaea;num_genes=2749
+Mycobacterium_tuberculosis_H37Rv_uid57777,11,name=Mycobacterium tuberculosis;ancestor=Actinobacteria;num_genes=3906
+Natronomonas_pharaonis_DSM_2160_uid58435,11,name=Natronomonas pharaonis;ancestor=Archaea;num_genes=2820
+Roseobacter_denitrificans_Och114,11,name=Rosebacter denitrificans;ancestor=Alphaproteobacteria;num_genes=4057
+Synechocystis_PCC_6803_uid57659,11,name=Synechocystis

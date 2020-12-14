@@ -1,0 +1,17 @@
+#!/bin/csh
+#PBS -N Mycobacterium_tuberculosis_H37Rv_uid57777
+#PBS -o /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/gms/gms.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/gms
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+/storage3/w/gms2/GeneMarkS-2/bin/gms/gmsn.pl  --gcode 11  --combine --format GFF  --out gms.gff  /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta 
+

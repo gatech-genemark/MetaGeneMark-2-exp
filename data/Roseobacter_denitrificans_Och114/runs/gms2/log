@@ -1,0 +1,28 @@
+echo '>anydef' > tmpseq.fna
+grep -v '>' /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/sequence.fasta | tr '[:lower:]' '[:upper:]' >> tmpseq.fna
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_0.lst 
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_0.lst -m itr_1.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 0 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --run-motif-search false --genome-group D
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_1.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_1.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_0.lst -b itr_1.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_1.lst -m itr_2.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group C --gc-upstr-len-rbs 20 --align right --gc-width-rbs 6 --gc-upstr-len-prom 20 --gc-width-prom 6 --gc-extended-sd TAAGGAGGTGA
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_2.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_1.lst -b itr_2.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem experiment promoter-is-valid-for-bacteria --fnmod itr_2.mod --dist-thresh 14 --score-thresh 0.25 --window-size 1 --min-leaderless-percent 11 --min-leaderless-count 100 --fnlabels itr_2.lst --fnseq tmpseq.fna
+/home/karl/gms2-install/gms2_linux_64/biogem experiment promoter-and-rbs-match --fnmod itr_2.mod --match-thresh 3
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_1.lst -m itr_2.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group B --gb-upstr-len-rbs 20 --align right --gb-width-rbs 6
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_2.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_1.lst -b itr_2.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem experiment rbs-consensus-and-16s-match --fnmod itr_2.mod --allow-ag-sub
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_1.lst -m itr_2.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group A --ga-upstr-len-rbs 20 --align right --ga-width-rbs 6
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_2.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_1.lst -b itr_2.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem experiment match-rbs-to-16s --fnlabels itr_2.lst --match-to TAAGGAGGTGA --min-match 4 --allow-ag-sub
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_2.lst -m itr_3.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group A --ga-upstr-len-rbs 20 --align right --ga-width-rbs 6
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_3.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_3.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_2.lst -b itr_3.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_3.lst -m itr_4.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group A --ga-upstr-len-rbs 20 --align right --ga-width-rbs 6
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_4.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_4.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_3.lst -b itr_4.lst -G
+cp itr_4.mod GMS2.mod
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m GMS2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Roseobacter_Denitrificans_Och114/sequence.fasta -o gms2.gff --format gff 
+rm -f tmpseq.fna itr_0.lst itr_1.mod itr_1.lst itr_2.mod itr_2.lst itr_2.mod itr_2.lst itr_2.mod itr_2.lst itr_3.mod itr_3.lst itr_4.mod itr_4.lst

@@ -1,0 +1,12 @@
+* 
+
+# Don't ignore this file
+!.gitignore
+
+!*.pdf
+!*.org
+
+*_minted*
+
+# Emacs save files
+\.#*

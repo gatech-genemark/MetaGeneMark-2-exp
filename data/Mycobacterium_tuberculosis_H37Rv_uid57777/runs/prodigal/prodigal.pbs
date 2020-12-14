@@ -1,0 +1,18 @@
+#!/bin/csh
+#PBS -N Mycobacterium_tuberculosis_H37Rv_uid57777
+#PBS -o /storage4/karl/sbsp/biogem/sbsp/data/all/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/prodigal/prodigal.oe
+#PBS -j oe
+#PBS -l nodes=1:ppn=1
+#PBS -W umask=002
+
+set PBS_O_WORKDIR = /storage4/karl/sbsp/biogem/sbsp/data/all/Mycobacterium_tuberculosis_H37Rv_uid57777/runs/prodigal
+cd $PBS_O_WORKDIR
+
+echo The working directory is `echo $PBS_O_WORKDIR`
+echo This job runs on the following nodes:
+echo `cat $PBS_NODEFILE`
+
+umask 002
+/storage3/w/gms2/GeneMarkS-2/bin/prodigal  -i /storage4/karl/sbsp/biogem/sbsp/data/all/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta  -g 11  -o prodigal.gff  -f gff  -t prodigal.parameters  -q 
+/storage3/w/gms2/GeneMarkS-2/bin/prodigal  -i /storage4/karl/sbsp/biogem/sbsp/data/all/Mycobacterium_tuberculosis_H37Rv_uid57777/sequence.fasta  -g 11  -o prodigal.gff  -f gff  -t prodigal.parameters  -q 
+

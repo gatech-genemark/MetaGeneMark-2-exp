@@ -1,0 +1,1700 @@
+NC_000854	NCBI_PTT	CDS	213	938	.	-	0	id=1;len=726;cog=-; - APE_0001 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	938	1276	.	-	0	id=2;len=339;cog=COG1695K; - APE_0002 - PadR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1260	2174	.	-	0	id=3;len=915;cog=-; - APE_0004 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	2270	2836	.	+	0	id=4;len=567;cog=-; - APE_0006.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	3905	5440	.	+	0	id=5;len=1536;cog=-; - APE_0007.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	5774	6058	.	-	0	id=6;len=285;cog=COG2608P; - APE_0009.1 - mercury ion binding protein
+NC_000854	NCBI_PTT	CDS	6213	7820	.	-	0	id=7;len=1608;cog=COG0531E; - APE_0010.1 - amino acid transporter
+NC_000854	NCBI_PTT	CDS	8071	8889	.	+	0	id=8;len=819;cog=COG1830G; fba APE_0011.1 - fructose-bisphosphate aldolase
+NC_000854	NCBI_PTT	CDS	8908	9840	.	+	0	id=9;len=933;cog=COG0524G; - APE_0012 - ATP-dependent 6-phosphofructokinase
+NC_000854	NCBI_PTT	CDS	9991	11652	.	+	0	id=10;len=1662;cog=COG0129EG; ilvD APE_0013.1 - dihydroxy-acid dehydratase
+NC_000854	NCBI_PTT	CDS	12387	13907	.	-	0	id=11;len=1521;cog=COG1070G; - APE_0017.1 - carbohydrate kinase
+NC_000854	NCBI_PTT	CDS	13925	15319	.	-	0	id=12;len=1395;cog=COG0076E; - APE_0020.1 - pyridoxal-dependent decarboxylase
+NC_000854	NCBI_PTT	CDS	15391	15909	.	-	0	id=13;len=519;cog=COG4996R; - APE_0023.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	16021	16419	.	-	0	id=14;len=399;cog=-; - APE_0024.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	16416	16823	.	-	0	id=15;len=408;cog=COG1378K; - APE_0025.1 - TrmB family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	16932	18800	.	+	0	id=16;len=1869;cog=COG0574G; - APE_0026 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	18728	19384	.	+	0	id=17;len=657;cog=COG0574G; - APE_0028 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	19396	20850	.	+	0	id=18;len=1455;cog=-; - APE_0031.1 - MFS transporter
+NC_000854	NCBI_PTT	CDS	20910	22379	.	+	0	id=19;len=1470;cog=COG1866C; pckA APE_0033.1 - phosphoenolpyruvate carboxykinase
+NC_000854	NCBI_PTT	CDS	22506	23912	.	+	0	id=20;len=1407;cog=COG1653G; - APE_0035.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	23927	24823	.	+	0	id=21;len=897;cog=COG1175G; - APE_0038.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	24838	25698	.	+	0	id=22;len=861;cog=COG0395G; - APE_0040.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	25706	26812	.	+	0	id=23;len=1107;cog=COG3839G; - APE_0043.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	26994	28115	.	+	0	id=24;len=1122;cog=COG0226P; pstS APE_0045 - phosphate ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	28128	29060	.	+	0	id=25;len=933;cog=COG0573P; pstC APE_0047.1 - phosphate ABC transporter permease
+NC_000854	NCBI_PTT	CDS	29053	29907	.	+	0	id=26;len=855;cog=COG0581P; pstA APE_0048 - phosphate ABC transporter permease
+NC_000854	NCBI_PTT	CDS	29907	30668	.	+	0	id=27;len=762;cog=COG1117P; pstB APE_0050 - phosphate ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	30668	31273	.	+	0	id=28;len=606;cog=COG0704P; - APE_0051 - phosphate transport system protein PhoU
+NC_000854	NCBI_PTT	CDS	31407	31922	.	-	0	id=29;len=516;cog=-; - APE_0052.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	32017	32877	.	-	0	id=30;len=861;cog=COG0179Q; - APE_0053.1 - fumarylacetoacetate hydrolase
+NC_000854	NCBI_PTT	CDS	33058	33588	.	-	0	id=31;len=531;cog=-; - APE_0054.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	33674	34966	.	-	0	id=32;len=1293;cog=COG1055P; - APE_0055 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	35035	35787	.	-	0	id=33;len=753;cog=COG1024I; - APE_0056.1 - enoyl-CoA hydratase/isomerase
+NC_000854	NCBI_PTT	CDS	35926	40392	.	+	0	id=34;len=4467;cog=-; - APE_0057.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	40405	41106	.	+	0	id=35;len=702;cog=COG0503F; - APE_0060.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	41221	42510	.	+	0	id=36;len=1290;cog=COG1744R; - APE_0061.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	42608	44086	.	+	0	id=37;len=1479;cog=COG3845R; - APE_0063 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	44083	45018	.	+	0	id=38;len=936;cog=COG4603R; - APE_0065 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	45034	45867	.	+	0	id=39;len=834;cog=COG1079R; - APE_0067.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	45961	46422	.	+	0	id=40;len=462;cog=COG1433S; - APE_0067a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	46629	47108	.	+	0	id=41;len=480;cog=COG0717F; dut APE_0069.1 - deoxyuridine 5'-triphosphate nucleotidohydrolase
+NC_000854	NCBI_PTT	CDS	47135	47677	.	-	0	id=42;len=543;cog=-; - APE_0070.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	47940	48599	.	-	0	id=43;len=660;cog=COG2041R; - APE_0071.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	49294	50331	.	+	0	id=44;len=1038;cog=COG0755O; - APE_0072 - heme exporter protein C
+NC_000854	NCBI_PTT	CDS	50407	52197	.	+	0	id=45;len=1791;cog=COG1743L; - APE_0073.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	52159	53010	.	-	0	id=46;len=852;cog=COG0697GER; - APE_0076.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	53276	53791	.	+	0	id=47;len=516;cog=COG0521H; mogA APE_0077 - molybdopterin biosynthesis protein MogA
+NC_000854	NCBI_PTT	CDS	53788	54009	.	-	0	id=48;len=222;cog=-; - APE_0077a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	54129	54527	.	+	0	id=49;len=399;cog=COG1586E; speH APE_0079 - S-adenosylmethionine decarboxylase proenzyme
+NC_000854	NCBI_PTT	CDS	54512	56533	.	-	0	id=50;len=2022;cog=COG0433R; - APE_0080.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	56575	57759	.	-	0	id=51;len=1185;cog=-; - APE_0082.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	57823	58536	.	-	0	id=52;len=714;cog=COG0778C; - APE_0084.1 - NADH dehydrogenase
+NC_000854	NCBI_PTT	CDS	58607	59266	.	-	0	id=53;len=660;cog=COG0613R; - APE_0085.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	59379	59825	.	+	0	id=54;len=447;cog=COG1225O; - APE_0085a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	59910	60401	.	+	0	id=55;len=492;cog=COG1225O; - APE_0086 - thiol peroxidase
+NC_000854	NCBI_PTT	CDS	60406	60720	.	-	0	id=56;len=315;cog=COG4847S; - APE_0087.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	60867	61838	.	+	0	id=57;len=972;cog=COG0704P; - APE_0088.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	62549	63997	.	+	0	id=58;len=1449;cog=COG0312R; - APE_0089.1 - peptidase
+NC_000854	NCBI_PTT	CDS	64012	65361	.	+	0	id=59;len=1350;cog=COG0312R; - APE_0091 - peptidase
+NC_000854	NCBI_PTT	CDS	65371	66471	.	-	0	id=60;len=1101;cog=COG0123BQ; - APE_0092.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	66579	67616	.	-	0	id=61;len=1038;cog=COG0704P; - APE_0093.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	67976	68473	.	+	0	id=62;len=498;cog=-; - APE_0096.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	68480	69124	.	-	0	id=63;len=645;cog=COG2410S; - APE_0097.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	69239	72118	.	-	0	id=64;len=2880;cog=COG0417L; - APE_0099 - DNA polymerase I
+NC_000854	NCBI_PTT	CDS	72760	74778	.	+	0	id=65;len=2019;cog=COG0247C; - APE_0101.1 - iron-sulfur protein
+NC_000854	NCBI_PTT	CDS	74775	75242	.	-	0	id=66;len=468;cog=COG0071O; - APE_0103.1 - small heat shock protein
+NC_000854	NCBI_PTT	CDS	75287	76066	.	-	0	id=67;len=780;cog=COG1938R; - APE_0104.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	76192	76416	.	+	0	id=68;len=225;cog=COG1141C; fdxA APE_0104a.1 - ferredoxin
+NC_000854	NCBI_PTT	CDS	76470	77261	.	+	0	id=69;len=792;cog=COG1161R; - APE_0105 - GTP-binding protein
+NC_000854	NCBI_PTT	CDS	77364	77735	.	-	0	id=70;len=372;cog=-; - APE_0106.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	77777	79417	.	-	0	id=71;len=1641;cog=COG0433R; herA APE_0107 - bipolar DNA helicase
+NC_000854	NCBI_PTT	CDS	79401	80606	.	-	0	id=72;len=1206;cog=COG1630S; - APE_0109.1 - 5' to 3' nuclease repair protein NurA
+NC_000854	NCBI_PTT	CDS	80633	83392	.	-	0	id=73;len=2760;cog=COG0419L; - APE_0110 - DNA double-strand break repair rad50 ATPase
+NC_000854	NCBI_PTT	CDS	83399	84628	.	-	0	id=74;len=1230;cog=COG0420L; - APE_0113 - double-strand break repair protein MRE11
+NC_000854	NCBI_PTT	CDS	84782	84934	.	-	0	id=75;len=153;cog=COG1552J; rpl40e APE_0113a - 50S ribosomal protein L40
+NC_000854	NCBI_PTT	CDS	85004	86056	.	-	0	id=76;len=1053;cog=COG0258L; fen APE_0115.1 - flap endonuclease-1
+NC_000854	NCBI_PTT	CDS	86208	86765	.	+	0	id=77;len=558;cog=COG2411S; - APE_0116.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	86999	87286	.	+	0	id=78;len=288;cog=-; - APE_0116a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	87535	88800	.	-	0	id=79;len=1266;cog=COG0441J; - APE_0117.1 - misacylated tRNAthr hydrolase
+NC_000854	NCBI_PTT	CDS	88998	89957	.	+	0	id=80;len=960;cog=COG0468L; radA APE_0119 - DNA repair and recombination protein RadA
+NC_000854	NCBI_PTT	CDS	89933	90673	.	+	0	id=81;len=741;cog=-; - APE_0121 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	90727	91260	.	+	0	id=82;len=534;cog=COG0537FGR; - APE_0122.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	91264	92262	.	+	0	id=83;len=999;cog=COG2404R; - APE_0124 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	92399	93850	.	+	0	id=84;len=1452;cog=-; - APE_0125.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	93855	94856	.	+	0	id=85;len=1002;cog=-; - APE_0126.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	94864	95808	.	+	0	id=86;len=945;cog=COG0714R; - APE_0127 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	95774	96889	.	+	0	id=87;len=1116;cog=COG1721R; - APE_0129.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	96896	97999	.	+	0	id=88;len=1104;cog=-; - APE_0130.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	98101	98646	.	-	0	id=89;len=546;cog=-; - APE_0131.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	98849	99163	.	+	0	id=90;len=315;cog=COG2412S; - APE_0132.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	99284	100084	.	+	0	id=91;len=801;cog=COG2086C; etfB APE_0134.1 - electron transfer flavoprotein beta-subunit
+NC_000854	NCBI_PTT	CDS	100104	101030	.	+	0	id=92;len=927;cog=COG2025C; etfA APE_0135 - electron transfer flavoprotein alpha-subunit
+NC_000854	NCBI_PTT	CDS	101126	102256	.	+	0	id=93;len=1131;cog=COG4756R; - APE_0136.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	102380	103879	.	+	0	id=94;len=1500;cog=COG0405E; ggt APE_0137 - gamma-glutamyltranspeptidase
+NC_000854	NCBI_PTT	CDS	103961	104827	.	+	0	id=95;len=867;cog=COG0589T; - APE_0140.1 - ATP-dependent universal stress protein
+NC_000854	NCBI_PTT	CDS	104888	106090	.	+	0	id=96;len=1203;cog=COG1092R; - APE_0141.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	106321	106863	.	+	0	id=97;len=543;cog=COG1321K; - APE_0142 - DtxR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	107051	107722	.	-	0	id=98;len=672;cog=COG5491N; - APE_0143.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	107854	108594	.	+	0	id=99;len=741;cog=-; - APE_0145 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	108844	109683	.	-	0	id=100;len=840;cog=COG0345E; - APE_0146.1 - pyrroline-5-carboxylate reductase
+NC_000854	NCBI_PTT	CDS	109785	110336	.	+	0	id=101;len=552;cog=COG1913R; - APE_0147.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	110340	110774	.	-	0	id=102;len=435;cog=COG1371S; - APE_0148.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	110845	111534	.	+	0	id=103;len=690;cog=COG0177L; nth APE_0150.1 - endonuclease III
+NC_000854	NCBI_PTT	CDS	111498	112055	.	+	0	id=104;len=558;cog=-; - APE_0151.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	112111	113343	.	+	0	id=105;len=1233;cog=COG1474LO; - APE_0152.1 - origin recognition complex subunit 2 Orc2
+NC_000854	NCBI_PTT	CDS	113367	113633	.	+	0	id=106;len=267;cog=COG4189K; - APE_0152a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	113611	114357	.	-	0	id=107;len=747;cog=COG1378K; - APE_0153.1 - TrmB family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	114493	115851	.	-	0	id=108;len=1359;cog=-; - APE_0154 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	115928	116458	.	-	0	id=109;len=531;cog=-; - APE_0155.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	116472	117632	.	-	0	id=110;len=1161;cog=COG1824P; - APE_0156.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	117705	118445	.	-	0	id=111;len=741;cog=COG0212H; - APE_0157 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	118438	119148	.	-	0	id=112;len=711;cog=COG0685E; - APE_0158.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	119248	120096	.	-	0	id=113;len=849;cog=COG0382H; - APE_0159 - (S)-2,3-di-O-farnesylgeranylglyceryl synthase
+NC_000854	NCBI_PTT	CDS	120221	121858	.	+	0	id=114;len=1638;cog=COG1384J; lysS APE_0161.1 - lysyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	121827	122618	.	-	0	id=115;len=792;cog=COG0592L; - APE_0162 - DNA polymerase sliding clamp A
+NC_000854	NCBI_PTT	CDS	122824	124152	.	-	0	id=116;len=1329;cog=COG1012C; - APE_0163.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	124412	124954	.	-	0	id=117;len=543;cog=COG2096S; - APE_0166.1 - ATP:cobalamin adenosyltransferase
+NC_000854	NCBI_PTT	CDS	125249	125635	.	+	0	id=118;len=387;cog=-; - APE_0167 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	125632	126015	.	-	0	id=119;len=384;cog=-; - APE_0168.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	126080	127291	.	-	0	id=120;len=1212;cog=COG1167KE; agt APE_0169.1 - alanine glyoxylate transaminase
+NC_000854	NCBI_PTT	CDS	127388	128419	.	-	0	id=121;len=1032;cog=COG0057G; - APE_0171.1 - glyceraldehyde-3-phosphate dehydrogenase
+NC_000854	NCBI_PTT	CDS	128432	129679	.	-	0	id=122;len=1248;cog=COG0126G; pgk APE_0173.1 - phosphoglycerate kinase
+NC_000854	NCBI_PTT	CDS	129984	130643	.	+	0	id=123;len=660;cog=COG2220R; - APE_0176.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	130640	131800	.	-	0	id=124;len=1161;cog=COG0303H; moeA APE_0177 - molybdopterin biosynthesis protein MoeA
+NC_000854	NCBI_PTT	CDS	131790	132212	.	-	0	id=125;len=423;cog=COG1763H; mobB APE_0178.1 - molybdopterin-guanine dinucleotide biosynthesis protein MobB
+NC_000854	NCBI_PTT	CDS	132240	133085	.	-	0	id=126;len=846;cog=COG0746H; mobA APE_0179 - molybdopterin-guanine dinucleotide biosynthesis protein MobA
+NC_000854	NCBI_PTT	CDS	133178	133381	.	+	0	id=127;len=204;cog=-; rpl38e APE_0179a - 50S ribosomal protein L38
+NC_000854	NCBI_PTT	CDS	133391	134653	.	-	0	id=128;len=1263;cog=COG1236J; - APE_0181 - exonuclease
+NC_000854	NCBI_PTT	CDS	134836	135162	.	+	0	id=129;len=327;cog=COG1872S; - APE_0182.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	135205	136005	.	+	0	id=130;len=801;cog=-; - APE_0183.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	135956	137212	.	-	0	id=131;len=1257;cog=COG2814G; - APE_0184.1 - MFS transporter
+NC_000854	NCBI_PTT	CDS	137399	137965	.	+	0	id=132;len=567;cog=-; - APE_0187 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	137973	140066	.	+	0	id=133;len=2094;cog=COG1241L; - APE_0188.1 - minichromosome maintenance protein
+NC_000854	NCBI_PTT	CDS	140110	142317	.	+	0	id=134;len=2208;cog=COG1204R; hjm APE_0191.1 - holliday junction migration helicase
+NC_000854	NCBI_PTT	CDS	142270	143373	.	-	0	id=135;len=1104;cog=COG1748E; - APE_0193.1 - L-lysine 6-dehydrogenase
+NC_000854	NCBI_PTT	CDS	143635	143898	.	-	0	id=136;len=264;cog=-; - APE_0193a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	144240	145007	.	+	0	id=137;len=768;cog=COG1709K; - APE_0197.1 - HTH-type transcriptional regulator
+NC_000854	NCBI_PTT	CDS	144991	145344	.	-	0	id=138;len=354;cog=COG1308K; nac APE_0198.1 - nascent polypeptide-associated complex protein
+NC_000854	NCBI_PTT	CDS	145484	146704	.	+	0	id=139;len=1221;cog=COG4346O; - APE_0199.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	146789	147379	.	+	0	id=140;len=591;cog=-; - APE_0200 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	147327	148433	.	-	0	id=141;len=1107;cog=COG0644C; - APE_0201.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	148526	148954	.	+	0	id=142;len=429;cog=-; - APE_0202.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	149164	149958	.	-	0	id=143;len=795;cog=COG0428P; - APE_0203.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	150413	151075	.	-	0	id=144;len=663;cog=COG1859J; kptA APE_0204.1 - RNA 2'-phosphotransferase-like protein
+NC_000854	NCBI_PTT	CDS	151135	151524	.	+	0	id=145;len=390;cog=COG1645R; - APE_0207 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	151606	152493	.	+	0	id=146;len=888;cog=-; - APE_0208 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	152483	153625	.	-	0	id=147;len=1143;cog=COG0793M; - APE_0209.1 - peptidase
+NC_000854	NCBI_PTT	CDS	153667	154503	.	-	0	id=148;len=837;cog=COG0524G; - APE_0211.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	154581	155789	.	+	0	id=149;len=1209;cog=COG0612R; - APE_0212.1 - peptidase
+NC_000854	NCBI_PTT	CDS	155786	156478	.	-	0	id=150;len=693;cog=COG2413R; - APE_0213.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	156511	157101	.	-	0	id=151;len=591;cog=-; - APE_0214.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	157098	157667	.	-	0	id=152;len=570;cog=COG2226H; - APE_0216.1 - methyltransferase
+NC_000854	NCBI_PTT	CDS	157766	158482	.	-	0	id=153;len=717;cog=COG0090J; rpl2p APE_0218 - 50S ribosomal protein L2
+NC_000854	NCBI_PTT	CDS	158495	159880	.	-	0	id=154;len=1386;cog=COG0433R; - APE_0219 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	159901	161259	.	-	0	id=155;len=1359;cog=-; - APE_0220 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	161265	161528	.	-	0	id=156;len=264;cog=-; - APE_0220a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	161632	162558	.	-	0	id=157;len=927;cog=COG2513G; - APE_0222.1 - carboxyvinyl-carboxyphosphonate phosphorylmutase
+NC_000854	NCBI_PTT	CDS	162954	163766	.	+	0	id=158;len=813;cog=COG2106S; - APE_0226.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	164048	165082	.	+	0	id=159;len=1035;cog=COG0087J; rpl3p APE_0227 - 50S ribosomal protein L3
+NC_000854	NCBI_PTT	CDS	165113	165931	.	+	0	id=160;len=819;cog=COG0088J; rpl4lp APE_0228.1 - 50S ribosomal protein L4
+NC_000854	NCBI_PTT	CDS	165928	166188	.	+	0	id=161;len=261;cog=COG0089J; rpl23p APE_0228a.1 - 50S ribosomal protein L23
+NC_000854	NCBI_PTT	CDS	166380	167309	.	-	0	id=162;len=930;cog=COG0489D; - APE_0230.1 - MRP/NBP35 family protein
+NC_000854	NCBI_PTT	CDS	167424	168287	.	-	0	id=163;len=864;cog=COG2524K; - APE_0231 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	168287	169309	.	-	0	id=164;len=1023;cog=COG2905T; - APE_0233 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	169346	170182	.	-	0	id=165;len=837;cog=COG3448T; - APE_0234 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	170246	171175	.	-	0	id=166;len=930;cog=COG0611H; thiL APE_0235.1 - thiamine-monophosphate kinase
+NC_000854	NCBI_PTT	CDS	171336	172085	.	-	0	id=167;len=750;cog=COG0007H; cobA APE_0236.1 - uroporphyrin-III C-methyltransferase
+NC_000854	NCBI_PTT	CDS	172120	172755	.	-	0	id=168;len=636;cog=COG3253S; - APE_0237.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	173022	173447	.	-	0	id=169;len=426;cog=-; - APE_0238 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	173560	173886	.	-	0	id=170;len=327;cog=-; - APE_0239 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	174025	174555	.	-	0	id=171;len=531;cog=-; - APE_0240 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	174775	175065	.	+	0	id=172;len=291;cog=-; - APE_0240a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	175118	175429	.	+	0	id=173;len=312;cog=-; - APE_0242.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	175437	175883	.	-	0	id=174;len=447;cog=COG0526OC; - APE_0243 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	176357	176968	.	-	0	id=175;len=612;cog=COG0311H; pdxT APE_0244.1 - glutamine amidotransferase subunit PdxT
+NC_000854	NCBI_PTT	CDS	176965	178026	.	-	0	id=176;len=1062;cog=COG0214H; pdxS APE_0246.1 - pyridoxal biosynthesis lyase PdxS
+NC_000854	NCBI_PTT	CDS	178125	178979	.	-	0	id=177;len=855;cog=COG2107R; - APE_0248.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	179131	180279	.	+	0	id=178;len=1149;cog=COG1060HR; - APE_0249.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	180303	181481	.	+	0	id=179;len=1179;cog=COG1060HR; - APE_0252 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	181536	182243	.	+	0	id=180;len=708;cog=COG1427R; - APE_0254 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	182321	183073	.	-	0	id=181;len=753;cog=COG1208MJ; - APE_0255.1 - sugar-phosphate nucleotidyl transferase
+NC_000854	NCBI_PTT	CDS	183160	183717	.	-	0	id=182;len=558;cog=COG1909S; - APE_0256 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	183720	183938	.	-	0	id=183;len=219;cog=COG2093K; rpoE2 APE_0256a.1 - DNA-directed RNA polymerase subunit E
+NC_000854	NCBI_PTT	CDS	183945	184505	.	-	0	id=184;len=561;cog=COG1095K; rpoE1 APE_0257 - DNA-directed RNA polymerase subunit E'
+NC_000854	NCBI_PTT	CDS	184574	184744	.	-	0	id=185;len=171;cog=COG1139C; - APE_0257a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	184846	185778	.	-	0	id=186;len=933;cog=COG1139C; - APE_0258.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	185843	186763	.	-	0	id=187;len=921;cog=COG0167F; pyrD APE_0260.1 - dihydroorotate dehydrogenase 1B
+NC_000854	NCBI_PTT	CDS	186735	188012	.	-	0	id=188;len=1278;cog=COG0044F; pyrC APE_0261.1 - dihydroorotase
+NC_000854	NCBI_PTT	CDS	188063	188755	.	+	0	id=189;len=693;cog=COG0584C; - APE_0262 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	188799	190091	.	-	0	id=190;len=1293;cog=COG1404O; - APE_0263.1 - pernisine
+NC_000854	NCBI_PTT	CDS	190586	191218	.	-	0	id=191;len=633;cog=-; - APE_0264.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	191705	192070	.	+	0	id=192;len=366;cog=-; - APE_0265 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	193024	193455	.	-	0	id=193;len=432;cog=COG2524K; - APE_0267 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	193544	195373	.	+	0	id=194;len=1830;cog=COG2414C; aor APE_0266.1 - tungsten-containing aldehyde ferredoxin oxidoreductase
+NC_000854	NCBI_PTT	CDS	196170	196424	.	+	0	id=195;len=255;cog=-; - APE_0266a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	196429	196611	.	-	0	id=196;len=183;cog=-; - APE_0266b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	196677	197462	.	-	0	id=197;len=786;cog=COG4149P; modB APE_0270.1 - molybdate ABC transporter permease ModB
+NC_000854	NCBI_PTT	CDS	197456	198250	.	-	0	id=198;len=795;cog=COG0725P; modA APE_0272.1 - molybdate ABC transporter molybdate-binding protein ModA precursor
+NC_000854	NCBI_PTT	CDS	198657	199091	.	-	0	id=199;len=435;cog=COG1848R; - APE_0273 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	199069	199290	.	-	0	id=200;len=222;cog=COG2880S; - APE_0273a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	199327	199677	.	-	0	id=201;len=351;cog=-; - APE_0274 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	199916	200131	.	-	0	id=202;len=216;cog=COG2227H; - APE_0274a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	200817	201218	.	-	0	id=203;len=402;cog=COG0122L; - APE_0275.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	201925	202152	.	-	0	id=204;len=228;cog=COG5428S; - APE_0275a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	202422	202748	.	-	0	id=205;len=327;cog=COG0813F; - APE_0275b.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	203152	203670	.	-	0	id=206;len=519;cog=COG2405R; - APE_0276.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	203657	203926	.	-	0	id=207;len=270;cog=COG2886S; - APE_0276a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	204280	204756	.	-	0	id=208;len=477;cog=COG5378R; - APE_0278 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	204720	204920	.	-	0	id=209;len=201;cog=-; - APE_0278a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	205301	205759	.	-	0	id=210;len=459;cog=COG1848R; - APE_0279.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	205752	205952	.	-	0	id=211;len=201;cog=-; - APE_0279a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	206858	208840	.	+	0	id=212;len=1983;cog=-; - APE_0283.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	209347	209469	.	-	0	id=213;len=123;cog=-; - APE_0283a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	209991	210578	.	+	0	id=214;len=588;cog=-; - APE_0287 - protogloblin ApPgb
+NC_000854	NCBI_PTT	CDS	210667	211257	.	+	0	id=215;len=591;cog=COG1846K; - APE_0288 - MarR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	211409	211954	.	-	0	id=216;len=546;cog=COG1693S; - APE_0290.1 - ArsR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	212077	212292	.	-	0	id=217;len=216;cog=COG1225O; - APE_0290a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	212234	212566	.	-	0	id=218;len=333;cog=COG1225O; - APE_0291 - thiol peroxidase
+NC_000854	NCBI_PTT	CDS	212733	213011	.	-	0	id=219;len=279;cog=-; - APE_0291a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	213008	213313	.	-	0	id=220;len=306;cog=COG1777K; - APE_0293 - ArsR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	213569	214009	.	+	0	id=221;len=441;cog=COG4454P; - APE_0294.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	214107	214838	.	-	0	id=222;len=732;cog=-; - APE_0295 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	214835	215152	.	-	0	id=223;len=318;cog=-; - APE_0295a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	215139	215558	.	-	0	id=224;len=420;cog=-; - APE_0297 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	215617	216021	.	-	0	id=225;len=405;cog=-; - APE_0299.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	216356	217615	.	-	0	id=226;len=1260;cog=COG1123R; - APE_0300.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	217622	218590	.	-	0	id=227;len=969;cog=COG0444EP; - APE_0301.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	218587	219492	.	-	0	id=228;len=906;cog=COG1173EP; - APE_0302.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	219506	220534	.	-	0	id=229;len=1029;cog=COG0601EP; - APE_0303 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	220551	222950	.	-	0	id=230;len=2400;cog=COG0747E; - APE_0304.1 - ABC transporter substrate-binding protein precursor
+NC_000854	NCBI_PTT	CDS	223391	224818	.	+	0	id=231;len=1428;cog=COG0554C; - APE_0306.1 - carbohydrate kinase
+NC_000854	NCBI_PTT	CDS	224734	226164	.	+	0	id=232;len=1431;cog=COG0277C; eapA APE_0308.1 - alkyldihydroxyacetonephosphate synthase
+NC_000854	NCBI_PTT	CDS	226157	227260	.	+	0	id=233;len=1104;cog=COG0579R; - APE_0309.1 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	227383	228213	.	+	0	id=234;len=831;cog=COG2301G; mcl APE_0311 - malyl-CoA lyase
+NC_000854	NCBI_PTT	CDS	228321	228815	.	+	0	id=235;len=495;cog=COG1720S; - APE_0313.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	228879	229709	.	+	0	id=236;len=831;cog=COG2362E; - APE_0314.1 - D-aminopeptidase DppA
+NC_000854	NCBI_PTT	CDS	229719	230375	.	-	0	id=237;len=657;cog=COG0010E; - APE_0316.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	230611	232005	.	-	0	id=238;len=1395;cog=COG1109G; - APE_0317.1 - phospho-sugar mutase
+NC_000854	NCBI_PTT	CDS	232223	232765	.	-	0	id=239;len=543;cog=COG0693R; - APE_0319 - protease I
+NC_000854	NCBI_PTT	CDS	232913	233245	.	-	0	id=240;len=333;cog=COG1149C; - APE_0320.1 - ferredoxin
+NC_000854	NCBI_PTT	CDS	233419	233799	.	+	0	id=241;len=381;cog=-; - APE_0321.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	233796	235661	.	-	0	id=242;len=1866;cog=COG1199KL; - APE_0322.1 - DNA repair helicase Rad3
+NC_000854	NCBI_PTT	CDS	235836	236171	.	+	0	id=243;len=336;cog=-; - APE_0325 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	236514	237863	.	-	0	id=244;len=1350;cog=COG1224K; - APE_0326.1 - TATA box-binding protein-interacting protein TIP49
+NC_000854	NCBI_PTT	CDS	238201	238698	.	-	0	id=245;len=498;cog=-; - APE_0329.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	238786	239790	.	-	0	id=246;len=1005;cog=COG0491R; - APE_0330.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	239967	240503	.	+	0	id=247;len=537;cog=COG0717F; dcd APE_0333.1 - deoxycytidine triphosphate deaminase
+NC_000854	NCBI_PTT	CDS	240475	240819	.	-	0	id=248;len=345;cog=-; - APE_0334 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	240826	243381	.	-	0	id=249;len=2556;cog=COG2366R; - APE_0336.1 - penicillin acylase II precursor
+NC_000854	NCBI_PTT	CDS	243483	244481	.	-	0	id=250;len=999;cog=COG2355E; - APE_0337.1 - dipeptidase
+NC_000854	NCBI_PTT	CDS	244578	245948	.	+	0	id=251;len=1371;cog=COG1680V; - APE_0338.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	245945	247036	.	-	0	id=252;len=1092;cog=COG2152G; - APE_0339.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	247047	249266	.	-	0	id=253;len=2220;cog=COG1649S; - APE_0340.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	249451	250500	.	-	0	id=254;len=1050;cog=COG1607I; - APE_0342.1 - acyl coenzyme A thioester hydrolase
+NC_000854	NCBI_PTT	CDS	250616	251092	.	-	0	id=255;len=477;cog=COG0200J; rpl15p APE_0343 - 50S ribosomal protein L15
+NC_000854	NCBI_PTT	CDS	251106	251585	.	-	0	id=256;len=480;cog=COG1841J; rpl30p APE_0345.1 - 50S ribosomal protein L30
+NC_000854	NCBI_PTT	CDS	251631	252287	.	-	0	id=257;len=657;cog=COG0098J; rps5p APE_0346 - 30S ribosomal protein S5
+NC_000854	NCBI_PTT	CDS	252316	252960	.	-	0	id=258;len=645;cog=COG0256J; rpl18p APE_0347 - 50S ribosomal protein L18
+NC_000854	NCBI_PTT	CDS	252981	253448	.	-	0	id=259;len=468;cog=COG2147J; rpl19e APE_0348 - 50S ribosomal protein L19
+NC_000854	NCBI_PTT	CDS	253469	253906	.	-	0	id=260;len=438;cog=COG1717J; rpl32e APE_0349 - 50S ribosomal protein L32
+NC_000854	NCBI_PTT	CDS	253906	254454	.	-	0	id=261;len=549;cog=COG0097J; rpl6p APE_0350 - 50S ribosomal protein L6
+NC_000854	NCBI_PTT	CDS	254575	254976	.	-	0	id=262;len=402;cog=COG0096J; rps8p APE_0352.1 - 30S ribosomal protein S8
+NC_000854	NCBI_PTT	CDS	254993	255157	.	-	0	id=263;len=165;cog=COG0199J; rps14P APE_0352a - 30S ribosomal protein S14
+NC_000854	NCBI_PTT	CDS	255178	255756	.	-	0	id=264;len=579;cog=COG0094J; rpl5p APE_0354.1 - 50S ribosomal protein L5
+NC_000854	NCBI_PTT	CDS	255753	256514	.	-	0	id=265;len=762;cog=COG1471J; rps4e APE_0356.1 - 30S ribosomal protein S4
+NC_000854	NCBI_PTT	CDS	256558	256956	.	-	0	id=266;len=399;cog=COG0198J; rpl24p APE_0358 - 50S ribosomal protein L24
+NC_000854	NCBI_PTT	CDS	256976	257398	.	-	0	id=267;len=423;cog=COG0093J; rpl14p APE_0359 - 50S ribosomal protein L14
+NC_000854	NCBI_PTT	CDS	257411	257755	.	-	0	id=268;len=345;cog=COG0186J; rps17p APE_0360.1 - 30S ribosomal protein S17
+NC_000854	NCBI_PTT	CDS	257725	258057	.	-	0	id=269;len=333;cog=COG1588J; rnp1 APE_0362 - ribonuclease P protein component 1
+NC_000854	NCBI_PTT	CDS	258038	258253	.	-	0	id=270;len=216;cog=COG0255J; rpl29p APE_0362a - 50S ribosomal protein L29
+NC_000854	NCBI_PTT	CDS	258273	259013	.	-	0	id=271;len=741;cog=COG0092J; rps3p APE_0363 - 30S ribosomal protein S3
+NC_000854	NCBI_PTT	CDS	259018	259488	.	-	0	id=272;len=471;cog=COG0091J; rpl22p APE_0365 - 50S ribosomal protein L22
+NC_000854	NCBI_PTT	CDS	259515	259949	.	-	0	id=273;len=435;cog=COG0185J; rps19p APE_0367.1 - 30S ribosomal protein S19
+NC_000854	NCBI_PTT	CDS	260050	262029	.	-	0	id=274;len=1980;cog=-; - APE_0370 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	262022	262897	.	-	0	id=275;len=876;cog=COG0714R; - APE_0372.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	263050	263760	.	-	0	id=276;len=711;cog=COG2887L; - APE_0373 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	263700	266894	.	-	0	id=277;len=3195;cog=COG0060J; ileS APE_0374 - isoleucyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	266975	267232	.	-	0	id=278;len=258;cog=-; - APE_0374a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	267395	267823	.	+	0	id=279;len=429;cog=COG0440E; - APE_0381.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	267935	268624	.	+	0	id=280;len=690;cog=COG0491R; - APE_0382 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	268733	269209	.	+	0	id=281;len=477;cog=COG2905T; - APE_0383.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	269349	270458	.	+	0	id=282;len=1110;cog=-; - APE_0384 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	270465	272096	.	-	0	id=283;len=1632;cog=COG1960I; - APE_0385.1 - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	272277	272759	.	-	0	id=284;len=483;cog=COG0456R; - APE_0389 - acetyltransferase
+NC_000854	NCBI_PTT	CDS	272766	273245	.	-	0	id=285;len=480;cog=-; - APE_0390 - acetyltransferase
+NC_000854	NCBI_PTT	CDS	273269	274609	.	-	0	id=286;len=1341;cog=COG0281C; - APE_0392 - malate dehydrogenase
+NC_000854	NCBI_PTT	CDS	274664	276331	.	-	0	id=287;len=1668;cog=COG0318IQ; alkK APE_0396.1 - medium-chain-fatty-acid--CoA ligase
+NC_000854	NCBI_PTT	CDS	276419	276826	.	-	0	id=288;len=408;cog=-; - APE_0399.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	276832	277509	.	-	0	id=289;len=678;cog=COG0528F; pyrH APE_0401.1 - uridylate kinase
+NC_000854	NCBI_PTT	CDS	277739	277987	.	+	0	id=290;len=249;cog=-; - APE_0401a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	278016	278651	.	-	0	id=291;len=636;cog=COG1394C; atpD APE_0402.1 - V-type ATP synthase subunit D
+NC_000854	NCBI_PTT	CDS	278711	280102	.	-	0	id=292;len=1392;cog=COG1156C; aptB APE_0404.1 - V-type ATP synthase subunit B
+NC_000854	NCBI_PTT	CDS	280144	281937	.	-	0	id=293;len=1794;cog=COG1155C; atpA APE_0405.1 - V-type ATP synthase subunit A
+NC_000854	NCBI_PTT	CDS	281976	282578	.	-	0	id=294;len=603;cog=COG1390C; atpE APE_0409.1 - V-type ATP synthase subunit E
+NC_000854	NCBI_PTT	CDS	282594	282902	.	-	0	id=295;len=309;cog=COG1436C; atpF APE_0410.1 - V-type ATP synthase subunit F
+NC_000854	NCBI_PTT	CDS	283068	284156	.	+	0	id=296;len=1089;cog=COG0076E; - APE_0412 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	284391	287510	.	-	0	id=297;len=3120;cog=COG0553KL; - APE_0413 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	287521	288069	.	-	0	id=298;len=549;cog=-; - APE_0414.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	288073	291639	.	-	0	id=299;len=3567;cog=COG1483R; - APE_0415 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	291643	294657	.	-	0	id=300;len=3015;cog=COG1743L; - APE_0416.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	295342	295518	.	+	0	id=301;len=177;cog=-; - APE_0416a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	295572	295745	.	-	0	id=302;len=174;cog=-; - APE_0416b.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	295891	296676	.	-	0	id=303;len=786;cog=-; - APE_0419 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	296761	297027	.	+	0	id=304;len=267;cog=-; - APE_0419a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	297083	297421	.	+	0	id=305;len=339;cog=-; - APE_0420.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	297397	298113	.	+	0	id=306;len=717;cog=COG0018J; - APE_0421 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	298099	298839	.	-	0	id=307;len=741;cog=COG0084L; - APE_0423.1 - deoxyribonuclease
+NC_000854	NCBI_PTT	CDS	298919	299269	.	+	0	id=308;len=351;cog=-; - APE_0424.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	299318	299524	.	+	0	id=309;len=207;cog=-; - APE_0424a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	299517	300602	.	+	0	id=310;len=1086;cog=COG2246S; - APE_0426.1 - dolichol-phosphate mannosyltransferase
+NC_000854	NCBI_PTT	CDS	300613	301296	.	+	0	id=311;len=684;cog=COG1573L; - APE_0427.1 - uracil-DNA glycosylase
+NC_000854	NCBI_PTT	CDS	301243	303045	.	-	0	id=312;len=1803;cog=COG1750R; - APE_0428.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	303256	303786	.	+	0	id=313;len=531;cog=-; - APE_0429.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	303833	304396	.	+	0	id=314;len=564;cog=COG1484L; - APE_0431 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	304387	304911	.	+	0	id=315;len=525;cog=COG0575I; - APE_0433 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	304995	305171	.	-	0	id=316;len=177;cog=COG2260J; - APE_0433a - small nucleolar RNP protein Nop10p
+NC_000854	NCBI_PTT	CDS	305192	306025	.	-	0	id=317;len=834;cog=COG1093J; aif2a APE_0436.1 - translation initiation factor IF-2
+NC_000854	NCBI_PTT	CDS	306121	306342	.	-	0	id=318;len=222;cog=COG2051J; rps27e APE_0436a - 30S ribosomal protein S27
+NC_000854	NCBI_PTT	CDS	306359	306646	.	-	0	id=319;len=288;cog=COG1631J; rpl44e APE_0436b.1 - 50S ribosomal protein L44
+NC_000854	NCBI_PTT	CDS	306674	307153	.	-	0	id=320;len=480;cog=-; - APE_0437.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	307119	308147	.	-	0	id=321;len=1029;cog=COG1467L; priA APE_0438.1 - DNA primase small subunit
+NC_000854	NCBI_PTT	CDS	308158	308907	.	-	0	id=322;len=750;cog=COG0592L; - APE_0441.1 - DNA polymerase sliding clamp B2
+NC_000854	NCBI_PTT	CDS	308989	309219	.	-	0	id=323;len=231;cog=-; - APE_0441a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	309201	309557	.	-	0	id=324;len=357;cog=COG1594K; tfs APE_0442.1 - transcription factor S
+NC_000854	NCBI_PTT	CDS	309601	309918	.	-	0	id=325;len=318;cog=-; - APE_0442a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	309915	310214	.	-	0	id=326;len=300;cog=COG1761K; rpoL APE_0443.1 - DNA-directed RNA polymerase subunit L
+NC_000854	NCBI_PTT	CDS	310227	310859	.	-	0	id=327;len=633;cog=COG3286S; - APE_0444.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	310912	311559	.	-	0	id=328;len=648;cog=COG1096J; - APE_0445 - exosome complex RNA-binding protein Cs14 homologue
+NC_000854	NCBI_PTT	CDS	311531	312190	.	-	0	id=329;len=660;cog=COG2263J; - APE_0446 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	312215	313279	.	-	0	id=330;len=1065;cog=COG0411E; - APE_0447.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	313378	313902	.	-	0	id=331;len=525;cog=COG0197J; rpl10e APE_0449 - 50S ribosomal protein L10
+NC_000854	NCBI_PTT	CDS	313995	315728	.	+	0	id=332;len=1734;cog=COG0303H; moeA APE_0450 - molybdopterin biosynthesis protein MoeA
+NC_000854	NCBI_PTT	CDS	315792	315986	.	-	0	id=333;len=195;cog=-; - APE_0450a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	316237	316764	.	-	0	id=334;len=528;cog=-; - APE_0452.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	316820	317542	.	-	0	id=335;len=723;cog=COG1489R; - APE_0454 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	317638	318996	.	+	0	id=336;len=1359;cog=COG0160E; - APE_0457 - 4-aminobutyrate aminotransferase
+NC_000854	NCBI_PTT	CDS	319335	319673	.	-	0	id=337;len=339;cog=-; - APE_0459 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	319751	320038	.	+	0	id=338;len=288;cog=-; - APE_0460.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	320272	320703	.	+	0	id=339;len=432;cog=COG1591L; - APE_0461 - holliday junction resolvase
+NC_000854	NCBI_PTT	CDS	320700	322241	.	-	0	id=340;len=1542;cog=COG1855R; - APE_0462 - ATPase
+NC_000854	NCBI_PTT	CDS	322389	323228	.	+	0	id=341;len=840;cog=-; - APE_0464.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	323288	324478	.	-	0	id=342;len=1191;cog=COG0301H; thiI APE_0465.1 - thiamine biosynthesis protein ThiI
+NC_000854	NCBI_PTT	CDS	324597	325049	.	+	0	id=343;len=453;cog=-; - APE_0468.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	325165	325575	.	+	0	id=344;len=411;cog=COG1318K; - APE_0469.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	325980	326744	.	-	0	id=345;len=765;cog=-; - APE_0470.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	326778	327029	.	+	0	id=346;len=252;cog=-; - APE_0470a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	327082	327993	.	-	0	id=347;len=912;cog=COG1131V; - APE_0471.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	328347	328667	.	-	0	id=348;len=321;cog=-; - APE_0471a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	328673	328912	.	-	0	id=349;len=240;cog=-; - APE_0471b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	328922	329092	.	-	0	id=350;len=171;cog=-; - APE_0471c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	329133	329651	.	-	0	id=351;len=519;cog=COG5378R; - APE_0472 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	329606	329833	.	-	0	id=352;len=228;cog=-; - APE_0472a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	329873	330058	.	-	0	id=353;len=186;cog=-; - APE_0472b.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	330150	330287	.	+	0	id=354;len=138;cog=-; - APE_0472c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	330289	331263	.	-	0	id=355;len=975;cog=COG0704P; - APE_0473.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	331447	332634	.	+	0	id=356;len=1188;cog=COG1474LO; - APE_0475.1 - origin recognition complex subunit 1 Orc1
+NC_000854	NCBI_PTT	CDS	332708	333265	.	+	0	id=357;len=558;cog=COG1628S; - APE_0476.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	333223	333525	.	-	0	id=358;len=303;cog=-; - APE_0477.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	333605	334708	.	-	0	id=359;len=1104;cog=COG2896H; moaA APE_0478.1 - molybdenum cofactor biosynthesis protein MoaA
+NC_000854	NCBI_PTT	CDS	335016	335312	.	-	0	id=360;len=297;cog=COG1139C; - APE_0481.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	335400	336677	.	-	0	id=361;len=1278;cog=-; - APE_0482 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	336784	338289	.	+	0	id=362;len=1506;cog=-; - APE_0485.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	338421	339842	.	-	0	id=363;len=1422;cog=COG0277C; loxD APE_0487 - D-lactate dehydrogenase
+NC_000854	NCBI_PTT	CDS	340218	340775	.	+	0	id=364;len=558;cog=COG4914R; - APE_0488.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	340772	342148	.	+	0	id=365;len=1377;cog=COG0469G; - APE_0489 - pyruvate kinase
+NC_000854	NCBI_PTT	CDS	342145	342834	.	-	0	id=366;len=690;cog=COG2236R; - APE_0490.1 - purine phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	343190	343795	.	+	0	id=367;len=606;cog=COG0778C; - APE_0492.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	343821	344771	.	-	0	id=368;len=951;cog=COG1184J; - APE_0493.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	344887	345564	.	+	0	id=369;len=678;cog=COG0164L; rnhB APE_0496.1 - ribonuclease HII
+NC_000854	NCBI_PTT	CDS	345570	346643	.	+	0	id=370;len=1074;cog=COG2419S; - APE_0498 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	346795	347679	.	+	0	id=371;len=885;cog=COG2248R; - APE_0500.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	347685	348359	.	+	0	id=372;len=675;cog=COG1756S; - APE_0502 - ribosome biogenesis protein
+NC_000854	NCBI_PTT	CDS	348396	348827	.	-	0	id=373;len=432;cog=COG4755S; - APE_0503.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	348883	349293	.	-	0	id=374;len=411;cog=COG2835S; - APE_0505 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	349385	350041	.	-	0	id=375;len=657;cog=COG1515L; nfi APE_0506 - endonuclease V
+NC_000854	NCBI_PTT	CDS	350149	350760	.	-	0	id=376;len=612;cog=COG0638O; psmB APE_0507.1 - proteasome beta subunit precursor
+NC_000854	NCBI_PTT	CDS	350952	351503	.	+	0	id=377;len=552;cog=COG1405K; - APE_0508.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	351593	352618	.	+	0	id=378;len=1026;cog=COG1084R; - APE_0510.1 - GTP-binding protein
+NC_000854	NCBI_PTT	CDS	352615	353700	.	-	0	id=379;len=1086;cog=COG0430A; rtcA APE_0511.1 - RNA 3'-terminal-phosphate cyclase
+NC_000854	NCBI_PTT	CDS	353721	354239	.	-	0	id=380;len=519;cog=COG1056H; nadM APE_0513.1 - nicotinamide-nucleotide adenylyltransferase
+NC_000854	NCBI_PTT	CDS	354317	355375	.	+	0	id=381;len=1059;cog=COG0144J; - APE_0514 - RNA (cytosine-C(5)-)-methyltransferase
+NC_000854	NCBI_PTT	CDS	355351	355875	.	+	0	id=382;len=525;cog=COG1374J; - APE_0516.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	355875	356681	.	+	0	id=383;len=807;cog=COG1047O; - APE_0517 - FKBP-type peptidyl-prolyl cis-trans isomerase
+NC_000854	NCBI_PTT	CDS	356687	357745	.	-	0	id=384;len=1059;cog=COG0371C; - APE_0519.1 - glycerol-1-phosphate dehydrogenase
+NC_000854	NCBI_PTT	CDS	357912	358571	.	+	0	id=385;len=660;cog=COG0638O; psmB APE_0521.1 - proteasome beta subunit precursor
+NC_000854	NCBI_PTT	CDS	358808	360823	.	+	0	id=386;len=2016;cog=COG0054H; - APE_0522.1 - exonuclease
+NC_000854	NCBI_PTT	CDS	360842	361378	.	-	0	id=387;len=537;cog=COG0098J; - APE_0525.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	361519	361752	.	+	0	id=388;len=234;cog=COG1958K; - APE_0525a - small nucleolar RNP protein Sm
+NC_000854	NCBI_PTT	CDS	361782	361970	.	+	0	id=389;len=189;cog=COG2126J; rpl37e APE_0525b - 50S ribosomal protein L37
+NC_000854	NCBI_PTT	CDS	362082	363203	.	+	0	id=390;len=1122;cog=COG0006E; pepQ APE_0526.1 - Xaa-Pro dipeptidase
+NC_000854	NCBI_PTT	CDS	363298	364431	.	-	0	id=391;len=1134;cog=COG2421C; - APE_0528 - acetamidase/formamidase
+NC_000854	NCBI_PTT	CDS	364487	365389	.	-	0	id=392;len=903;cog=COG0803P; - APE_0531.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	365508	366251	.	+	0	id=393;len=744;cog=COG1121P; - APE_0532.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	366299	367111	.	+	0	id=394;len=813;cog=COG1108P; - APE_0534.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	367104	367490	.	+	0	id=395;len=387;cog=COG0864K; - APE_0535 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	367617	368600	.	-	0	id=396;len=984;cog=-; - APE_0536.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	369558	370574	.	+	0	id=397;len=1017;cog=COG0037D; - APE_0537.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	370582	370857	.	+	0	id=398;len=276;cog=COG4352J; rpl13e APE_0537a - 50S ribosomal protein L13
+NC_000854	NCBI_PTT	CDS	370874	372043	.	-	0	id=399;len=1170;cog=COG1341R; - APE_0540.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	372386	372760	.	+	0	id=400;len=375;cog=-; - APE_0542.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	372806	373963	.	+	0	id=401;len=1158;cog=-; - APE_0543 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	373908	374552	.	-	0	id=402;len=645;cog=COG0035F; upp APE_0545.1 - uracil phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	374633	375946	.	+	0	id=403;len=1314;cog=COG1258J; - APE_0546.1 - pseudouridylate synthase
+NC_000854	NCBI_PTT	CDS	375992	376315	.	+	0	id=404;len=324;cog=COG2139J; rpl21e APE_0546a - 50S ribosomal protein L21
+NC_000854	NCBI_PTT	CDS	376358	376699	.	+	0	id=405;len=342;cog=COG1460S; rpoF APE_0549.1 - DNA-directed RNA polymerase subunit F
+NC_000854	NCBI_PTT	CDS	376793	377773	.	+	0	id=406;len=981;cog=COG1491J; - APE_0550 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	377718	378551	.	+	0	id=407;len=834;cog=COG0030J; ksgA APE_0553 - S-adenosylmethionine-6-N',N'-adenosyl(rRNA) dimethyltransferase
+NC_000854	NCBI_PTT	CDS	378554	379144	.	+	0	id=408;len=591;cog=-; - APE_0554.1 - methyltransferase
+NC_000854	NCBI_PTT	CDS	379132	379863	.	+	0	id=409;len=732;cog=COG0565J; - APE_0555.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	379829	380893	.	+	0	id=410;len=1065;cog=COG0116L; - APE_0557 - methyltransferase
+NC_000854	NCBI_PTT	CDS	380994	382289	.	-	0	id=411;len=1296;cog=COG0683E; - APE_0558.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	382374	383825	.	+	0	id=412;len=1452;cog=COG4697S; - APE_0560 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	383822	384628	.	-	0	id=413;len=807;cog=COG0287E; - APE_0562.1 - prephenate dehydrogenase
+NC_000854	NCBI_PTT	CDS	384618	384869	.	-	0	id=414;len=252;cog=-; aroQ APE_0562a - chorismate mutase
+NC_000854	NCBI_PTT	CDS	384859	386001	.	-	0	id=415;len=1143;cog=COG0082E; aroC APE_0564 - chorismate synthase
+NC_000854	NCBI_PTT	CDS	385991	387274	.	-	0	id=416;len=1284;cog=COG0128E; aroA APE_0569 - 3-phosphoshikimate 1-carboxyvinyltransferase
+NC_000854	NCBI_PTT	CDS	387262	388104	.	-	0	id=417;len=843;cog=COG1685EH; aroK APE_0572 - shikimate kinase
+NC_000854	NCBI_PTT	CDS	388104	388925	.	-	0	id=418;len=822;cog=COG0169E; aroE APE_0574.1 - shikimate dehydrogenase
+NC_000854	NCBI_PTT	CDS	388922	389590	.	-	0	id=419;len=669;cog=COG0710E; aroD APE_0577 - 3-dehydroquinate dehydratase
+NC_000854	NCBI_PTT	CDS	389597	390673	.	-	0	id=420;len=1077;cog=COG0337E; aroB APE_0579 - 3-dehydroquinate synthase
+NC_000854	NCBI_PTT	CDS	390655	391467	.	-	0	id=421;len=813;cog=COG2876E; aroG APE_0581.1 - 3-deoxy-7-phosphoheptulonate synthase
+NC_000854	NCBI_PTT	CDS	391487	392455	.	-	0	id=422;len=969;cog=COG3958G; - APE_0583 - transketolase
+NC_000854	NCBI_PTT	CDS	392495	393205	.	-	0	id=423;len=711;cog=COG3959G; - APE_0586.1 - transketolase
+NC_000854	NCBI_PTT	CDS	393471	396176	.	+	0	id=424;len=2706;cog=-; - APE_0588.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	396676	397476	.	-	0	id=425;len=801;cog=COG1024I; - APE_0591.1 - enoyl-CoA hydratase/isomerase
+NC_000854	NCBI_PTT	CDS	397737	398294	.	-	0	id=426;len=558;cog=-; - APE_0593.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	398532	399095	.	+	0	id=427;len=564;cog=-; - APE_0594.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	399070	399348	.	+	0	id=428;len=279;cog=COG3432K; - APE_0594a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	399452	400603	.	+	0	id=429;len=1152;cog=COG1252C; - APE_0595.1 - dehydrogenase
+NC_000854	NCBI_PTT	CDS	400709	401341	.	-	0	id=430;len=633;cog=-; - APE_0596 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	401639	401890	.	+	0	id=431;len=252;cog=-; - APE_0597.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	402512	402964	.	-	0	id=432;len=453;cog=-; - APE_0598 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	403297	403824	.	-	0	id=433;len=528;cog=-; - APE_0600 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	403788	404342	.	-	0	id=434;len=555;cog=-; - APE_0601 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	404463	404693	.	+	0	id=435;len=231;cog=-; - APE_0601a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	404690	405439	.	+	0	id=436;len=750;cog=COG0314H; - APE_0603 - molybdopterin converting factor
+NC_000854	NCBI_PTT	CDS	405399	405857	.	-	0	id=437;len=459;cog=-; - APE_0604 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	405916	406503	.	-	0	id=438;len=588;cog=COG1240H; - APE_0605.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	406481	406948	.	-	0	id=439;len=468;cog=-; - APE_0606.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	407392	411387	.	-	0	id=440;len=3996;cog=-; - APE_0607 - surface layer-associated protease precursor
+NC_000854	NCBI_PTT	CDS	411629	416281	.	-	0	id=441;len=4653;cog=COG1196D; - APE_0609.1 - surface layer protein
+NC_000854	NCBI_PTT	CDS	416585	418210	.	-	0	id=442;len=1626;cog=-; - APE_0614.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	418295	419557	.	-	0	id=443;len=1263;cog=-; - APE_0618.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	419623	425475	.	-	0	id=444;len=5853;cog=-; - APE_0620.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	425604	425870	.	+	0	id=445;len=267;cog=COG1694R; - APE_0620a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	425867	426631	.	-	0	id=446;len=765;cog=COG1646R; - APE_0621.1 - geranylgeranylglyceryl phosphate synthase
+NC_000854	NCBI_PTT	CDS	426579	426917	.	-	0	id=447;len=339;cog=COG4888R; - APE_0623.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	427181	428431	.	+	0	id=448;len=1251;cog=COG0499H; ahcY APE_0624.1 - S-adenosyl-L-homocysteine hydrolase
+NC_000854	NCBI_PTT	CDS	428911	429201	.	+	0	id=449;len=291;cog=-; - APE_0628.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	429341	429961	.	+	0	id=450;len=621;cog=-; - APE_0630 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	429927	431186	.	-	0	id=451;len=1260;cog=COG0624E; - APE_0632.1 - succinyl-diaminopimelate desuccinylase
+NC_000854	NCBI_PTT	CDS	431450	432202	.	+	0	id=452;len=753;cog=COG1234R; - APE_0636 - metal dependent hydrolase
+NC_000854	NCBI_PTT	CDS	432274	432666	.	-	0	id=453;len=393;cog=COG1586E; speH APE_0639.1 - S-adenosylmethionine decarboxylase proenzyme
+NC_000854	NCBI_PTT	CDS	432769	433542	.	+	0	id=454;len=774;cog=-; - APE_0640 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	433555	434604	.	-	0	id=455;len=1050;cog=COG0526OC; - APE_0641 - thioredoxin
+NC_000854	NCBI_PTT	CDS	434871	435854	.	+	0	id=456;len=984;cog=COG2108R; - APE_0644.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	435875	436312	.	+	0	id=457;len=438;cog=-; - APE_0648.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	436309	438771	.	-	0	id=458;len=2463;cog=COG0574G; ppsA APE_0650.1 - phosphoenolpyruvate synthase
+NC_000854	NCBI_PTT	CDS	438938	439117	.	-	0	id=459;len=180;cog=-; secG APE_0650a.1 - preprotein translocase subunit SecG
+NC_000854	NCBI_PTT	CDS	439311	440357	.	-	0	id=460;len=1047;cog=-; - APE_0654.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	440385	441755	.	-	0	id=461;len=1371;cog=COG1571R; - APE_0656.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	441794	442045	.	-	0	id=462;len=252;cog=COG1522K; - APE_0656a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	442140	442481	.	+	0	id=463;len=342;cog=-; - APE_0661.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	442462	443769	.	+	0	id=464;len=1308;cog=COG0124J; hisS APE_0662.1 - histidyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	443766	444116	.	-	0	id=465;len=351;cog=COG5431S; - APE_0663 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	444124	444837	.	-	0	id=466;len=714;cog=COG0120G; rpiA APE_0665 - ribose 5-phosphate isomerase
+NC_000854	NCBI_PTT	CDS	445535	446722	.	+	0	id=467;len=1188;cog=COG2219L; priB APE_0667 - DNA primase large subunit
+NC_000854	NCBI_PTT	CDS	446854	447528	.	-	0	id=468;len=675;cog=COG0819K; tenA APE_0669.1 - transcriptional activator TenA-like protein
+NC_000854	NCBI_PTT	CDS	447602	448753	.	+	0	id=469;len=1152;cog=COG2814G; - APE_0671 - MFS transporter
+NC_000854	NCBI_PTT	CDS	448944	449870	.	-	0	id=470;len=927;cog=COG0039C; mdh APE_0672.1 - malate dehydrogenase
+NC_000854	NCBI_PTT	CDS	450010	452067	.	+	0	id=471;len=2058;cog=COG1269C; atpI APE_0673.1 - V-type ATP synthase subunit I
+NC_000854	NCBI_PTT	CDS	452083	453288	.	+	0	id=472;len=1206;cog=COG0436E; aspC APE_0674.1 - aspartate aminotransferase
+NC_000854	NCBI_PTT	CDS	453318	453668	.	-	0	id=473;len=351;cog=COG0073R; - APE_0675.1 - tRNA-binding protein
+NC_000854	NCBI_PTT	CDS	453815	454639	.	-	0	id=474;len=825;cog=COG0413H; panB APE_0676 - 3-methyl-2-oxobutanoate hydroxymethyltransferase
+NC_000854	NCBI_PTT	CDS	454661	455590	.	-	0	id=475;len=930;cog=COG1893H; panE APE_0677.1 - 2-dehydropantoate 2-reductase
+NC_000854	NCBI_PTT	CDS	455870	456316	.	+	0	id=476;len=447;cog=COG0824R; - APE_0680.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	456385	456681	.	+	0	id=477;len=297;cog=COG1888S; - APE_0680a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	456708	457094	.	-	0	id=478;len=387;cog=COG1310R; - APE_0681.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	457084	457605	.	-	0	id=479;len=522;cog=COG0622R; - APE_0682.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	457695	457901	.	+	0	id=480;len=207;cog=-; - APE_0682a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	457930	458598	.	+	0	id=481;len=669;cog=COG0560E; - APE_0683 - phosphoserine phosphatase
+NC_000854	NCBI_PTT	CDS	458574	459086	.	+	0	id=482;len=513;cog=COG1676J; - APE_0685 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	459143	460255	.	+	0	id=483;len=1113;cog=COG0182J; mtnA APE_0686 - methylthioribose-1-phosphate isomerase
+NC_000854	NCBI_PTT	CDS	460283	461257	.	-	0	id=484;len=975;cog=COG0346E; - APE_0688 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	461515	462813	.	+	0	id=485;len=1299;cog=COG0538C; - APE_0689.1 - isocitrate dehydrogenase
+NC_000854	NCBI_PTT	CDS	462905	464341	.	-	0	id=486;len=1437;cog=-; - APE_0691 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	464346	465761	.	-	0	id=487;len=1416;cog=COG0630NU; - APE_0695.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	465795	466223	.	-	0	id=488;len=429;cog=-; - APE_0697 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	466315	467247	.	+	0	id=489;len=933;cog=COG1899O; dys APE_0698.1 - deoxyhypusine synthase
+NC_000854	NCBI_PTT	CDS	467244	467744	.	-	0	id=490;len=501;cog=-; - APE_0700 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	468122	468535	.	+	0	id=491;len=414;cog=COG1475K; - APE_0702.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	468551	469720	.	-	0	id=492;len=1170;cog=COG1697L; top6A APE_0703.1 - DNA topoisomerase VI subunit A
+NC_000854	NCBI_PTT	CDS	469739	471445	.	-	0	id=493;len=1707;cog=COG1389L; top6B APE_0706.1 - DNA topoisomerase VI subunit B
+NC_000854	NCBI_PTT	CDS	471745	474039	.	+	0	id=494;len=2295;cog=COG1529C; - APE_0708.1 - aldehyde dehydrogenase, large subunit
+NC_000854	NCBI_PTT	CDS	474062	474271	.	+	0	id=495;len=210;cog=-; - APE_0708a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	474277	475143	.	+	0	id=496;len=867;cog=COG4047S; - APE_0710.1 - N-glycosylase/DNA lyase
+NC_000854	NCBI_PTT	CDS	475118	476245	.	-	0	id=497;len=1128;cog=COG4948MR; menC APE_0712.1 - O-succinylbenzoate synthase
+NC_000854	NCBI_PTT	CDS	476501	478012	.	+	0	id=498;len=1512;cog=COG0168P; trkH APE_0715.1 - Trk system potassium uptake protein TrkH
+NC_000854	NCBI_PTT	CDS	478168	479115	.	+	0	id=499;len=948;cog=COG4342S; - APE_0716.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	479413	479799	.	-	0	id=500;len=387;cog=-; - APE_0718 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	479786	480055	.	-	0	id=501;len=270;cog=-; - APE_0718a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	480059	480400	.	-	0	id=502;len=342;cog=-; - APE_0720 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	480407	480652	.	-	0	id=503;len=246;cog=COG1414K; - APE_0720a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	480774	481433	.	+	0	id=504;len=660;cog=COG2345K; - APE_0722 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	481345	481620	.	-	0	id=505;len=276;cog=-; - APE_0722a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	481978	482151	.	-	0	id=506;len=174;cog=-; - APE_0722b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	482257	482580	.	-	0	id=507;len=324;cog=-; - APE_0722c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	482633	484669	.	-	0	id=508;len=2037;cog=-; - APE_0725.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	484760	485614	.	-	0	id=509;len=855;cog=-; - APE_0727 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	485768	486436	.	-	0	id=510;len=669;cog=-; - APE_0728 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	486458	486715	.	-	0	id=511;len=258;cog=-; - APE_0728a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	486804	487088	.	+	0	id=512;len=285;cog=-; - APE_0728b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	487176	487541	.	-	0	id=513;len=366;cog=-; - APE_0730 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	487552	488331	.	-	0	id=514;len=780;cog=-; - APE_0730a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	488396	489571	.	-	0	id=515;len=1176;cog=-; - APE_0731 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	489628	490233	.	+	0	id=516;len=606;cog=-; - APE_0734 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	490226	490624	.	+	0	id=517;len=399;cog=-; - APE_0735.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	490641	491384	.	+	0	id=518;len=744;cog=-; - APE_0736 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	491368	491670	.	+	0	id=519;len=303;cog=-; - APE_0737 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	492098	493135	.	+	0	id=520;len=1038;cog=COG1960I; - APE_0739 - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	493143	493787	.	-	0	id=521;len=645;cog=COG0605P; - APE_0741 - superoxide dismutase
+NC_000854	NCBI_PTT	CDS	493933	494244	.	-	0	id=522;len=312;cog=-; - APE_0743 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	494656	496827	.	+	0	id=523;len=2172;cog=COG0467T; - APE_0745.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	496894	497982	.	+	0	id=524;len=1089;cog=COG1499J; - APE_0748.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	498000	498335	.	+	0	id=525;len=336;cog=COG0361J; - APE_0748a - translation initiation factor 1A
+NC_000854	NCBI_PTT	CDS	498332	499132	.	+	0	id=526;len=801;cog=COG1718TD; - APE_0751 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	499129	499716	.	+	0	id=527;len=588;cog=COG0415L; - APE_0754.1 - RNA-processing protein
+NC_000854	NCBI_PTT	CDS	499774	500649	.	+	0	id=528;len=876;cog=COG2084I; - APE_0756.1 - dehydrogenase
+NC_000854	NCBI_PTT	CDS	500636	501706	.	+	0	id=529;len=1071;cog=COG0644C; - APE_0759.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	502217	502624	.	+	0	id=530;len=408;cog=COG2250S; - APE_0760.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	502674	502949	.	+	0	id=531;len=276;cog=COG1669R; - APE_0761.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	503018	503269	.	-	0	id=532;len=252;cog=-; - APE_0762.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	503669	504637	.	+	0	id=533;len=969;cog=COG0451MG; - APE_0763.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	504608	505327	.	-	0	id=534;len=720;cog=COG0561R; - APE_0766 - phosphoglycolate phosphatase
+NC_000854	NCBI_PTT	CDS	505445	506389	.	+	0	id=535;len=945;cog=COG0421E; speE APE_0767.1 - spermidine synthase
+NC_000854	NCBI_PTT	CDS	506419	507420	.	+	0	id=536;len=1002;cog=COG0166G; - APE_0768.1 - bifunctional phosphoglucose/phosphomannose isomerase
+NC_000854	NCBI_PTT	CDS	507521	508675	.	+	0	id=537;len=1155;cog=COG2237S; - APE_0771.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	508748	509086	.	+	0	id=538;len=339;cog=COG1400U; - APE_0772 - signal recognition particle 19 kDa protein
+NC_000854	NCBI_PTT	CDS	509317	509676	.	+	0	id=539;len=360;cog=-; - APE_0773.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	509660	510844	.	+	0	id=540;len=1185;cog=-; - APE_0774.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	510839	511570	.	-	0	id=541;len=732;cog=COG3634O; - APE_0775 - protein-disulfide oxidoreductase
+NC_000854	NCBI_PTT	CDS	511794	512183	.	+	0	id=542;len=390;cog=COG2522R; - APE_0776 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	512300	513100	.	-	0	id=543;len=801;cog=COG0639T; - APE_0777 - serine/threonine protein phosphatase
+NC_000854	NCBI_PTT	CDS	513376	514365	.	+	0	id=544;len=990;cog=COG1395K; - APE_0778 - HTH-type transcriptional regulator
+NC_000854	NCBI_PTT	CDS	514511	515131	.	+	0	id=545;len=621;cog=COG1618F; - APE_0781.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	515091	516314	.	+	0	id=546;len=1224;cog=COG1867J; trm1 APE_0782.1 - N(2),N(2)-dimethylguanosine tRNA methyltransferase
+NC_000854	NCBI_PTT	CDS	516322	516687	.	-	0	id=547;len=366;cog=COG2512S; - APE_0784.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	516952	518844	.	+	0	id=548;len=1893;cog=COG3448T; - APE_0785.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	518996	519397	.	+	0	id=549;len=402;cog=COG3277J; - APE_0786.1 - small nucleolar RNP protein Gar1p
+NC_000854	NCBI_PTT	CDS	519505	520416	.	+	0	id=550;len=912;cog=COG1405K; tfb APE_0787.1 - transcription initiation factor IIB
+NC_000854	NCBI_PTT	CDS	520535	521128	.	+	0	id=551;len=594;cog=COG1986S; - APE_0788.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	521170	521580	.	+	0	id=552;len=411;cog=COG2007J; rps8e APE_0789 - 30S ribosomal protein S8
+NC_000854	NCBI_PTT	CDS	521974	522867	.	-	0	id=553;len=894;cog=COG1340S; - APE_0790 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	522983	523771	.	-	0	id=554;len=789;cog=COG1100R; - APE_0791.1 - GTPase
+NC_000854	NCBI_PTT	CDS	524923	525633	.	+	0	id=555;len=711;cog=COG1622C; aoxA APE_0792.1 - cytochrome c oxidase (aa3-type) subunit II
+NC_000854	NCBI_PTT	CDS	525646	528093	.	+	0	id=556;len=2448;cog=COG0843C; aoxB APE_0793.1 - cytochrome c oxidase (aa3-type) subunit I+III
+NC_000854	NCBI_PTT	CDS	528108	528419	.	+	0	id=557;len=312;cog=-; aoxC APE_0795.1 - cytochrome c oxidase (aa3-type) subunit IV
+NC_000854	NCBI_PTT	CDS	528673	529365	.	+	0	id=558;len=693;cog=COG1999R; - APE_0796.1 - SCO1 protein
+NC_000854	NCBI_PTT	CDS	529343	529921	.	-	0	id=559;len=579;cog=COG1901S; - APE_0797 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	530002	530595	.	+	0	id=560;len=594;cog=COG2020O; - APE_0798 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	530597	531679	.	-	0	id=561;len=1083;cog=COG0665E; - APE_0800.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	531813	532616	.	+	0	id=562;len=804;cog=COG0496R; surE APE_0801.1 - 5'(3')-nucleotidase SurE
+NC_000854	NCBI_PTT	CDS	532575	533801	.	-	0	id=563;len=1227;cog=COG0294H; - APE_0803.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	533865	534953	.	-	0	id=564;len=1089;cog=COG4974L; - APE_0805 - tyrosine recombinase XerC
+NC_000854	NCBI_PTT	CDS	535148	536770	.	+	0	id=565;len=1623;cog=COG1012C; - APE_0807.1 - delta-1-pyrroline-5-carboxylate dehydrogenase
+NC_000854	NCBI_PTT	CDS	536937	538352	.	+	0	id=566;len=1416;cog=COG0441J; thrS APE_0809.1 - threonyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	538405	539388	.	+	0	id=567;len=984;cog=-; - APE_0812 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	539402	540478	.	+	0	id=568;len=1077;cog=-; - APE_0813.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	540892	541725	.	+	0	id=569;len=834;cog=COG2520R; - APE_0815.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	541718	542284	.	+	0	id=570;len=567;cog=COG1590S; - APE_0816 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	542538	542666	.	-	0	id=571;len=129;cog=-; - APE_0816a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	542891	544132	.	+	0	id=572;len=1242;cog=-; - APE_0818.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	544129	544380	.	+	0	id=573;len=252;cog=-; - APE_0818a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	544519	544908	.	+	0	id=574;len=390;cog=-; - APE_0820.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	544909	545889	.	+	0	id=575;len=981;cog=-; - APE_0821 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	545948	546649	.	-	0	id=576;len=702;cog=COG0501O; - APE_0824 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	547079	548005	.	+	0	id=577;len=927;cog=-; - APE_0825.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	548559	549350	.	-	0	id=578;len=792;cog=-; - APE_0826 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	549567	549731	.	+	0	id=579;len=165;cog=-; - APE_0826a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	549704	549979	.	+	0	id=580;len=276;cog=-; - APE_0826b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	549957	550436	.	+	0	id=581;len=480;cog=-; - APE_0827.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	550445	551401	.	+	0	id=582;len=957;cog=-; - APE_0830 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	551405	551809	.	+	0	id=583;len=405;cog=-; - APE_0832.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	551865	552668	.	+	0	id=584;len=804;cog=-; - APE_0833.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	552807	553472	.	+	0	id=585;len=666;cog=-; - APE_0836 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	553499	554215	.	+	0	id=586;len=717;cog=-; - APE_0837 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	554231	555496	.	+	0	id=587;len=1266;cog=-; - APE_0840 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	555521	555811	.	+	0	id=588;len=291;cog=-; - APE_0840a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	555824	558604	.	+	0	id=589;len=2781;cog=-; - APE_0843.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	558639	559010	.	+	0	id=590;len=372;cog=-; - APE_0847.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	559007	559300	.	+	0	id=591;len=294;cog=-; - APE_0848.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	559331	559648	.	+	0	id=592;len=318;cog=-; - APE_0850 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	559676	559942	.	+	0	id=593;len=267;cog=-; - APE_0850a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	559993	561267	.	+	0	id=594;len=1275;cog=-; - APE_0852.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	561264	561488	.	+	0	id=595;len=225;cog=-; - APE_0855.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	561510	562358	.	+	0	id=596;len=849;cog=-; - APE_0856 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	562446	564050	.	+	0	id=597;len=1605;cog=-; - APE_0858 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	564324	564830	.	+	0	id=598;len=507;cog=-; - APE_0859 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	564811	565827	.	+	0	id=599;len=1017;cog=-; - APE_0860 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	565904	566224	.	+	0	id=600;len=321;cog=-; - APE_0862.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	566269	566676	.	+	0	id=601;len=408;cog=-; - APE_0864.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	566712	567041	.	+	0	id=602;len=330;cog=-; - APE_0865.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	567135	568112	.	+	0	id=603;len=978;cog=-; - APE_0867.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	568103	568360	.	+	0	id=604;len=258;cog=-; - APE_0867a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	568627	568878	.	+	0	id=605;len=252;cog=-; - APE_0867b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	568890	569357	.	+	0	id=606;len=468;cog=-; - APE_0870.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	569321	570364	.	-	0	id=607;len=1044;cog=-; - APE_0871.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	570844	571044	.	+	0	id=608;len=201;cog=-; - APE_0871a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	571041	572450	.	+	0	id=609;len=1410;cog=COG0270L; - APE_0872.1 - DNA (cytosine-5-)-methyltransferase
+NC_000854	NCBI_PTT	CDS	572452	573504	.	-	0	id=610;len=1053;cog=-; - APE_0874.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	573589	574260	.	+	0	id=611;len=672;cog=COG1194L; - APE_0875.1 - U/G and T/G mismatch-specific DNA glycosylase
+NC_000854	NCBI_PTT	CDS	574307	574792	.	+	0	id=612;len=486;cog=-; - APE_0878 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	574798	576231	.	+	0	id=613;len=1434;cog=-; - APE_0879.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	576234	577838	.	+	0	id=614;len=1605;cog=-; - APE_0880 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	577907	578191	.	-	0	id=615;len=285;cog=-; - APE_0880a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	578331	578576	.	+	0	id=616;len=246;cog=COG4742K; - APE_0880b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	578583	578834	.	+	0	id=617;len=252;cog=-; - APE_0880c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	578834	579262	.	+	0	id=618;len=429;cog=-; - APE_0883 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	579279	579509	.	+	0	id=619;len=231;cog=-; - APE_0883a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	579522	579803	.	+	0	id=620;len=282;cog=-; - APE_0883b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	579791	580021	.	+	0	id=621;len=231;cog=-; - APE_0883c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	580035	580361	.	+	0	id=622;len=327;cog=-; - APE_0885.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	580367	580612	.	+	0	id=623;len=246;cog=-; - APE_0885a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	581194	581448	.	-	0	id=624;len=255;cog=-; - APE_0885b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	581840	582673	.	-	0	id=625;len=834;cog=COG3769R; - APE_0887.1 - mannosyl-3-phosphoglycerate phosphatase
+NC_000854	NCBI_PTT	CDS	582706	583872	.	-	0	id=626;len=1167;cog=-; mpgs APE_0889.1 - mannosyl-3-phosphoglycerate synthase
+NC_000854	NCBI_PTT	CDS	584257	584727	.	-	0	id=627;len=471;cog=COG2405R; - APE_0890 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	584796	585035	.	-	0	id=628;len=240;cog=COG2886S; - APE_0890a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	585788	586276	.	+	0	id=629;len=489;cog=COG5615S; - APE_0891 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	586409	587476	.	+	0	id=630;len=1068;cog=COG0714R; - APE_0892.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	587604	588800	.	+	0	id=631;len=1197;cog=COG2425R; - APE_0895.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	588816	589628	.	-	0	id=632;len=813;cog=-; - APE_0896.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	589726	592311	.	+	0	id=633;len=2586;cog=-; - APE_0898.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	592653	593039	.	+	0	id=634;len=387;cog=COG2388R; - APE_0900.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	593115	593801	.	-	0	id=635;len=687;cog=-; - APE_0902 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	594001	594750	.	+	0	id=636;len=750;cog=COG2872R; - APE_0903.1 - misacylated tRNAala hydrolase AlaX
+NC_000854	NCBI_PTT	CDS	594850	595206	.	+	0	id=637;len=357;cog=-; - APE_0906 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	595386	597050	.	+	0	id=638;len=1665;cog=COG0459O; - APE_0907.1 - thermosome alpha subunit
+NC_000854	NCBI_PTT	CDS	597205	597987	.	+	0	id=639;len=783;cog=COG1028IQR; - APE_0912 - dehydrogenase
+NC_000854	NCBI_PTT	CDS	598062	598373	.	+	0	id=640;len=312;cog=COG1758K; rpoK APE_0914 - DNA-directed RNA polymerase subunit K
+NC_000854	NCBI_PTT	CDS	598442	599509	.	+	0	id=641;len=1068;cog=COG0750M; - APE_0915.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	599458	600330	.	-	0	id=642;len=873;cog=COG2423E; ocd APE_0916.1 - ornithine cyclodeaminase
+NC_000854	NCBI_PTT	CDS	600515	602017	.	+	0	id=643;len=1503;cog=COG0683E; livK APE_0917 - branched-chain amino acid ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	602220	602984	.	+	0	id=644;len=765;cog=COG0411E; livG APE_0919 - branched-chain amino acid ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	602987	603700	.	+	0	id=645;len=714;cog=COG0410E; livF APE_0921 - branched-chain amino acid ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	603714	604778	.	+	0	id=646;len=1065;cog=COG0559E; livH APE_0922 - branched-chain amino acid ABC transporter permease
+NC_000854	NCBI_PTT	CDS	604791	605954	.	+	0	id=647;len=1164;cog=COG4177E; livM APE_0924.1 - branched-chain amino acid ABC transporter permease
+NC_000854	NCBI_PTT	CDS	606207	606680	.	+	0	id=648;len=474;cog=-; - APE_0928.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	606787	607980	.	+	0	id=649;len=1194;cog=COG0183I; - APE_0929.1 - acetyl-CoA acetyltransferase
+NC_000854	NCBI_PTT	CDS	607994	608533	.	+	0	id=650;len=540;cog=COG1545R; - APE_0930.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	608538	609422	.	-	0	id=651;len=885;cog=COG1798J; dphB APE_0931 - diphthine synthase
+NC_000854	NCBI_PTT	CDS	609398	610360	.	-	0	id=652;len=963;cog=COG1533L; - APE_0932.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	610658	611482	.	+	0	id=653;len=825;cog=-; - APE_0934 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	611982	612995	.	-	0	id=654;len=1014;cog=COG0493ER; - APE_0935 - glutamate synthase
+NC_000854	NCBI_PTT	CDS	613140	613826	.	-	0	id=655;len=687;cog=COG3642T; - APE_0938.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	613838	614140	.	-	0	id=656;len=303;cog=COG1531S; - APE_0939 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	614127	615140	.	-	0	id=657;len=1014;cog=-; - APE_0940 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	615181	615984	.	-	0	id=658;len=804;cog=COG1177E; - APE_0941 - spermidine/putrescine ABC transporter permease
+NC_000854	NCBI_PTT	CDS	615985	616758	.	-	0	id=659;len=774;cog=COG1176E; - APE_0943 - spermidine/putrescine ABC transporter permease
+NC_000854	NCBI_PTT	CDS	616742	617770	.	-	0	id=660;len=1029;cog=COG3842E; - APE_0944.1 - spermidine/putrescine ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	617865	619079	.	-	0	id=661;len=1215;cog=COG0687E; - APE_0945.1 - spermidine/putrescine ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	619287	620204	.	-	0	id=662;len=918;cog=COG0479C; sdhB APE_0946 - succinate dehydrogenase iron-sulfur subunit
+NC_000854	NCBI_PTT	CDS	620226	620579	.	-	0	id=663;len=354;cog=COG2142C; sdhD APE_0947 - succinate dehydrogenase subunit D
+NC_000854	NCBI_PTT	CDS	620593	620952	.	-	0	id=664;len=360;cog=COG2009C; sdhC APE_0948.1 - succinate dehydrogenase subunit C
+NC_000854	NCBI_PTT	CDS	621140	622891	.	-	0	id=665;len=1752;cog=COG1053C; sdhA APE_0950.1 - succinate dehydrogenase flavoprotein subunit
+NC_000854	NCBI_PTT	CDS	622982	623413	.	-	0	id=666;len=432;cog=COG0509E; gcvH APE_0951.1 - glycine cleavage system protein H
+NC_000854	NCBI_PTT	CDS	623521	624243	.	+	0	id=667;len=723;cog=COG0269G; hxlA APE_0952.1 - hexulose-6-phosphate synthase
+NC_000854	NCBI_PTT	CDS	624234	624947	.	+	0	id=668;len=714;cog=COG1402R; - APE_0954 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	624975	625256	.	+	0	id=669;len=282;cog=-; - APE_0954a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	625330	626217	.	-	0	id=670;len=888;cog=COG1226P; - APE_0955 - voltage-gated potassium channel
+NC_000854	NCBI_PTT	CDS	626278	627063	.	+	0	id=671;len=786;cog=COG1637L; - APE_0957 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	627081	627365	.	-	0	id=672;len=285;cog=COG1958K; - APE_0957a - small nucleolar RNP protein Sm
+NC_000854	NCBI_PTT	CDS	627391	627918	.	-	0	id=673;len=528;cog=COG0350L; ogt APE_0959 - methylated-DNA-protein-cysteine methyltransferase
+NC_000854	NCBI_PTT	CDS	627961	629115	.	-	0	id=674;len=1155;cog=COG0464O; - APE_0960 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	629165	629980	.	-	0	id=675;len=816;cog=COG2512S; - APE_0962 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	630141	631010	.	-	0	id=676;len=870;cog=COG2521R; - APE_0964.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	631540	632403	.	+	0	id=677;len=864;cog=-; - APE_0965.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	632429	634603	.	-	0	id=678;len=2175;cog=COG1409R; - APE_0966.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	634776	635978	.	+	0	id=679;len=1203;cog=-; - APE_0969.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	636199	637671	.	+	0	id=680;len=1473;cog=COG0591ER; - APE_0972.1 - sodium/solute symporter
+NC_000854	NCBI_PTT	CDS	637739	638755	.	+	0	id=681;len=1017;cog=COG4034S; - APE_0973.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	638752	639105	.	-	0	id=682;len=354;cog=-; - APE_0973a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	639257	639430	.	+	0	id=683;len=174;cog=-; - APE_0973b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	639585	640484	.	+	0	id=684;len=900;cog=COG2524K; - APE_0974.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	640593	641381	.	-	0	id=685;len=789;cog=COG4879S; - APE_0975 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	641706	642008	.	-	0	id=686;len=303;cog=COG2163J; rpl14e APE_0976.1 - 50S ribosomal protein L14
+NC_000854	NCBI_PTT	CDS	642059	642577	.	-	0	id=687;len=519;cog=COG1102F; cmk APE_0978.1 - cytidylate kinase
+NC_000854	NCBI_PTT	CDS	642574	642846	.	-	0	id=688;len=273;cog=COG2174J; rpl34e APE_0978a - 50S ribosomal protein L34
+NC_000854	NCBI_PTT	CDS	642889	644184	.	-	0	id=689;len=1296;cog=COG0154J; - APE_0979.1 - amidase
+NC_000854	NCBI_PTT	CDS	644279	644707	.	-	0	id=690;len=429;cog=-; - APE_0980 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	644738	645346	.	-	0	id=691;len=609;cog=COG2019F; adkA APE_0981.1 - adenylate kinase
+NC_000854	NCBI_PTT	CDS	645349	646722	.	-	0	id=692;len=1374;cog=COG0201U; secY APE_0983.1 - preprotein translocase subunit SecY
+NC_000854	NCBI_PTT	CDS	647069	648070	.	+	0	id=693;len=1002;cog=-; - APE_0985.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	648195	648911	.	+	0	id=694;len=717;cog=COG0108H; ribB APE_0986.1 - 3,4-dihydroxy-2-butanone 4-phosphate synthase
+NC_000854	NCBI_PTT	CDS	648886	649353	.	+	0	id=695;len=468;cog=COG1731H; ribC APE_0988 - riboflavin synthase
+NC_000854	NCBI_PTT	CDS	649439	650541	.	+	0	id=696;len=1103;cog=COG0130J; - APE_0989.1 - H/ACA RNA-protein complex component Cbf5p
+NC_000854	NCBI_PTT	CDS	650565	651299	.	+	0	id=697;len=735;cog=COG2820F; mtaP APE_0993.1 - S-methyl-5-thioadenosine phosphorylase
+NC_000854	NCBI_PTT	CDS	651358	652134	.	+	0	id=698;len=777;cog=-; - APE_0994 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	652096	653442	.	-	0	id=699;len=1347;cog=COG2379G; - APE_0996.1 - glycerate kinase
+NC_000854	NCBI_PTT	CDS	653484	653780	.	-	0	id=700;len=297;cog=-; - APE_0996a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	653787	654242	.	-	0	id=701;len=456;cog=-; - APE_1000.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	654283	655446	.	-	0	id=702;len=1164;cog=-; - APE_1001.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	655464	657056	.	-	0	id=703;len=1593;cog=COG4882R; - APE_1003.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	657145	658074	.	+	0	id=704;len=930;cog=COG1180O; - APE_1007.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	658128	658400	.	+	0	id=705;len=273;cog=COG1594K; - APE_1007a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	658432	658938	.	-	0	id=706;len=507;cog=COG2090S; - APE_1009.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	659066	659848	.	+	0	id=707;len=783;cog=COG2518O; pcm APE_1011.1 - protein-L-isoaspartate O-methyltransferase
+NC_000854	NCBI_PTT	CDS	659992	660504	.	-	0	id=708;len=513;cog=-; - APE_1013.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	660661	661536	.	-	0	id=709;len=876;cog=COG1831R; - APE_1014.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	661543	664422	.	-	0	id=710;len=2880;cog=COG0495J; leuS APE_1015 - leucyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	664563	665474	.	+	0	id=711;len=912;cog=COG0329EM; dapA APE_1023.1 - dihydrodipicolinate synthase
+NC_000854	NCBI_PTT	CDS	665527	666162	.	+	0	id=712;len=636;cog=COG1131V; helA APE_1026.1 - heme exporter protein A
+NC_000854	NCBI_PTT	CDS	666180	666842	.	+	0	id=713;len=663;cog=-; helB APE_1029 - heme exporter protein B
+NC_000854	NCBI_PTT	CDS	666839	668230	.	-	0	id=714;len=1392;cog=COG2425R; - APE_1031.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	668268	669407	.	-	0	id=715;len=1140;cog=COG0714R; - APE_1035.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	669553	669963	.	+	0	id=716;len=411;cog=COG0295F; cdd APE_1038.1 - cytidine deaminase
+NC_000854	NCBI_PTT	CDS	670032	670700	.	+	0	id=717;len=669;cog=-; - APE_1040.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	670773	671204	.	+	0	id=718;len=432;cog=COG2426S; - APE_1041 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	671246	671680	.	-	0	id=719;len=435;cog=COG2427S; - APE_1042.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	671698	672843	.	-	0	id=720;len=1146;cog=COG0446R; - APE_1043.1 - dehydrogenase
+NC_000854	NCBI_PTT	CDS	673174	673923	.	+	0	id=721;len=750;cog=COG0778C; - APE_1044 - NADH dehydrogenase
+NC_000854	NCBI_PTT	CDS	673939	674898	.	-	0	id=722;len=960;cog=COG0501O; htpX APE_1045.1 - zinc metalloprotease HtpX
+NC_000854	NCBI_PTT	CDS	675165	676019	.	+	0	id=723;len=855;cog=COG1184J; - APE_1047.1 - translation initiation factor eIF-2B subunit
+NC_000854	NCBI_PTT	CDS	676058	677530	.	+	0	id=724;len=1473;cog=COG0614P; - APE_1049.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	677527	678489	.	+	0	id=725;len=963;cog=COG0609P; - APE_1053.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	678476	679225	.	+	0	id=726;len=750;cog=COG1120PH; - APE_1055.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	679324	680019	.	-	0	id=727;len=696;cog=COG2078S; - APE_1056.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	680209	681249	.	-	0	id=728;len=1041;cog=COG0731C; - APE_1059 - tRNA-modifying enzyme
+NC_000854	NCBI_PTT	CDS	681316	682329	.	-	0	id=729;len=1014;cog=COG0492O; - APE_1061.1 - thioredoxin reductase
+NC_000854	NCBI_PTT	CDS	682380	682727	.	-	0	id=730;len=348;cog=-; - APE_1063 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	682835	683563	.	-	0	id=731;len=729;cog=-; - APE_1064 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	683610	684746	.	+	0	id=732;len=1137;cog=COG0045C; sucC APE_1065.1 - succinyl-CoA synthetase subunit beta
+NC_000854	NCBI_PTT	CDS	684768	685646	.	+	0	id=733;len=879;cog=COG0074C; sucD APE_1072.1 - succinyl-CoA synthetase subunit alpha
+NC_000854	NCBI_PTT	CDS	685671	687290	.	-	0	id=734;len=1620;cog=COG1061KL; - APE_1073 - DNA repair helicase
+NC_000854	NCBI_PTT	CDS	687298	687789	.	-	0	id=735;len=492;cog=-; - APE_1078 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	688007	688714	.	+	0	id=736;len=708;cog=COG0503F; - APE_1080.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	688868	689794	.	-	0	id=737;len=927;cog=COG0552U; - APE_1081.1 - signal recognition particle protein
+NC_000854	NCBI_PTT	CDS	689889	690344	.	-	0	id=738;len=456;cog=COG1730O; pfdA APE_1084.1 - prefoldin subunit alpha
+NC_000854	NCBI_PTT	CDS	690350	690616	.	-	0	id=739;len=267;cog=COG2157J; rplX APE_1084a - 50S ribosomal protein LX
+NC_000854	NCBI_PTT	CDS	690613	691314	.	-	0	id=740;len=702;cog=COG1976J; - APE_1085 - translation initiation factor IF-6
+NC_000854	NCBI_PTT	CDS	691407	691721	.	-	0	id=741;len=315;cog=COG2097J; rpl31e APE_1087.1 - 50S ribosomal protein L31
+NC_000854	NCBI_PTT	CDS	691740	691895	.	-	0	id=742;len=156;cog=-; rpl39e APE_1087a - 50S ribosomal protein L39
+NC_000854	NCBI_PTT	CDS	691947	692294	.	-	0	id=743;len=348;cog=COG2118R; - APE_1087b - DNA-binding protein
+NC_000854	NCBI_PTT	CDS	692371	692832	.	-	0	id=744;len=462;cog=COG2238J; rps19e APE_1090 - 30S ribosomal protein S19
+NC_000854	NCBI_PTT	CDS	692838	693161	.	-	0	id=745;len=324;cog=COG1534J; - APE_1091 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	693061	693552	.	-	0	id=746;len=492;cog=COG2023J; rnp4 APE_1092.1 - ribonuclease P protein component 4
+NC_000854	NCBI_PTT	CDS	693527	695335	.	-	0	id=747;len=1809;cog=COG1793L; - APE_1094.1 - ATP-dependent DNA ligase
+NC_000854	NCBI_PTT	CDS	695697	696863	.	+	0	id=748;len=1167;cog=COG0144J; - APE_1098 - RNA (cytosine-C(5)-)-methyltransferase
+NC_000854	NCBI_PTT	CDS	696860	697279	.	-	0	id=749;len=420;cog=COG1439R; - APE_1102 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	697242	698084	.	-	0	id=750;len=843;cog=COG0061G; ppnK APE_1104.1 - inorganic polyphosphate/ATP-NAD kinase
+NC_000854	NCBI_PTT	CDS	698190	699224	.	+	0	id=751;len=1035;cog=COG2520R; - APE_1106.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	699271	700434	.	-	0	id=752;len=1164;cog=COG1980G; fbpA APE_1109.1 - fructose-1,6-bisphosphatase
+NC_000854	NCBI_PTT	CDS	700662	701186	.	+	0	id=753;len=525;cog=-; - APE_1113 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	701208	702131	.	-	0	id=754;len=924;cog=COG0024J; - APE_1114.1 - methionine aminopeptidase
+NC_000854	NCBI_PTT	CDS	702212	702940	.	+	0	id=755;len=729;cog=COG2220R; - APE_1117 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	702971	704815	.	-	0	id=756;len=1845;cog=COG1245R; - APE_1119.1 - ATPase RIL
+NC_000854	NCBI_PTT	CDS	705007	706125	.	+	0	id=757;len=1119;cog=COG4046S; - APE_1123.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	706125	706454	.	+	0	id=758;len=330;cog=-; - APE_1127 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	706474	708192	.	+	0	id=759;len=1719;cog=COG0143J; metG APE_1129 - methionyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	708256	708612	.	+	0	id=760;len=357;cog=COG2004J; rps24e APE_1132.1 - 30S ribosomal protein S24
+NC_000854	NCBI_PTT	CDS	708619	708810	.	+	0	id=761;len=192;cog=COG1998J; rps27ae APE_1132a - 30S ribosomal protein S27
+NC_000854	NCBI_PTT	CDS	708868	709917	.	+	0	id=762;len=1050;cog=COG0533O; - APE_1135 - DNA-binding/iron metalloprotein/AP endonuclease
+NC_000854	NCBI_PTT	CDS	709878	710573	.	+	0	id=763;len=696;cog=COG3642T; - APE_1136.1 - protein kinase
+NC_000854	NCBI_PTT	CDS	710566	711132	.	+	0	id=764;len=567;cog=COG0127F; ntpA APE_1138.1 - deoxyribonucleotide triphosphate pyrophosphatase
+NC_000854	NCBI_PTT	CDS	711198	711650	.	+	0	id=765;len=453;cog=COG0184J; rps15p APE_1139 - 30S ribosomal protein S15
+NC_000854	NCBI_PTT	CDS	711862	713226	.	+	0	id=766;len=1365;cog=COG0527E; lysC APE_1140.1 - aspartate kinase
+NC_000854	NCBI_PTT	CDS	713223	714272	.	+	0	id=767;len=1050;cog=COG0136E; asd APE_1143 - aspartate-semialdehyde dehydrogenase
+NC_000854	NCBI_PTT	CDS	714269	715267	.	+	0	id=768;len=999;cog=COG0460E; hom APE_1144.1 - homoserine dehydrogenase
+NC_000854	NCBI_PTT	CDS	715292	716599	.	+	0	id=769;len=1308;cog=-; - APE_1147.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	716569	716826	.	+	0	id=770;len=258;cog=-; - APE_1147a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	719079	719723	.	+	0	id=771;len=645;cog=COG1890J; rps3ae APE_1154.1 - 30S ribosomal protein S3
+NC_000854	NCBI_PTT	CDS	719783	720841	.	+	0	id=772;len=1059;cog=COG1818R; - APE_1156.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	720834	722402	.	+	0	id=773;len=1569;cog=COG1032C; - APE_1158.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	722399	722770	.	-	0	id=774;len=372;cog=COG1369J; rnp2 APE_1161.1 - ribonuclease P protein component 2
+NC_000854	NCBI_PTT	CDS	723046	724278	.	-	0	id=775;len=1233;cog=COG0012J; - APE_1164 - translation-associated GTPase
+NC_000854	NCBI_PTT	CDS	724355	725056	.	-	0	id=776;len=702;cog=COG1500J; - APE_1167.1 - RNA-associated protein
+NC_000854	NCBI_PTT	CDS	725116	725871	.	-	0	id=777;len=756;cog=COG0622R; - APE_1169.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	726552	726815	.	-	0	id=778;len=264;cog=-; - APE_1169a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	726823	727887	.	-	0	id=779;len=1065;cog=-; - APE_1173.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	728049	729443	.	+	0	id=780;len=1395;cog=-; - APE_1177.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	730149	730712	.	-	0	id=781;len=564;cog=COG1898M; rfbC APE_1178 - dTDP-4-dehydrorhamnose 3,5-epimerase
+NC_000854	NCBI_PTT	CDS	730716	731618	.	-	0	id=782;len=903;cog=COG1091M; rfbD APE_1179.1 - dTDP-4-dehydrorhamnose reductase
+NC_000854	NCBI_PTT	CDS	731627	732619	.	-	0	id=783;len=993;cog=COG1088M; rfbB APE_1180 - dTDP-glucose 4,6-dehydratase
+NC_000854	NCBI_PTT	CDS	732632	733699	.	-	0	id=784;len=1068;cog=COG1209M; rfbA APE_1181 - glucose-1-phosphate thymidylyltransferase
+NC_000854	NCBI_PTT	CDS	734385	735953	.	-	0	id=785;len=1569;cog=COG3379S; - APE_1182 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	736704	737633	.	-	0	id=786;len=930;cog=COG2226H; - APE_1183 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	738215	739288	.	-	0	id=787;len=1074;cog=COG1216R; - APE_1184 - glycosyl transferase
+NC_000854	NCBI_PTT	CDS	739270	740559	.	-	0	id=788;len=1290;cog=COG0438M; - APE_1186.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	740556	742859	.	-	0	id=789;len=2304;cog=-; - APE_1187.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	742865	744016	.	-	0	id=790;len=1152;cog=COG0438M; - APE_1188 - glycosyl transferase, group 1
+NC_000854	NCBI_PTT	CDS	744013	744864	.	-	0	id=791;len=852;cog=COG0463M; - APE_1189.1 - glycosyl transferase
+NC_000854	NCBI_PTT	CDS	744904	745524	.	-	0	id=792;len=621;cog=COG4076R; - APE_1190.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	745695	746786	.	-	0	id=793;len=1092;cog=COG0438M; - APE_1191 - glycosyl transferase, group 1
+NC_000854	NCBI_PTT	CDS	746791	747663	.	-	0	id=794;len=873;cog=COG1215M; - APE_1192 - glycosyl transferase
+NC_000854	NCBI_PTT	CDS	747756	748187	.	-	0	id=795;len=432;cog=-; - APE_1193.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	748448	748753	.	-	0	id=796;len=306;cog=COG5625K; - APE_1194.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	748874	749425	.	-	0	id=797;len=552;cog=COG0529P; cysC APE_1195.1 - adenylylsulfate kinase
+NC_000854	NCBI_PTT	CDS	749853	750650	.	+	0	id=798;len=798;cog=-; - APE_1196.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	750640	751791	.	+	0	id=799;len=1152;cog=COG2046P; sat APE_1197.1 - sulfate adenylyltransferase
+NC_000854	NCBI_PTT	CDS	751816	753192	.	-	0	id=800;len=1377;cog=COG3379S; - APE_1199 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	753392	754642	.	+	0	id=801;len=1251;cog=COG1208MJ; - APE_1202.1 - nucleotidyl transferase
+NC_000854	NCBI_PTT	CDS	754817	756670	.	+	0	id=802;len=1854;cog=COG0449M; glmS APE_1205.1 - isomerizing glucosamine--fructose-6-phosphate aminotransferase
+NC_000854	NCBI_PTT	CDS	756713	757804	.	+	0	id=803;len=1092;cog=COG1208MJ; - APE_1208.1 - nucleotidyl transferase
+NC_000854	NCBI_PTT	CDS	758678	759475	.	-	0	id=804;len=798;cog=-; - APE_1209 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	759592	759789	.	+	0	id=805;len=198;cog=-; - APE_1209a - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	759849	760274	.	-	0	id=806;len=426;cog=COG1848R; - APE_1209b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	760255	760476	.	-	0	id=807;len=222;cog=-; - APE_1209c.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	760551	760721	.	+	0	id=808;len=171;cog=-; - APE_1209d - hypothetical protein
+NC_000854	NCBI_PTT	CDS	760854	761129	.	+	0	id=809;len=276;cog=COG1960I; - APE_1209e - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	761133	761231	.	+	0	id=810;len=99;cog=COG1960I; - APE_1209f - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	761487	763202	.	+	0	id=811;len=1716;cog=-; - APE_1210.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	763296	763670	.	+	0	id=812;len=375;cog=-; - APE_1211.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	764194	768282	.	+	0	id=813;len=4089;cog=-; - APE_1213.1 - surface layer-associated protease precursor
+NC_000854	NCBI_PTT	CDS	768368	769969	.	+	0	id=814;len=1602;cog=COG1196D; - APE_1216 - surface layer protein
+NC_000854	NCBI_PTT	CDS	770147	771226	.	-	0	id=815;len=1080;cog=-; - APE_1219.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	771388	772323	.	+	0	id=816;len=936;cog=-; - APE_1220 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	772391	773461	.	+	0	id=817;len=1071;cog=COG5493S; - APE_1221 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	773611	774780	.	+	0	id=818;len=1170;cog=COG0031E; - APE_1223.1 - cystathionine beta-synthase
+NC_000854	NCBI_PTT	CDS	774777	775931	.	+	0	id=819;len=1155;cog=COG0626E; metC APE_1226 - cystathionine gamma-synthase
+NC_000854	NCBI_PTT	CDS	776023	776754	.	-	0	id=820;len=732;cog=-; - APE_1228.1 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	776762	777886	.	-	0	id=821;len=1125;cog=-; - APE_1230 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	777900	778748	.	-	0	id=822;len=849;cog=COG2254L; - APE_1231 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	778745	780457	.	-	0	id=823;len=1713;cog=COG1203R; cas3 APE_1232 - CRISPR-associated helicase Cas3
+NC_000854	NCBI_PTT	CDS	780435	781283	.	-	0	id=824;len=849;cog=COG1688L; - APE_1234.1 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	781330	782373	.	-	0	id=825;len=1044;cog=COG1857L; - APE_1235 - CRISPR-associated negative autoregulator
+NC_000854	NCBI_PTT	CDS	782381	782776	.	-	0	id=826;len=396;cog=-; - APE_1236.1 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	782944	783666	.	-	0	id=827;len=723;cog=-; - APE_1237.1 - CRISPR-associated DNA-binding protein
+NC_000854	NCBI_PTT	CDS	783636	784235	.	-	0	id=828;len=600;cog=COG1468L; cas4 APE_1239.1 - CRISPR-associated Cas4 family protein
+NC_000854	NCBI_PTT	CDS	784237	784515	.	-	0	id=829;len=279;cog=COG1343L; cas2 APE_1239a - CRISPR-associated Cas2 family protein
+NC_000854	NCBI_PTT	CDS	784519	785502	.	-	0	id=830;len=984;cog=COG1518L; cas1 APE_1240.1 - CRISPR-associated Cas1 family protein
+NC_000854	NCBI_PTT	CDS	785499	786281	.	-	0	id=831;len=783;cog=COG4343S; - APE_1241.1 - CRISPR-associated protein
+NC_000854	NCBI_PTT	CDS	789491	789757	.	-	0	id=832;len=267;cog=-; - APE_1241a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	789800	791551	.	-	0	id=833;len=1752;cog=COG2267I; - APE_1244.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	791720	792700	.	-	0	id=834;len=981;cog=COG1063ER; - APE_1245.1 - zinc-binding dehydrogenase
+NC_000854	NCBI_PTT	CDS	792891	795506	.	+	0	id=835;len=2616;cog=-; - APE_1248 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	795518	796438	.	+	0	id=836;len=921;cog=COG1136V; - APE_1253 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	796462	797211	.	+	0	id=837;len=750;cog=COG1131V; - APE_1255.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	797208	798527	.	+	0	id=838;len=1320;cog=COG1668CP; - APE_1257 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	798962	799516	.	+	0	id=839;len=555;cog=COG3945S; - APE_1258.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	799541	800170	.	+	0	id=840;len=630;cog=COG0491R; - APE_1260 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	800283	801143	.	+	0	id=841;len=861;cog=COG0053P; czrB APE_1262 - cation efflux protein CzrB
+NC_000854	NCBI_PTT	CDS	801192	802235	.	+	0	id=842;len=1044;cog=COG1052CHR; - APE_1265.1 - glyoxylate reductase
+NC_000854	NCBI_PTT	CDS	802232	803518	.	-	0	id=843;len=1287;cog=COG0665E; - APE_1267.1 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	803617	804066	.	-	0	id=844;len=450;cog=COG1669R; - APE_1270.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	804053	804472	.	-	0	id=845;len=420;cog=COG2250S; - APE_1272.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	804586	805758	.	-	0	id=846;len=1173;cog=COG1488H; - APE_1273.1 - nicotinate phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	806006	807409	.	+	0	id=847;len=1404;cog=COG3033E; tnaA APE_1275 - tryptophanase
+NC_000854	NCBI_PTT	CDS	807504	807785	.	+	0	id=848;len=282;cog=-; - APE_1275a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	807668	807964	.	+	0	id=849;len=297;cog=COG0622R; - APE_1275b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	808068	808184	.	+	0	id=850;len=117;cog=-; - APE_1275c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	808208	809323	.	+	0	id=851;len=1116;cog=-; - APE_1276 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	809320	809886	.	-	0	id=852;len=567;cog=-; - APE_1277 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	809861	810268	.	-	0	id=853;len=408;cog=-; - APE_1278 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	810304	810966	.	-	0	id=854;len=663;cog=COG1985H; - APE_1279.1 - pyrimidine nucleotide reductase
+NC_000854	NCBI_PTT	CDS	810982	811275	.	-	0	id=855;len=294;cog=-; - APE_1279a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	811531	813462	.	+	0	id=856;len=1932;cog=COG1078R; - APE_1281 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	813545	814045	.	+	0	id=857;len=501;cog=-; - APE_1284.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	814096	815097	.	+	0	id=858;len=1002;cog=COG0123BQ; - APE_1285.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	815094	816503	.	-	0	id=859;len=1410;cog=-; - APE_1286 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	816848	820699	.	+	0	id=860;len=3852;cog=COG5013C; narG APE_1288.1 - nitrate reductase alpha subunit
+NC_000854	NCBI_PTT	CDS	820739	822133	.	+	0	id=861;len=1395;cog=COG1140C; narH APE_1294.1 - nitrate reductase beta subunit
+NC_000854	NCBI_PTT	CDS	822153	823118	.	+	0	id=862;len=966;cog=-; - APE_1297 - nitrate reductase gamma subunit
+NC_000854	NCBI_PTT	CDS	823345	824079	.	+	0	id=863;len=735;cog=-; - APE_1298 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	824082	824618	.	+	0	id=864;len=537;cog=COG2180C; narJ APE_1300.1 - nitrate reductase delta subunit
+NC_000854	NCBI_PTT	CDS	824615	825397	.	-	0	id=865;len=783;cog=COG0410E; - APE_1301.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	825405	826688	.	-	0	id=866;len=1284;cog=COG0683E; - APE_1303.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	826782	827819	.	-	0	id=867;len=1038;cog=COG4177E; - APE_1304.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	827836	828720	.	-	0	id=868;len=885;cog=COG0559E; - APE_1305 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	828727	830682	.	-	0	id=869;len=1956;cog=COG1022I; - APE_1307 - fatty-acid--CoA ligase
+NC_000854	NCBI_PTT	CDS	830686	831438	.	-	0	id=870;len=753;cog=COG0411E; - APE_1308 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	831654	833243	.	+	0	id=871;len=1590;cog=COG0318IQ; - APE_1310 - fatty-acid--CoA ligase
+NC_000854	NCBI_PTT	CDS	833304	833840	.	+	0	id=872;len=537;cog=-; - APE_1313.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	833830	834936	.	+	0	id=873;len=1107;cog=-; - APE_1315 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	834911	835831	.	+	0	id=874;len=921;cog=COG0714R; - APE_1317 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	835856	837103	.	+	0	id=875;len=1248;cog=COG1721R; - APE_1319.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	837100	837822	.	+	0	id=876;len=723;cog=-; - APE_1322.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	837843	838043	.	+	0	id=877;len=201;cog=-; - APE_1322a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	838120	838290	.	-	0	id=878;len=171;cog=-; - APE_1322b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	838501	838956	.	+	0	id=879;len=456;cog=COG1599L; - APE_1323.1 - ssDNA-binding protein
+NC_000854	NCBI_PTT	CDS	839092	839616	.	-	0	id=880;len=525;cog=COG1670J; - APE_1324 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	839725	840876	.	-	0	id=881;len=1152;cog=COG1533L; - APE_1326.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	841037	843079	.	+	0	id=882;len=2043;cog=COG0145EQ; hyuA APE_1328.1 - hydantoin utilization protein A
+NC_000854	NCBI_PTT	CDS	843086	844774	.	+	0	id=883;len=1689;cog=COG0146EQ; hyuB APE_1331 - hydantoin utilization protein B
+NC_000854	NCBI_PTT	CDS	844836	845147	.	+	0	id=884;len=312;cog=COG2329R; - APE_1333 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	845231	846256	.	+	0	id=885;len=1026;cog=COG1363G; - APE_1335.1 - N-terminal deblocking aminopeptidase
+NC_000854	NCBI_PTT	CDS	846253	847902	.	-	0	id=886;len=1650;cog=COG1233Q; - APE_1336.1 - phytoene dehydrogenase
+NC_000854	NCBI_PTT	CDS	848063	848746	.	+	0	id=887;len=684;cog=-; - APE_1337.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	848760	849434	.	+	0	id=888;len=675;cog=-; - APE_1339.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	849477	853589	.	+	0	id=889;len=4113;cog=COG1110L; rgy APE_1340.1 - reverse gyrase
+NC_000854	NCBI_PTT	CDS	853593	854513	.	+	0	id=890;len=921;cog=COG0388R; - APE_1343 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	854634	854909	.	+	0	id=891;len=276;cog=-; - APE_1343a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	854925	855518	.	+	0	id=892;len=594;cog=COG5006R; - APE_1345 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	855533	857503	.	-	0	id=893;len=1971;cog=COG0365I; acsA APE_1346.1 - acetyl-coenzyme A synthetase
+NC_000854	NCBI_PTT	CDS	857703	857975	.	+	0	id=894;len=273;cog=-; - APE_1346a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	858005	858445	.	-	0	id=895;len=441;cog=COG0315H; moaC APE_1350.1 - molybdenum cofactor biosynthesis protein MoaC
+NC_000854	NCBI_PTT	CDS	858609	862574	.	+	0	id=896;len=3966;cog=COG0514L; - APE_1353.1 - ATP-dependent helicase
+NC_000854	NCBI_PTT	CDS	862807	863328	.	-	0	id=897;len=522;cog=-; - APE_1357 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	863530	864237	.	-	0	id=898;len=708;cog=-; - APE_1358.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	864317	864838	.	-	0	id=899;len=522;cog=COG1695K; - APE_1360.1 - PadR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	865029	865811	.	+	0	id=900;len=783;cog=COG1028IQR; - APE_1361.1 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	865808	866293	.	-	0	id=901;len=486;cog=-; - APE_1362.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	866512	867333	.	+	0	id=902;len=822;cog=COG2428S; - APE_1363.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	867372	868097	.	-	0	id=903;len=726;cog=-; - APE_1364.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	868138	868863	.	-	0	id=904;len=726;cog=COG2429S; - APE_1365.1 - GTP cyclohydrolase III
+NC_000854	NCBI_PTT	CDS	868912	869355	.	-	0	id=905;len=444;cog=COG0054H; ribH APE_1366.1 - 6,7-dimethyl-8-ribityllumazine synthase
+NC_000854	NCBI_PTT	CDS	869642	871822	.	+	0	id=906;len=2181;cog=COG0464O; - APE_1367 - cell division protein CDC48
+NC_000854	NCBI_PTT	CDS	872365	872895	.	+	0	id=907;len=531;cog=-; - APE_1372.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	872882	874243	.	+	0	id=908;len=1362;cog=COG3174S; - APE_1373 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	874305	874568	.	+	0	id=909;len=264;cog=-; - APE_1373a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	874786	878433	.	+	0	id=910;len=3648;cog=COG1110L; rgy APE_1376.1 - reverse gyrase
+NC_000854	NCBI_PTT	CDS	878476	879414	.	+	0	id=911;len=939;cog=COG1131V; - APE_1380.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	879395	880318	.	+	0	id=912;len=924;cog=-; - APE_1381.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	880421	881773	.	+	0	id=913;len=1353;cog=COG1953FH; - APE_1382 - NCS1 nucleoside transporter
+NC_000854	NCBI_PTT	CDS	882035	882694	.	-	0	id=914;len=660;cog=COG0020I; uppS APE_1385 - UDP pyrophosphate synthetase
+NC_000854	NCBI_PTT	CDS	882909	884165	.	+	0	id=915;len=1257;cog=COG0334E; - APE_1386.1 - NADP-dependent glutamate dehydrogenase
+NC_000854	NCBI_PTT	CDS	884182	884766	.	-	0	id=916;len=585;cog=-; - APE_1387.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	884744	885631	.	-	0	id=917;len=888;cog=COG3342S; - APE_1388.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	885826	888072	.	+	0	id=918;len=2247;cog=COG0747E; - APE_1390.1 - ABC transporter substrate-binding protein precursor
+NC_000854	NCBI_PTT	CDS	888217	889215	.	+	0	id=919;len=999;cog=COG0601EP; - APE_1395.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	889217	890380	.	+	0	id=920;len=1164;cog=COG1173EP; - APE_1396 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	890388	891389	.	+	0	id=921;len=1002;cog=COG0444EP; - APE_1399 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	891404	892438	.	+	0	id=922;len=1035;cog=COG4608E; - APE_1402.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	892465	893724	.	-	0	id=923;len=1260;cog=COG0128E; aroA APE_1404.1 - 3-phosphoshikimate 1-carboxyvinyltransferase
+NC_000854	NCBI_PTT	CDS	893970	894296	.	+	0	id=924;len=327;cog=-; - APE_1405.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	894303	895343	.	+	0	id=925;len=1041;cog=-; - APE_1406.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	895512	895781	.	+	0	id=926;len=270;cog=-; - APE_1406a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	895833	896633	.	+	0	id=927;len=801;cog=COG1198L; - APE_1407.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	896868	897626	.	-	0	id=928;len=759;cog=-; - APE_1408 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	897633	898628	.	-	0	id=929;len=996;cog=-; - APE_1409.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	898978	899073	.	-	0	id=930;len=96;cog=-; - APE_1409a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	899246	900631	.	-	0	id=931;len=1386;cog=COG1007C; - APE_1410.1 - NADH dehydrogenase subunit N
+NC_000854	NCBI_PTT	CDS	900645	902750	.	-	0	id=932;len=2106;cog=COG1009CP; - APE_1411.1 - NuoL-like protein
+NC_000854	NCBI_PTT	CDS	902775	904316	.	-	0	id=933;len=1542;cog=COG0651CP; - APE_1415 - NuoM-like protein
+NC_000854	NCBI_PTT	CDS	904322	904627	.	-	0	id=934;len=306;cog=-; - APE_1417.1 - NuoK-like protein
+NC_000854	NCBI_PTT	CDS	904638	905120	.	-	0	id=935;len=483;cog=COG0839C; - APE_1418.1 - NuoJ-like protein
+NC_000854	NCBI_PTT	CDS	905110	905670	.	-	0	id=936;len=561;cog=COG1143C; - APE_1419.1 - NADH dehydrogenase subunit I
+NC_000854	NCBI_PTT	CDS	905703	906830	.	-	0	id=937;len=1128;cog=COG1005C; - APE_1421.1 - NADH dehydrogenase subunit H
+NC_000854	NCBI_PTT	CDS	906863	908107	.	-	0	id=938;len=1245;cog=COG0649C; - APE_1422 - NADH dehydrogenase subunit D
+NC_000854	NCBI_PTT	CDS	908092	908661	.	-	0	id=939;len=570;cog=COG0852C; - APE_1426 - NuoC-like protein
+NC_000854	NCBI_PTT	CDS	908674	909273	.	-	0	id=940;len=600;cog=COG0377C; - APE_1428.1 - NuoB-like protein
+NC_000854	NCBI_PTT	CDS	909294	909710	.	-	0	id=941;len=417;cog=COG0838C; - APE_1430.1 - NADH dehydrogenase subunit A
+NC_000854	NCBI_PTT	CDS	909853	912063	.	-	0	id=942;len=2211;cog=COG0480J; fusA APE_1432 - elongation factor EF-2
+NC_000854	NCBI_PTT	CDS	912114	912860	.	-	0	id=943;len=747;cog=COG1948L; - APE_1436.1 - repair endonuclease XPF
+NC_000854	NCBI_PTT	CDS	912962	914008	.	-	0	id=944;len=1047;cog=COG0618R; - APE_1437.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	913923	914255	.	-	0	id=945;len=333;cog=-; - APE_1437a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	914233	914604	.	-	0	id=946;len=372;cog=COG1382O; pfdB APE_1440 - prefoldin beta subunit
+NC_000854	NCBI_PTT	CDS	914630	914911	.	-	0	id=947;len=282;cog=COG2892S; - APE_1440a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	914908	915750	.	-	0	id=948;len=843;cog=COG0668M; mscS APE_1441.1 - small conductance mechanosensitive channel MscS
+NC_000854	NCBI_PTT	CDS	915758	916477	.	-	0	id=949;len=720;cog=COG2430S; - APE_1442 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	916489	917031	.	-	0	id=950;len=543;cog=COG2136JA; - APE_1443.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	917209	917469	.	-	0	id=951;len=261;cog=COG1997J; rpl37ae APE_1443a - 50S ribosomal protein L37
+NC_000854	NCBI_PTT	CDS	917486	918316	.	-	0	id=952;len=831;cog=COG2123J; - APE_1445 - exosome complex RNA-binding protein Rrp42
+NC_000854	NCBI_PTT	CDS	918313	919053	.	-	0	id=953;len=741;cog=COG0689J; - APE_1447 - exosome complex exonuclease Rrp41
+NC_000854	NCBI_PTT	CDS	919058	919765	.	-	0	id=954;len=708;cog=COG1097J; - APE_1448 - exosome complex RNA-binding protein Rrp4
+NC_000854	NCBI_PTT	CDS	919904	920680	.	-	0	id=955;len=777;cog=COG0638O; psmA APE_1449 - proteasome subunit alpha
+NC_000854	NCBI_PTT	CDS	920843	921478	.	-	0	id=956;len=636;cog=COG1603J; rnp3 APE_1450.1 - ribonuclease P protein component 3
+NC_000854	NCBI_PTT	CDS	921489	921950	.	-	0	id=957;len=462;cog=COG1325J; - APE_1451.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	922058	922735	.	-	0	id=958;len=678;cog=COG1632J; rpl15e APE_1452 - 50S ribosomal protein L15
+NC_000854	NCBI_PTT	CDS	923066	925582	.	+	0	id=959;len=2517;cog=COG2217P; - APE_1454.1 - cation-transporting ATPase
+NC_000854	NCBI_PTT	CDS	925901	926422	.	-	0	id=960;len=522;cog=COG2406R; - APE_1457 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	926537	927922	.	-	0	id=961;len=1386;cog=COG1249C; - APE_1458 - mercuric reductase
+NC_000854	NCBI_PTT	CDS	928078	928503	.	-	0	id=962;len=426;cog=COG1522K; lysM APE_1458a - HTH-type transcriptional regulator LysM
+NC_000854	NCBI_PTT	CDS	928500	929312	.	-	0	id=963;len=813;cog=COG0548E; lysZ APE_1461.1 - acetylglutamate kinase
+NC_000854	NCBI_PTT	CDS	929333	930400	.	-	0	id=964;len=1068;cog=COG0002E; lysY APE_1462 - N-acetyl-gamma-aminoadipyl-phosphate reductase/N-acetyl-gamma-glutamyl-phosphate reductase
+NC_000854	NCBI_PTT	CDS	930565	930735	.	+	0	id=965;len=171;cog=-; lysW APE_1462a - lysine biosynthesis protein LysW
+NC_000854	NCBI_PTT	CDS	930732	931592	.	+	0	id=966;len=861;cog=COG0189HJ; lysX APE_1463 - ribosomal protein S6 modification protein RimK
+NC_000854	NCBI_PTT	CDS	931616	932782	.	+	0	id=967;len=1167;cog=COG4992E; lysJ APE_1464 - acetyl-lysine aminotransferase/acetylornithine aminotransferase
+NC_000854	NCBI_PTT	CDS	932742	933794	.	+	0	id=968;len=1053;cog=COG0624E; lysK APE_1467.1 - acetyl-lysine deacetylase
+NC_000854	NCBI_PTT	CDS	934072	934881	.	+	0	id=969;len=810;cog=COG0603R; - APE_1470.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	934913	935218	.	+	0	id=970;len=306;cog=COG0780R; - APE_1471.1 - GTP cyclohydrolase I
+NC_000854	NCBI_PTT	CDS	935247	936176	.	-	0	id=971;len=930;cog=COG1013C; - APE_1472 - 2-oxoglutarate ferredoxin oxidoreductase subunit beta
+NC_000854	NCBI_PTT	CDS	936166	938094	.	-	0	id=972;len=1929;cog=COG0674C; - APE_1473.1 - 2-oxoacid:ferredoxin oxidoreductase alpha subunit
+NC_000854	NCBI_PTT	CDS	938145	938453	.	-	0	id=973;len=309;cog=-; - APE_1473a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	938555	939481	.	-	0	id=974;len=927;cog=COG2431S; - APE_1477 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	939776	940441	.	+	0	id=975;len=666;cog=COG1808S; - APE_1478.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	940590	941132	.	+	0	id=976;len=543;cog=-; nudF APE_1481.1 - ADP-ribose pyrophosphatase
+NC_000854	NCBI_PTT	CDS	941110	941949	.	+	0	id=977;len=840;cog=COG1650S; - APE_1483.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	942249	944258	.	-	0	id=978;len=2010;cog=COG1250I; - APE_1484.1 - 3-hydroxyacyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	944400	944666	.	+	0	id=979;len=267;cog=-; - APE_1484a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	944849	945871	.	+	0	id=980;len=1023;cog=COG0498E; thrC APE_1488.1 - threonine synthase
+NC_000854	NCBI_PTT	CDS	945886	946548	.	+	0	id=981;len=663;cog=COG1648H; sirC APE_1491.1 - precorrin-2 dehydrogenase
+NC_000854	NCBI_PTT	CDS	946526	947248	.	+	0	id=982;len=723;cog=COG1587H; hemD APE_1493 - uroporphyrinogen-III synthase
+NC_000854	NCBI_PTT	CDS	947216	947824	.	-	0	id=983;len=609;cog=-; - APE_1494 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	947826	948806	.	-	0	id=984;len=981;cog=COG0667C; - APE_1495.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	949095	949331	.	+	0	id=985;len=237;cog=COG3609K; - APE_1495a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	949482	950456	.	-	0	id=986;len=975;cog=COG1522K; - APE_1497.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	950559	951794	.	-	0	id=987;len=1236;cog=COG1171E; - APE_1498.1 - threonine dehydratase
+NC_000854	NCBI_PTT	CDS	951779	952180	.	-	0	id=988;len=402;cog=COG0251J; - APE_1501.1 - ribonuclease UK114
+NC_000854	NCBI_PTT	CDS	952510	953004	.	+	0	id=989;len=495;cog=COG2226H; - APE_1503.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	953070	953816	.	+	0	id=990;len=747;cog=COG0467T; - APE_1505.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	953850	955151	.	+	0	id=991;len=1302;cog=COG0516F; guaB APE_1507.1 - inosine-5'-monophosphate dehydrogenase
+NC_000854	NCBI_PTT	CDS	955172	955633	.	+	0	id=992;len=462;cog=COG1661R; - APE_1509.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	955640	956407	.	-	0	id=993;len=768;cog=COG0517R; - APE_1510.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	956501	957424	.	+	0	id=994;len=924;cog=COG1907R; - APE_1512 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	957417	958160	.	+	0	id=995;len=744;cog=COG1213M; - APE_1514.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	958144	958782	.	+	0	id=996;len=639;cog=COG0558I; - APE_1516.1 - CDP-alcohol phosphatidyltransferase
+NC_000854	NCBI_PTT	CDS	958933	960111	.	+	0	id=997;len=1179;cog=COG1260I; ino1 APE_1517 - inositol-3-phosphate synthase
+NC_000854	NCBI_PTT	CDS	960108	960434	.	-	0	id=998;len=327;cog=-; - APE_1517a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	960539	960949	.	-	0	id=999;len=411;cog=COG0432S; - APE_1520.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	961097	962074	.	+	0	id=1000;len=978;cog=COG0470L; rfc APE_1522.1 - replication factor C small subunit
+NC_000854	NCBI_PTT	CDS	962079	963518	.	+	0	id=1001;len=1440;cog=COG0470L; rfcL APE_1524.1 - replication factor C large subunit
+NC_000854	NCBI_PTT	CDS	963669	963989	.	-	0	id=1002;len=321;cog=-; - APE_1525 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	963986	964570	.	-	0	id=1003;len=585;cog=COG0558I; - APE_1526.1 - CDP-alcohol phosphatidyltransferase
+NC_000854	NCBI_PTT	CDS	964696	965865	.	+	0	id=1004;len=1170;cog=COG0438M; - APE_1528.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	965862	966188	.	-	0	id=1005;len=327;cog=COG2383S; - APE_1529.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	966238	967590	.	-	0	id=1006;len=1353;cog=COG0621J; - APE_1530.1 - MiaB-like protein
+NC_000854	NCBI_PTT	CDS	967716	968162	.	+	0	id=1007;len=447;cog=COG1601J; aif2b APE_1533.1 - translation initiation factor IF-2
+NC_000854	NCBI_PTT	CDS	968193	969059	.	-	0	id=1008;len=867;cog=COG3375S; - APE_1534 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	969343	970440	.	+	0	id=1009;len=1098;cog=COG1313R; - APE_1535.1 - PflX-like protein
+NC_000854	NCBI_PTT	CDS	970493	971164	.	+	0	id=1010;len=672;cog=COG0149G; tpiA APE_1538.1 - triosephosphate isomerase
+NC_000854	NCBI_PTT	CDS	971170	972489	.	-	0	id=1011;len=1320;cog=-; - APE_1539.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	972541	974691	.	-	0	id=1012;len=2151;cog=COG1444R; - APE_1543 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	974847	975443	.	+	0	id=1013;len=597;cog=COG2245S; - APE_1545.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	975427	975822	.	-	0	id=1014;len=396;cog=-; - APE_1546 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	975879	977615	.	-	0	id=1015;len=1737;cog=COG1506E; - APE_1547.1 - acylamino-acid-releasing enzyme
+NC_000854	NCBI_PTT	CDS	977887	978789	.	+	0	id=1016;len=903;cog=COG1131V; - APE_1548.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	978786	979910	.	+	0	id=1017;len=1125;cog=COG0842V; - APE_1550.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	979949	980908	.	-	0	id=1018;len=960;cog=COG0038P; - APE_1552 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	980764	981771	.	-	0	id=1019;len=1008;cog=COG0038P; - APE_1555.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	982136	983074	.	+	0	id=1020;len=939;cog=COG1064R; - APE_1557.1 - alcohol dehydrogenase
+NC_000854	NCBI_PTT	CDS	983868	984707	.	+	0	id=1021;len=840;cog=COG2810V; - APE_1558 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	984884	985168	.	+	0	id=1022;len=285;cog=-; - APE_1558a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	985215	985499	.	+	0	id=1023;len=285;cog=COG2026JD; - APE_1558b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	985687	985860	.	-	0	id=1024;len=174;cog=-; - APE_1558c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	986224	987150	.	+	0	id=1025;len=927;cog=COG0491R; - APE_1559.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	987259	987438	.	+	0	id=1026;len=180;cog=COG3369S; - APE_1559a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	987537	987953	.	+	0	id=1027;len=417;cog=COG4900R; - APE_1561 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	987907	988626	.	-	0	id=1028;len=720;cog=-; - APE_1563.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	988616	989260	.	-	0	id=1029;len=645;cog=COG1458R; - APE_1564.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	989297	990454	.	-	0	id=1030;len=1158;cog=COG1423L; - APE_1567.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	990526	990858	.	-	0	id=1031;len=333;cog=COG3370S; - APE_1568.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	990988	991461	.	-	0	id=1032;len=474;cog=-; - APE_1569 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	991691	992545	.	-	0	id=1033;len=855;cog=COG0382H; ubiA APE_1570 - prenyltransferase
+NC_000854	NCBI_PTT	CDS	992598	994061	.	-	0	id=1034;len=1464;cog=COG0043H; ubiD APE_1571.1 - 3-octaprenyl-4-hydroxybenzoate carboxy-lyase
+NC_000854	NCBI_PTT	CDS	994465	996075	.	-	0	id=1035;len=1611;cog=-; - APE_1573 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	996232	996798	.	+	0	id=1036;len=567;cog=-; - APE_1574.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	997282	997563	.	-	0	id=1037;len=282;cog=-; - APE_1574a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	997595	998728	.	-	0	id=1038;len=1134;cog=COG0444EP; - APE_1576 - peptide ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	998731	999705	.	-	0	id=1039;len=975;cog=COG0444EP; - APE_1578 - peptide ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	999712	1001277	.	-	0	id=1040;len=1566;cog=COG1173EP; - APE_1581.1 - peptide ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1001314	1002405	.	-	0	id=1041;len=1092;cog=COG0601EP; - APE_1582 - peptide ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1002694	1005441	.	-	0	id=1042;len=2748;cog=COG3889R; oppA APE_1583.1 - peptide ABC transporter oligopeptide binding protein
+NC_000854	NCBI_PTT	CDS	1005597	1006037	.	+	0	id=1043;len=441;cog=-; - APE_1585 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1006081	1007250	.	+	0	id=1044;len=1170;cog=COG0031E; cysK APE_1586 - cysteine synthase
+NC_000854	NCBI_PTT	CDS	1007461	1007607	.	-	0	id=1045;len=147;cog=-; - APE_1586a - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	1007647	1007754	.	-	0	id=1046;len=108;cog=-; - APE_1586b - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	1007789	1008187	.	-	0	id=1047;len=399;cog=COG5573R; - APE_1588 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1008527	1008760	.	+	0	id=1048;len=234;cog=COG0574G; - APE_1588a - phosphoenolpyruvate synthase
+NC_000854	NCBI_PTT	CDS	1008781	1008873	.	+	0	id=1049;len=93;cog=COG0574G; - APE_1588b - phosphoenolpyruvate synthase
+NC_000854	NCBI_PTT	CDS	1008897	1009202	.	+	0	id=1050;len=306;cog=COG1254C; - APE_1591.1 - acylphosphatase
+NC_000854	NCBI_PTT	CDS	1009252	1010670	.	+	0	id=1051;len=1419;cog=COG0215J; cysS APE_1592.1 - cysteinyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1010655	1011458	.	+	0	id=1052;len=804;cog=COG0476H; - APE_1594 - ATP-dependent adenyltransferase
+NC_000854	NCBI_PTT	CDS	1011725	1012030	.	+	0	id=1053;len=306;cog=-; - APE_1594a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1012110	1013330	.	+	0	id=1054;len=1221;cog=COG1812E; mat APE_1596 - S-adenosylmethionine synthetase
+NC_000854	NCBI_PTT	CDS	1013327	1015330	.	-	0	id=1055;len=2004;cog=COG2433S; - APE_1599.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1015344	1016249	.	-	0	id=1056;len=906;cog=COG0478T; - APE_1602.1 - kinase
+NC_000854	NCBI_PTT	CDS	1016484	1016747	.	+	0	id=1057;len=264;cog=COG4189K; - APE_1602a - ArsR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1016762	1018378	.	-	0	id=1058;len=1617;cog=COG0504F; pyrG APE_1604 - CTP synthetase
+NC_000854	NCBI_PTT	CDS	1018476	1019279	.	+	0	id=1059;len=804;cog=COG0647G; - APE_1605.1 - phosphatase
+NC_000854	NCBI_PTT	CDS	1019293	1019532	.	+	0	id=1060;len=240;cog=-; - APE_1605a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1019529	1020326	.	-	0	id=1061;len=798;cog=-; - APE_1609.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1020289	1020978	.	-	0	id=1062;len=690;cog=-; - APE_1610.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1021099	1023051	.	-	0	id=1063;len=1953;cog=COG1293K; - APE_1611 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1023135	1023617	.	-	0	id=1064;len=483;cog=-; - APE_1614 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1023672	1024727	.	-	0	id=1065;len=1056;cog=-; - APE_1615 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1024774	1026048	.	-	0	id=1066;len=1275;cog=COG3635G; apgM APE_1616.1 - 2,3-bisphosphoglycerate-independent phosphoglycerate mutase
+NC_000854	NCBI_PTT	CDS	1026440	1026886	.	+	0	id=1067;len=447;cog=-; - APE_1617 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1026909	1029620	.	-	0	id=1068;len=2712;cog=COG1048C; citB APE_1618.1 - aconitate hydratase
+NC_000854	NCBI_PTT	CDS	1029676	1030845	.	-	0	id=1069;len=1170;cog=COG0644C; - APE_1622.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1031072	1032718	.	-	0	id=1070;len=1647;cog=COG0843C; - APE_1623 - cytochrome c oxidase (ba3-type) subunit I
+NC_000854	NCBI_PTT	CDS	1032893	1033222	.	-	0	id=1071;len=330;cog=-; - APE_1626 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1033310	1034011	.	-	0	id=1072;len=702;cog=COG4353S; - APE_1627 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1034157	1034462	.	-	0	id=1073;len=306;cog=COG0023J; - APE_1629 - translation initiation factor Sui1
+NC_000854	NCBI_PTT	CDS	1034627	1034848	.	+	0	id=1074;len=222;cog=COG1996K; - APE_1629a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1035051	1036484	.	+	0	id=1075;len=1434;cog=COG1653G; - APE_1630.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1036628	1037494	.	+	0	id=1076;len=867;cog=COG1175G; - APE_1632 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1037502	1038314	.	+	0	id=1077;len=813;cog=COG0395G; - APE_1633 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1038321	1039379	.	+	0	id=1078;len=1059;cog=COG3839G; - APE_1635.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1039519	1040457	.	-	0	id=1079;len=939;cog=COG0010E; speB APE_1637.1 - agmatinase
+NC_000854	NCBI_PTT	CDS	1040568	1042319	.	+	0	id=1080;len=1752;cog=COG0423J; glyS APE_1639 - glycyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1042393	1042818	.	+	0	id=1081;len=426;cog=-; - APE_1644.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1042889	1043326	.	+	0	id=1082;len=438;cog=-; - APE_1645.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1043365	1043925	.	+	0	id=1083;len=561;cog=COG1676J; endA APE_1646.1 - tRNA-splicing endonuclease subunit alpha
+NC_000854	NCBI_PTT	CDS	1043922	1044515	.	-	0	id=1084;len=594;cog=COG0163H; - APE_1647 - aromatic acid decarboxylase
+NC_000854	NCBI_PTT	CDS	1044485	1045054	.	-	0	id=1085;len=570;cog=COG2110R; - APE_1648.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1045071	1046354	.	-	0	id=1086;len=1284;cog=COG1341R; - APE_1649.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1046534	1047703	.	+	0	id=1087;len=1170;cog=COG0535R; - APE_1652 - PqqE-like protein
+NC_000854	NCBI_PTT	CDS	1047693	1048904	.	+	0	id=1088;len=1212;cog=COG0535R; - APE_1655 - PqqE-like protein
+NC_000854	NCBI_PTT	CDS	1048988	1049587	.	+	0	id=1089;len=600;cog=COG0235G; - APE_1657.1 - aldolase class II protein
+NC_000854	NCBI_PTT	CDS	1049590	1050597	.	+	0	id=1090;len=1008;cog=COG0656R; - APE_1659 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	1050594	1051040	.	-	0	id=1091;len=447;cog=COG1832R; - APE_1660.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1051138	1051512	.	+	0	id=1092;len=375;cog=COG1990S; pth APE_1661 - peptidyl-tRNA hydrolase
+NC_000854	NCBI_PTT	CDS	1051529	1052008	.	-	0	id=1093;len=480;cog=COG1781F; pyrI APE_1662.1 - aspartate carbamoyltransferase regulatory subunit
+NC_000854	NCBI_PTT	CDS	1052014	1052940	.	-	0	id=1094;len=927;cog=COG0540F; pyrB APE_1663.1 - aspartate carbamoyltransferase catalytic subunit
+NC_000854	NCBI_PTT	CDS	1052980	1053786	.	-	0	id=1095;len=807;cog=COG3294S; - APE_1666 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1053793	1054113	.	-	0	id=1096;len=321;cog=COG1324P; - APE_1668 - CutA-like protein
+NC_000854	NCBI_PTT	CDS	1054197	1055591	.	-	0	id=1097;len=1395;cog=COG1249C; pdhD APE_1669.1 - dihydrolipoyl dehydrogenase
+NC_000854	NCBI_PTT	CDS	1055685	1056923	.	-	0	id=1098;len=1239;cog=COG0508C; pdhC APE_1671 - branched-chain alpha-keto acid dehydrogenase E2
+NC_000854	NCBI_PTT	CDS	1056939	1057916	.	-	0	id=1099;len=978;cog=COG0022C; pdhB APE_1674 - pyruvate dehydrogenase E1 subunit beta
+NC_000854	NCBI_PTT	CDS	1057931	1059064	.	-	0	id=1100;len=1134;cog=COG1071C; pdhA APE_1677.1 - pyruvate dehydrogenase E1 subunit alpha
+NC_000854	NCBI_PTT	CDS	1059450	1060619	.	+	0	id=1101;len=1170;cog=COG1960I; - APE_1681.1 - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	1060648	1061616	.	-	0	id=1102;len=969;cog=COG1703E; - APE_1683.1 - transport system kinase
+NC_000854	NCBI_PTT	CDS	1061603	1062088	.	-	0	id=1103;len=486;cog=COG2185I; - APE_1686.1 - coenzyme B12-dependent mutase
+NC_000854	NCBI_PTT	CDS	1062066	1063763	.	-	0	id=1104;len=1698;cog=COG1884I; - APE_1687 - coenzyme B12-dependent mutase
+NC_000854	NCBI_PTT	CDS	1063899	1064723	.	+	0	id=1105;len=825;cog=COG0614P; - APE_1688.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1064720	1065211	.	-	0	id=1106;len=492;cog=-; - APE_1689 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1065177	1065809	.	-	0	id=1107;len=633;cog=COG1547S; - APE_1690.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1065834	1066643	.	-	0	id=1108;len=810;cog=COG0428P; - APE_1691 - zinc transporter
+NC_000854	NCBI_PTT	CDS	1066912	1067442	.	+	0	id=1109;len=531;cog=COG0221C; - APE_1692.1 - inorganic pyrophosphatase
+NC_000854	NCBI_PTT	CDS	1067486	1068244	.	+	0	id=1110;len=759;cog=-; - APE_1693.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1068309	1068761	.	+	0	id=1111;len=453;cog=COG1612O; - APE_1694.1 - cytochrome AA3 controlling protein
+NC_000854	NCBI_PTT	CDS	1068974	1070101	.	+	0	id=1112;len=1128;cog=COG0404E; gcvT APE_1695.1 - glycine cleavage system aminomethyltransferase T
+NC_000854	NCBI_PTT	CDS	1070118	1070468	.	+	0	id=1113;len=351;cog=-; - APE_1697 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1070483	1071034	.	-	0	id=1114;len=552;cog=-; - APE_1698.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1071064	1071567	.	-	0	id=1115;len=504;cog=COG5440S; - APE_1699 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1071552	1072304	.	-	0	id=1116;len=753;cog=COG5494O; - APE_1701.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1072393	1073154	.	+	0	id=1117;len=762;cog=COG0396O; sufC APE_1702 - ATPase involved in Fe-S cluster formation SufC
+NC_000854	NCBI_PTT	CDS	1073223	1074653	.	+	0	id=1118;len=1431;cog=COG0719O; sufB APE_1703 - FeS assembly protein SufB
+NC_000854	NCBI_PTT	CDS	1074701	1075876	.	+	0	id=1119;len=1176;cog=COG0719O; sufD APE_1706 - FeS assembly protein SufD
+NC_000854	NCBI_PTT	CDS	1075942	1078317	.	-	0	id=1120;len=2376;cog=-; - APE_1708 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1078509	1079468	.	+	0	id=1121;len=960;cog=COG2512S; - APE_1711 - Lrp family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1079589	1080773	.	+	0	id=1122;len=1185;cog=COG0372C; gltA APE_1713 - citrate synthase
+NC_000854	NCBI_PTT	CDS	1080845	1081738	.	-	0	id=1123;len=894;cog=COG1767H; citG APE_1715.1 - 2-(5''-triphosphoribosyl)-3'-dephosphocoenzyme-A synthase
+NC_000854	NCBI_PTT	CDS	1081809	1082123	.	+	0	id=1124;len=315;cog=COG0721J; - APE_1716 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1082120	1083565	.	+	0	id=1125;len=1446;cog=COG0154J; gatA APE_1717.1 - glutamyl-tRNA(Gln) amidotransferase subunit A
+NC_000854	NCBI_PTT	CDS	1083562	1085022	.	+	0	id=1126;len=1461;cog=COG0064J; gatB APE_1718 - aspartyl/glutamyl-tRNA amidotransferase subunit B
+NC_000854	NCBI_PTT	CDS	1085136	1085708	.	+	0	id=1127;len=573;cog=-; - APE_1719.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1085947	1086537	.	+	0	id=1128;len=591;cog=COG1622C; - APE_1720 - cytochrome c oxidase (ba3-type) subunit II
+NC_000854	NCBI_PTT	CDS	1086648	1087412	.	+	0	id=1129;len=765;cog=COG1999R; - APE_1721 - SCO1 protein
+NC_000854	NCBI_PTT	CDS	1087480	1088649	.	+	0	id=1130;len=1170;cog=COG0785O; - APE_1722 - thioredoxin
+NC_000854	NCBI_PTT	CDS	1088728	1089204	.	+	0	id=1131;len=477;cog=COG2847S; - APE_1722a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1089211	1089816	.	-	0	id=1132;len=606;cog=COG4122R; - APE_1723.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1090031	1090828	.	+	0	id=1133;len=798;cog=COG0723C; soxL APE_1724.1 - Rieske iron-sulfur protein
+NC_000854	NCBI_PTT	CDS	1090850	1092565	.	+	0	id=1134;len=1716;cog=COG1290C; soxC APE_1725 - cytochrome b
+NC_000854	NCBI_PTT	CDS	1092687	1093130	.	+	0	id=1135;len=444;cog=COG4243S; - APE_1727.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1093177	1094730	.	+	0	id=1136;len=1554;cog=COG1840P; - APE_1728 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1094740	1096524	.	+	0	id=1137;len=1785;cog=COG1178P; - APE_1730.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1096531	1097607	.	+	0	id=1138;len=1077;cog=COG3839G; - APE_1732 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1097604	1098128	.	-	0	id=1139;len=525;cog=-; - APE_1734.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1098148	1099473	.	-	0	id=1140;len=1326;cog=COG0541U; - APE_1735 - signal recognition 54 kDa protein
+NC_000854	NCBI_PTT	CDS	1099724	1100176	.	+	0	id=1141;len=453;cog=COG0099J; rps13p APE_1737.1 - 30S ribosomal protein S13
+NC_000854	NCBI_PTT	CDS	1100197	1100712	.	+	0	id=1142;len=516;cog=COG0522J; rps4p APE_1739.1 - 30S ribosomal protein S4
+NC_000854	NCBI_PTT	CDS	1100729	1101130	.	+	0	id=1143;len=402;cog=COG0100J; rps11p APE_1742.1 - 30S ribosomal protein S11
+NC_000854	NCBI_PTT	CDS	1101210	1102070	.	+	0	id=1144;len=861;cog=COG0202K; rpoD APE_1744.1 - DNA-directed RNA polymerase subunit D
+NC_000854	NCBI_PTT	CDS	1102067	1102429	.	+	0	id=1145;len=363;cog=COG1727J; rpl18e APE_1746 - 50S ribosomal protein L18
+NC_000854	NCBI_PTT	CDS	1102462	1102929	.	+	0	id=1146;len=468;cog=COG0102J; rpl13p APE_1747 - 50S ribosomal protein L13
+NC_000854	NCBI_PTT	CDS	1102926	1103399	.	+	0	id=1147;len=474;cog=COG0103J; rps9p APE_1749 - 30S ribosomal protein S9
+NC_000854	NCBI_PTT	CDS	1103407	1103640	.	+	0	id=1148;len=234;cog=COG1644K; rpoN APE_1749a - DNA-directed RNA polymerase subunit N
+NC_000854	NCBI_PTT	CDS	1103649	1104266	.	+	0	id=1149;len=618;cog=COG0052J; rps2P APE_1750 - 30S ribosomal protein S2
+NC_000854	NCBI_PTT	CDS	1104361	1104813	.	-	0	id=1150;len=453;cog=COG1931S; - APE_1751 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1104797	1105360	.	-	0	id=1151;len=564;cog=COG0237H; - APE_1753.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1105369	1106544	.	-	0	id=1152;len=1176;cog=COG0520E; - APE_1754.1 - aminotransferase
+NC_000854	NCBI_PTT	CDS	1106761	1108695	.	-	0	id=1153;len=1935;cog=COG0018J; argS APE_1756 - arginyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1108968	1110413	.	+	0	id=1154;len=1446;cog=COG1690S; - APE_1758.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1110410	1110970	.	-	0	id=1155;len=561;cog=COG1437F; - APE_1761.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1111126	1111662	.	-	0	id=1156;len=537;cog=-; - APE_1763 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1111663	1112661	.	-	0	id=1157;len=999;cog=COG0142H; fgs APE_1764.1 - farnesylgeranyl diphosphate synthase
+NC_000854	NCBI_PTT	CDS	1112734	1113861	.	-	0	id=1158;len=1128;cog=COG1304C; fni APE_1765.1 - isopentenyl pyrophosphate isomerase
+NC_000854	NCBI_PTT	CDS	1113858	1114607	.	-	0	id=1159;len=750;cog=COG1608R; - APE_1768.1 - isopentenyl phosphate kinase
+NC_000854	NCBI_PTT	CDS	1114600	1115385	.	-	0	id=1160;len=786;cog=-; - APE_1769.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1115390	1116235	.	-	0	id=1161;len=846;cog=COG1355R; - APE_1771 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1116297	1117625	.	-	0	id=1162;len=1329;cog=COG0534V; - APE_1773.1 - MatE efflux family protein
+NC_000854	NCBI_PTT	CDS	1117686	1119188	.	-	0	id=1163;len=1503;cog=COG2317E; - APE_1775.1 - carboxypeptidase
+NC_000854	NCBI_PTT	CDS	1119726	1120883	.	-	0	id=1164;len=1158;cog=-; - APE_1777 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1121285	1121722	.	+	0	id=1165;len=438;cog=COG4933S; - APE_1779.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1121796	1122533	.	+	0	id=1166;len=738;cog=COG0846K; npdA APE_1782.1 - NAD-dependent deacetylase
+NC_000854	NCBI_PTT	CDS	1122659	1122958	.	-	0	id=1167;len=300;cog=-; - APE_1783.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1123181	1123636	.	-	0	id=1168;len=456;cog=-; - APE_1785.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1123991	1125523	.	-	0	id=1169;len=1533;cog=COG1012C; gapN APE_1786.1 - NADP-dependent glyceraldehyde-3-phosphate dehydrogenase
+NC_000854	NCBI_PTT	CDS	1125853	1126215	.	+	0	id=1170;len=363;cog=-; - APE_1789.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1126212	1126859	.	-	0	id=1171;len=648;cog=COG2112T; - APE_1790.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1126859	1128256	.	-	0	id=1172;len=1398;cog=COG1746J; cca APE_1791.1 - tRNA CCA-pyrophosphorylase
+NC_000854	NCBI_PTT	CDS	1128277	1128807	.	-	0	id=1173;len=531;cog=COG1514J; ligT APE_1792 - 2'-5' RNA ligase
+NC_000854	NCBI_PTT	CDS	1129033	1131054	.	+	0	id=1174;len=2022;cog=COG0550L; topA APE_1794 - DNA topoisomerase I
+NC_000854	NCBI_PTT	CDS	1131088	1131531	.	-	0	id=1175;len=444;cog=-; - APE_1796.1 - signal peptidase
+NC_000854	NCBI_PTT	CDS	1131680	1132369	.	+	0	id=1176;len=690;cog=COG3382S; - APE_1797 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1132369	1133172	.	+	0	id=1177;len=804;cog=COG0483G; fbpA APE_1798.1 - fructose-1,6-bisphosphatase
+NC_000854	NCBI_PTT	CDS	1133176	1134036	.	+	0	id=1178;len=861;cog=COG0037D; - APE_1799.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1134244	1134483	.	+	0	id=1179;len=240;cog=-; - APE_1799a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1134470	1135540	.	-	0	id=1180;len=1071;cog=COG1537R; pelA APE_1800.1 - pelota-like protein
+NC_000854	NCBI_PTT	CDS	1135577	1136833	.	-	0	id=1181;len=1257;cog=-; - APE_1804 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1136914	1139385	.	-	0	id=1182;len=2472;cog=COG0525J; valS APE_1805.1 - valyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1139471	1140001	.	+	0	id=1183;len=531;cog=-; - APE_1807 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1140164	1140655	.	-	0	id=1184;len=492;cog=COG1988R; - APE_1808 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1140810	1142486	.	+	0	id=1185;len=1677;cog=COG3044R; - APE_1810 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1142483	1142953	.	-	0	id=1186;len=471;cog=-; - APE_1813.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1142968	1143873	.	-	0	id=1187;len=906;cog=COG1814S; - APE_1814.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1144161	1145495	.	+	0	id=1188;len=1335;cog=COG0114C; fumC APE_1816.1 - fumarate hydratase
+NC_000854	NCBI_PTT	CDS	1145492	1145920	.	+	0	id=1189;len=429;cog=COG5399S; - APE_1817.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1146016	1146399	.	+	0	id=1190;len=384;cog=COG1358J; rpl7ae APE_1818 - 50S ribosomal protein L7
+NC_000854	NCBI_PTT	CDS	1146561	1147652	.	+	0	id=1191;len=1092;cog=COG0585S; truD APE_1819 - tRNA pseudouridine synthase D
+NC_000854	NCBI_PTT	CDS	1147657	1149069	.	-	0	id=1192;len=1413;cog=COG1233Q; - APE_1820 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	1149338	1149646	.	-	0	id=1193;len=309;cog=COG1581K; albA APE_1823 - DNA/RNA-binding protein albA
+NC_000854	NCBI_PTT	CDS	1149779	1150936	.	+	0	id=1194;len=1158;cog=COG1415S; - APE_1824 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1150985	1152115	.	-	0	id=1195;len=1131;cog=COG3199S; - APE_1825.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1152112	1152936	.	-	0	id=1196;len=825;cog=-; - APE_1827.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1152933	1153778	.	-	0	id=1197;len=846;cog=-; - APE_1828.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1153793	1154830	.	-	0	id=1198;len=1038;cog=COG1131V; - APE_1829 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1155170	1156177	.	+	0	id=1199;len=1008;cog=COG1052CHR; gyaR APE_1831.1 - glyoxylate reductase
+NC_000854	NCBI_PTT	CDS	1156264	1158243	.	+	0	id=1200;len=1980;cog=COG1506E; - APE_1832 - acylamino-acid-releasing enzyme
+NC_000854	NCBI_PTT	CDS	1158313	1158597	.	+	0	id=1201;len=285;cog=COG1581K; albA APE_1832a.1 - DNA/RNA-binding protein albA
+NC_000854	NCBI_PTT	CDS	1158697	1159626	.	+	0	id=1202;len=930;cog=COG0462FE; prs APE_1834.1 - ribose-phosphate pyrophosphokinase
+NC_000854	NCBI_PTT	CDS	1159626	1160678	.	+	0	id=1203;len=1053;cog=COG1041L; - APE_1835 - methyltransferase
+NC_000854	NCBI_PTT	CDS	1160671	1161603	.	+	0	id=1204;len=933;cog=COG1234R; rnz APE_1836.1 - ribonuclease Z
+NC_000854	NCBI_PTT	CDS	1161797	1162204	.	-	0	id=1205;len=408;cog=COG2905T; - APE_1838.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1162357	1163478	.	+	0	id=1206;len=1122;cog=-; - APE_1840.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1163787	1164101	.	-	0	id=1207;len=315;cog=COG0051J; rps10p APE_1842 - 30S ribosomal protein S10
+NC_000854	NCBI_PTT	CDS	1164434	1165747	.	-	0	id=1208;len=1314;cog=COG5256J; tuf APE_1844 - elongation factor 1-alpha
+NC_000854	NCBI_PTT	CDS	1165821	1166438	.	-	0	id=1209;len=618;cog=COG0049J; rps7p APE_1846.1 - 30S ribosomal protein S7
+NC_000854	NCBI_PTT	CDS	1166531	1167001	.	+	0	id=1210;len=471;cog=COG1259S; - APE_1848.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1167097	1167540	.	-	0	id=1211;len=444;cog=COG0048J; rps12P APE_1849 - 30S ribosomal protein S12
+NC_000854	NCBI_PTT	CDS	1167630	1168064	.	-	0	id=1212;len=435;cog=COG0195K; - APE_1850 - transcription elongation factor NusA-like protein
+NC_000854	NCBI_PTT	CDS	1168066	1168368	.	-	0	id=1213;len=303;cog=COG1911J; rpl30e APE_1851.1 - 50S ribosomal protein L30
+NC_000854	NCBI_PTT	CDS	1168404	1169627	.	-	0	id=1214;len=1224;cog=COG0086K; rpoA2 APE_1852.1 - DNA-directed RNA polymerase subunit A''
+NC_000854	NCBI_PTT	CDS	1169642	1172317	.	-	0	id=1215;len=2676;cog=COG0086K; rpoA1 APE_1853.1 - DNA-directed RNA polymerase subunit A'
+NC_000854	NCBI_PTT	CDS	1172360	1175869	.	-	0	id=1216;len=3510;cog=COG0085K; rpoB APE_1856 - DNA-directed RNA polymerase subunit B
+NC_000854	NCBI_PTT	CDS	1175871	1176143	.	-	0	id=1217;len=273;cog=COG2012K; rpoH APE_1856a - DNA-directed RNA polymerase subunit H
+NC_000854	NCBI_PTT	CDS	1176718	1177470	.	+	0	id=1218;len=753;cog=COG1407R; - APE_1861.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1177552	1178163	.	-	0	id=1219;len=612;cog=COG2101K; tbp APE_1862.1 - transcription factor
+NC_000854	NCBI_PTT	CDS	1178318	1178791	.	-	0	id=1220;len=474;cog=-; - APE_1864.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1179057	1180157	.	+	0	id=1221;len=1101;cog=COG1180O; - APE_1865.1 - PflA-like protein
+NC_000854	NCBI_PTT	CDS	1180288	1180992	.	-	0	id=1222;len=705;cog=COG4345S; - APE_1866.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1181193	1182053	.	-	0	id=1223;len=861;cog=COG0668M; mscS APE_1867.1 - small conductance mechanosensitive channel MscS
+NC_000854	NCBI_PTT	CDS	1182068	1182823	.	-	0	id=1224;len=756;cog=COG2430S; - APE_1868.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1182890	1184155	.	-	0	id=1225;len=1266;cog=COG1257I; hmgA APE_1869 - 3-hydroxy-3-methylglutaryl-coenzyme A reductase
+NC_000854	NCBI_PTT	CDS	1184127	1184528	.	-	0	id=1226;len=402;cog=COG1545R; - APE_1871.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1184541	1185674	.	-	0	id=1227;len=1134;cog=COG0183I; - APE_1872.1 - 3-ketoacyl-CoA thiolase
+NC_000854	NCBI_PTT	CDS	1185715	1186800	.	-	0	id=1228;len=1086;cog=COG3425I; - APE_1873.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1186917	1187987	.	+	0	id=1229;len=1071;cog=COG2100R; - APE_1874.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1188128	1188865	.	+	0	id=1230;len=738;cog=-; - APE_1876 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1188871	1189632	.	-	0	id=1231;len=762;cog=COG0705R; - APE_1877.1 - subfamily S26B peptidase
+NC_000854	NCBI_PTT	CDS	1189799	1190716	.	+	0	id=1232;len=918;cog=COG0109O; ctaB APE_1878 - protoheme IX farnesyltransferase
+NC_000854	NCBI_PTT	CDS	1190742	1191521	.	+	0	id=1233;len=780;cog=-; - APE_1880.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1191556	1193994	.	-	0	id=1234;len=2439;cog=-; - APE_1882.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1194127	1194252	.	+	0	id=1235;len=126;cog=-; - APE_1882a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1194314	1195141	.	+	0	id=1236;len=828;cog=COG0005F; - APE_1885 - 5'-methylthioadenosine phosphorylase
+NC_000854	NCBI_PTT	CDS	1195116	1195973	.	+	0	id=1237;len=858;cog=COG0540F; - APE_1886.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1196027	1197316	.	+	0	id=1238;len=1290;cog=COG2407G; - APE_1887.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1197316	1197990	.	+	0	id=1239;len=675;cog=COG2226H; - APE_1889 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1198068	1198322	.	+	0	id=1240;len=255;cog=-; - APE_1889a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1198319	1199065	.	-	0	id=1241;len=747;cog=COG1126E; - APE_1891.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1199072	1199734	.	-	0	id=1242;len=663;cog=COG0765E; - APE_1892 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1199838	1200689	.	-	0	id=1243;len=852;cog=COG0834ET; - APE_1893.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1200817	1201536	.	+	0	id=1244;len=720;cog=COG0527E; - APE_1894 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1201618	1203273	.	-	0	id=1245;len=1656;cog=COG1955NU; - APE_1895.1 - flagellar protein J-like protein
+NC_000854	NCBI_PTT	CDS	1203290	1205020	.	-	0	id=1246;len=1731;cog=COG0630NU; - APE_1896.1 - flagellar protein I-like protein
+NC_000854	NCBI_PTT	CDS	1205035	1205772	.	-	0	id=1247;len=738;cog=COG2874NU; - APE_1898 - flagellar accessory protein FlaH
+NC_000854	NCBI_PTT	CDS	1205780	1206328	.	-	0	id=1248;len=549;cog=-; - APE_1899 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1206335	1206820	.	-	0	id=1249;len=486;cog=COG3354N; - APE_1901 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1206802	1207581	.	-	0	id=1250;len=780;cog=-; - APE_1902.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1207720	1208331	.	-	0	id=1251;len=612;cog=COG1681N; - APE_1905 - flagellin-like protein
+NC_000854	NCBI_PTT	CDS	1208353	1209093	.	-	0	id=1252;len=741;cog=COG1681N; - APE_1907 - flagellin-like protein
+NC_000854	NCBI_PTT	CDS	1209319	1209888	.	-	0	id=1253;len=570;cog=-; - APE_1908.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1209942	1210682	.	-	0	id=1254;len=741;cog=-; - APE_1909.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1210694	1211578	.	-	0	id=1255;len=885;cog=COG1131V; - APE_1911.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1211628	1212812	.	-	0	id=1256;len=1185;cog=-; - APE_1914.1 - MFS transporter
+NC_000854	NCBI_PTT	CDS	1212850	1214175	.	-	0	id=1257;len=1326;cog=COG0624E; - APE_1917 - peptidase
+NC_000854	NCBI_PTT	CDS	1215480	1215983	.	-	0	id=1258;len=504;cog=-; - APE_1921 - homing endonuclease I-ApeII
+NC_000854	NCBI_PTT	CDS	1219285	1219953	.	-	0	id=1259;len=669;cog=COG3780L; - APE_1929.1 - homing endonuclease I-ApeI
+NC_000854	NCBI_PTT	CDS	1221723	1222481	.	+	0	id=1260;len=759;cog=-; - APE_1930 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1222836	1224056	.	-	0	id=1261;len=1221;cog=COG1668CP; - APE_1932.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1224053	1224820	.	-	0	id=1262;len=768;cog=COG1131V; - APE_1934.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1224924	1225562	.	+	0	id=1263;len=639;cog=-; - APE_1936.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1225515	1226303	.	-	0	id=1264;len=789;cog=COG1701S; - APE_1937.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1226374	1227213	.	-	0	id=1265;len=840;cog=COG1829R; - APE_1939.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1227331	1227969	.	+	0	id=1266;len=639;cog=COG0794M; hxlB APE_1940.1 - 6-phospho 3-hexuloisomerase
+NC_000854	NCBI_PTT	CDS	1227966	1228826	.	+	0	id=1267;len=861;cog=-; - APE_1941 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1228845	1229777	.	+	0	id=1268;len=933;cog=-; - APE_1943.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1229879	1230226	.	+	0	id=1269;len=348;cog=-; - APE_1946.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1230384	1230845	.	+	0	id=1270;len=462;cog=-; - APE_1947 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1231048	1231395	.	+	0	id=1271;len=348;cog=-; - APE_1948 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1231434	1232069	.	-	0	id=1272;len=636;cog=COG1779R; - APE_1949.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1232193	1232723	.	-	0	id=1273;len=531;cog=COG0071O; - APE_1950.1 - small heat shock protein
+NC_000854	NCBI_PTT	CDS	1232924	1234315	.	+	0	id=1274;len=1392;cog=COG0644C; - APE_1952.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1234364	1234939	.	-	0	id=1275;len=576;cog=COG0456R; - APE_1954 - N-terminal acetyltransferase
+NC_000854	NCBI_PTT	CDS	1235083	1235430	.	+	0	id=1276;len=348;cog=-; - APE_1955.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1235437	1236639	.	-	0	id=1277;len=1203;cog=-; - APE_1956 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1236819	1237019	.	+	0	id=1278;len=201;cog=-; - APE_1956a.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1237705	1238565	.	-	0	id=1279;len=861;cog=COG0171H; nadE APE_1958.1 - NAD synthetase
+NC_000854	NCBI_PTT	CDS	1238645	1239883	.	-	0	id=1280;len=1239;cog=COG0452H; dfp APE_1959.1 - coenzyme A biosynthesis bifunctional protein CoaBC
+NC_000854	NCBI_PTT	CDS	1239910	1240728	.	-	0	id=1281;len=819;cog=COG0656R; - APE_1961 - oxidoreductase
+NC_000854	NCBI_PTT	CDS	1240810	1242129	.	+	0	id=1282;len=1320;cog=COG0112E; glyA APE_1962.1 - serine hydroxymethyltransferase
+NC_000854	NCBI_PTT	CDS	1242464	1243636	.	+	0	id=1283;len=1173;cog=COG1454C; - APE_1963.1 - alcohol dehydrogenase
+NC_000854	NCBI_PTT	CDS	1243671	1244072	.	+	0	id=1284;len=402;cog=COG3255I; - APE_1964.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1244183	1244545	.	-	0	id=1285;len=363;cog=-; - APE_1965.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1244724	1245053	.	-	0	id=1286;len=330;cog=-; - APE_1966 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1245179	1245775	.	-	0	id=1287;len=597;cog=COG1994R; - APE_1967.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1245916	1246866	.	-	0	id=1288;len=951;cog=COG0549E; - APE_1968 - carbamate kinase
+NC_000854	NCBI_PTT	CDS	1246898	1248250	.	-	0	id=1289;len=1353;cog=COG2403R; - APE_1971.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1248422	1250533	.	+	0	id=1290;len=2112;cog=-; - APE_1973.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1250612	1251112	.	+	0	id=1291;len=501;cog=COG5491N; - APE_1975.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1251310	1252692	.	+	0	id=1292;len=1383;cog=COG0172J; serS APE_1976.1 - seryl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1252689	1253012	.	-	0	id=1293;len=324;cog=COG3218R; - APE_1977.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1253050	1253466	.	-	0	id=1294;len=417;cog=COG2151R; - APE_1979.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1253505	1253723	.	-	0	id=1295;len=219;cog=-; - APE_1979a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1253689	1254495	.	-	0	id=1296;len=807;cog=COG1058R; - APE_1980.1 - competence damage-inducible protein A
+NC_000854	NCBI_PTT	CDS	1254742	1255326	.	+	0	id=1297;len=585;cog=COG1247M; - APE_1984.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1255428	1255667	.	+	0	id=1298;len=240;cog=-; - APE_1984a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1255662	1256009	.	-	0	id=1299;len=348;cog=-; - APE_1985.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1256097	1256615	.	+	0	id=1300;len=519;cog=COG1056H; nadM APE_1986.1 - nicotinamide-nucleotide adenylyltransferase
+NC_000854	NCBI_PTT	CDS	1256612	1257733	.	-	0	id=1301;len=1122;cog=COG1503J; prf1 APE_1988.1 - peptide chain release factor 1
+NC_000854	NCBI_PTT	CDS	1257898	1258233	.	+	0	id=1302;len=336;cog=-; - APE_1990 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1258230	1259174	.	-	0	id=1303;len=945;cog=COG0078E; argF APE_1992.1 - ornithine carbamoyltransferase
+NC_000854	NCBI_PTT	CDS	1259549	1260130	.	+	0	id=1304;len=582;cog=-; - APE_1995.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1260400	1261167	.	-	0	id=1305;len=768;cog=-; - APE_1996.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1261611	1262843	.	-	0	id=1306;len=1233;cog=COG1602S; - APE_1998 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1262844	1263992	.	-	0	id=1307;len=1149;cog=COG3273S; - APE_1999 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1263976	1264446	.	-	0	id=1308;len=471;cog=COG4080L; - APE_2001.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1264452	1265435	.	-	0	id=1309;len=984;cog=COG0270L; - APE_2002 - cytosine-specific DNA methylase
+NC_000854	NCBI_PTT	CDS	1265410	1265979	.	-	0	id=1310;len=570;cog=COG1675K; - APE_2004.1 - transcription factor E
+NC_000854	NCBI_PTT	CDS	1265963	1266514	.	-	0	id=1311;len=552;cog=COG1303S; - APE_2006.1 - tRNA ribose 2'-O-methylase
+NC_000854	NCBI_PTT	CDS	1266561	1267679	.	-	0	id=1312;len=1119;cog=COG2262R; hflX APE_2007 - GTP-binding protein HflX
+NC_000854	NCBI_PTT	CDS	1267669	1268184	.	-	0	id=1313;len=516;cog=COG1813K; - APE_2011.1 - HTH-type transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1268322	1269551	.	+	0	id=1314;len=1230;cog=COG1222O; pan APE_2012 - proteasome-activating nucleotidase
+NC_000854	NCBI_PTT	CDS	1269615	1269980	.	-	0	id=1315;len=366;cog=-; - APE_2015.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1270066	1271604	.	+	0	id=1316;len=1539;cog=COG0343J; - APE_2017 - 7-cyano-7-deazaguanine tRNA-ribosyltransferase
+NC_000854	NCBI_PTT	CDS	1271606	1272340	.	-	0	id=1317;len=735;cog=COG1938R; - APE_2018.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1272358	1272798	.	-	0	id=1318;len=441;cog=COG1370O; - APE_2020 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1272982	1273401	.	+	0	id=1319;len=420;cog=COG0735P; - APE_2021.1 - FUR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1273480	1273758	.	+	0	id=1320;len=279;cog=-; - APE_2021a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1273917	1275101	.	+	0	id=1321;len=1185;cog=-; - APE_2022 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1275199	1275546	.	+	0	id=1322;len=348;cog=-; - APE_2022a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1275809	1277044	.	-	0	id=1323;len=1236;cog=COG0520E; csd APE_2023 - cysteine desulfurase
+NC_000854	NCBI_PTT	CDS	1278941	1280023	.	+	0	id=1324;len=1083;cog=COG2038H; - APE_2029.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1280039	1281112	.	+	0	id=1325;len=1074;cog=COG1865S; - APE_2032.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1281109	1281660	.	+	0	id=1326;len=552;cog=COG2266H; cobY APE_2034.1 - nucleoside triphosphate:adenosylcobinamide-phosphate guanylyltransferase
+NC_000854	NCBI_PTT	CDS	1281627	1282691	.	+	0	id=1327;len=1065;cog=COG0079E; cobD APE_2035.1 - threonine-phosphate decarboxylase
+NC_000854	NCBI_PTT	CDS	1282673	1283458	.	+	0	id=1328;len=786;cog=COG0368H; cobS APE_2037.1 - cobalamin synthase
+NC_000854	NCBI_PTT	CDS	1283451	1284413	.	+	0	id=1329;len=963;cog=COG1270H; cobD APE_2039.1 - cobalamin biosynthesis protein
+NC_000854	NCBI_PTT	CDS	1284410	1285366	.	+	0	id=1330;len=957;cog=COG0367E; - APE_2041.1 - asparagine synthetase
+NC_000854	NCBI_PTT	CDS	1285370	1286068	.	+	0	id=1331;len=699;cog=COG2102R; - APE_2042.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1286022	1287059	.	-	0	id=1332;len=1038;cog=COG0309O; hypE APE_2044.1 - hydrogenase expression/formation protein HypE
+NC_000854	NCBI_PTT	CDS	1287040	1288038	.	-	0	id=1333;len=999;cog=COG0620E; metE APE_2048 - methionine synthase
+NC_000854	NCBI_PTT	CDS	1288041	1289051	.	-	0	id=1334;len=1011;cog=COG0620E; - APE_2050.1 - methylcobalamin:homocysteine methyltransferase
+NC_000854	NCBI_PTT	CDS	1289226	1290395	.	+	0	id=1335;len=1170;cog=COG1163R; - APE_2052.1 - GTP-binding protein
+NC_000854	NCBI_PTT	CDS	1290404	1291081	.	+	0	id=1336;len=678;cog=-; - APE_2054.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1291128	1292027	.	-	0	id=1337;len=900;cog=COG0388R; - APE_2055.1 - carbon-nitrogen hydrolase
+NC_000854	NCBI_PTT	CDS	1292290	1292745	.	-	0	id=1338;len=456;cog=COG1051F; - APE_2056.1 - NUDIX hydrolase
+NC_000854	NCBI_PTT	CDS	1292832	1293155	.	+	0	id=1339;len=324;cog=-; - APE_2057.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1293131	1293511	.	-	0	id=1340;len=381;cog=-; - APE_2058 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1293666	1294301	.	+	0	id=1341;len=636;cog=-; - APE_2059.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1294298	1295473	.	-	0	id=1342;len=1176;cog=COG3839G; - APE_2060.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1296197	1299136	.	+	0	id=1343;len=2940;cog=COG0209F; - APE_2062.1 - ribonucleotide reductase, B12-dependent
+NC_000854	NCBI_PTT	CDS	1299240	1300217	.	+	0	id=1344;len=978;cog=COG1351F; thyX APE_2064.1 - thymidylate synthase
+NC_000854	NCBI_PTT	CDS	1300336	1300590	.	-	0	id=1345;len=255;cog=-; - APE_2065.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1300661	1301818	.	-	0	id=1346;len=1158;cog=COG0438M; - APE_2066.1 - glycosyl transferase, group 1
+NC_000854	NCBI_PTT	CDS	1301965	1302906	.	+	0	id=1347;len=942;cog=COG0083E; thrB APE_2067.1 - homoserine kinase
+NC_000854	NCBI_PTT	CDS	1302913	1304082	.	+	0	id=1348;len=1170;cog=COG0626E; metB APE_2068 - cystathionine gamma-synthase
+NC_000854	NCBI_PTT	CDS	1304198	1304530	.	+	0	id=1349;len=333;cog=-; - APE_2069.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1304586	1305008	.	-	0	id=1350;len=423;cog=-; - APE_2070 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1305010	1305546	.	-	0	id=1351;len=537;cog=COG2236R; - APE_2071.1 - purine phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	1305986	1306210	.	-	0	id=1352;len=225;cog=COG1383J; rps17E APE_2071a - 30S ribosomal protein S17
+NC_000854	NCBI_PTT	CDS	1306374	1308020	.	+	0	id=1353;len=1647;cog=COG0459O; - APE_2072.1 - thermosome beta subunit
+NC_000854	NCBI_PTT	CDS	1308214	1309299	.	+	0	id=1354;len=1086;cog=COG0162J; tyrS APE_2074.1 - tyrosyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1309321	1310715	.	-	0	id=1355;len=1395;cog=COG4027S; - APE_2075 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1311165	1311890	.	+	0	id=1356;len=726;cog=-; - APE_2077.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1311872	1313185	.	+	0	id=1357;len=1314;cog=COG0043H; - APE_2078 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1313206	1313676	.	+	0	id=1358;len=471;cog=COG1051F; nudF APE_2080.1 - ADP-ribose pyrophosphatase
+NC_000854	NCBI_PTT	CDS	1313751	1314869	.	+	0	id=1359;len=1119;cog=COG2309E; - APE_2081.1 - aminopeptidase
+NC_000854	NCBI_PTT	CDS	1314943	1315983	.	-	0	id=1360;len=1041;cog=COG0704P; - APE_2084.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1316110	1316529	.	+	0	id=1361;len=420;cog=COG0231J; - APE_2085.1 - translation initiation factor IF-5A
+NC_000854	NCBI_PTT	CDS	1316504	1317499	.	-	0	id=1362;len=996;cog=COG0037D; - APE_2086 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1317492	1317716	.	-	0	id=1363;len=225;cog=-; - APE_2086a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1317807	1319015	.	+	0	id=1364;len=1209;cog=COG1679S; - APE_2087.1 - aconitase, subunit
+NC_000854	NCBI_PTT	CDS	1319045	1319443	.	+	0	id=1365;len=399;cog=COG1786S; - APE_2089 - aconitase, subunit
+NC_000854	NCBI_PTT	CDS	1319423	1320049	.	-	0	id=1366;len=627;cog=COG0125F; tmk APE_2090 - thymidylate kinase
+NC_000854	NCBI_PTT	CDS	1320081	1321043	.	-	0	id=1367;len=963;cog=COG1940KG; - APE_2091.1 - ATP-dependent glucokinase
+NC_000854	NCBI_PTT	CDS	1321206	1322750	.	+	0	id=1368;len=1545;cog=COG0433R; - APE_2093 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1322709	1323302	.	-	0	id=1369;len=594;cog=COG1936F; - APE_2094.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1323371	1324630	.	-	0	id=1370;len=1260;cog=COG0358L; - APE_2096.1 - DNA primase
+NC_000854	NCBI_PTT	CDS	1324752	1327163	.	-	0	id=1371;len=2412;cog=COG0417L; - APE_2098.1 - DNA polymerase II
+NC_000854	NCBI_PTT	CDS	1327231	1327557	.	-	0	id=1372;len=327;cog=-; - APE_2102 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1327612	1328454	.	-	0	id=1373;len=843;cog=COG0648L; - APE_2104.1 - endonuclease IV
+NC_000854	NCBI_PTT	CDS	1328521	1329369	.	+	0	id=1374;len=849;cog=COG2820F; udp APE_2105.1 - uridine phosphorylase
+NC_000854	NCBI_PTT	CDS	1329354	1330274	.	+	0	id=1375;len=921;cog=COG0524G; - APE_2106.1 - ATP-dependent 6-phosphofructokinase
+NC_000854	NCBI_PTT	CDS	1330271	1331479	.	-	0	id=1376;len=1209;cog=COG0183I; - APE_2108 - acetyl-CoA acetyltransferase
+NC_000854	NCBI_PTT	CDS	1331551	1332894	.	-	0	id=1377;len=1344;cog=COG1032C; - APE_2109 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1333121	1333864	.	+	0	id=1378;len=744;cog=COG1738S; - APE_2110 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1333897	1334295	.	+	0	id=1379;len=399;cog=COG1339KH; - APE_2112.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1334284	1334718	.	-	0	id=1380;len=435;cog=-; - APE_2113 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1334977	1336152	.	+	0	id=1381;len=1176;cog=COG0402FR; - APE_2115.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1336118	1336444	.	-	0	id=1382;len=327;cog=-; - APE_2118.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1336767	1338215	.	-	0	id=1383;len=1449;cog=-; - APE_2119.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1338942	1340504	.	-	0	id=1384;len=1563;cog=COG1003E; gcvPB APE_2121.1 - glycine dehydrogenase subunit 2
+NC_000854	NCBI_PTT	CDS	1340510	1341907	.	-	0	id=1385;len=1398;cog=COG0403E; gcvPA APE_2124.1 - glycine dehydrogenase subunit 1
+NC_000854	NCBI_PTT	CDS	1342066	1342551	.	+	0	id=1386;len=486;cog=COG1225O; bcp APE_2125.1 - thiol peroxidase
+NC_000854	NCBI_PTT	CDS	1342983	1344902	.	+	0	id=1387;len=1920;cog=COG0674C; - APE_2126.1 - 2-oxoacid:ferredoxin oxidoreductase alpha subunit
+NC_000854	NCBI_PTT	CDS	1344892	1345848	.	+	0	id=1388;len=957;cog=COG1013C; - APE_2128 - 2-oxoglutarate ferredoxin oxidoreductase subunit beta
+NC_000854	NCBI_PTT	CDS	1345885	1346352	.	+	0	id=1389;len=468;cog=COG4729S; - APE_2129.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1346397	1347689	.	-	0	id=1390;len=1293;cog=COG0001H; hemL APE_2130.1 - glutamate-1-semialdehyde aminotransferase
+NC_000854	NCBI_PTT	CDS	1347941	1350136	.	+	0	id=1391;len=2196;cog=COG4666R; - APE_2133 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1350291	1351271	.	+	0	id=1392;len=981;cog=COG2358R; - APE_2136.1 - TRAP transporter solute-binding component
+NC_000854	NCBI_PTT	CDS	1351308	1351676	.	-	0	id=1393;len=369;cog=-; - APE_2138 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1351746	1352417	.	-	0	id=1394;len=672;cog=COG2013S; - APE_2139.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1352524	1352739	.	-	0	id=1395;len=216;cog=COG1826U; - APE_2139a - twin arginine-targeting protein translocase
+NC_000854	NCBI_PTT	CDS	1352829	1354205	.	-	0	id=1396;len=1377;cog=COG0174E; glnA APE_2142.1 - glutamine synthetase
+NC_000854	NCBI_PTT	CDS	1354540	1357245	.	+	0	id=1397;len=2706;cog=COG1201R; - APE_2144.1 - ATP-dependent helicase
+NC_000854	NCBI_PTT	CDS	1357720	1358931	.	+	0	id=1398;len=1212;cog=COG3883S; - APE_2146.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1358977	1360353	.	-	0	id=1399;len=1377;cog=COG2079R; prpD APE_2147.1 - 2-methylcitrate dehydratase
+NC_000854	NCBI_PTT	CDS	1360739	1361551	.	+	0	id=1400;len=813;cog=COG1635H; - APE_2149.1 - ribulose-1,5-biphosphate synthetase
+NC_000854	NCBI_PTT	CDS	1361548	1363059	.	-	0	id=1401;len=1512;cog=COG1030O; - APE_2151.1 - serine protease
+NC_000854	NCBI_PTT	CDS	1363064	1363879	.	-	0	id=1402;len=816;cog=COG0330O; - APE_2153.1 - erythrocyte band 7 integral membrane protein
+NC_000854	NCBI_PTT	CDS	1364030	1364887	.	+	0	id=1403;len=858;cog=COG0805U; - APE_2154.1 - twin-arginine translocation protein, TatC
+NC_000854	NCBI_PTT	CDS	1364891	1365070	.	-	0	id=1404;len=180;cog=COG1826U; - APE_2154a - twin arginine-targeting protein translocase
+NC_000854	NCBI_PTT	CDS	1365604	1365837	.	+	0	id=1405;len=234;cog=COG1122P; - APE_2154b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1365828	1366559	.	+	0	id=1406;len=732;cog=COG0619P; - APE_2155.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1366570	1367484	.	-	0	id=1407;len=915;cog=COG0491R; - APE_2156.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1367629	1368375	.	+	0	id=1408;len=747;cog=-; - APE_2157.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1368481	1369680	.	-	0	id=1409;len=1200;cog=COG1960I; - APE_2158.1 - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	1369924	1371393	.	-	0	id=1410;len=1470;cog=COG1574R; - APE_2161 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1371639	1371860	.	+	0	id=1411;len=222;cog=-; - APE_2161a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1371873	1373681	.	+	0	id=1412;len=1809;cog=COG1966T; cstA APE_2162.1 - carbon starvation protein A
+NC_000854	NCBI_PTT	CDS	1373731	1374054	.	+	0	id=1413;len=324;cog=-; - APE_2163 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1374097	1374468	.	+	0	id=1414;len=372;cog=COG0003P; - APE_2164.1 - arsenical pump-driving ATPase
+NC_000854	NCBI_PTT	CDS	1374459	1375052	.	+	0	id=1415;len=594;cog=COG0003P; - APE_2165 - arsenical pump-driving ATPase
+NC_000854	NCBI_PTT	CDS	1375066	1377768	.	-	0	id=1416;len=2703;cog=COG0013J; alaS APE_2166 - alanyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1377997	1378332	.	-	0	id=1417;len=336;cog=COG2058J; rpl12p APE_2170 - 50S ribosomal protein L12
+NC_000854	NCBI_PTT	CDS	1378386	1379411	.	-	0	id=1418;len=1026;cog=COG0244J; rplP0 APE_2171.1 - acidic ribosomal protein P0
+NC_000854	NCBI_PTT	CDS	1379425	1380078	.	-	0	id=1419;len=654;cog=COG0081J; rpl1P APE_2173.1 - 50S ribosomal protein L1
+NC_000854	NCBI_PTT	CDS	1380124	1380450	.	-	0	id=1420;len=327;cog=COG0080J; rpl11p APE_2174 - 50S ribosomal protein L11
+NC_000854	NCBI_PTT	CDS	1380533	1380988	.	-	0	id=1421;len=456;cog=COG0250K; nusG APE_2176.1 - transcription antitermination protein NusG
+NC_000854	NCBI_PTT	CDS	1380995	1381177	.	-	0	id=1422;len=183;cog=COG2443U; secE APE_2176a - preprotein translocase subunit SecE
+NC_000854	NCBI_PTT	CDS	1381201	1381716	.	-	0	id=1423;len=516;cog=COG1656S; - APE_2177.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1381823	1382665	.	-	0	id=1424;len=843;cog=COG3448T; - APE_2178.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1382732	1383484	.	+	0	id=1425;len=753;cog=COG1801S; - APE_2180.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1383688	1383924	.	+	0	id=1426;len=237;cog=-; - APE_2180a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1383948	1384703	.	-	0	id=1427;len=756;cog=COG0592L; - APE_2182 - DNA polymerase sliding clamp B1
+NC_000854	NCBI_PTT	CDS	1384821	1385216	.	+	0	id=1428;len=396;cog=-; - APE_2184.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1385358	1385795	.	-	0	id=1429;len=438;cog=-; - APE_2185.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1385832	1386677	.	-	0	id=1430;len=846;cog=-; - APE_2187.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1386886	1389732	.	+	0	id=1431;len=2847;cog=COG1201R; - APE_2188.1 - ATP-dependent helicase
+NC_000854	NCBI_PTT	CDS	1389894	1390958	.	+	0	id=1432;len=1065;cog=-; - APE_2190 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1391509	1392837	.	-	0	id=1433;len=1329;cog=COG0017J; aspS APE_2192.1 - aspartyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1392938	1393363	.	-	0	id=1434;len=426;cog=COG2083S; - APE_2195 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1393392	1394093	.	-	0	id=1435;len=702;cog=COG1889J; - APE_2196 - fibrillarin
+NC_000854	NCBI_PTT	CDS	1394108	1395367	.	-	0	id=1436;len=1260;cog=COG1498J; - APE_2199.1 - C/D box methylation guide ribonucleoprotein complex aNOP56 subunit
+NC_000854	NCBI_PTT	CDS	1395525	1395677	.	+	0	id=1437;len=153;cog=COG4919J; rps30e APE_2199a - 30S ribosomal protein S30
+NC_000854	NCBI_PTT	CDS	1395939	1397222	.	+	0	id=1438;len=1284;cog=COG0252EJ; gatD APE_2200 - glutamyl-tRNA(Gln) amidotransferase subunit D
+NC_000854	NCBI_PTT	CDS	1397225	1399153	.	+	0	id=1439;len=1929;cog=COG2511J; gatE APE_2202 - glutamyl-tRNA(Gln) amidotransferase subunit E
+NC_000854	NCBI_PTT	CDS	1399273	1400127	.	-	0	id=1440;len=855;cog=COG2064NU; - APE_2206.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1400130	1401128	.	-	0	id=1441;len=999;cog=COG1955NU; - APE_2207.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1401178	1402920	.	-	0	id=1442;len=1743;cog=COG0630NU; - APE_2208.1 - protein kinase
+NC_000854	NCBI_PTT	CDS	1403056	1403490	.	-	0	id=1443;len=435;cog=COG1765O; - APE_2211.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1403677	1404555	.	+	0	id=1444;len=879;cog=COG0616OU; - APE_2212.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1404724	1405215	.	+	0	id=1445;len=492;cog=COG2080C; - APE_2213 - aldehyde dehydrogenase, small subunit
+NC_000854	NCBI_PTT	CDS	1405218	1407575	.	+	0	id=1446;len=2358;cog=COG1529C; - APE_2216.1 - aldehyde dehydrogenase, large subunit
+NC_000854	NCBI_PTT	CDS	1407575	1408453	.	+	0	id=1447;len=879;cog=COG1319C; - APE_2219 - aldehyde dehydrogenase, middle subunit
+NC_000854	NCBI_PTT	CDS	1408580	1409476	.	+	0	id=1448;len=897;cog=COG0714R; - APE_2220.1 - CoxD-like protein
+NC_000854	NCBI_PTT	CDS	1409484	1410569	.	+	0	id=1449;len=1086;cog=COG3552R; - APE_2221.1 - CoxE-like protein
+NC_000854	NCBI_PTT	CDS	1410540	1411157	.	-	0	id=1450;len=618;cog=COG2068R; - APE_2223 - PucB-like protein
+NC_000854	NCBI_PTT	CDS	1411329	1411772	.	+	0	id=1451;len=444;cog=COG3427S; - APE_2225.1 - CoxG-like protein
+NC_000854	NCBI_PTT	CDS	1411860	1412756	.	+	0	id=1452;len=897;cog=COG1975O; - APE_2227 - CoxF-like protein
+NC_000854	NCBI_PTT	CDS	1413181	1415082	.	-	0	id=1453;len=1902;cog=COG0417L; - APE_2229.1 - DNA polymerase II
+NC_000854	NCBI_PTT	CDS	1415284	1415934	.	-	0	id=1454;len=651;cog=-; - APE_2235 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1416064	1416798	.	-	0	id=1455;len=735;cog=-; - APE_2236 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1416931	1417521	.	-	0	id=1456;len=591;cog=-; - APE_2238.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1418407	1419441	.	-	0	id=1457;len=1035;cog=COG1064R; adh APE_2239.1 - NAD-dependent alcohol dehydrogenase
+NC_000854	NCBI_PTT	CDS	1419723	1420697	.	+	0	id=1458;len=975;cog=COG2159R; - APE_2240 - amidohydrolase
+NC_000854	NCBI_PTT	CDS	1420761	1421600	.	+	0	id=1459;len=840;cog=COG2151R; - APE_2242.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1421663	1421968	.	-	0	id=1460;len=306;cog=-; - APE_2242a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1422029	1422199	.	-	0	id=1461;len=171;cog=-; - APE_2242b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1423014	1423550	.	+	0	id=1462;len=537;cog=COG5483S; - APE_2246.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1423537	1424121	.	-	0	id=1463;len=585;cog=COG2094L; - APE_2247 - 3-methyladenine DNA glycosylase
+NC_000854	NCBI_PTT	CDS	1424155	1425372	.	-	0	id=1464;len=1218;cog=COG0436E; aspC APE_2248.1 - aspartate aminotransferase
+NC_000854	NCBI_PTT	CDS	1425438	1425995	.	+	0	id=1465;len=558;cog=-; - APE_2249.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1426330	1427238	.	-	0	id=1466;len=909;cog=COG0395G; - APE_2252.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1427238	1428182	.	-	0	id=1467;len=945;cog=COG1175G; - APE_2253.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1428198	1429925	.	-	0	id=1468;len=1728;cog=COG2182G; - APE_2254.1 - ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1430398	1431318	.	-	0	id=1469;len=921;cog=COG4006S; - APE_2256.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1431510	1433057	.	+	0	id=1470;len=1548;cog=COG0747E; dppA APE_2257 - dipeptide ABC transporter dipeptide-binding protein DppA
+NC_000854	NCBI_PTT	CDS	1433184	1434203	.	+	0	id=1471;len=1020;cog=COG0601EP; dppB APE_2258 - dipeptide ABC transporter permease DppB
+NC_000854	NCBI_PTT	CDS	1434224	1435066	.	+	0	id=1472;len=843;cog=COG1173EP; dppC APE_2260 - dipeptide ABC transporter permease DppC
+NC_000854	NCBI_PTT	CDS	1435086	1436036	.	+	0	id=1473;len=951;cog=COG0444EP; dppD APE_2261.1 - dipeptide ABC transporter ATP-binding protein DppD
+NC_000854	NCBI_PTT	CDS	1436055	1437080	.	+	0	id=1474;len=1026;cog=COG0444EP; dppF APE_2263.1 - dipeptide ABC transporter ATP-binding protein DppF
+NC_000854	NCBI_PTT	CDS	1437125	1438003	.	+	0	id=1475;len=879;cog=COG0491R; - APE_2265.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1438193	1438303	.	+	0	id=1476;len=111;cog=-; - APE_2265a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1438427	1439806	.	+	0	id=1477;len=1380;cog=COG0076E; - APE_2267.1 - pyridoxal-dependent decarboxylase
+NC_000854	NCBI_PTT	CDS	1439803	1440951	.	+	0	id=1478;len=1149;cog=COG2814G; - APE_2269.1 - MFS transporter
+NC_000854	NCBI_PTT	CDS	1440998	1442641	.	-	0	id=1479;len=1644;cog=-; - APE_2271.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1442776	1444749	.	-	0	id=1480;len=1974;cog=COG2401R; - APE_2272.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1445578	1446762	.	+	0	id=1481;len=1185;cog=COG0785O; - APE_2273.1 - thioredoxin
+NC_000854	NCBI_PTT	CDS	1446781	1449780	.	+	0	id=1482;len=3000;cog=COG1138O; - APE_2274 - cytochrome C-type biogenesis protein
+NC_000854	NCBI_PTT	CDS	1449914	1452151	.	+	0	id=1483;len=2238;cog=-; - APE_2275 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1452336	1453142	.	+	0	id=1484;len=807;cog=COG0388R; - APE_2277.1 - hydrolase
+NC_000854	NCBI_PTT	CDS	1453440	1454192	.	+	0	id=1485;len=753;cog=COG0450O; - APE_2278 - thioredoxin peroxidase
+NC_000854	NCBI_PTT	CDS	1454279	1456183	.	-	0	id=1486;len=1905;cog=COG1750R; - APE_2279.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1456324	1457064	.	-	0	id=1487;len=741;cog=COG0615MI; - APE_2281.1 - cytidylyltransferase
+NC_000854	NCBI_PTT	CDS	1457124	1457744	.	-	0	id=1488;len=621;cog=COG2129R; - APE_2283.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1457923	1459575	.	+	0	id=1489;len=1653;cog=COG0318IQ; fadD APE_2284.1 - long-chain-fatty-acid--CoA ligase
+NC_000854	NCBI_PTT	CDS	1459592	1459828	.	-	0	id=1490;len=237;cog=COG3350S; - APE_2284a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1459944	1461125	.	-	0	id=1491;len=1182;cog=COG0498E; thrC APE_2286 - threonine synthase
+NC_000854	NCBI_PTT	CDS	1461402	1461968	.	+	0	id=1492;len=567;cog=-; - APE_2288 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1462549	1463037	.	+	0	id=1493;len=489;cog=COG1839S; - APE_2289.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1463025	1464944	.	-	0	id=1494;len=1920;cog=COG1506E; - APE_2290.1 - acylamino-acid-releasing enzyme
+NC_000854	NCBI_PTT	CDS	1465133	1465852	.	-	0	id=1495;len=720;cog=COG1208MJ; - APE_2291 - sugar-phosphate nucleotidyl transferase
+NC_000854	NCBI_PTT	CDS	1466017	1467603	.	-	0	id=1496;len=1587;cog=-; - APE_2292.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1467895	1468875	.	-	0	id=1497;len=981;cog=COG1236J; - APE_2295.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1468931	1470181	.	-	0	id=1498;len=1251;cog=COG0373H; hemA APE_2296 - glutamyl-tRNA reductase
+NC_000854	NCBI_PTT	CDS	1470181	1471104	.	-	0	id=1499;len=924;cog=COG0181H; hemC APE_2298.1 - hydroxymethylbilane synthase
+NC_000854	NCBI_PTT	CDS	1471101	1472390	.	-	0	id=1500;len=1290;cog=COG0001H; hemL APE_2299.1 - glutamate-1-semialdehyde aminotransferase
+NC_000854	NCBI_PTT	CDS	1472435	1473496	.	-	0	id=1501;len=1062;cog=COG0113H; hemB APE_2300.1 - delta-aminolevulinic acid dehydratase
+NC_000854	NCBI_PTT	CDS	1473724	1475190	.	+	0	id=1502;len=1467;cog=COG0016J; pheS APE_2302.1 - phenylalanyl-tRNA synthetase subunit alpha
+NC_000854	NCBI_PTT	CDS	1475192	1476838	.	+	0	id=1503;len=1647;cog=COG0072J; pheT APE_2305 - phenylalanyl-tRNA synthetase subunit beta
+NC_000854	NCBI_PTT	CDS	1476820	1477671	.	+	0	id=1504;len=852;cog=COG1469S; - APE_2308 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1477802	1478953	.	+	0	id=1505;len=1152;cog=COG3281G; - APE_2310.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1478938	1479837	.	+	0	id=1506;len=900;cog=-; - APE_2311.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1479850	1480092	.	-	0	id=1507;len=243;cog=-; - APE_2311a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1480336	1480776	.	-	0	id=1508;len=441;cog=-; - APE_2314 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1480782	1481153	.	-	0	id=1509;len=372;cog=-; - APE_2315 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1481183	1481464	.	-	0	id=1510;len=282;cog=-; - APE_2315a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1481572	1482921	.	-	0	id=1511;len=1350;cog=COG1350R; trpB APE_2316 - tryptophan synthase subunit beta
+NC_000854	NCBI_PTT	CDS	1482991	1484715	.	-	0	id=1512;len=1725;cog=COG0008J; gltX APE_2317.1 - glutamyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1484778	1485377	.	+	0	id=1513;len=600;cog=-; - APE_2322.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1485406	1486074	.	+	0	id=1514;len=669;cog=COG1634R; - APE_2323 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1486090	1486374	.	-	0	id=1515;len=285;cog=COG2451J; rpl35ae APE_2324.1 - 50S ribosomal protein L35
+NC_000854	NCBI_PTT	CDS	1486624	1487097	.	+	0	id=1516;len=474;cog=-; - APE_2325 - phospholipase A2/esterase
+NC_000854	NCBI_PTT	CDS	1487204	1487512	.	+	0	id=1517;len=309;cog=-; atpP APE_2326.1 - V-type ATP synthase subunit K
+NC_000854	NCBI_PTT	CDS	1487592	1489049	.	+	0	id=1518;len=1458;cog=COG0442J; proS APE_2328 - prolyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1489115	1489402	.	+	0	id=1519;len=288;cog=COG4830J; rps26e APE_2328a - 30S ribosomal protein S26
+NC_000854	NCBI_PTT	CDS	1489508	1489990	.	+	0	id=1520;len=483;cog=-; - APE_2330 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1489951	1490592	.	+	0	id=1521;len=642;cog=COG4998L; - APE_2333.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1490741	1490917	.	-	0	id=1522;len=177;cog=-; - APE_2333a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1490978	1491697	.	-	0	id=1523;len=720;cog=COG1499J; - APE_2334.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1491794	1492291	.	+	0	id=1524;len=498;cog=-; - APE_2335.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1492288	1493703	.	-	0	id=1525;len=1416;cog=COG1530J; - APE_2336.1 - RNA-loop binding protein FAU-1
+NC_000854	NCBI_PTT	CDS	1493770	1494045	.	-	0	id=1526;len=276;cog=COG1698S; - APE_2336a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1494263	1495213	.	+	0	id=1527;len=951;cog=COG1912S; - APE_2338 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1495304	1495687	.	-	0	id=1528;len=384;cog=-; - APE_2340.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1495998	1496792	.	-	0	id=1529;len=795;cog=COG0095H; lipB APE_2341 - lipoate-protein ligase
+NC_000854	NCBI_PTT	CDS	1496804	1497598	.	-	0	id=1530;len=795;cog=COG0095H; lipB APE_2342.1 - lipoate-protein ligase
+NC_000854	NCBI_PTT	CDS	1497567	1498448	.	-	0	id=1531;len=882;cog=COG0320H; lipA APE_2344.1 - lipoyl synthase
+NC_000854	NCBI_PTT	CDS	1498423	1498701	.	-	0	id=1532;len=279;cog=-; - APE_2347.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1498826	1499560	.	+	0	id=1533;len=735;cog=COG0284F; pyrF APE_2348 - orotidine 5'-phosphate decarboxylase
+NC_000854	NCBI_PTT	CDS	1499602	1500162	.	+	0	id=1534;len=561;cog=COG0461F; pyrE APE_2349.1 - orotate phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	1500388	1501011	.	+	0	id=1535;len=624;cog=COG1335Q; - APE_2350.1 - hydrolase
+NC_000854	NCBI_PTT	CDS	1500995	1501948	.	-	0	id=1536;len=954;cog=COG0247C; - APE_2352.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1502076	1503293	.	+	0	id=1537;len=1218;cog=COG1960I; - APE_2354 - acyl-CoA dehydrogenase
+NC_000854	NCBI_PTT	CDS	1503290	1503682	.	-	0	id=1538;len=393;cog=-; - APE_2356.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1503759	1504442	.	+	0	id=1539;len=684;cog=-; - APE_2357.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1504439	1504996	.	+	0	id=1540;len=558;cog=COG1896R; - APE_2359.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1504993	1505589	.	+	0	id=1541;len=597;cog=-; - APE_2360.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1505557	1506396	.	-	0	id=1542;len=840;cog=COG0596R; - APE_2361.1 - hydrolase
+NC_000854	NCBI_PTT	CDS	1506426	1507925	.	-	0	id=1543;len=1500;cog=COG0063G; - APE_2362.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1507987	1508430	.	-	0	id=1544;len=444;cog=COG1412R; - APE_2365.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1508397	1509641	.	-	0	id=1545;len=1245;cog=COG5257J; aif2g APE_2366.1 - translation initiation factor IF-2
+NC_000854	NCBI_PTT	CDS	1509717	1510424	.	-	0	id=1546;len=708;cog=COG2125J; rps6e APE_2371.1 - 30S ribosomal protein S6
+NC_000854	NCBI_PTT	CDS	1510540	1512393	.	+	0	id=1547;len=1854;cog=COG0532J; infB APE_2374 - translation initiation factor IF-2
+NC_000854	NCBI_PTT	CDS	1512411	1512836	.	-	0	id=1548;len=426;cog=COG0105F; ndk APE_2377 - nucleoside diphosphate kinase
+NC_000854	NCBI_PTT	CDS	1512918	1513583	.	-	0	id=1549;len=666;cog=COG1280E; - APE_2379 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1513641	1513832	.	-	0	id=1550;len=192;cog=COG2075J; rpl24e APE_2379a - 50S ribosomal protein L24
+NC_000854	NCBI_PTT	CDS	1513919	1514167	.	+	0	id=1551;len=249;cog=COG2053J; rps28e APE_2379b.1 - 30S ribosomal protein S28
+NC_000854	NCBI_PTT	CDS	1514215	1514454	.	-	0	id=1552;len=240;cog=COG2031I; - APE_2380.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1514430	1515659	.	-	0	id=1553;len=1230;cog=COG2031I; - APE_2381.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1515862	1517019	.	+	0	id=1554;len=1158;cog=COG0183I; - APE_2382.1 - acetyl-CoA acetyltransferase
+NC_000854	NCBI_PTT	CDS	1517046	1518230	.	+	0	id=1555;len=1185;cog=COG0183I; - APE_2384 - acetyl-CoA acetyltransferase
+NC_000854	NCBI_PTT	CDS	1518245	1518790	.	+	0	id=1556;len=546;cog=COG1545R; - APE_2389 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1518804	1519268	.	+	0	id=1557;len=465;cog=COG1545R; - APE_2390.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1519491	1521938	.	+	0	id=1558;len=2448;cog=COG1444R; - APE_2392.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1521874	1522977	.	+	0	id=1559;len=1104;cog=COG0009J; - APE_2397 - translation factor
+NC_000854	NCBI_PTT	CDS	1523001	1524383	.	-	0	id=1560;len=1383;cog=COG0351H; thiDN APE_2400.1 - phosphomethylpyrimidine kinase
+NC_000854	NCBI_PTT	CDS	1524465	1525100	.	-	0	id=1561;len=636;cog=-; - APE_2403.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1525097	1525777	.	-	0	id=1562;len=681;cog=COG1122P; - APE_2406.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1525774	1526487	.	-	0	id=1563;len=714;cog=COG1122P; - APE_2408.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1526484	1526993	.	-	0	id=1564;len=510;cog=-; - APE_2409 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1526944	1527498	.	-	0	id=1565;len=555;cog=COG4732S; - APE_2411.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1527910	1528260	.	+	0	id=1566;len=351;cog=COG1777K; - APE_2413 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1528778	1530205	.	-	0	id=1567;len=1428;cog=COG0534V; - APE_2414.1 - MatE efflux family protein
+NC_000854	NCBI_PTT	CDS	1530289	1530723	.	+	0	id=1568;len=435;cog=-; - APE_2417.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1530855	1531697	.	+	0	id=1569;len=843;cog=COG2086C; etfB APE_2418.1 - electron transfer flavoprotein beta-subunit
+NC_000854	NCBI_PTT	CDS	1531704	1532822	.	+	0	id=1570;len=1119;cog=COG2025C; etfA APE_2419 - electron transfer flavoprotein alpha-subunit
+NC_000854	NCBI_PTT	CDS	1532843	1534153	.	+	0	id=1571;len=1311;cog=COG0644C; - APE_2421 - FixC protein
+NC_000854	NCBI_PTT	CDS	1534231	1535379	.	+	0	id=1572;len=1149;cog=COG0075E; - APE_2423 - aspartate aminotransferase
+NC_000854	NCBI_PTT	CDS	1535368	1536030	.	-	0	id=1573;len=663;cog=COG2178J; - APE_2424 - haloacid dehalogenase superfamily protein
+NC_000854	NCBI_PTT	CDS	1536119	1537099	.	+	0	id=1574;len=981;cog=COG1907R; - APE_2425 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1537096	1538187	.	-	0	id=1575;len=1092;cog=COG0475P; napA APE_2426.1 - Na(+)/H(+) antiporter
+NC_000854	NCBI_PTT	CDS	1538628	1539107	.	-	0	id=1576;len=480;cog=COG3118O; - APE_2430.1 - thioredoxin
+NC_000854	NCBI_PTT	CDS	1539157	1539741	.	+	0	id=1577;len=585;cog=-; - APE_2431.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1539725	1541194	.	+	0	id=1578;len=1470;cog=COG1109G; - APE_2433.1 - phospho-sugar mutase
+NC_000854	NCBI_PTT	CDS	1541139	1541906	.	-	0	id=1579;len=768;cog=COG4920S; - APE_2435 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1542022	1543149	.	+	0	id=1580;len=1128;cog=COG0402FR; - APE_2436 - hydrolase
+NC_000854	NCBI_PTT	CDS	1543135	1543479	.	-	0	id=1581;len=345;cog=COG3255I; - APE_2436a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1543645	1544352	.	+	0	id=1582;len=708;cog=COG0274F; deoC APE_2437.1 - deoxyribose-phosphate aldolase
+NC_000854	NCBI_PTT	CDS	1544370	1545917	.	+	0	id=1583;len=1548;cog=COG0294H; - APE_2438 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1545901	1546875	.	+	0	id=1584;len=975;cog=COG1577I; mvk APE_2439 - mevalonate kinase
+NC_000854	NCBI_PTT	CDS	1546920	1548707	.	+	0	id=1585;len=1788;cog=COG1506E; - APE_2441.1 - acylamino-acid-releasing enzyme
+NC_000854	NCBI_PTT	CDS	1548801	1549769	.	+	0	id=1586;len=969;cog=COG1405K; tfb APE_2443.1 - transcription initiation factor IIB
+NC_000854	NCBI_PTT	CDS	1549881	1550951	.	-	0	id=1587;len=1071;cog=-; - APE_2444 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1551618	1552715	.	+	0	id=1588;len=1098;cog=COG2848S; - APE_2446 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1552739	1553167	.	-	0	id=1589;len=429;cog=-; - APE_2447 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1553582	1554445	.	-	0	id=1590;len=864;cog=COG0434R; - APE_2448 - BtpA-like protein
+NC_000854	NCBI_PTT	CDS	1554449	1555927	.	-	0	id=1591;len=1479;cog=COG0260E; pepA APE_2450.1 - leucine aminopeptidase
+NC_000854	NCBI_PTT	CDS	1556182	1557720	.	+	0	id=1592;len=1539;cog=COG0519F; guaA APE_2452 - GMP synthase
+NC_000854	NCBI_PTT	CDS	1557763	1558059	.	-	0	id=1593;len=297;cog=-; - APE_2454.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1558052	1558912	.	-	0	id=1594;len=861;cog=COG0668M; - APE_2455.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1558993	1559655	.	-	0	id=1595;len=663;cog=COG0569P; trkA APE_2456.1 - Trk system potassium uptake protein TrkA
+NC_000854	NCBI_PTT	CDS	1559755	1561053	.	+	0	id=1596;len=1299;cog=COG0148G; eno APE_2458 - enolase
+NC_000854	NCBI_PTT	CDS	1561136	1561474	.	+	0	id=1597;len=339;cog=-; - APE_2458a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1561548	1561826	.	+	0	id=1598;len=279;cog=COG2440C; - APE_2460.1 - FixX protein
+NC_000854	NCBI_PTT	CDS	1561896	1563014	.	+	0	id=1599;len=1119;cog=COG0180J; trpS APE_2461.1 - tryptophanyl-tRNA synthetase
+NC_000854	NCBI_PTT	CDS	1563741	1564178	.	+	0	id=1600;len=438;cog=COG4243S; - APE_2462.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1564331	1564648	.	+	0	id=1601;len=318;cog=-; - APE_2463.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1564662	1565825	.	-	0	id=1602;len=1164;cog=COG1702T; - APE_2464.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1565922	1567277	.	+	0	id=1603;len=1356;cog=COG0144J; - APE_2465.1 - RNA (cytosine-C(5)-)-methyltransferase
+NC_000854	NCBI_PTT	CDS	1567393	1568580	.	+	0	id=1604;len=1188;cog=-; - APE_2466 - MFS transporter
+NC_000854	NCBI_PTT	CDS	1568577	1568927	.	-	0	id=1605;len=351;cog=-; - APE_2467 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1569012	1570676	.	+	0	id=1606;len=1665;cog=COG4670I; - APE_2468.1 - propionate CoA-transferase
+NC_000854	NCBI_PTT	CDS	1570727	1571038	.	+	0	id=1607;len=312;cog=COG4901J; rps25e APE_2470 - 30S ribosomal protein S25
+NC_000854	NCBI_PTT	CDS	1571101	1571976	.	+	0	id=1608;len=876;cog=COG4028R; - APE_2472.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1571959	1572672	.	-	0	id=1609;len=714;cog=-; - APE_2473.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1572859	1573110	.	-	0	id=1610;len=252;cog=-; - APE_2473a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1573146	1575359	.	-	0	id=1611;len=2214;cog=COG0464O; - APE_2474.1 - cell division protein CDC48
+NC_000854	NCBI_PTT	CDS	1575653	1575925	.	-	0	id=1612;len=273;cog=COG2092J; ef1B APE_2480.1 - elongation factor 1-beta
+NC_000854	NCBI_PTT	CDS	1575939	1576145	.	-	0	id=1613;len=207;cog=COG2888J; - APE_2480a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1576185	1577354	.	-	0	id=1614;len=1170;cog=COG2441C; - APE_2481.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1577445	1577912	.	+	0	id=1615;len=468;cog=COG2062T; sixA APE_2484.1 - phosphohistidine phosphatase
+NC_000854	NCBI_PTT	CDS	1577921	1578475	.	+	0	id=1616;len=555;cog=COG1300S; - APE_2485.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1578513	1579274	.	+	0	id=1617;len=762;cog=COG2519J; - APE_2486.1 - tRNA (m1A) methyltransferase
+NC_000854	NCBI_PTT	CDS	1579358	1579804	.	+	0	id=1618;len=447;cog=COG2905T; - APE_2489.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1579914	1580744	.	+	0	id=1619;len=831;cog=COG0672P; - APE_2490.1 - FTR1 family protein
+NC_000854	NCBI_PTT	CDS	1580861	1581694	.	-	0	id=1620;len=834;cog=-; - APE_2491.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1581850	1583481	.	-	0	id=1621;len=1632;cog=COG1031C; - APE_2493.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1583608	1584057	.	-	0	id=1622;len=450;cog=COG0537FGR; - APE_2495.1 - HIT family protein
+NC_000854	NCBI_PTT	CDS	1584179	1584610	.	+	0	id=1623;len=432;cog=COG3118O; trxA APE_2496.1 - thioredoxin
+NC_000854	NCBI_PTT	CDS	1584634	1585233	.	+	0	id=1624;len=600;cog=COG2095U; snatA APE_2497 - small neutral amino acid transporter
+NC_000854	NCBI_PTT	CDS	1585302	1585706	.	+	0	id=1625;len=405;cog=COG5496R; - APE_2499.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1585809	1589351	.	+	0	id=1626;len=3543;cog=COG2409R; - APE_2500.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1589338	1590303	.	+	0	id=1627;len=966;cog=COG2159R; - APE_2502.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1590404	1591156	.	+	0	id=1628;len=753;cog=COG1028IQR; fabG APE_2503.1 - 3-oxoacyl-ACP reductase
+NC_000854	NCBI_PTT	CDS	1591217	1591678	.	-	0	id=1629;len=462;cog=COG2512S; - APE_2505 - ArsR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1591842	1592843	.	+	0	id=1630;len=1002;cog=COG1052CHR; - APE_2507.1 - glyoxylate reductase
+NC_000854	NCBI_PTT	CDS	1592860	1594530	.	+	0	id=1631;len=1671;cog=COG0028EH; - APE_2509 - acetolactate synthase
+NC_000854	NCBI_PTT	CDS	1594557	1595363	.	-	0	id=1632;len=807;cog=COG0842V; - APE_2512 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1595389	1596216	.	-	0	id=1633;len=828;cog=COG0842V; - APE_2514 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1596213	1597184	.	-	0	id=1634;len=972;cog=COG1131V; - APE_2516 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1597339	1597746	.	-	0	id=1635;len=408;cog=COG1733K; - APE_2517.1 - HxlR family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1597929	1598675	.	+	0	id=1636;len=747;cog=COG2514R; - APE_2519.1 - glyoxalase
+NC_000854	NCBI_PTT	CDS	1599132	1599845	.	-	0	id=1637;len=714;cog=COG3473Q; maiA APE_2520.1 - maleate cis-trans isomerase
+NC_000854	NCBI_PTT	CDS	1599950	1601233	.	+	0	id=1638;len=1284;cog=COG0683E; livK APE_2521.1 - branched-chain amino acid ABC transporter substrate-binding protein
+NC_000854	NCBI_PTT	CDS	1601330	1602199	.	+	0	id=1639;len=870;cog=COG0559E; livH APE_2522.1 - branched-chain amino acid ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1602265	1603194	.	+	0	id=1640;len=930;cog=COG4177E; livM APE_2523.1 - branched-chain amino acid ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1603191	1603910	.	+	0	id=1641;len=720;cog=COG0411E; livG APE_2524.1 - branched-chain amino acid ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1603910	1604632	.	+	0	id=1642;len=723;cog=COG0410E; livF APE_2526 - branched-chain amino acid ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1604644	1606692	.	+	0	id=1643;len=2049;cog=COG0145EQ; hyuA APE_2528.1 - hydantoin utilization protein A
+NC_000854	NCBI_PTT	CDS	1606695	1608353	.	+	0	id=1644;len=1659;cog=COG0146EQ; hyuB APE_2530.1 - hydantoin utilization protein B
+NC_000854	NCBI_PTT	CDS	1609075	1611141	.	-	0	id=1645;len=2067;cog=COG1331O; - APE_2533.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1611212	1611784	.	-	0	id=1646;len=573;cog=COG3371S; - APE_2535.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1611863	1612831	.	+	0	id=1647;len=969;cog=-; - APE_2537.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1613261	1614940	.	-	0	id=1648;len=1680;cog=COG1757C; - APE_2538 - Na(+)/H(+) antiporter
+NC_000854	NCBI_PTT	CDS	1615416	1615871	.	+	0	id=1649;len=456;cog=COG2606S; - APE_2540.1 - ala-tRNApro hydrolase ProX
+NC_000854	NCBI_PTT	CDS	1615901	1616233	.	+	0	id=1650;len=333;cog=-; - APE_2541 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1616239	1618041	.	-	0	id=1651;len=1803;cog=COG4666R; - APE_2542.1 - TRAP transporter membrane-spanning component
+NC_000854	NCBI_PTT	CDS	1618073	1619182	.	-	0	id=1652;len=1110;cog=COG2358R; - APE_2545.1 - TRAP transporter solute-binding component
+NC_000854	NCBI_PTT	CDS	1619360	1620145	.	-	0	id=1653;len=786;cog=COG0134E; trpC APE_2546 - indole-3-glycerol phosphate synthase
+NC_000854	NCBI_PTT	CDS	1620142	1620789	.	-	0	id=1654;len=648;cog=COG0135E; trpF APE_2547 - N-(5'-phosphoribosyl) anthranilate isomerase
+NC_000854	NCBI_PTT	CDS	1620783	1622066	.	-	0	id=1655;len=1284;cog=COG1350R; trpB APE_2548 - tryptophan synthase subunit beta
+NC_000854	NCBI_PTT	CDS	1622072	1622830	.	-	0	id=1656;len=759;cog=COG0159E; trpA APE_2550 - tryptophan synthase subunit alpha
+NC_000854	NCBI_PTT	CDS	1622982	1624019	.	+	0	id=1657;len=1038;cog=COG0547E; trpD APE_2551 - anthranilate phosphoribosyltransferase
+NC_000854	NCBI_PTT	CDS	1624023	1625339	.	+	0	id=1658;len=1317;cog=COG0147EH; trpE APE_2553.1 - anthranilate synthase component I
+NC_000854	NCBI_PTT	CDS	1625332	1625922	.	+	0	id=1659;len=591;cog=COG0512EH; trpG APE_2555 - anthranilate synthase component II
+NC_000854	NCBI_PTT	CDS	1626092	1629112	.	-	0	id=1660;len=3021;cog=COG0243C; - APE_2556.1 - arsenite oxidase large subunit
+NC_000854	NCBI_PTT	CDS	1629112	1629744	.	-	0	id=1661;len=633;cog=COG0723C; - APE_2563 - arsenite oxidase small subunit precursor
+NC_000854	NCBI_PTT	CDS	1630099	1630719	.	-	0	id=1662;len=621;cog=COG1522K; - APE_2565.1 - AsnC/Lrp family transcriptional regulator
+NC_000854	NCBI_PTT	CDS	1630773	1631426	.	-	0	id=1663;len=654;cog=-; - APE_2567 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1631433	1632005	.	-	0	id=1664;len=573;cog=COG0526OC; - APE_2568.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1632422	1632808	.	-	0	id=1665;len=387;cog=COG0864K; nikR APE_2570.1 - nickel responsive regulator
+NC_000854	NCBI_PTT	CDS	1633001	1634758	.	+	0	id=1666;len=1758;cog=COG2217P; - APE_2571.1 - cation-transporting P-type ATPase
+NC_000854	NCBI_PTT	CDS	1634989	1636161	.	-	0	id=1667;len=1173;cog=-; - APE_2574 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1636275	1637468	.	-	0	id=1668;len=1194;cog=COG0436E; aspC APE_2575 - aspartate aminotransferase
+NC_000854	NCBI_PTT	CDS	1637549	1638424	.	+	0	id=1669;len=876;cog=COG1533L; - APE_2577.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1638433	1639284	.	-	0	id=1670;len=852;cog=COG0842V; - APE_2578 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1639286	1640278	.	-	0	id=1671;len=993;cog=COG1131V; - APE_2579.1 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1640463	1641254	.	+	0	id=1672;len=792;cog=COG1853R; - APE_2580 - flavoredoxin
+NC_000854	NCBI_PTT	CDS	1641439	1642656	.	+	0	id=1673;len=1218;cog=COG0095H; - APE_2581 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1642673	1643947	.	-	0	id=1674;len=1275;cog=COG1301C; - APE_2583.1 - proton glutamate symport protein
+NC_000854	NCBI_PTT	CDS	1644100	1645146	.	+	0	id=1675;len=1047;cog=COG0491R; - APE_2585 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1645287	1646201	.	-	0	id=1676;len=915;cog=COG1079R; - APE_2586.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1646209	1647288	.	-	0	id=1677;len=1080;cog=COG4603R; - APE_2587.1 - ABC transporter permease
+NC_000854	NCBI_PTT	CDS	1647281	1648777	.	-	0	id=1678;len=1497;cog=COG3845R; - APE_2588 - ABC transporter ATP-binding protein
+NC_000854	NCBI_PTT	CDS	1648923	1650266	.	-	0	id=1679;len=1344;cog=COG1744R; - APE_2592.1 - membrane lipoprotein family protein
+NC_000854	NCBI_PTT	CDS	1650463	1650660	.	-	0	id=1680;len=198;cog=-; - APE_2592a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1650717	1651586	.	-	0	id=1681;len=870;cog=COG2897P; - APE_2595.1 - thiosulfate sulfurtransferase
+NC_000854	NCBI_PTT	CDS	1651800	1653632	.	-	0	id=1682;len=1833;cog=COG1964R; - APE_2598 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1653840	1654082	.	-	0	id=1683;len=243;cog=-; - APE_2598a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1654196	1655008	.	+	0	id=1684;len=813;cog=COG1834E; - APE_2601.1 - NG,NG-dimethylarginine dimethylaminohydrolase
+NC_000854	NCBI_PTT	CDS	1655438	1655992	.	-	0	id=1685;len=555;cog=-; - APE_2602 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1656088	1657629	.	-	0	id=1686;len=1542;cog=COG0365I; acsA APE_2604 - acetyl-coenzyme A synthetase
+NC_000854	NCBI_PTT	CDS	1657630	1658052	.	-	0	id=1687;len=423;cog=COG0365I; acsA APE_2604a.1 - acetyl-coenzyme A synthetase
+NC_000854	NCBI_PTT	CDS	1658356	1659057	.	+	0	id=1688;len=702;cog=COG0437C; - APE_2605.1 - molybdopterin oxidoreductase, iron-sulfur binding subunit
+NC_000854	NCBI_PTT	CDS	1659074	1660288	.	+	0	id=1689;len=1215;cog=COG4881S; - APE_2607 - molybdopterin oxidoreductase, membrane subunit
+NC_000854	NCBI_PTT	CDS	1660295	1663792	.	+	0	id=1690;len=3498;cog=COG0243C; - APE_2610 - molybdopterin oxidoreductase, molybdopterin binding subunit
+NC_000854	NCBI_PTT	CDS	1663807	1664391	.	+	0	id=1691;len=585;cog=COG4904S; - APE_2612.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1664408	1665538	.	-	0	id=1692;len=1131;cog=-; - APE_2615.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1665993	1666418	.	-	0	id=1693;len=426;cog=COG1848R; - APE_2616 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1666446	1666640	.	-	0	id=1694;len=195;cog=-; - APE_2616a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1666868	1667311	.	-	0	id=1695;len=444;cog=-; - APE_2617.1 - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1667286	1667546	.	-	0	id=1696;len=261;cog=COG2002K; - APE_2617a - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1667914	1668156	.	-	0	id=1697;len=243;cog=COG1848R; - APE_2617b - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1668321	1668539	.	-	0	id=1698;len=219;cog=-; - APE_2617c - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1668839	1669138	.	-	0	id=1699;len=300;cog=COG4634S; - APE_2617d - hypothetical protein
+NC_000854	NCBI_PTT	CDS	1669179	1669421	.	-	0	id=1700;len=243;cog=COG2442S; - APE_2617e.1 - hypothetical protein

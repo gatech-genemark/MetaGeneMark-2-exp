@@ -1,0 +1,28 @@
+The working directory is /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/runs/gms2_2019_11_07
+This job runs on the following nodes:
+node002
+NumBac = 78
+NumArc = 1638
+Bacteria Probability: 0.0454545454545455
+Archaea Probability: 0.954545454545455
+Mode no-motif: Entering iteration 1...
+Iteration : 90.14
+Testing Step-1 of Group-D membership...
+Mode group-d1: Entering iteration 2...
+NumNative = 1665
+NumAtypical = 49
+Native Probability: 0.971411901983664
+Atypical Probability: 0.0285880980163361
+Iteration : 95.68
+Group-D membership: successful (by step 1).
+Mode group-d1: Entering iteration 3...
+NumNative = 1666
+NumAtypical = 50
+Native Probability: 0.970862470862471
+Atypical Probability: 0.0291375291375291
+Iteration : 99.35
+Converged at iteration 3
+NumNative = 1666
+NumAtypical = 50
+Native Probability: 0.970862470862471
+Atypical Probability: 0.0291375291375291

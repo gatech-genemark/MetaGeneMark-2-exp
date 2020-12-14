@@ -1,0 +1,16 @@
+echo '>anydef' > tmpseq.fna
+grep -v '>' /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/sequence.fasta | tr '[:lower:]' '[:upper:]' >> tmpseq.fna
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_0.lst 
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_0.lst -m itr_1.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 0 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --run-motif-search false --genome-group D
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_1.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_1.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_0.lst -b itr_1.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_1.lst -m itr_2.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group D --gd-upstr-len-rbs 20 --align right --gd-width-rbs 6 --gd-upstr-len-prom 40 --gd-width-prom 12
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_2.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_1.lst -b itr_2.lst -G
+/home/karl/gms2-install/gms2_linux_64/biogem experiment promoter-is-valid-for-archaea --fnmod itr_2.mod --dist-thresh 14 --score-thresh 0.1 --window-size 1
+/home/karl/gms2-install/gms2_linux_64/biogem gms2-training -s tmpseq.fna -l itr_2.lst -m itr_3.mod --order-coding 5 --order-noncoding 2 --only-train-on-native 1 --genetic-code 11 --order-start-context 2 --fgio-dist-thr 25 --genome-group D --gd-upstr-len-rbs 20 --align right --gd-width-rbs 6 --gd-upstr-len-prom 40 --gd-width-prom 12
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m itr_3.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s tmpseq.fna -o itr_3.lst --format train
+/home/karl/gms2-install/gms2_linux_64/compp -n -a itr_2.lst -b itr_3.lst -G
+cp itr_3.mod GMS2.mod
+/home/karl/gms2-install/gms2_linux_64/gmhmmp2 -m GMS2.mod -M /home/karl/gms2-install/gms2_linux_64/mgm_11.mod -s /storage4/karl/sbsp/similarity-based-start-prediction/data/large/Natronomonas_pharaonis_DSM_2160_uid58435/sequence.fasta -o gms2.gff --format gff 
+rm -f 
