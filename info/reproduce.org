@@ -21,8 +21,24 @@ This document serves as a step-by-step instruction manual on how to replicate re
 Downloading the code is fairly straightforward using =git=. The latest version can be downloaded from =WEBSITE=. To install, simply run 
 #+begin_src bash
 source config.sh
-source install.sh
+cd install; source install.sh; cd ../
 #+end_src
+
+** Compiling MetaGeneMarkS locally
+   Running MetaGeneMarkS using automatic genetic code detection is done through the =run_mgm.pl= script found in =$code/hmm_src=. The below compiles the C++ binary and copies all the relevant components to =$bin_external/mgm2_auto=. 
+   #+begin_src bash
+     cd $code/hmm_src;
+
+     pf_makefile=Makefile.macos    # NOTE: change based on operating system
+     make -f $pf_makefile
+
+     mkdir -p $bin_external/mgm2_auto
+     cp gmhmmp2 mgm2_11.mod mgm2_4.mod run_mgm.pl $bin_external/mgm2_auto
+
+     mkdir -p $bin_external/mgm2
+     cp gmhmmp2 mgm2_11.mod mgm2_4.mod $bin_external/mgm2
+
+   #+end_src
 
 The first command loads all environment variables (including paths to data directories, binaries, etc...), and the second command creates an executable from all python files and stores them in =$bin= for easy access. For non-unix users, you can find the python driver files in =$driverpython=.
 ** External Tools
@@ -127,7 +143,8 @@ Finally the =runs= directory will contain runs of different tools, such as {{{to
 
 
 * Experiments
-** Building MGM2 start models
+** Building MGMS start models
+   MetaGeneMarkS models are based on thousands of GeneMarkS-2 models derived from a large set of representative genomes. These models have been extracted and `pickled` together and stored in =$base/raw_models/=. This section provides the script that builds the MetaGeneMarkS models from this set of models.
    #+begin_src bash
      mkdir $tmp/build_models
      cd $tmp/build_models
@@ -154,14 +171,21 @@ Finally the =runs= directory will contain runs of different tools, such as {{{to
 ** Extract NCBI Protein Homology Predictions
    Since part of the analysis uses the protein homology predictions in RefSeq annotation, we separate it out from the annotation files.
    #+begin_src bash
-     pf_gil=$lists/sbsp.list
 
-     awk -F "," '{if (NR > 1 && NF) print $1}' $pf_gil  | while read -r gcfid; do
-       mkdir -p $runs/$gcfid/ncbi_ph;
-       mkdir -p $runs/$gcfid/ncbi;
-  
-       awk -F "\t" '{if ($2 == "Protein Homology") print }' $data/$gcfid/ncbi.gff > $runs/$gcfid/ncbi_ph/prediction.gff;
-       cp $data/$gcfid/ncbi.gff $runs/$gcfid/ncbi/prediction.gff
+     for pf_gil in $lists/sbsp.list $lists/verified.list; do
+
+       awk -F "," '{if (NR > 1 && NF) print $1}' $pf_gil  | while read -r gcfid; do
+         mkdir -p $runs/$gcfid/ncbi_ph;
+         mkdir -p $runs/$gcfid/ncbi;
+
+         if [[ -f $data/$gcfid/verified.gff ]]; then
+           mkdir -p $runs/$gcfid/verified;
+           cp $data/$gcfid/verified.gff $runs/$gcfid/verified/prediction.gff;
+         fi
+
+         awk -F "\t" '{if ($2 == "Protein Homology") print }' $data/$gcfid/ncbi.gff > $runs/$gcfid/ncbi_ph/prediction.gff;
+         cp $data/$gcfid/ncbi.gff $runs/$gcfid/ncbi/prediction.gff
+       done
      done
    #+end_src
 
