@@ -1,6 +1,12 @@
 # Experiments for MetaGeneMark-2
 
+MetaGeneMark-2: Improved Gene Prediction in Metagenomes
+
+Karl Gemayel, Alexandre Lomsadze* and Mark Borodovsky*
+
 Georgia Institute of Technology, Atlanta, Georgia, USA
+
+*joint last authors
 
 Reference: PAPER LINK
 
