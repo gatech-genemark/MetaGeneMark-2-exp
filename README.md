@@ -10,11 +10,10 @@ This repository contains the data and source code needed to reproduce all result
 ## Program Versions
 MetaGeneMarKS is a standalone tool, but building the initial set of models relies on GeneMarkS-2 predictions. Similarly, results are compared to multiple external tools, whose versions are shown here:
 
-- GeneMarkS-2:
-- (Meta)Prodigal:
-- MetaGeneAnnotator:
-- FragGeneScan:
-- MetaGeneMark:
+- GeneMarkS-2: 1.10_1.14
+- (Meta)Prodigal: 2.6.3
+- MetaGeneAnnotator: 1.0
+- MetaGeneMark: 3.42
 
 MetaGeneMark-2 is a C++ program. That said, experiments and results are all executed and analyzed in `python`. To get all the packages (for reproducibility), it is recommended that the user creates a `conda` environment from the file in `install/conda_mgm2.yml` through the following command:
 
